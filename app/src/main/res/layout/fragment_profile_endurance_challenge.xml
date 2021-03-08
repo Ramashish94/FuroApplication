@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/profile_back_gray"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/dp_8"
+                android:paddingBottom="@dimen/dp_8">
+
+                <com.app.furoapp.widget.francyconverflow.FancyCoverFlow
+                    android:id="@+id/vpFacnyView"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_140"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:layout_marginBottom="@dimen/dp_4" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tabLeaderboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/dp_8">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/din_rugular_alternate"
+                android:text="Activity: "
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_24" />
+
+            <TextView
+                android:id="@+id/tvActivityValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bebasneue_regular"
+                android:text="PUSH-UPS"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_24" />
+
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/dp_20"
+            android:paddingBottom="@dimen/dp_20">
+
+
+            <RelativeLayout
+                android:id="@+id/rlVideos"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/background_border_blue_with_white_back_light_border"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <View
+                    android:id="@+id/checkSelectedView"
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="@dimen/dp_16"
+                    android:layout_alignParentStart="true"
+                    android:layout_margin="@dimen/dp_4"
+                    android:background="@drawable/bullets" />
+
+                <View
+                    android:id="@+id/checkUnselectedView"
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="@dimen/dp_16"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="@dimen/dp_4"
+                    android:background="@drawable/grat_bullets"
+                    android:visibility="gone"
+
+                    />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlArticle"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_20"
+                android:background="@drawable/background_border_gray_with_white_back_light_border"
+                app:layout_constraintBottom_toBottomOf="@+id/tvVideoText"
+                app:layout_constraintStart_toEndOf="@+id/tvVideoText"
+                app:layout_constraintTop_toTopOf="@+id/tvVideoText">
+
+                <View
+                    android:id="@+id/checkArticleSelectedView"
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="@dimen/dp_16"
+                    android:layout_alignParentStart="true"
+                    android:layout_margin="@dimen/dp_4"
+                    android:background="@drawable/bullets"
+                    android:visibility="gone" />
+
+                <View
+                    android:id="@+id/checkArticlesUnselectedView"
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="@dimen/dp_16"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="@dimen/dp_4"
+                    android:background="@drawable/grat_bullets"
+
+                    />
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rlMonthLy"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_20"
+                android:background="@drawable/background_border_gray_with_white_back_light_border"
+                app:layout_constraintBottom_toBottomOf="@+id/tvArticleText"
+                app:layout_constraintStart_toEndOf="@+id/tvArticleText"
+                app:layout_constraintTop_toTopOf="@+id/tvArticleText"
+                app:layout_constraintVertical_bias="0.333">
+
+                <View
+                    android:id="@+id/checkMonthlySelectedView"
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="@dimen/dp_16"
+                    android:layout_alignParentStart="true"
+                    android:layout_margin="@dimen/dp_4"
+                    android:background="@drawable/bullets"
+                    android:visibility="gone" />
+
+                <View
+                    android:id="@+id/checkMonthlyUnselectedView"
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="@dimen/dp_16"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="@dimen/dp_4"
+                    android:background="@drawable/grat_bullets"
+
+                    />
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvArticleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/bebase_font_family_regular"
+                android:text="Monthly"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintBottom_toBottomOf="@+id/rlArticle"
+                app:layout_constraintStart_toEndOf="@+id/rlArticle"
+                app:layout_constraintTop_toTopOf="@+id/rlArticle"
+                app:layout_constraintVertical_bias="0.444" />
+
+
+            <TextView
+                android:id="@+id/tvVideoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/bebase_font_family_regular"
+                android:text="Weekly"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintBottom_toBottomOf="@+id/rlVideos"
+                app:layout_constraintStart_toEndOf="@+id/rlVideos"
+                app:layout_constraintTop_toTopOf="@+id/rlVideos"
+                app:layout_constraintVertical_bias="0.444" />
+
+            <TextView
+                android:id="@+id/tvMonthlyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/bebase_font_family_regular"
+                android:text="All Time"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintBottom_toBottomOf="@+id/rlMonthLy"
+                app:layout_constraintStart_toEndOf="@+id/rlMonthLy"
+                app:layout_constraintTop_toTopOf="@+id/rlMonthLy"
+                app:layout_constraintVertical_bias="0.444" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <com.highsoft.highcharts.core.HIChartView
+            android:id="@+id/hiChartView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_300" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

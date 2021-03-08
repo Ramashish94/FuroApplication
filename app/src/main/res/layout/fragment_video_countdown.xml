@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+    <!--android:background="@android:color/transparent"-->
+
+    <ImageView
+        android:id="@+id/ivImageVIew"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/topHeading2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/din_alternate_bold"
+            android:src="@drawable/welcome_text"
+            android:text="Recording will start in..."
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toTopOf="@+id/circleView"
+            app:layout_constraintEnd_toEndOf="@+id/circleView"
+            app:layout_constraintStart_toStartOf="@+id/circleView" />
+
+        <View
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_4"
+            android:layout_marginBottom="@dimen/dp_4"
+            android:background="@color/vertical_line_color" />
+
+<!--
+        <TextView
+            android:id="@+id/topHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/din_alternate_bold"
+            android:src="@drawable/welcome_text"
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="@color/light_blue"
+            android:textSize="@dimen/sp_18"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="@+id/circleView"
+            app:layout_constraintEnd_toEndOf="@+id/circleView"
+            app:layout_constraintStart_toStartOf="@+id/circleView"
+            app:layout_constraintTop_toTopOf="@+id/circleView" />
+-->
+
+        <at.grabner.circleprogress.CircleProgressView
+            android:id="@+id/circleView"
+            android:layout_width="@dimen/dp_170"
+            android:layout_height="@dimen/dp_170"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            app:cpv_autoTextSize="true"
+            app:cpv_barColor="@color/light_blue"
+            app:cpv_barWidth="25dp"
+            app:cpv_innerContourSize="0dp"
+            app:cpv_maxValue="100"
+            app:cpv_outerContourSize="0dp"
+            app:cpv_rimColor="@color/rimcolor"
+            app:cpv_rimWidth="25dp"
+            app:cpv_seekMode="false"
+            app:cpv_showUnit="false"
+            app:cpv_textSize="@dimen/sp_20"
+            app:cpv_spinColor="@color/light_blue"
+            app:cpv_textColor="@color/light_blue"
+            app:cpv_textScale="0.5"
+            app:cpv_unitScale="1"
+            app:cpv_unitColor="@color/bottom_gray"
+            app:cpv_unitPosition="right_top"
+            app:cpv_value="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/topHeading3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/din_alternate_bold"
+            android:src="@drawable/welcome_text"
+            android:text="Seconds"
+            android:textAlignment="center"
+            android:textColor="@color/light_blue"
+            android:textSize="@dimen/sp_18"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="@+id/circleView"
+            app:layout_constraintStart_toStartOf="@+id/circleView"
+            app:layout_constraintTop_toBottomOf="@+id/circleView" />
+
+        <TextView
+            android:id="@+id/etSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="55dp"
+            android:background="@drawable/background_border_sky_blue_with_blue_background_rounded"
+            android:fontFamily="@font/bebasneue_regular"
+            android:padding="@dimen/dp_8"
+            android:text="Start Camera"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>
+</layout>

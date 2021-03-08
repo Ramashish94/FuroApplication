@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_500"
+
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="3"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+            <LinearLayout
+
+                android:id="@+id/llSearchView"
+                android:layout_width="wrap_content"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_height="@dimen/dp_40"
+                android:layout_weight="2"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:background="@color/bottom_gray"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/dp_8"
+                android:paddingEnd="@dimen/dp_8">
+
+                <EditText
+                    android:id="@+id/friends_search"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="Search friends"
+                    android:textColorHint="@color/hint_color" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_magnifier" />
+
+
+
+            </LinearLayout>
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/refreshButton"
+                    android:layout_width="0dp"
+                    android:layout_marginRight="5dp"
+                    android:orientation="vertical"
+                    android:layout_weight=".5"
+                    android:gravity="center"
+                    android:background="@color/bottom_gray"
+                    android:layout_gravity="center"
+                    android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:backgroundTint="@color/black_btn"
+                    android:background="@drawable/icon_add_friends" />
+
+                </LinearLayout>
+            </LinearLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/sp_10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <lal.adhish.gifprogressbar.GifView
+                        android:id="@+id/progressBarJumpingJacks"
+                        android:layout_marginTop="@dimen/dp_90"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginBottom="@dimen/dp_20"
+                        android:backgroundTint="@color/white" />
+
+                    <TextView
+                        android:id="@+id/loadingtext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/googlesans_medium"
+                        android:gravity="center"
+                        android:text="Loading friends. Please be with us."
+                        android:textColor="@color/black_btn"
+                        android:textSize="14sp"
+                        android:visibility="visible" />
+
+
+                </LinearLayout>
+
+
+
+                <androidx.recyclerview.widget.RecyclerView
+
+                    android:id="@+id/friendsRecyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+
+
+
+
+
+
+            </FrameLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+
+            android:orientation="vertical">
+
+
+
+
+
+            <TextView
+                android:id="@+id/nofriends"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp_10"
+                android:fontFamily="@font/bebasneue_regular"
+                android:gravity="center"
+                android:text="You have no friends"
+                android:textColor="@color/black_color"
+                android:textSize="@dimen/dp_16"
+                android:visibility="gone"></TextView>
+
+            <TextView
+                android:id="@+id/sendChallange"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="@dimen/dp_50"
+                android:background="@drawable/background_border_sky_blue_with_blue_background_rounded"
+                android:elevation="@dimen/dp_4"
+                android:fontFamily="@font/bebasneue_regular"
+                android:letterSpacing=".05"
+                android:padding="@dimen/dp_8"
+                android:text="Challenge your friends"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="@dimen/sp_20"
+                android:textStyle="italic" />
+
+            <!--  <ru.dimorinny.floatingtextbutton.FloatingTextButton
+                  android:id="@+id/action_button"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+
+                  app:floating_title="click button"
+                  app:floating_title_color="@android:color/white"
+                  />-->
+
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

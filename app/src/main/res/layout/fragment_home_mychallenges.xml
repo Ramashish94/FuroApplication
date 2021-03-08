@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ivImageVIew"
+        android:scaleType="fitXY"
+        android:layout_width="match_parent"
+        app:srcCompat="@drawable/overlay"
+        android:layout_height="match_parent" />
+    <ImageView
+        android:scaleType="center"
+        android:src="@drawable/dots"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+
+            android:id="@+id/ivWelcon"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_70"
+            android:scaleType="fitStart"
+            app:srcCompat="@drawable/let_s_get_challenging"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.214"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tvTextSecond"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/din_alternate_bold"
+            android:src="@drawable/welcome_text"
+            android:text="@string/create_or_join_str"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="@+id/ivWelcon"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/ivWelcon"
+            app:layout_constraintTop_toBottomOf="@+id/ivWelcon" />
+
+        <TextView
+            android:id="@+id/etSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_40"
+            android:background="@drawable/background_border_sky_blue_with_blue_background_rounded"
+            android:fontFamily="@font/bebasneue_regular"
+            android:letterSpacing=".05"
+            android:padding="@dimen/dp_8"
+            android:text="Create a challenge"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>
+</layout>

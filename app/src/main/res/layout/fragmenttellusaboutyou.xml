@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ivImageVIew"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/user_bg" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rltopHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="@dimen/dp_8">
+
+                <ImageView
+                    android:id="@+id/ivBackBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/dp_16"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/sp_12"
+                    app:srcCompat="@drawable/back_icon"
+
+                    />
+
+                <TextView
+                    android:id="@+id/tvSkipBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:padding="@dimen/dp_16"
+                    android:text="@string/skip"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/sp_16"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvTextHeading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/rltopHeader"
+                        android:layout_centerHorizontal="true"
+
+                        android:fontFamily="@font/bebasneue_regular"
+                        android:text="Tell us about you"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/sp_24"
+                        android:textStyle="italic" />
+
+                    <TextView
+
+                        android:id="@+id/tvTextsubheading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvTextHeading"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="@dimen/dp_40"
+                        android:layout_marginTop="@dimen/dp_4"
+                        android:layout_marginEnd="@dimen/dp_40"
+                        android:fontFamily="@font/din_alternate_bold"
+                        android:text="We need the following information to provide accurate results.such as pace, calories,track your health and progress correctly."
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/sp_18"
+                        android:textStyle="italic" />
+
+                    <TextView
+
+                        android:id="@+id/tvLearnMore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvTextsubheading"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/dp_40"
+                        android:layout_marginTop="@dimen/dp_4"
+                        android:layout_marginEnd="@dimen/dp_40"
+                        android:fontFamily="@font/din_alternate_bold"
+                        android:gravity="center"
+
+                        android:text="@string/learn_more"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/sp_16"
+                        android:textStyle="italic" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/height_picker_heading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="@dimen/dp_30"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginRight="16dp"
+                            android:text=" Select Your Height:"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@android:color/white"
+
+                            android:textColorHint="@color/light_blue"
+                            android:textSize="@dimen/sp_18"
+                            android:textStyle="italic"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <TextView
+                            android:id="@+id/height_value_tv"
+                            style="@style/TextAppearance.AppCompat.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/dp_10"
+
+                            android:textColor="@android:color/white"
+                            android:textColorHint="@color/light_blue"
+
+                            android:textSize="@dimen/dp_14"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/height_picker_heading"
+                            tools:text="165 cms" />
+
+
+                        <com.kevalpatel2106.rulerpicker.RulerValuePicker
+
+                            android:id="@+id/height_ruler_picker"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:layout_marginRight="@dimen/dp_10"
+
+
+                            android:background="@drawable/ruler_rectangle_shape_background"
+                            app:indicator_color="@android:color/white"
+                            app:indicator_interval="8dp"
+                            app:indicator_width="2dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:max_value="350"
+                            app:min_value="100"
+                            app:notch_color="@color/white"
+                            app:ruler_text_size="4sp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+
+                            android:id="@+id/weight_picker_heading"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginRight="16dp"
+                            android:text=" Select your Weight:"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/sp_18"
+                            android:textStyle="italic"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/height_ruler_picker" />
+
+                        <TextView
+                            android:id="@+id/weight_value_tv"
+                            style="@style/TextAppearance.AppCompat.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="8dp"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/dp_14"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/weight_picker_heading"
+                            tools:text="55 kgs" />
+
+                        <com.kevalpatel2106.rulerpicker.RulerValuePicker
+                            android:id="@+id/weight_ruler_picker"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginRight="@dimen/dp_10"
+                            android:background="@drawable/ruler_rectangle_shape_background"
+                            android:elevation="4dp"
+                            app:indicator_color="@android:color/white"
+                            app:indicator_interval="14dp"
+                            app:indicator_width="2dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/weight_value_tv"
+                            app:max_value="200"
+                            app:min_value="25"
+                            app:notch_color="@android:color/white"
+                            app:ruler_text_size="6sp"
+                            tools:targetApi="lollipop" />
+
+
+                        <TextView
+                            android:id="@+id/tvGetStarted"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginStart="@dimen/dp_30"
+
+                            android:layout_marginTop="@dimen/dp_30"
+                            android:layout_marginEnd="@dimen/dp_30"
+                            android:layout_marginBottom="@dimen/dp_10"
+                            android:background="@drawable/background_border_gray_with_white_back_rounded"
+                            android:fontFamily="@font/bebasneue_regular"
+                            android:padding="@dimen/dp_8"
+                            android:text="Get Started"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/white"
+                            android:textColorHint="@android:color/white"
+                            android:textSize="@dimen/sp_20" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+</layout>

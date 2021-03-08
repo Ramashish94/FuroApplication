@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp_2"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginLeft="@dimen/dp_10"
+                android:gravity="start"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingStart="@dimen/dp_2"
+                android:text="Community"
+                android:fontFamily="@font/din_alternate_bold"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:text="Members"
+                android:paddingEnd="@dimen/dp_2"
+                android:fontFamily="@font/din_alter_nate_bold"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_14" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/bottom_gray" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAllCommunitiesChallenges"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp_150"
+            android:id="@+id/linearLayoutALLCommunity"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:gravity="center"
+
+            android:layout_height="match_parent">
+
+            <lal.adhish.gifprogressbar.GifView
+                android:id="@+id/progressBarJumpingJacks"
+                android:layout_width="50dp"
+                android:layout_centerInParent="true"
+                android:layout_margin="@dimen/dp_5"
+                android:backgroundTint="@color/white"
+                android:layout_height="50dp"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/pbText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:visibility="gone"
+                android:textColor="@color/light_blue"
+                android:text="loading ..."/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>
+</layout>

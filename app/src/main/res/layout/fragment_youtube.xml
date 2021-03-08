@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_color"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+
+        tools:context=".activity.YouTubePlayerActivity">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+
+                android:id="@+id/crossButton_youtube"
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="30dp"
+                android:elevation="@dimen/dp_35"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
+                android:src="@drawable/ic_closebuttonyoutubefragment"
+                android:tint="@color/white" />
+
+        </RelativeLayout>
+
+
+
+
+
+            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                android:id="@+id/youtubePlayer"
+
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_50" />
+
+        </LinearLayout>
+
+
+</layout>

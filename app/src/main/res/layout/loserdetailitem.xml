@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <com.app.furoapp.widget.MyCircleImageView
+                android:id="@+id/ivUserProfileLoser"
+                android:layout_width="@dimen/dp_120"
+                android:layout_height="@dimen/dp_120"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profileiconnewmap"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintCircleRadius="@dimen/dp_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/tvJustFinishedtextt"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivUserProfileLoser"
+                android:layout_alignStart="@+id/ivUserProfileLoser"
+                android:layout_alignEnd="@+id/ivUserProfileLoser"
+                android:fontFamily="@font/din_alternate_bold"
+                android:text="shettyrohit"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_16"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/ivUserProfileLoser"
+                app:layout_constraintStart_toStartOf="@+id/ivUserProfileLoser"
+                app:layout_constraintTop_toBottomOf="@+id/ivUserProfileLoser"
+                app:layout_constraintVertical_bias="0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+
+
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_200"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <FrameLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center_horizontal">
+
+                <VideoView
+                    android:id="@+id/videoPreviewLoser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_200"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp_2"
+
+
+                    android:layout_marginBottom="2dp" />
+
+                <ProgressBar
+                    android:id="@+id/progressbarrr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/ivPlayButtonnn"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_gravity="center"
+                    android:elevation="@dimen/dp_10"
+                    android:scaleType="fitCenter"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/ic_play_circle_outline_black_24dp" />
+
+                <ImageView
+                    android:id="@+id/ivPlauseButtonnnnnn"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_gravity="center"
+                    android:elevation="@dimen/dp_10"
+                    android:scaleType="fitCenter"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/ic_pause_black_24dp" />
+
+            </FrameLayout>
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/dp_2">
+
+
+                        <LinearLayout
+                            android:id="@+id/imagecircle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/WinnerActivityimagee"
+                                android:layout_width="@dimen/dp_50"
+                                android:layout_height="52dp"
+                                android:scaleType="centerInside"
+                                android:src="@drawable/rate_compete"
+                                android:tint="@color/light_blue" />
+
+                            <TextView
+
+                                android:id="@+id/winnercompletionRatee"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bebase_font_family_regular"
+                                android:gravity="center"
+                                android:text="SQUATS"
+                                android:textAllCaps="true"
+                                android:textColor="@color/light_blue"
+                                android:textSize="@dimen/sp_16" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bebase_font_family_regular"
+                                android:text="Activity"
+                                android:textAllCaps="true"
+                                android:textColor="@color/black_btn"
+                                android:textSize="@dimen/sp_12" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/imageRoad"
+                            android:layout_width="0dp"
+
+
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/winnerRepsImagee"
+                                android:layout_width="@dimen/dp_35"
+                                android:layout_height="@dimen/dp_35"
+                                android:scaleType="centerInside"
+                                android:src="@drawable/repsblack"
+                                android:tint="@color/light_blue" />
+
+                            <TextView
+                                android:id="@+id/winnerrepss"
+
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bebase_font_family_regular"
+                                android:gravity="center"
+                                android:text="100"
+                                android:textAllCaps="true"
+                                android:textColor="@color/light_blue"
+                                android:textSize="@dimen/sp_16" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bebase_font_family_regular"
+                                android:text="REPS"
+                                android:textAllCaps="true"
+                                android:textColor="@color/black_btn"
+                                android:textSize="@dimen/sp_12" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+
+                            android:id="@+id/imagewatch"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="@dimen/dp_35"
+                                android:layout_height="@dimen/dp_35"
+                                android:scaleType="centerInside"
+                                android:src="@drawable/clock_black"
+                                android:tint="@color/light_blue" />
+
+                            <TextView
+                                android:id="@+id/cwinnerTimeDurationn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bebase_font_family_regular"
+                                android:gravity="center"
+                                android:text="7 min 33 sec"
+                                android:textAllCaps="true"
+                                android:textColor="@color/light_blue"
+                                android:textSize="@dimen/sp_16" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bebase_font_family_regular"
+                                android:text="DURATION"
+                                android:textAllCaps="true"
+                                android:textColor="@color/black_btn"
+                                android:textSize="@dimen/sp_12" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_20"
+                   android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+
+                        android:layout_width="@dimen/dp_35"
+                        android:layout_height="@dimen/dp_35"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/calendericon" />
+
+                    <TextView
+
+                        android:id="@+id/winnerDatee"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bebase_font_family_regular"
+                        android:gravity="center"
+                        android:text="9 October 2019"
+                        android:textColor="@color/light_blue"
+                        android:textSize="@dimen/sp_16" />
+
+                    <ImageView
+
+                        android:layout_width="@dimen/dp_50"
+                        android:layout_height="@dimen/dp_50"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/time_taken"
+                        android:tint="@color/black_color" />
+
+                    <TextView
+                        android:id="@+id/winnerTimee"
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bebase_font_family_regular"
+                        android:gravity="center"
+                        android:text="5.55 am ist"
+
+                        android:textColor="@color/light_blue"
+                        android:textSize="@dimen/sp_16" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+    </LinearLayout>
+</ScrollView>

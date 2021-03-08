@@ -1,0 +1,647 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <FrameLayout
+            android:id="@+id/framelayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:id="@+id/ivImageVIewMap"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@drawable/dots1" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+
+                <ImageView
+                    android:id="@+id/furobrandid"
+                    android:layout_width="@dimen/dp_100"
+                    android:layout_height="@dimen/dp_100"
+
+                    android:layout_gravity="center"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/furonewlogoformap" />
+
+
+                <com.google.android.material.card.MaterialCardView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginLeft="@dimen/dp_40"
+                    android:layout_marginRight="@dimen/dp_40"
+                    android:orientation="vertical"
+
+                    app:cardCornerRadius="@dimen/dp_16">
+
+
+                    <com.app.furoapp.widget.RoundRectCornerImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="452dp"
+                        android:background="@drawable/background_transparent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/sample_image"
+                        app:cornerRadius="@dimen/dp_8"
+                        app:roundedCorners="all" />
+
+
+                    <ImageView
+                        android:id="@+id/mapimage"
+                        android:layout_width="match_parent"
+
+                        android:layout_height="500dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/browser_actions_context_menu_max_width"
+                        android:background="@drawable/background_transparent"
+                        android:orientation="vertical" />
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <ImageView
+                            android:id="@+id/ivClose"
+                            android:layout_width="@dimen/dp_30"
+                            android:layout_height="@dimen/dp_30"
+                            android:layout_margin="@dimen/dp_8"
+                            android:src="@drawable/ic_clear_black_24dp"
+                            android:tint="@android:color/white"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <LinearLayout
+                            android:id="@+id/llMainView"
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical"
+
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.54">
+
+
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/mapProfileimage"
+                                android:layout_width="@dimen/dp_90"
+                                android:layout_height="@dimen/dp_90"
+                                android:layout_marginTop="@dimen/dp_40"
+                                android:src="@drawable/profileiconnewmap" />
+
+
+                            <TextView
+
+                                android:id="@+id/tvUserNameNew"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp_20"
+                                android:fontFamily="@font/din_alternate_bold"
+                                android:gravity="center"
+                                android:text="User name"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/sp_16"
+                                app:layout_constraintEnd_toEndOf="@+id/ivUserProfile"
+                                app:layout_constraintStart_toStartOf="@+id/ivUserProfile"
+                                app:layout_constraintTop_toBottomOf="@+id/ivUserProfile" />
+
+                            <TextView
+
+                                android:id="@+id/tvJustFinishedtext"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp_40"
+                                android:fontFamily="@font/din_alternate_bold"
+                                android:text="I just finished the "
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/sp_16"
+                                android:textStyle="italic" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/tvActivityCategory"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:fontFamily="@font/din_alter_nate_bold"
+                                    android:text="Jumping Jack "
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/light_blue"
+                                    android:textSize="@dimen/sp_18"
+                                    android:textStyle="italic"
+                                    app:layout_constraintEnd_toEndOf="@+id/tvJustFinishedtext"
+                                    app:layout_constraintHorizontal_bias="0.476"
+                                    app:layout_constraintStart_toStartOf="@+id/tvJustFinishedtext"
+                                    app:layout_constraintTop_toBottomOf="@+id/tvJustFinishedtext" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/dp_5"
+                                    android:layout_marginTop="8dp"
+                                    android:fontFamily="@font/din_alter_nate_bold"
+                                    android:text="Challenges !! "
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/light_blue"
+                                    android:textSize="@dimen/sp_18"
+                                    android:textStyle="italic"
+                                    app:layout_constraintEnd_toEndOf="@+id/tvJustFinishedtext"
+                                    app:layout_constraintHorizontal_bias="0.476"
+                                    app:layout_constraintStart_toStartOf="@+id/tvJustFinishedtext"
+                                    app:layout_constraintTop_toBottomOf="@+id/tvJustFinishedtext" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/llChallengeName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp_40"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                app:layout_constraintEnd_toEndOf="@+id/tvActivityCategory"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintStart_toStartOf="@+id/tvActivityCategory"
+                                app:layout_constraintTop_toBottomOf="@+id/tvActivityCategory">
+
+
+                                <TextView
+                                    android:id="@+id/minutesms"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/din_alter_nate_bold"
+                                    android:gravity="center"
+                                    android:text="5"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/dp_16"
+                                    android:textStyle="bold"></TextView>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/dp_5"
+                                    android:fontFamily="@font/din_alter_nate_bold"
+                                    android:gravity="center"
+                                    android:text="m"
+                                    android:textColor="@color/white"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold"></TextView>
+
+                                <ImageView
+                                    android:id="@+id/ivIn"
+                                    android:layout_width="@dimen/dp_40"
+                                    android:layout_height="@dimen/dp_40"
+                                    android:padding="@dimen/dp_8"
+                                    android:scaleType="centerInside"
+                                    android:src="@drawable/ic_india" />
+
+                                <LinearLayout
+                                    android:id="@+id/llChronmeter"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    app:layout_constraintBottom_toBottomOf="@+id/ivPauseButton"
+                                    app:layout_constraintEnd_toStartOf="@+id/ivPauseButton"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="@+id/ivPauseButton">
+
+                                    <ImageView
+
+                                        android:layout_width="@dimen/dp_20"
+                                        android:layout_height="@dimen/dp_20"
+                                        app:srcCompat="@drawable/ic_chronometer" />
+
+                                    <TextView
+                                        android:id="@+id/timerNEW"
+                                        android:layout_width="90dp"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/din_alter_nate_bold"
+                                        android:gravity="center"
+                                        android:text="11:57  "
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/sp_16"
+                                        android:textStyle="italic" />
+
+
+                                    <TextView
+
+                                        android:layout_width="90dp"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/din_alter_nate_bold"
+                                        android:gravity="center"
+                                        android:text=" M  / S "
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/sp_16"
+                                        android:textStyle="italic" />
+
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/tvcanyoubeatmyscore"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginTop="@dimen/dp_20"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginBottom="@dimen/dp_20"
+                                android:fontFamily="@font/din_alternate_bold"
+                                android:text="Can you beat my score?"
+                                android:textAllCaps="true"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/sp_20"
+                                android:textStyle="italic"
+                                app:layout_constraintBottom_toTopOf="@+id/llBottomCardview"
+                                app:layout_constraintEnd_toEndOf="@+id/llChallengeName"
+                                app:layout_constraintStart_toStartOf="@+id/llChallengeName"
+                                app:layout_constraintTop_toBottomOf="@+id/llChallengeName" />
+
+                            <LinearLayout
+                                android:id="@+id/llBottomCardview"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dp_50"
+
+                                android:background="@android:color/white"
+
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent">
+
+
+                                <ImageView
+                                    android:id="@+id/download"
+                                    android:layout_width="@dimen/dp_30"
+                                    android:layout_height="30dp"
+                                    android:layout_marginStart="@dimen/dp_4"
+                                    android:padding="@dimen/dp_4"
+                                    android:scaleType="centerInside"
+                                    android:src="@drawable/ic_download"
+                                    android:visibility="gone" />
+
+                                <ImageView
+                                    android:id="@+id/shareOreviewCard"
+                                    android:layout_width="@dimen/dp_30"
+                                    android:layout_height="@dimen/dp_30"
+                                    android:layout_marginStart="@dimen/dp_4"
+                                    android:padding="@dimen/dp_4"
+                                    android:scaleType="centerInside"
+                                    android:src="@drawable/ic_share" />
+
+
+                                <ImageView
+
+                                    android:id="@+id/previewwhatsapp"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginLeft="@dimen/dp_30"
+                                    android:background="@drawable/whatsappicon"
+                                    android:elevation="@dimen/dp_5"
+                                    android:fontFamily="@font/bebasneue_regular"
+                                    android:padding="@dimen/dp_5"
+                                    android:text="sharewithfb  "
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/white"
+                                    android:textStyle="italic" />
+
+                                <ImageView
+
+                                    android:id="@+id/previewfacebook"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginLeft="30dp"
+                                    android:background="@drawable/facebookicon"
+                                    android:elevation="@dimen/dp_5"
+                                    android:fontFamily="@font/bebasneue_regular"
+                                    android:padding="@dimen/dp_5"
+                                    android:text="sharewithwhatsapp  "
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/white"
+                                    android:textStyle="italic" />
+
+
+                                <ImageView
+                                    android:id="@+id/furoiconbrand"
+                                    android:layout_width="55dp"
+                                    android:layout_height="55dp"
+                                    android:layout_marginLeft="50dp"
+                                    android:background="@mipmap/app_icon_new"
+                                    android:elevation="@dimen/dp_5"
+                                    android:fontFamily="@font/bebasneue_regular"
+                                    android:padding="@dimen/dp_5"
+                                    android:text="sharewithwhatsapp  "
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/white"
+                                    android:textStyle="italic"
+                                    android:visibility="gone" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvSaveAndShareCardmap"
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_35"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_marginEnd="@dimen/dp_35"
+                        android:background="@drawable/background_border_sky_blue_with_blue_background_rounded"
+                        android:fontFamily="@font/bebasneue_regular"
+                        android:letterSpacing=".05"
+                        android:padding="@dimen/dp_8"
+                        android:text="Save map image to challenge"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="@android:color/white"
+                        android:textSize="@dimen/sp_20"
+                        android:textStyle="italic"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/tvChallenges"
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_40"
+                        android:layout_marginTop="@dimen/dp_10"
+
+                        android:layout_marginEnd="@dimen/dp_40"
+
+                        android:background="@drawable/background_border_sky_blue_with_blue_background_rounded"
+                        android:fontFamily="@font/bebasneue_regular"
+                        android:letterSpacing=".05"
+                        android:padding="@dimen/dp_8"
+                        android:visibility="gone"
+
+                        android:text=" Now Challenge your Friends"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="@android:color/white"
+                        android:textSize="@dimen/sp_20"
+                        android:textStyle="italic"
+                        />
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+
+                    android:layout_height="wrap_content">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_20"
+
+                    android:fontFamily="@font/din_alter_nate_bold"
+                    android:text=" Rules :"
+
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_16" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/dp_2"
+                        android:src="@drawable/bullets_black" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginEnd="@dimen/dp_20"
+                        android:fontFamily="@font/din_alternate_bold"
+                        android:text="You can challenge your friends up to 21 days since the challenge started."
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_12" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_10"
+
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/dp_2"
+                        android:src="@drawable/bullets_black" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginEnd="@dimen/dp_20"
+                        android:fontFamily="@font/din_alternate_bold"
+                        android:text="The recipient has 21 days to respond to the challenge."
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_12" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/dp_2"
+                        android:src="@drawable/bullets_black" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginEnd="@dimen/dp_20"
+                        android:fontFamily="@font/din_alternate_bold"
+                        android:text="The challenge video will be deleted from the server in 42 days. The video is also saved in the gallery of your android phone. "
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_12" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_10"
+
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/dp_2"
+                        android:src="@drawable/bullets_black" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginEnd="@dimen/dp_20"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:fontFamily="@font/din_alternate_bold"
+                        android:text=" Your last 5 challenges will be saved for 12 months."
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_12" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_10"
+
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/dp_2"
+                        android:src="@drawable/bullets_black" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginEnd="@dimen/dp_20"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:fontFamily="@font/din_alternate_bold"
+                        android:text="Spammers will be blocked from the app and community in order to maintain the community standards."
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_12" />
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_10"
+
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/dp_2"
+                        android:src="@drawable/bullets_black" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginEnd="@dimen/dp_20"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:fontFamily="@font/din_alternate_bold"
+                        android:text="Check your submissions before sharing with other, Furo FQ is not responsible for the content you share."
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_12" />
+
+                </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+
+</ScrollView>

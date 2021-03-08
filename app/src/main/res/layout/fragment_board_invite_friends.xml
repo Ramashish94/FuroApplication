@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:background="@color/bottom_gray"
+        android:padding="@dimen/dp_20"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dp_40"
+        android:fontFamily="@font/googlesans_medium"
+        android:layout_margin="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:textSize="@dimen/dp_16"
+        android:layout_height="wrap_content"
+        android:text="I’m inviting you to the Fitness Quotient by Furo Sports App. Click on the link below and install the FQ App. Know your fitness quotient, challenge yourself and #StayFitEveryday!" />
+
+
+    <LinearLayout
+        android:elevation="@dimen/dp_5"
+        android:layout_marginTop="@dimen/dp_10"
+        android:padding="@dimen/dp_5"
+        android:id="@+id/challengeFacebook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_40"
+        android:layout_marginEnd="@dimen/dp_40"
+        android:background="@drawable/background_border_blue_rounded"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:elevation="@dimen/dp_5"
+            android:id="@+id/facebook"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:padding="@dimen/dp_5"
+            android:fontFamily="@font/bebasneue_regular"
+            android:text="Invite  Facebook  Friends"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="italic" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:elevation="@dimen/dp_5"
+        android:padding="@dimen/dp_5"
+        android:layout_marginTop="@dimen/dp_20"
+        android:id="@+id/share_whatsapp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_40"
+        android:layout_marginEnd="@dimen/dp_40"
+        android:background="@drawable/background_border_green_rounded_xml"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:elevation="@dimen/dp_5"
+            android:id="@+id/whatsapp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:padding="@dimen/dp_5"
+            android:fontFamily="@font/bebasneue_regular"
+            android:text="Invite  Whatsapp Friends"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="italic" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:padding="@dimen/dp_5"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/dp_15"
+        android:id="@+id/llFlexibiltyChallenges"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/dp_5"
+        android:layout_marginStart="@dimen/dp_40"
+        android:layout_marginEnd="@dimen/dp_40"
+        android:background="@drawable/background_border_black_with_black_rounded"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:elevation="@dimen/dp_5"
+            android:visibility="gone"
+            android:id="@+id/contact"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:padding="@dimen/dp_5"
+            android:fontFamily="@font/bebasneue_regular"
+            android:text="Challange  Phone  Contacts"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="italic" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
+
+</layout>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/layout_tool_bar_contain_feed" />
+
+        <LinearLayout
+            android:background="@color/bottom_gray"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:paddingStart="@dimen/dp_8"
+            android:paddingEnd="@dimen/dp_8"
+            android:gravity="center_vertical"
+            android:id="@+id/llSearchView"
+            android:orientation="horizontal">
+
+            <EditText
+
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="Search friends"
+                android:textColorHint="@color/hint_color" />
+
+            <ImageView
+
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_magnifier" />
+
+        </LinearLayout>
+
+
+
+        <!--  Activities Categories -->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/navigationfeed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:elevation="@dimen/dp_2"
+            app:itemIconSize="@dimen/dp_30"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:itemIconTint="@color/light_blue"
+
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/content_feed" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/dp_20"
+            android:paddingBottom="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+            <RelativeLayout
+                android:id="@+id/rlVideos"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/background_border_blue_with_white_back_light_border"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <View
+                    android:id="@+id/checkSelectedView"
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="@dimen/dp_16"
+                    android:layout_alignParentStart="true"
+                    android:layout_margin="@dimen/dp_4"
+                    android:background="@drawable/bullets"
+                    />
+
+                <View
+                    android:visibility="gone"
+                    android:id="@+id/checkUnselectedView"
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="@dimen/dp_16"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="@dimen/dp_4"
+                    android:background="@drawable/grat_bullets"
+
+                    />
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvVideoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/bebase_font_family_regular"
+                android:text="Videos"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintBottom_toBottomOf="@+id/rlVideos"
+                app:layout_constraintStart_toEndOf="@+id/rlVideos"
+                app:layout_constraintTop_toTopOf="@+id/rlVideos"
+                app:layout_constraintVertical_bias="0.444" />
+
+
+            <RelativeLayout
+                android:id="@+id/rlArticle"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_20"
+                android:background="@drawable/background_border_gray_with_white_back_light_border"
+                app:layout_constraintBottom_toBottomOf="@+id/tvVideoText"
+                app:layout_constraintStart_toEndOf="@+id/tvVideoText"
+                app:layout_constraintTop_toTopOf="@+id/tvVideoText"
+                app:layout_constraintVertical_bias="0.333">
+
+                <View
+                    android:id="@+id/checkArticleSelectedView"
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="@dimen/dp_16"
+                    android:layout_alignParentStart="true"
+                    android:layout_margin="@dimen/dp_4"
+                    android:background="@drawable/bullets"
+                    android:visibility="gone" />
+
+                <View
+                    android:id="@+id/checkArticlesUnselectedView"
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="@dimen/dp_16"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="@dimen/dp_4"
+                    android:background="@drawable/grat_bullets"
+
+                    />
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvArticleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/bebase_font_family_regular"
+                android:text="Articles"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintBottom_toBottomOf="@+id/rlArticle"
+                app:layout_constraintStart_toEndOf="@+id/rlArticle"
+                app:layout_constraintTop_toTopOf="@+id/rlArticle"
+                app:layout_constraintVertical_bias="0.444" />
+
+            <LinearLayout
+                android:id="@+id/llSubCategoryView"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/background_border_black_with_black_rounded"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/tvArticleText"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.495">
+
+
+
+                <TextView
+                    android:id="@+id/tvJoinBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/bebasneue_regular"
+                    android:padding="@dimen/dp_4"
+                    android:text="Sub Category"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white"
+                    android:textSize="@dimen/sp_10"
+                    android:textStyle="italic" />
+                <ImageView
+                    android:layout_width="@dimen/dp_10"
+                    android:layout_height="@dimen/dp_10"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/dp_4"
+                    android:rotation="180"
+                    android:src="@drawable/back_icon" />
+
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+            android:id="@+id/container_feed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+</layout>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ivImageVIew"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        app:srcCompat="@drawable/location_bg"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_marginTop="@dimen/dp_8"
+            android:id="@+id/rltopHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true">
+
+            <ImageView
+                android:id="@+id/ivBackBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/dp_16"
+                android:textAllCaps="true"
+                app:srcCompat="@drawable/back_icon"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/sp_12"
+
+                 />
+
+            <TextView
+                android:id="@+id/tvSkipBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/dp_16"
+                android:text="@string/skip"
+                android:textAllCaps="false"
+                android:fontFamily="@font/din_alternate_bold"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/sp_16"
+                 />
+        </RelativeLayout>
+
+
+
+
+        <ImageView
+            android:id="@+id/ivWelcon"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_100"
+            android:layout_centerInParent="true"
+            app:srcCompat="@drawable/location_icon" />
+
+        <TextView
+            android:id="@+id/tvTextFirst"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivWelcon"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_4"
+            android:fontFamily="@font/bebasneue_regular"
+            android:src="@drawable/welcome_text"
+            android:text="@string/location_movment"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp_24"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/tvTextSecond"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTextFirst"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_4"
+            android:layout_marginEnd="@dimen/dp_40"
+            android:fontFamily="@font/din_alternate_bold"
+            android:src="@drawable/welcome_text"
+            android:text="@string/is_location_track_str"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp_18"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/etSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:layout_marginBottom="@dimen/dp_30"
+            android:background="@drawable/background_border_gray_with_white_back_rounded"
+            android:fontFamily="@font/bebasneue_regular"
+            android:padding="@dimen/dp_8"
+            android:textStyle="italic"
+            android:text="Enable Location"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textSize="@dimen/sp_20" />
+
+
+    </RelativeLayout>
+
+
+</FrameLayout>
+</layout>

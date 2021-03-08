@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/bottom_gray"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".activity.challengeRecieve.AfterSubmitReportActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ivBackBtnnew"
+
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                android:visibility="gone"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp_8"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_closebuttonyoutubefragment"
+                android:tint="@color/black_btn" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="@dimen/dp_4"
+                android:ellipsize="end"
+
+                android:gravity="center"
+
+                android:text="Report"
+                android:maxWidth="@dimen/dp_200"
+                android:maxLines="2"
+                android:textAllCaps="false"
+                android:textColor="@color/unselected_color"
+                android:textSize="@dimen/sp_20"
+                android:visibility="visible" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/dp_70"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="90dp"
+        android:layout_gravity="center"
+        android:layout_height="90dp"
+        android:backgroundTint="@color/light_blue"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/dp_8"
+        android:scaleType="centerInside"
+        android:src="@drawable/qbank_feedback_icon"
+        android:tint="@color/green_color" />
+
+        <TextView
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="@dimen/dp_4"
+            android:ellipsize="end"
+
+            android:gravity="center"
+
+            android:text="Reported successfully."
+            android:maxWidth="@dimen/dp_200"
+            android:maxLines="2"
+            android:textAllCaps="false"
+            android:textColor="@color/black_btn"
+            android:textSize="@dimen/sp_16"
+            android:visibility="visible" />
+
+
+
+        <TextView
+            android:id="@+id/Done"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:background="@drawable/background_border_sky_blue_with_blue_background_rounded"
+            android:fontFamily="@font/bebasneue_regular"
+            android:padding="@dimen/dp_8"
+            android:text="DONE"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="italic" />
+
+
+    </LinearLayout>
+
+</LinearLayout>
+
+</layout>

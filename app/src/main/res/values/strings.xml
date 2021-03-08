@@ -1,0 +1,106 @@
+<resources>
+    <string name="app_name">FURO FQ</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="something_went_wrong">Something went wrong!</string>
+    <string name="under_development">Under development</string>
+    <string name="skip">Skip</string>
+    <string name="welcome_user_you_are_in">Welcome User,\nYou are In!</string>
+    <string name="you_re_more_than_a_bib_or_a_pr_or_the_splits_of_your_last_run_help_us_get_to_know_the_runner_in_you">You\'re more than a bib.Or a PR. Or the splits of your last run.Help us get to know the runner in you.</string>
+    <string name="location_movment"><![CDATA[Location & Movement]]></string>
+    <string name="is_location_track_str">In order for us to track your runs and training.you\'ll need to enable Location and Movement.is the OK?</string>
+    <string name="notifications">Notifications</string>
+    <string name="push_notifications_subheading">Motivation and reminders can help you keep your routine on track. Allow us to send you Push Notifications.</string>
+    <string name="learn_more"><u>Learn More</u></string>
+    <string name="are_you_sure_exit">Are you sure want to exit?</string>
+    <string name="feed">Feed</string>
+    <string name="challenges">Challenges</string>
+    <string name="permission_denied_explanation">Location permission required, enable from settings. You can off after sign up.</string>
+    <string name="settings">Settings</string>
+    <string name="home">Home</string>
+    <string name="community">Community</string>
+    <string name="more_option">more</string>
+    <string name="create_or_join_str">Create or join a challenge and get the competition started.</string>
+    <string name="menu">Menu</string>
+    <string name="choose_challenges">Choose challenges</string>
+    <string name="create_challenges">Create Challenge</string>
+    <string name="camera_error">Camera Api 2 not supported</string>
+    <string name="discard_this_submission"><b>Discard this Submission</b></string>
+    <string name="strength_challenge">Strength Challenge</string>
+    <string name="endurance_challenge">Endurance Challenge</string>
+    <string name="running">Running</string>
+    <string name="leaderboad">LeaderBoard</string>
+    <string name="communities">Communities</string>
+    <string name="activity">Activity</string>
+    <string name="lorem_sample_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</string>
+    <string name="activities">Activities</string>
+    <string name="content_feed">Content Feed</string>
+    <string name="service_not_available">Service not available</string>
+    <string name="invalid_lat_long_used">Invalid location detail</string>
+    <string name="no_address_found">No address found</string>
+    <string name="address_found">Address found</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cycling">Cycling</string>
+    <string name="squats">Squats</string>
+    <string name="no_geocoder_available">No geocoder available</string>
+    <string name="pushups">Pushups</string>
+
+    <string-array name="gender_unit">
+        <item>Gender</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string name="facebook_app_id">571847413630544</string>
+    <string name="fb_login_protocol_scheme">fb571847413630544</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string-array name="country_unit">
+        <item>Country</item>
+        <item>India</item>
+        <item>Others</item>
+    </string-array>
+    <string name="title_activity_home_main2">HomeMainActivity2</string>
+
+
+    <string name="profile_desc">Rowan Sebastian Atkinson CBE is an English actor,  comedian and screenwriter</string>
+    <string name="profile_title">Mr Bean</string>
+    <string name="posts">posts</string>
+    <string name="followers">followers</string>
+    <string name="following">following</string>
+    <string name="msg_error_unable_select_profile_pic">Unable to set profile image. Please try again!</string>
+    <string name="lbl_set_profile_photo">Set profile image</string>
+    <string name="lbl_take_camera_picture">Take a picture</string>
+    <string name="lbl_choose_from_gallery">Choose from gallery</string>
+    <string name="toast_image_intent_null">Image picker option is missing!</string>
+
+    <!-- font families -->
+    <string name="font_family_light">sans-serif-light</string>
+    <string name="font_family_medium">sans-serif-medium</string>
+    <string name="font_family_regular">sans-serif</string>
+    <string name="font_family_condensed">sans-serif-condensed</string>
+    <string name="font_family_black">sans-serif-black</string>
+    <string name="font_family_thin">sans-serif-thin</string>
+    <string name="dialog_permission_title">Grant Permissions</string>
+    <string name="dialog_permission_message">This app needs permission to use this feature. You can grant them in app settings.</string>
+    <string name="go_to_settings">GOTO SETTINGS</string>
+    <string name="message">hello</string>
+    <string name="default_notification_channel_id">FCM NOTIFICATION</string>
+    <string name="alert_text">Are you sure to logout?</string>
+    <string name="title_activity_maps_endurance">Map</string>
+
+
+    <string name="share_via">Share</string>
+    <string name="next">next</string>
+    <string name="start">start</string>
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+
+    <item
+        android:id="@+id/allFeeds"
+        android:icon="@drawable/menu_ic"
+        android:title="All" />
+
+
+    <item
+        android:id="@+id/tabActivity"
+        android:icon="@drawable/activity_ic"
+        android:title="Activity" />
+    <item
+        android:id="@+id/tabFood"
+        android:icon="@drawable/food_ic"
+        android:title="Food" />
+    <item
+        android:id="@+id/tabHealth"
+
+        android:icon="@drawable/heart_ic"
+        android:title="Health" />
+    <item
+        android:id="@+id/tabMotivation"
+
+        android:icon="@drawable/motivatioin_ic"
+        android:title="Motivation" />
+</menu>

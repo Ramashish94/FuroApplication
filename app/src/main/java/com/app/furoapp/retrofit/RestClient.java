@@ -1,0 +1,329 @@
+package com.app.furoapp.retrofit;
+
+
+import com.app.furoapp.model.Bannersecond.BannerSecondResponse;
+import com.app.furoapp.model.FriendModel.AddFriend;
+import com.app.furoapp.model.FriendModel.FriendInviteModel;
+import com.app.furoapp.model.FriendModel.FriendListModel;
+import com.app.furoapp.model.FriendModel.FriendPendingModel;
+import com.app.furoapp.model.FriendModel.FriendRequest;
+import com.app.furoapp.model.FriendModel.Friends;
+import com.app.furoapp.model.LeaderBoard.LeaderModel;
+import com.app.furoapp.model.Leaderboard;
+import com.app.furoapp.model.Settings.UpdateUserModel;
+import com.app.furoapp.model.Settings.UserDetailsModel;
+import com.app.furoapp.model.Settings.UserUpdate;
+import com.app.furoapp.model.allCommunity.AllCommunitiesResponse;
+import com.app.furoapp.model.bannerresponse.BannerResponse;
+import com.app.furoapp.model.challangeNotification.ChallangeNotificationRequest;
+import com.app.furoapp.model.challangeNotification.ChallangeNotificationResponse;
+import com.app.furoapp.model.challengeAccepted.ChallengeAcceptedRequest;
+import com.app.furoapp.model.challengeAccepted.ChallengeAcceptedResponse;
+import com.app.furoapp.model.challengeByUser.ChallengeByUser;
+import com.app.furoapp.model.challengeByUser.ChallengeByUserResponse;
+import com.app.furoapp.model.challengeByYouDetail.ChallenegeByYouDetailRequest;
+import com.app.furoapp.model.challengeByYouDetail.ChallenegeByYouDetailResponse;
+import com.app.furoapp.model.challengeReject.ChallangeRejectRequest;
+import com.app.furoapp.model.challengeReject.ChallangeRejectResponse;
+import com.app.furoapp.model.challengedetail.ChallangeDetailRequest;
+import com.app.furoapp.model.challengedetail.ChallangeDetailResponse;
+import com.app.furoapp.model.challengeforyouRecieve.ChallenegeForYouRecieve;
+import com.app.furoapp.model.challengeforyouRecieve.ChallenegeForYouRecieveRequest;
+import com.app.furoapp.model.challengeforyoudetail.ChallengeForYouDetailRequest;
+import com.app.furoapp.model.challengeforyoudetail.ChallengeForYouDetailResponse;
+import com.app.furoapp.model.challengemap.ChallenegeMapResponse;
+import com.app.furoapp.model.chooseChallange.SelectChallangeResponse;
+import com.app.furoapp.model.clubChallenge.ClubChallengeResponse;
+import com.app.furoapp.model.clubDetails.ClubDetailRequest;
+import com.app.furoapp.model.clubDetails.ClubDetailResponse;
+import com.app.furoapp.model.communityChallange.CommunityChallangeRequest;
+import com.app.furoapp.model.communityChallange.CommunityChallangeResponse;
+import com.app.furoapp.model.communityJoin.CommunitiesJoinRequest;
+import com.app.furoapp.model.communityJoin.CommunitiesJoinResponse;
+import com.app.furoapp.model.communitydetail.CommunityDetailRequest;
+import com.app.furoapp.model.communitydetail.CommunityDetailResponse;
+import com.app.furoapp.model.communitymembers.CommunityMembersRequest;
+import com.app.furoapp.model.communitymembers.CommunityMembersResponse;
+import com.app.furoapp.model.contentFeedDetail.ContentFeedDetailRequest;
+import com.app.furoapp.model.contentFeedDetail.ContentFeedDetailResponse;
+import com.app.furoapp.model.content_feed.ContentFeedModel;
+import com.app.furoapp.model.content_feed.activityListing.ActivitiesListing;
+import com.app.furoapp.model.createVideoChallenge.CreateVideoChallangeResponse;
+import com.app.furoapp.model.draft.DraftRequest;
+import com.app.furoapp.model.draft.DraftResponse;
+import com.app.furoapp.model.emailVerified.EmailVerifiedRequest;
+import com.app.furoapp.model.emailVerified.EmailVerifiedResponse;
+import com.app.furoapp.model.existsContact.ExistsContactResponse;
+import com.app.furoapp.model.feedback.FeedbackRequest;
+import com.app.furoapp.model.feedback.FeedbackResponse;
+import com.app.furoapp.model.getImage.UserImageRequest;
+import com.app.furoapp.model.getImage.UserImageResponse;
+import com.app.furoapp.model.imageupdate.UpdateResponse;
+import com.app.furoapp.model.loginUser.LoginRequest;
+import com.app.furoapp.model.loginUser.LoginResponse;
+import com.app.furoapp.model.loginWithFb.LoginWithFbRequest;
+import com.app.furoapp.model.loginWithFb.LoginWithFbResponse;
+import com.app.furoapp.model.loginwithgmail.LoginwithGmailRequest;
+import com.app.furoapp.model.loginwithgmail.LoginwithGmailResponse;
+import com.app.furoapp.model.mapchallenge.MapChallengeRecieveRequest;
+import com.app.furoapp.model.mapchallenge.MapChallengeRecieveResponse;
+import com.app.furoapp.model.myCommunities.MyCommunitiesRequest;
+import com.app.furoapp.model.myCommunities.MyCommunitiesResponse;
+import com.app.furoapp.model.notificationResponse.GetNotificationRequest;
+import com.app.furoapp.model.notificationResponse.GetNotificationResponse;
+import com.app.furoapp.model.passwordChanged.PasswordChangedRequest;
+import com.app.furoapp.model.passwordChanged.PasswordChangedResponse;
+import com.app.furoapp.model.profile.AddProfile;
+import com.app.furoapp.model.profile.ProfileModel;
+import com.app.furoapp.model.report.ReportIssueRequest;
+import com.app.furoapp.model.report.ReportIssueResponse;
+import com.app.furoapp.model.signUp.SignupResponse;
+import com.app.furoapp.model.uniqueusername.UniqueUserNameRequest;
+import com.app.furoapp.model.uniqueusername.UniqueUserNameResponse;
+import com.app.furoapp.model.updateToken.UdateTokenResponse;
+import com.app.furoapp.model.updatefcmtoken.UpdateFcmTokenRequest;
+import com.app.furoapp.model.updatefcmtoken.UpdateFcmTokenResponse;
+import com.app.furoapp.model.updateimage.UpdateImageResponse;
+import com.app.furoapp.model.versionStore.VersionStoreRequest;
+import com.app.furoapp.model.versionStore.VersionStoreResponse;
+import com.app.furoapp.model.versionStore.versionget.VersiongetResponse;
+import com.app.furoapp.model.whatBringsYoutoFuro.WhatBringsYouToFuroRequest;
+import com.app.furoapp.model.whatBringsYoutoFuro.WhatBringsYouToFuroResponse;
+import com.app.furoapp.model.winnerApi.WinnerRequest;
+import com.app.furoapp.model.winnerApi.WinnerResponse;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Callback;
+
+public class RestClient {
+
+
+    public static void myContentfeedActivity(Callback<ContentFeedModel> callback) {
+        RetrofitClient.getClient().getActivities().enqueue(callback);
+    }
+
+    public static void myContentfeedAllActivity(Callback<ActivitiesListing> callback) {
+        RetrofitClient.getClient().getAllActivities().enqueue(callback);
+    }
+
+    public static void signUpNewUser(RequestBody name, RequestBody email, RequestBody password, RequestBody dob, RequestBody gender, RequestBody country, RequestBody state, RequestBody city, RequestBody platform, RequestBody fbid, RequestBody google_id, RequestBody username, RequestBody mobile, MultipartBody.Part image, Callback<SignupResponse> callback) {
+        RetrofitClient.getClient().signUpUser(name, email, password, dob, gender, country, state, city, platform, fbid,google_id, username, mobile, image).enqueue(callback);
+    }
+
+    public static void loginNewUser(LoginRequest loginRequest, Callback<LoginResponse> callback) {
+        RetrofitClient.getClientnew().loginUser(loginRequest).enqueue(callback);
+    }
+
+    public static void activityDetail(ContentFeedDetailRequest contentFeedDetailRequest, Callback<ContentFeedDetailResponse> callback) {
+        RetrofitClient.getClient().contentDetail(contentFeedDetailRequest).enqueue(callback);
+    }
+
+    public static void loginFb(LoginWithFbRequest loginWithFbRequest, Callback<LoginWithFbResponse> callback) {
+        RetrofitClient.getClient().loginWthFb(loginWithFbRequest).enqueue(callback);
+    }
+
+    public static void userEmailVerified(EmailVerifiedRequest emailVerifiedRequest, Callback<EmailVerifiedResponse> callback) {
+        RetrofitClient.getClient().emailVerified(emailVerifiedRequest).enqueue(callback);
+    }
+
+    public static void userPasswordChanged(PasswordChangedRequest passwordChangedRequest, Callback<PasswordChangedResponse> callback) {
+        RetrofitClient.getClient().passwordReset(passwordChangedRequest).enqueue(callback);
+    }
+
+    public static void userAllCommunities(Callback<AllCommunitiesResponse> callback) {
+        RetrofitClient.getClient().allCommunities().enqueue(callback);
+    }
+
+    public static void userMyCommunities(MyCommunitiesRequest myCommunitiesRequest, Callback<MyCommunitiesResponse> callback) {
+        RetrofitClient.getClient().myCommunities(myCommunitiesRequest).enqueue(callback);
+    }
+
+    public static void userCommunitiesJoin(CommunitiesJoinRequest communitiesJoinRequest, Callback<CommunitiesJoinResponse> callback) {
+        RetrofitClient.getClient().communitiesJoin(communitiesJoinRequest).enqueue(callback);
+    }
+
+    public static void userUniqueName(UniqueUserNameRequest uniqueUserNameRequest, Callback<UniqueUserNameResponse> callback) {
+        RetrofitClient.getClient().suggestUserName(uniqueUserNameRequest).enqueue(callback);
+    }
+
+    public static void userCommunityDetail(CommunityDetailRequest communityDetailRequest, Callback<CommunityDetailResponse> callback) {
+        RetrofitClient.getClient().communityDetail(communityDetailRequest).enqueue(callback);
+    }
+
+    public static void userSelectChallange(Callback<SelectChallangeResponse> callback) {
+        RetrofitClient.getClient().selectChallange().enqueue(callback);
+    }
+
+    public static void userLeaderData(Leaderboard leaderboard, Callback<LeaderModel> callback) {
+        RetrofitClient.getClient().getLeaderData(leaderboard).enqueue(callback);
+    }
+
+    public static void userChooseOneReason(WhatBringsYouToFuroRequest whatBringsYouToFuroRequest, Callback<WhatBringsYouToFuroResponse> callback) {
+        RetrofitClient.getClient().chooseOneReason(whatBringsYouToFuroRequest).enqueue(callback);
+    }
+
+    public static void userCommunityChallange(CommunityChallangeRequest communityChallangeRequest, Callback<CommunityChallangeResponse> callback) {
+        RetrofitClient.getClient().communityChallange(communityChallangeRequest).enqueue(callback);
+    }
+
+    public static void videoChallange( RequestBody user_id, RequestBody acitivity_duration,  RequestBody acitivity_count, RequestBody challenge_activity, RequestBody challenge_name,RequestBody accept_challenge_id,MultipartBody.Part video_file, Callback<CreateVideoChallangeResponse> callback) {
+        RetrofitClient.getClient().videouploadChallange(user_id,acitivity_duration,acitivity_count,challenge_activity,challenge_name,accept_challenge_id,video_file).enqueue(callback);
+    }
+
+    public static void userGetNotification(GetNotificationRequest notificationRequest, Callback<GetNotificationResponse> callback) {
+        RetrofitClient.getClient().pushNotification(notificationRequest).enqueue(callback);
+    }
+
+    public static void userExistsContact(RequestBody contacts,  RequestBody user_id, Callback<ExistsContactResponse> callback) {
+        RetrofitClient.getClient().checkExistsContact(contacts,user_id).enqueue(callback);
+    }
+
+    public static void userFcmTokenUpdate(UpdateFcmTokenRequest updateFcmTokenRequest, Callback<UpdateFcmTokenResponse> callback) {
+        RetrofitClient.getClient().updateFcmToken(updateFcmTokenRequest).enqueue(callback);
+    }
+
+    public static void userChallangeNotification(ChallangeNotificationRequest challangeNotificationRequest, Callback<ChallangeNotificationResponse> callback) {
+        RetrofitClient.getClient().challangetoUserNotification(challangeNotificationRequest).enqueue(callback);
+    }
+
+    public static void userChallangeDetail(ChallangeDetailRequest challangeDetailRequest, Callback<ChallangeDetailResponse> callback) {
+        RetrofitClient.getClient().challengeDetail(challangeDetailRequest).enqueue(callback);
+    }
+
+    public static void userChallangeByUser(ChallengeByUser challengeByUser, Callback<ChallengeByUserResponse> callback) {
+        RetrofitClient.getClient().challngeByUser(challengeByUser).enqueue(callback);
+    }
+
+    public static void ChallangeAcceptByUser(ChallengeAcceptedRequest challengeAcceptedRequest, Callback<ChallengeAcceptedResponse> callback) {
+        RetrofitClient.getClient().challngeAccept(challengeAcceptedRequest).enqueue(callback);
+    }
+
+    public static void ChallangeRejectByUser(ChallangeRejectRequest challangeRejectRequest, Callback<ChallangeRejectResponse> callback) {
+        RetrofitClient.getClient().challngeReject(challangeRejectRequest).enqueue(callback);
+    }
+
+
+
+    public static void myClubChallenges(Callback<ClubChallengeResponse> callback) {
+        RetrofitClient.getClient().clubChallenges().enqueue(callback);
+    }
+
+    public static void myClubDetails(ClubDetailRequest clubDetailRequest, Callback<ClubDetailResponse> callback) {
+        RetrofitClient.getClient().clubDetailsChallenges(clubDetailRequest).enqueue(callback);
+    }
+    public static void userFriendsData(FriendRequest  friendRequest,Callback<Friends> callback) {
+        RetrofitClient.getClient().getFriendsData(friendRequest).enqueue(callback);
+    }
+
+    public static void AddFriends(AddFriend addFriend, Callback<FriendInviteModel> callback) {
+        RetrofitClient.getClient().AddFriendsData(addFriend).enqueue(callback);
+    }
+
+    public static void PendingFriends(AddFriend addFriend,Callback<FriendPendingModel> callback) {
+        RetrofitClient.getClient().FriendsPendingData(addFriend).enqueue(callback);
+    }
+
+    public static void FriendsList(AddFriend addFriend,Callback<FriendListModel> callback) {
+        RetrofitClient.getClient().getFriendList(addFriend).enqueue(callback);
+    }
+
+    public static void RemoveFriends(AddFriend addFriend,Callback<FriendInviteModel> callback) {
+        RetrofitClient.getClient().removeFriends(addFriend).enqueue(callback);
+    }
+
+    public static void AcceptFriend(AddFriend addFriend,Callback<FriendInviteModel> callback) {
+        RetrofitClient.getClient().AcceptFriend(addFriend).enqueue(callback);
+    }
+
+    public static void RejectFriends(AddFriend addFriend,Callback<FriendInviteModel> callback) {
+        RetrofitClient.getClient().RejectFriend(addFriend).enqueue(callback);
+    }
+
+    public static void winnerUserResponse(WinnerRequest winnerRequest, Callback<WinnerResponse> callback) {
+        RetrofitClient.getClient().winner(winnerRequest).enqueue(callback);
+    }
+    public static void getUserDetails(AddFriend addFriend, Callback<UserDetailsModel> callback) {
+        RetrofitClient.getClient().getUser(addFriend).enqueue(callback);
+    }
+
+    public static void UpdateUserDetails(UpdateUserModel updateUserModel, Callback<UserUpdate> callback) {
+        RetrofitClient.getClient().UpdateUserInform(updateUserModel).enqueue(callback);
+    }
+
+    public static void updateUpNewUser(RequestBody user_id,  MultipartBody.Part image, Callback<UpdateResponse> callback) {
+        RetrofitClient.getClient().updateResponse(user_id, image).enqueue(callback);
+    }
+    // add on 21-11-2019 by pankaj
+    public static void addProfile(AddProfile add_Profile, Callback<ProfileModel> callback) {
+        RetrofitClient.getClient().GetProfileData(add_Profile).enqueue(callback);
+    }
+
+    public static void challenegeForYouRecieve(ChallenegeForYouRecieveRequest challenegeForYouRecieveRequest, Callback<ChallenegeForYouRecieve> callback) {
+        RetrofitClient.getClient().challengeForYou(challenegeForYouRecieveRequest).enqueue(callback);
+    }
+
+    public static void  userloginwithgmail(LoginwithGmailRequest loginwithGmailRequest, Callback<LoginwithGmailResponse> callback) {
+        RetrofitClient.getClient().loginwithgmail(loginwithGmailRequest).enqueue(callback);
+    }
+
+    public static void saveMapChallenge( RequestBody user_id, RequestBody acitivity_duration, RequestBody distance, RequestBody challenge_activity,RequestBody accept_challenge_id, MultipartBody.Part image, Callback<ChallenegeMapResponse> callback) {
+        RetrofitClient.getClient().mapChallenge( user_id, acitivity_duration, distance, challenge_activity,accept_challenge_id, image).enqueue(callback);
+    }
+
+    public static void  userChallengeByDetail(ChallenegeByYouDetailRequest challenegeByYouDetailRequest, Callback<ChallenegeByYouDetailResponse> callback) {
+        RetrofitClient.getClient().challenegeByDetail(challenegeByYouDetailRequest).enqueue(callback);
+    }
+
+    public static void  userChallengeForDetail(ChallengeForYouDetailRequest challengeForYouDetailRequest, Callback<ChallengeForYouDetailResponse> callback) {
+        RetrofitClient.getClient().challenegeForDetail(challengeForYouDetailRequest).enqueue(callback);
+    }
+
+    public static void  userFeedBack(FeedbackRequest feedbackRequest, Callback<FeedbackResponse> callback) {
+        RetrofitClient.getClient().feedBack(feedbackRequest).enqueue(callback);
+    }
+
+
+    public static void  userReportIssue(ReportIssueRequest reportIssueRequest, Callback<ReportIssueResponse> callback) {
+        RetrofitClient.getClient().reportIssue(reportIssueRequest).enqueue(callback);
+    }
+
+    public static void appVersionGet(Callback<VersiongetResponse> callback) {
+        RetrofitClient.getClient().versionget().enqueue(callback);
+    }
+
+    public static void  sendAppVersion(VersionStoreRequest versionStoreRequest, Callback<VersionStoreResponse> callback) {
+        RetrofitClient.getClient().submitVersion(versionStoreRequest).enqueue(callback);
+    }
+
+    public static void  userMapReciveChallenge(MapChallengeRecieveRequest mapChallengeRecieveRequest, Callback<MapChallengeRecieveResponse> callback) {
+        RetrofitClient.getClient().mapChallengeRecieve(mapChallengeRecieveRequest).enqueue(callback);
+    }
+
+    public static void  userCommunityMembers(CommunityMembersRequest communityMembersRequest, Callback<CommunityMembersResponse> callback) {
+        RetrofitClient.getClient().commuintymembers(communityMembersRequest).enqueue(callback);
+    }
+
+    public static void  userdraft(DraftRequest draftRequest, Callback<DraftResponse> callback) {
+        RetrofitClient.getClient().draft(draftRequest).enqueue(callback);
+    }
+
+    public static void userImageUpdate( RequestBody user_id,  MultipartBody.Part image, Callback<UpdateImageResponse> callback) {
+        RetrofitClient.getClient().updateImage( user_id, image).enqueue(callback);
+    }
+
+    public static void bannerImage(Callback<BannerResponse> callback) {
+        RetrofitClient.getClient().bannerImage().enqueue(callback);
+    }
+    public static void bannerSecondImage(Callback<BannerSecondResponse> callback) {
+        RetrofitClient.getClient().bannerSecondImage().enqueue(callback);
+    }
+
+    public static void updateTokenofuser(RequestBody user_id,RequestBody device_id,RequestBody fcm_token,Callback<UdateTokenResponse> callback) {
+        RetrofitClient.getClient().updateToken(user_id,device_id,fcm_token).enqueue(callback);
+    }
+    public static void userimageGet(UserImageRequest userImageRequest, Callback<UserImageResponse> callback) {
+        RetrofitClient.getClient().user_image(userImageRequest).enqueue(callback);
+    }
+
+}

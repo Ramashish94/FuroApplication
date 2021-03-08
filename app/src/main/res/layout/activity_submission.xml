@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".activity.challengeRecieve.SubmissionActivity">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tvToolbarTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:layout_marginEnd="@dimen/dp_4"
+        android:maxWidth="@dimen/dp_200"
+        android:maxLines="2"
+
+        android:text="your submission"
+
+        android:textStyle="italic"
+        android:fontFamily="@font/bebasneue_regular"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/sp_20"
+
+        />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/dp_30"
+            android:layout_height="wrap_content">
+
+
+
+
+            <FrameLayout
+                android:layout_marginTop="@dimen/dp_1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_200"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+
+                <ImageView
+                    android:id="@+id/ivPreviewVideo"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_200"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/sample_image" />
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/textPlayTheRecordedVideo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:layout_marginEnd="@dimen/dp_35"
+                    android:layout_marginBottom="@dimen/dp_12"
+
+                    android:src="@drawable/welcome_text"
+                    android:text="Play Recorded Video"
+                    android:textAlignment="center"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:textStyle="italic"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/sp_15"/>
+
+                <FrameLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+
+                        android:id="@+id/lineaarlayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_200"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <FrameLayout
+
+                            android:layout_width="match_parent"
+                            android:layout_gravity="center_horizontal"
+
+                            android:layout_height="wrap_content">
+
+                            <VideoView
+                                android:layout_marginTop="@dimen/dp_2"
+                                android:id="@+id/videoPreview"
+                                android:layout_marginBottom="2dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:layout_gravity="center_horizontal" />
+
+                            <ImageView
+                                android:id="@+id/ivPlayButton"
+                                android:elevation="@dimen/dp_10"
+
+                                android:layout_width="@dimen/dp_30"
+                                android:layout_gravity="center"
+                                android:layout_height="@dimen/dp_30"
+                                android:scaleType="fitCenter"
+                                app:srcCompat="@drawable/ic_play_circle_outline_black_24dp" />
+
+                            <ImageView
+                                android:id="@+id/ivPlauseButtonnnn"
+                                android:elevation="@dimen/dp_10"
+                                android:layout_width="@dimen/dp_30"
+                                android:layout_height="@dimen/dp_30"
+                                android:visibility="gone"
+                                android:layout_gravity="center"
+                                android:scaleType="fitCenter"
+                                app:srcCompat="@drawable/ic_pause_black_24dp" />
+
+                        </FrameLayout>
+                    </LinearLayout>
+                </FrameLayout>
+
+
+            </FrameLayout>
+
+
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_height="@dimen/dp_35"
+            android:layout_marginTop="@dimen/dp_20"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="start"
+                android:textSize="@dimen/sp_15"
+                android:layout_marginStart="@dimen/dp_2"
+                android:fontFamily="@font/din_alternate_bold"
+                android:text="Recording Duration"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/recordingDuration"
+                android:layout_width="80dp"
+                android:layout_height="@dimen/dp_50"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="@dimen/dp_16"
+                android:background="@drawable/background_border_black_with_black_rounded"
+                android:layout_marginEnd="@dimen/dp_2"
+                android:fontFamily="@font/din_alternate_bold"
+                android:text="13.53"
+                android:textColor="@color/white" />
+
+
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/bottom_gray" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_height="@dimen/dp_35"
+            android:layout_marginTop="@dimen/dp_20"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="start"
+                android:textSize="@dimen/sp_15"
+                android:layout_marginStart="@dimen/dp_2"
+                android:fontFamily="@font/din_alternate_bold"
+                android:text="Activity Count"
+                android:textColor="@android:color/black" />
+
+            <EditText
+                android:id="@+id/countactivity"
+                android:layout_width="80dp"
+                android:layout_height="@dimen/dp_50"
+                android:inputType="number"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="@dimen/dp_16"
+                android:background="@drawable/background_border_black_with_black_rounded"
+                android:layout_marginEnd="@dimen/dp_2"
+                android:fontFamily="@font/din_alternate_bold"
+                android:hint="0"
+
+                android:textColorHint="@color/white"
+                android:textColor="@color/white" />
+
+
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/bottom_gray" />
+
+        <TextView
+            android:id="@+id/submitChallenge"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:background="@drawable/background_border_sky_blue_with_blue_background_rounded"
+            android:elevation="@dimen/dp_4"
+            android:fontFamily="@font/bebasneue_regular"
+            android:letterSpacing=".05"
+            android:padding="@dimen/dp_8"
+
+            android:text="SUBMIT"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="italic" />
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_gravity="center"
+            android:text=" Discard this submission"
+            android:textStyle="bold"
+            android:textColor="@color/red"
+            android:gravity="center"
+            android:id="@+id/tvDiscardThisSubmission"
+
+            android:layout_height="40dp" />
+
+
+
+        <LinearLayout
+            android:background="@color/bottom_gray"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/dp_30"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+
+
+                android:fontFamily="@font/din_alter_nate_bold"
+                android:text=" Rules :"
+
+                android:textColor="@color/black_color"
+                android:textSize="@dimen/sp_16" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+
+
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:src="@drawable/bullets" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:text="You can challenge your friends up to 21 days since the challenge started."
+                    android:textColor="@color/black_btn"
+                    android:textSize="@dimen/sp_12" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:src="@drawable/bullets" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:text="The recipient has 21 days to respond to the challenge."
+                    android:textColor="@color/black_btn"
+                    android:textSize="@dimen/sp_12" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:src="@drawable/bullets" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:text="The challenge video will be deleted from the server in 42 days. The video is also saved in the gallery of your android phone. "
+                    android:textColor="@color/black_btn"
+                    android:textSize="@dimen/sp_12" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:src="@drawable/bullets" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:text=" Your last 5 challenges will be saved for 12 months."
+                    android:textColor="@color/black_btn"
+                    android:textSize="@dimen/sp_12" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:src="@drawable/bullets" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:text="Spammers will be blocked from the app and community in order to maintain the community standards."
+                    android:textColor="@color/black_btn"
+                    android:textSize="@dimen/sp_12" />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginBottom="@dimen/dp_50"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:src="@drawable/bullets" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:text="Check your submissions before sharing with other, Furo FQ is not responsible for the content you share."
+                    android:textColor="@color/black_btn"
+
+                    android:textSize="@dimen/sp_12" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>
+
+</ScrollView>

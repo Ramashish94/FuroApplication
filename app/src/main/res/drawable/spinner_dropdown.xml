@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item >
+        <layer-list android:paddingBottom="@dimen/dp_2" android:paddingRight="@dimen/dp_8" >
+            <item>
+                <bitmap android:gravity="center|right" android:src="@drawable/back_down_icon" android:tint="@android:color/white" />
+            </item>
+        </layer-list>
+    </item>
+</selector>

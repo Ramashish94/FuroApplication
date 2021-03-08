@@ -1,0 +1,58 @@
+<resources>
+    <dimen name="sp_6">11.25sp</dimen>
+    <dimen name="sp_7">13.125sp</dimen>
+    <dimen name="sp_8">15sp</dimen>
+    <dimen name="sp_10">18.75sp</dimen>
+    <dimen name="sp_11">20.625sp</dimen>
+    <dimen name="sp_12">22.5sp</dimen>
+    <dimen name="sp_13">24.375sp</dimen>
+    <dimen name="sp_14">26.25sp</dimen>
+    <dimen name="sp_15">28.125sp</dimen>
+    <dimen name="sp_17" >31.875sp</dimen>
+    <dimen name="sp_16">30sp</dimen>
+    <dimen name="sp_18">33.75sp</dimen>
+    <dimen name="sp_20">37.5sp</dimen>
+    <dimen name="sp_30">56.250sp</dimen>
+
+    <dimen name="dp_1">1.875dp</dimen>
+    <dimen name="dp_2">3.75dp</dimen>
+    <dimen name="dp_3">5.625dp</dimen>
+    <dimen name="dp_4">7.5dp</dimen>
+    <dimen name="dp_5">9.375dp</dimen>
+    <dimen name="dp_6">11.25dp</dimen>
+    <dimen name="dp_7">13.125dp</dimen>
+    <dimen name="dp_8">15dp</dimen>
+    <dimen name="dp_10">18.75dp</dimen>
+    <dimen name="dp_12">22.5dp</dimen>
+    <dimen name="dp_14">26.25dp</dimen>
+    <dimen name="dp_15">28.125dp</dimen>
+    <dimen name="dp_16">30dp</dimen>
+    <dimen name="dp_20">37.5dp</dimen>
+    <dimen name="dp_24">45dp</dimen>
+    <dimen name="dp_25">46.875dp</dimen>
+    <dimen name="dp_30">56.25dp</dimen>
+    <dimen name="dp_35">65.625dp</dimen>
+    <dimen name="dp_40">75dp</dimen>
+    <dimen name="dp_45">84.375dp</dimen>
+    <dimen name="dp_50">93.75dp</dimen>
+    <dimen name="dp_60">112dp</dimen>
+    <dimen name="dp_65">121.875dp</dimen>
+    <dimen name="dp_70">131.25dp</dimen>
+
+    <dimen name="dp_75">140.625dp</dimen>
+    <dimen name="dp_90">168.75dp</dimen>
+    <dimen name="dp_96">180dp</dimen>
+    <dimen name="dp_98">183.75dp</dimen>
+    <dimen name="dp_100">187.5dp</dimen>
+    <dimen name="dp_120">225dp</dimen>
+    <dimen name="dp_140">262.5dp</dimen>
+    <dimen name="dp_150">281.25dp</dimen>
+    <dimen name="dp_170">318.75dp</dimen>
+    <dimen name="dp_180">337.50dp</dimen>
+    <dimen name="dp_200">375dp</dimen>
+    <dimen name="dp_300">562.5dp</dimen>
+    <dimen name="dp_minus_5">-9.375dp</dimen>
+    <dimen name="sp_24">24sp</dimen>
+
+
+</resources>

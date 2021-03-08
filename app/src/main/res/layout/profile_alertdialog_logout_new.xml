@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_margin="@dimen/dp_30"
+    android:orientation="vertical"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_weight="3"
+        android:background="@drawable/roundcorner"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal"
+
+        android:layout_height="@dimen/dp_40">
+
+        <TextView
+            android:id="@+id/tvTextSecond"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+
+            android:fontFamily="@font/bebasneue_regular"
+            android:text="Are you sure you want to Exit ?"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="@dimen/dp_20"
+
+                android:id="@+id/btn_cancel"
+                android:backgroundTint="@color/white"
+                android:background="@drawable/ic_closebuttonyoutubefragment"
+                android:layout_height="@dimen/dp_20"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/roundcornerwhite"
+
+        android:layout_height="wrap_content"
+
+
+
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtShopTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="@dimen/dp_2"
+
+            android:gravity="start"
+            android:layout_marginTop="@dimen/dp_10"
+
+            android:fontFamily="@font/googlesans_medium"
+
+            android:textColor="#808080"
+            android:textSize="14sp"
+            android:text="Are you sure you want to Exit ?"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/noiwanttocontinuee"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:background="@drawable/background_border_sky_blue_with_blue_background_rounded"
+                android:fontFamily="@font/bebasneue_regular"
+                android:letterSpacing=".05"
+                android:padding="@dimen/dp_8"
+                android:text="No i want to continue"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+
+
+
+
+            <TextView
+                android:id="@+id/text_logout"
+                android:layout_marginTop="@dimen/dp_10"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_20"
+
+                android:layout_marginEnd="@dimen/dp_20"
+                android:background="@drawable/background_border_black_with_white_back_light_border"
+                android:fontFamily="@font/bebasneue_regular"
+                android:letterSpacing=".05"
+                android:padding="@dimen/dp_8"
+                android:text="Yes, i want to  EXIT"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/white"
+                android:textSize="@dimen/sp_12"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

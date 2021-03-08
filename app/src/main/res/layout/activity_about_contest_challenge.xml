@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".activity.AboutContestChallengeActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+
+            android:id="@+id/bannerRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+
+        <lal.adhish.gifprogressbar.GifView
+            android:layout_marginTop="@dimen/dp_70"
+            android:id="@+id/progressBarJumpingJacks"
+            android:layout_width="50dp"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/dp_5"
+            android:backgroundTint="@color/white"
+            android:layout_height="50dp"
+            android:layout_gravity="center" />
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="@dimen/dp_20"
+
+                android:fontFamily="@font/bebasneue_regular"
+                android:text="How to Participate"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:textAllCaps="true"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/sp_18"
+                android:textStyle="italic"/>
+
+
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:src="@drawable/bullets" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:text="Invite a friend/s to install the Fitness Quotient App. Make sure the registered friend (mobile no.) is in your contact list or Friend on FQ App."
+                    android:textColor="@color/black_btn"
+                    android:textSize="@dimen/sp_14" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:src="@drawable/bullets" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:text="Go to Challenges."
+                    android:textColor="@color/black_btn"
+                    android:textSize="@dimen/sp_14" />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:src="@drawable/bullets" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:text="Select the Fitness Challenge contest activity from Flexibility/Strength/Endurance."
+                    android:textColor="@color/black_btn"
+
+                    android:textSize="@dimen/sp_14" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:src="@drawable/bullets" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:text="Click on Start Camera"
+                    android:textColor="@color/black_btn"
+
+                    android:textSize="@dimen/sp_14" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:src="@drawable/bullets" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:textColor="@color/black_btn"
+                    android:text="Record your exercise video."
+
+                    android:textSize="@dimen/sp_14" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:src="@drawable/bullets" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:text="Enter Activity count and click “Save to Challenge” button. Video will start uploading."
+                    android:textColor="@color/black_btn"
+
+                    android:textSize="@dimen/sp_14" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:src="@drawable/bullets" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:textColor="@color/black_btn"
+                    android:text="Click “Now Challenge your Friends” button after video is uploaded."
+
+                    android:textSize="@dimen/sp_14" />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:src="@drawable/bullets" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:textColor="@color/black_btn"
+                    android:text="Select the friend/friends that you have invited in Step 1."
+
+                    android:textSize="@dimen/sp_14" />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:src="@drawable/bullets" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:textColor="@color/black_btn"
+                    android:text="You can upload the video on our Facebook comments or on your public Instagram profile tagging @fitnessquotientbyfurosports."
+
+                    android:textSize="@dimen/sp_14" />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_50"
+
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:src="@drawable/bullets" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:textColor="@color/black_btn"
+                    android:text="You can also share “FQ App Challenge link” on our Facebook contest post comments for higher chances of winning.
+Share"
+
+                    android:textSize="@dimen/sp_14" />
+
+
+
+
+            </LinearLayout>
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+
+                android:fontFamily="@font/bebasneue_regular"
+                android:text=" Terms and Conditions"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:textAllCaps="true"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/sp_18"
+                android:textStyle="italic"/>
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                  android:visibility="gone"
+
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:src="@drawable/bullets" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:text="The contest will be held from March 27th, 2020 to April 15th, 2020."
+                    android:textColor="@color/black_btn"
+                    android:textSize="@dimen/sp_14" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:src="@drawable/bullets" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:text="The decision of the contest as made by Fitness Quotient shall be final in all matters relating to this and no correspondence in this context will be entertained."
+                    android:textColor="@color/black_btn"
+                    android:textSize="@dimen/sp_14" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:src="@drawable/bullets" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:text="In order to be eligible, the contestants have to participate by:"
+                    android:textColor="@color/black_btn"
+                    android:textSize="@dimen/sp_14" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_40"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_30"
+                android:fontFamily="@font/din_alternate_bold"
+                android:text="Step 1: If you don’t have the app on your android phone, download the “Fitness Quotient by Furo Sports App” on Google Play Store"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_14"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_40"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_30"
+                android:fontFamily="@font/din_alternate_bold"
+                android:text="Step 2: Go to Challenges"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_14" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_40"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_30"
+                android:fontFamily="@font/din_alternate_bold"
+                android:text="Step 3: Invite and Challenge your friends (At least 1 friend needs to be added and challenged)"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_14" />
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_40"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_30"
+                android:fontFamily="@font/din_alternate_bold"
+                android:text="Step 4: Sharing the challenge video (You will find it in your Android phone gallery) or “FQ App challenge link for Social Media” (Check FAQ in App):"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_14" />
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_40"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_30"
+                android:fontFamily="@font/din_alternate_bold"
+                android:text="1. In Facebook Comments"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_40"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_30"
+                android:text="2. On Your Instagram Profile (Public Instagram profiles only. In private profiles we won’t be able to check submissions.)"
+                android:fontFamily="@font/din_alternate_bold"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_40"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_30"
+                android:fontFamily="@font/din_alternate_bold"
+                android:text="3. Tagging Fitness Quotient by "
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_40"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_30"
+                android:textStyle="bold"
+                android:fontFamily="@font/din_alternate_bold"
+                android:text="Facebook: @FitnessQuotientOfficial
+
+"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_16" />
+
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_40"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_30"
+                android:text="https://www.facebook.com/FitnessQuotientOfficial/"
+                android:autoLink="web"
+                android:fontFamily="@font/din_alternate_bold"
+                android:id="@+id/infoTxtCredits"
+                android:textStyle="bold"
+                android:textSize="@dimen/dp_16"
+                android:layout_centerInParent="true"
+                android:linksClickable="true"></TextView>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_40"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_30"
+                android:textStyle="bold"
+                android:fontFamily="@font/din_alternate_bold"
+                android:text="Instagram: @fitnessquotientbyfurosports
+"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_16" />
+
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_40"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_30"
+                android:text=" https://www.instagram.com/fitnessquotientbyfurosports/"
+                android:autoLink="web"
+                android:fontFamily="@font/din_alternate_bold"
+              android:textStyle="bold"
+                android:textSize="@dimen/dp_16"
+                android:layout_centerInParent="true"
+                android:linksClickable="true"></TextView>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_40"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_30"
+                android:fontFamily="@font/din_alternate_bold"
+                android:text="4. All Challenges/entries with wrong activity input in app will not be considered for the contest and will be deleted from the community. Make sure you enter the right number of activity while creating challenge on the app. Accounts posting spam/irrelevant content will be banned from the App."
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_40"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_30"
+                android:text="5. Fitness Quotient reserves the right to discontinue the contest without prior notice, extend the period or change the T and Cs at any point."
+                android:fontFamily="@font/din_alternate_bold"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_40"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_30"
+                android:text="6. The contest is open to all residents of India."
+                android:fontFamily="@font/din_alternate_bold"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="7. The winners, once authenticated by Fitness Quotient, will get a gratification of a gift voucher."
+                android:layout_marginStart="@dimen/dp_40"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_30"
+                android:fontFamily="@font/din_alternate_bold"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:text="8. There will be 2 weekly winners – 1 from Facebook and 1 from Instagram."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_40"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_30"
+                android:fontFamily="@font/din_alternate_bold"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_40"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="9. The gifts/gift voucher will be sent to you through mail after the pandemic situation gets under control. We will stay in touch with the winners via social media, messages or calls."
+                android:layout_marginEnd="@dimen/dp_30"
+                android:fontFamily="@font/din_alternate_bold"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_14" />
+            <TextView
+                android:text="10. The Company shall reserve the right to use all data, material etc. received as part of this Program as it may deem fit for its future promotions."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_40"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_30"
+                android:fontFamily="@font/din_alternate_bold"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:id="@+id/StartChallenege"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+
+                android:layout_marginStart="@dimen/dp_30"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_30"
+                android:layout_marginBottom="@dimen/dp_30"
+                android:background="@drawable/background_border_sky_blue_with_blue_background_rounded"
+                android:fontFamily="@font/bebasneue_regular"
+                android:padding="@dimen/dp_8"
+                android:text="Challenge now"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="@dimen/sp_20"
+                android:textStyle="italic" />
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

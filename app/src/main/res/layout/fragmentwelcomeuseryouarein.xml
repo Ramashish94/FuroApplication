@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/ivImageVIew"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/welcome_background" />
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivWelcon"
+                android:layout_width="@dimen/dp_120"
+                android:layout_height="@dimen/dp_120"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:src="@drawable/welcome_add_photo_icon" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/dp_30"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:gravity="center"
+                    android:id="@+id/tvTextFirst"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ivWelcon"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:fontFamily="@font/bebasneue_regular"
+                    android:text="Welcome "
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/sp_24"
+                    android:textStyle="italic" />
+
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvTextUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivWelcon"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp_4"
+                android:fontFamily="@font/bebasneue_regular"
+                android:text=" Furo user ,     "
+
+                android:textColor="@color/light_blue"
+                android:textSize="@dimen/sp_24"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/tvTextUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivWelcon"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:fontFamily="@font/bebasneue_regular"
+                android:text="  YOU’RE IN!   "
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/sp_24"
+                android:textStyle="italic" />
+
+
+            <TextView
+                android:id="@+id/tvTextSecond"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTextFirst"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="@dimen/dp_40"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_40"
+                android:fontFamily="@font/din_alternate_bold"
+                android:src="@drawable/welcome_text"
+                android:text="You are more awesome than you show. Help us know the fitness enthusiast in you.
+"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/sp_18"
+                android:textStyle="italic" />
+
+            <TextView
+                android:layout_marginTop="@dimen/dp_100"
+                android:id="@+id/etSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="@dimen/dp_30"
+                android:layout_marginEnd="@dimen/dp_30"
+                android:layout_marginBottom="@dimen/dp_30"
+                android:background="@drawable/background_border_sky_blue_with_blue_background_rounded"
+                android:fontFamily="@font/bebasneue_regular"
+                android:padding="@dimen/dp_8"
+                android:text="Next"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="@dimen/sp_20"
+                android:textStyle="italic" />
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+</layout>

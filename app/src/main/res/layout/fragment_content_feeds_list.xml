@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_2"
+            android:layout_marginTop="@dimen/dp_5"
+            android:background="@color/bottom_gray" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:paddingBottom="@dimen/dp_10">
+
+
+            <RelativeLayout
+                android:id="@+id/rlVideos"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <com.app.furoapp.widget.SwitchButton
+                    android:id="@+id/switchButtonVideo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:outlineSpotShadowColor="@color/white"
+                    app:sb_button_color="@color/white"
+                    app:sb_checked="false"
+                    app:sb_checked_color="@color/light_blue" />
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvVideoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="@dimen/dp_8"
+
+                android:text="Videos"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintBottom_toBottomOf="@+id/rlVideos"
+                app:layout_constraintStart_toEndOf="@+id/rlVideos"
+                app:layout_constraintTop_toTopOf="@+id/rlVideos"
+                app:layout_constraintVertical_bias="0.444" />
+
+
+            <RelativeLayout
+                android:id="@+id/rlArticle"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_20"
+                app:layout_constraintBottom_toBottomOf="@+id/tvVideoText"
+                app:layout_constraintStart_toEndOf="@+id/tvVideoText"
+                app:layout_constraintTop_toTopOf="@+id/tvVideoText"
+                app:layout_constraintVertical_bias="0.333">
+
+                <com.app.furoapp.widget.SwitchButton
+                    android:id="@+id/switchbuttonArticle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:outlineSpotShadowColor="@color/white"
+                    app:sb_button_color="@color/white"
+                    app:sb_checked="false"
+                    app:sb_checked_color="@color/light_blue" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvArticleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+
+                android:text="Articles"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintBottom_toBottomOf="@+id/rlArticle"
+                app:layout_constraintStart_toEndOf="@+id/rlArticle"
+                app:layout_constraintTop_toTopOf="@+id/rlArticle"
+                app:layout_constraintVertical_bias="0.444" />
+
+            <LinearLayout
+                android:id="@+id/llSubCategoryView"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/background_border_black_with_black_rounded"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/tvArticleText"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.495">
+
+
+                <TextView
+                    android:id="@+id/tvJoinBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/bebasneue_regular"
+                    android:padding="@dimen/dp_4"
+                    android:text="Sub Category"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white"
+                    android:textSize="@dimen/sp_10"
+                    android:textStyle="italic"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_10"
+                    android:layout_height="@dimen/dp_10"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/dp_4"
+                    android:rotation="180"
+                    android:src="@drawable/back_icon" />
+
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvContentfeed"
+            android:background="@color/bottom_gray"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+
+            android:orientation="horizontal">
+
+            <lal.adhish.gifprogressbar.GifView
+                android:id="@+id/progressBarJumpingJacks"
+                android:visibility="gone"
+                android:layout_width="50dp"
+                android:layout_centerInParent="true"
+                android:layout_margin="@dimen/dp_5"
+                android:backgroundTint="@color/white"
+                android:layout_height="50dp"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/pbText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:text="loading ..."
+
+                android:textColor="@color/light_blue"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>

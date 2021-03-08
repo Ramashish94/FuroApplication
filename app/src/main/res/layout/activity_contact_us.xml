@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_5"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="@dimen/dp_5"
+            android:fontFamily="@font/googlesans_medium"
+            android:text="Contact us"
+            android:textColor="@color/black_btn"
+            android:textSize="25dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10sp"
+
+        android:layout_marginTop="15sp"
+        android:layout_marginRight="10sp"
+        android:orientation="vertical">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_20">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_40"
+                    android:padding="@dimen/dp_5"
+                    android:fontFamily="@font/googlesans_medium"
+                    android:text="Please Use the following mode to get in touch with us.."
+                    android:textColor="@color/black_btn"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_10"
+                    android:layout_marginTop="15sp"
+                    android:padding="@dimen/dp_5"
+                    android:text="Email"
+                    android:fontFamily="@font/googlesans_medium"
+                    android:textColor="@color/black_btn"
+                    android:textSize="18dp" />
+
+                <Button
+
+                    android:id="@+id/contact_us_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginTop="15sp"
+                    android:padding="@dimen/dp_8"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:background="@drawable/background_border_sky_blue_with_blue_background_rounded"
+                    android:elevation="10dp"
+                    android:fontFamily="@font/googlesans_medium"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="3dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="3dp"
+                    android:text="fitness.quotient@furosports.com"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dp_14" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+    </LinearLayout>
+
+</LinearLayout>

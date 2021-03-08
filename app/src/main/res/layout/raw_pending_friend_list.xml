@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="20dp"
+                android:background="@color/bottom_gray"
+                android:orientation="vertical" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="110dp"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:text="XYZ"
+                    android:textColor="@color/black_btn"
+                    android:textSize="@dimen/sp_14" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_accept"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/din_alter_nate_bold"
+                        android:text="Accept"
+                        android:layout_marginRight="10dp"
+                        android:textColor="@color/green_color"
+                        android:textSize="@dimen/sp_14" />
+                    <TextView
+                        android:id="@+id/tv_reject"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:fontFamily="@font/din_alter_nate_bold"
+                        android:text="Reject"
+                        android:layout_marginRight="10dp"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/sp_14" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:background="@color/bottom_gray"
+                android:orientation="vertical" />
+
+
+        </LinearLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/ivUserProfilefriend"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/profile_circle"
+            android:scaleType="centerCrop"/>
+
+
+    </FrameLayout>
+
+
+</LinearLayout>

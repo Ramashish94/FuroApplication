@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+
+
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivUserProfileinvitefriends"
+                android:layout_width="90dp"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:layout_height="90dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/profile_circle"/>
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_weight=".1"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="30dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/din_alternate_bold"
+                android:text="XYZ"
+                android:textColor="@color/black_btn"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_add_friend"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/background_border_blue_rounded"
+                android:fontFamily="@font/din_alter_nate_bold"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:padding="7dp"
+                android:text="ADD"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginTop="10dp"
+            android:background="@color/bottom_gray"
+            android:orientation="vertical" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

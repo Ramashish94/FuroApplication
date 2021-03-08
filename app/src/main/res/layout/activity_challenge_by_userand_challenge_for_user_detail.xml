@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".activity.challengeRecieve.ChallengeByUserandChallengeForUserDetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+
+
+            android:id="@+id/challengeByYouandChallengeForYouRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dp_12"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:textStyle="italic"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:textSize="@dimen/sp_16"
+                android:textColor="@color/black_btn"
+                android:text="Challenge Sent to :"
+                android:layout_height="wrap_content" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/dp_10"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:textStyle="italic"
+                    android:layout_marginLeft="@dimen/dp_12"
+                    android:textSize="@dimen/sp_16"
+                    android:textColor="@color/black_btn"
+                    android:text="Name"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:textStyle="italic"
+                    android:layout_marginRight="@dimen/sp_18"
+                    android:textSize="@dimen/sp_16"
+                    android:textColor="@color/black_btn"
+                    android:text="Status"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="@dimen/dp_12"
+
+
+                android:id="@+id/challengedetailby"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:id="@+id/challengemorefriends"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_30"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_30"
+                android:background="@drawable/background_border_sky_blue_with_blue_background_rounded"
+                android:fontFamily="@font/bebasneue_regular"
+                android:letterSpacing=".05"
+                android:padding="@dimen/dp_8"
+                android:text="Challenge more Friends"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="@dimen/sp_20"
+                android:textStyle="italic"
+                android:layout_marginBottom="@dimen/dp_30"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="vertical">
+
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_30"
+                android:layout_marginRight="@dimen/dp_20"
+                android:fontFamily="@font/googlesans_medium"
+                android:gravity="center"
+                android:text="You need to turn on the Public Link to proceed in order to share the challenge link on social media including Facebook, Twitter, WhatsApp, etc."
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/dp_14" />
+
+
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/agree_and_continue_open"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dp_30"
+                    android:layout_marginLeft="@dimen/dp_30"
+                    android:layout_marginStart="@dimen/dp_30"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:layout_marginEnd="@dimen/dp_30"
+                    android:background="@drawable/background_border_sky_blue_with_blue_background_rounded"
+                    android:fontFamily="@font/bebasneue_regular"
+                    android:letterSpacing=".05"
+                    android:padding="@dimen/dp_8"
+                    android:text="Enable link to share"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white"
+                    android:textSize="@dimen/sp_20"
+                    android:textStyle="italic"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+
+                <TextView
+                    android:id="@+id/turn_off_public_tv_open"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_30"
+                    android:layout_marginRight="@dimen/dp_30"
+                    android:layout_marginStart="@dimen/dp_30"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:layout_marginEnd="@dimen/dp_30"
+                    android:background="@drawable/background_border_sky_blue_with_blue_background_rounded"
+                    android:fontFamily="@font/bebasneue_regular"
+                    android:letterSpacing=".05"
+                    android:padding="@dimen/dp_8"
+                    android:text="Disable link "
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white"
+                    android:textSize="@dimen/sp_20"
+                    android:textStyle="italic"
+
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+
+            </FrameLayout>
+
+            <LinearLayout
+
+                android:id="@+id/activity_details_ll_open"
+
+
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/dp_30"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
+                android:background="@color/bottom_gray"
+                android:orientation="vertical"
+
+                android:padding="@dimen/dp_10"
+               >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                   android:gravity="center"
+
+
+                    android:orientation="horizontal">
+
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="I just Finished"
+                        android:fontFamily="@font/googlesans_medium"
+                        android:textColor="@color/black_btn"
+                        android:textSize="@dimen/dp_16" />
+
+                    <TextView
+                        android:id="@+id/reps_open"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:text="45"
+                        android:fontFamily="@font/googlesans_medium"
+                        android:textColor="@color/light_blue"
+                        android:textSize="@dimen/dp_16" />
+
+                    <TextView
+                        android:id="@+id/activity_open"
+                        android:layout_width="wrap_content"
+                        android:gravity="center"
+                        android:fontFamily="@font/googlesans_medium"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginLeft="@dimen/dp_5"
+
+                        android:text="jumping jacks"
+
+                        android:textAllCaps="false"
+                        android:textColor="@color/light_blue"
+                        android:textSize="@dimen/dp_16" />
+
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:fontFamily="@font/googlesans_medium"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:text="in "
+                        android:textColor="@color/light_blue"
+                        android:textSize="@dimen/dp_16" />
+
+                    <TextView
+                        android:id="@+id/duration_open"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:fontFamily="@font/googlesans_medium"
+                        android:gravity="center"
+                        android:layout_marginRight="@dimen/dp_5"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:text="72 "
+                        android:textColor="@color/light_blue"
+                        android:textSize="@dimen/dp_16" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:text="sec . "
+                        android:fontFamily="@font/googlesans_medium"
+                        android:textColor="@color/black_btn"
+                        android:textSize="@dimen/dp_16" />
+
+
+
+
+                </LinearLayout>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=" Beat my score."
+                    android:fontFamily="@font/googlesans_medium"
+                    android:textColor="@color/black_btn"
+                    android:textSize="@dimen/dp_16" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/share_icons_ll_open"
+
+
+                android:padding="@dimen/dp_10"
+                android:gravity="center"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:orientation="horizontal"
+
+
+
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/copy_open"
+
+                    android:layout_width="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+
+                    android:background="@drawable/copy_icon_new"
+
+                    android:fontFamily="@font/bebasneue_regular"
+
+                    android:text="sharewithfb  "
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textStyle="italic" />
+                    <TextView
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingRight="@dimen/dp_10"
+                        android:fontFamily="@font/googlesans_medium"
+
+                        android:text="copy "
+                        android:textColor="@color/black_btn"
+                        android:textSize="@dimen/dp_14" />
+
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <ImageView
+
+                        android:id="@+id/whatsappicon_open"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="@dimen/dp_50"
+                        android:layout_marginRight="@dimen/dp_50"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/whatsappicon"
+                        android:elevation="@dimen/dp_5"
+                        android:fontFamily="@font/bebasneue_regular"
+                        android:padding="@dimen/dp_5"
+
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textStyle="italic" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/dp_8"
+
+                        android:text="Whats App "
+                        android:fontFamily="@font/googlesans_medium"
+
+                        android:textColor="@color/black_btn"
+                        android:textSize="@dimen/dp_14" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+
+                        android:id="@+id/facebook_con_open"
+                        android:layout_width="50dp"
+                        android:layout_gravity="center"
+                        android:layout_height="50dp"
+
+                        android:background="@drawable/facebookicon"
+                        android:elevation="@dimen/dp_5"
+                        android:fontFamily="@font/bebasneue_regular"
+                        android:padding="@dimen/dp_5"
+                        android:text="sharewithwhatsapp  "
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textStyle="italic" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/dp_20"
+                        android:paddingRight="@dimen/dp_20"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:fontFamily="@font/googlesans_medium"
+
+                        android:text="FB"
+                        android:textColor="@color/black_btn"
+                        android:textSize="@dimen/dp_14" />
+
+
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/share_icons_name_open"
+                android:padding="@dimen/dp_10"
+
+
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               android:gravity="center"
+
+                android:layout_marginTop="@dimen/dp_10"
+                android:orientation="horizontal">
+
+
+
+
+
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/hint_text"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_40"
+
+                android:layout_marginTop="@dimen/sp_30"
+                android:layout_marginRight="@dimen/dp_20"
+                android:gravity="center"
+                android:text="You can select media from Gallery while sharing on Social media"
+                android:textColor="@color/black_btn"
+                android:textSize="@dimen/dp_14"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@color/bottom_gray"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/dp_30"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+
+
+                android:fontFamily="@font/din_alter_nate_bold"
+                android:text=" Rules :"
+
+                android:textColor="@color/black_color"
+                android:textSize="@dimen/sp_16" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+
+
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:src="@drawable/bullets" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:text="You can challenge your friends up to 21 days since the challenge started."
+                    android:textColor="@color/black_btn"
+                    android:textSize="@dimen/sp_12" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:src="@drawable/bullets" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:text="The recipient has 21 days to respond to the challenge."
+                    android:textColor="@color/black_btn"
+                    android:textSize="@dimen/sp_12" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:src="@drawable/bullets" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:text="The challenge video will be deleted from the server in 42 days. The video is also saved in the gallery of your android phone. "
+                    android:textColor="@color/black_btn"
+                    android:textSize="@dimen/sp_12" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:src="@drawable/bullets" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:text=" Your last 5 challenges will be saved for 12 months."
+                    android:textColor="@color/black_btn"
+                    android:textSize="@dimen/sp_12" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:src="@drawable/bullets" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:text="Spammers will be blocked from the app and community in order to maintain the community standards."
+                    android:textColor="@color/black_btn"
+                    android:textSize="@dimen/sp_12" />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginBottom="@dimen/dp_50"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:src="@drawable/bullets" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:fontFamily="@font/din_alternate_bold"
+                    android:text="Check your submissions before sharing with other, Furo FQ is not responsible for the content you share."
+                    android:textColor="@color/black_btn"
+
+                    android:textSize="@dimen/sp_12" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

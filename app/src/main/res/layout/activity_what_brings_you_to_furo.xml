@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ivImageVIew"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/sign_up_background" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+
+                    android:id="@+id/rltopHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true">
+
+                    <ImageView
+                        android:id="@+id/ivBackBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:padding="@dimen/dp_16"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/sp_12"
+                        app:srcCompat="@drawable/back_icon"
+
+                        />
+
+
+
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:id="@+id/tvTextskip"
+                        android:layout_width="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_height="wrap_content"
+
+                        android:layout_centerHorizontal="true"
+
+                        android:fontFamily="@font/bebasneue_regular"
+                        android:text="SKIP
+"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/sp_20"
+                        android:textStyle="italic" />
+
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_40"
+
+                    android:orientation="vertical">
+
+
+
+                    <TextView
+
+                        android:id="@+id/tvTextHeading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/dp_15"
+                        android:fontFamily="@font/bebasneue_regular"
+                        android:text="What brings you to Fitness Quotient?
+"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/sp_20"
+                        android:textStyle="italic" />
+
+
+                    <TextView
+                        android:id="@+id/tvTextsubheading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvTextHeading"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="@dimen/dp_40"
+                        android:layout_marginTop="@dimen/dp_30"
+                        android:layout_marginEnd="@dimen/dp_40"
+                        android:fontFamily="@font/din_alternate_bold"
+                        android:text="There are various goals you want to achieve. What’s yours?
+"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/sp_18"
+                        android:textStyle="italic" />
+
+
+                    <TextView
+
+                        android:id="@+id/tvLoseWeight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/dp_30"
+                        android:layout_marginTop="@dimen/dp_30"
+
+
+                        android:layout_marginEnd="@dimen/dp_30"
+                        android:background="@drawable/background_border_gray_with_white_back_rounded"
+                        android:fontFamily="@font/bebasneue_regular"
+                        android:gravity="center"
+                        android:padding="@dimen/dp_8"
+                        android:text="Lose weight"
+
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="@android:color/white"
+                        android:textSize="@dimen/sp_20" />
+
+
+                    <TextView
+                        android:id="@+id/tvGetInShape"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvLoseWeight"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="@dimen/dp_30"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_marginEnd="@dimen/dp_30"
+                        android:background="@drawable/background_border_gray_with_white_back_rounded"
+                        android:fontFamily="@font/bebasneue_regular"
+                        android:padding="@dimen/dp_8"
+                        android:text="Get in shape"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="@android:color/white"
+                        android:textSize="@dimen/sp_20" />
+
+                    <TextView
+                        android:id="@+id/fitnesstraining"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvGetInShape"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="@dimen/dp_30"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_marginEnd="@dimen/dp_30"
+                        android:background="@drawable/background_border_gray_with_white_back_rounded"
+                        android:fontFamily="@font/bebasneue_regular"
+                        android:padding="@dimen/dp_8"
+                        android:text="Fitness Training "
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="@android:color/white"
+                        android:textSize="@dimen/sp_20" />
+
+                    <TextView
+                        android:id="@+id/eatinghealthy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvRunMoreOften"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="@dimen/dp_30"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_marginEnd="@dimen/dp_30"
+                        android:background="@drawable/background_border_gray_with_white_back_rounded"
+                        android:fontFamily="@font/bebasneue_regular"
+                        android:padding="@dimen/dp_8"
+                        android:text="Eating Healthy
+"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="@android:color/white"
+                        android:textSize="@dimen/sp_20" />
+
+
+                    <TextView
+                        android:id="@+id/healthylifestyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/eatinghealthy"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="@dimen/dp_30"
+                        android:layout_marginTop="@dimen/dp_16"
+
+                        android:layout_marginEnd="@dimen/dp_30"
+
+                        android:background="@drawable/background_border_gray_with_white_back_rounded"
+                        android:fontFamily="@font/bebasneue_regular"
+                        android:padding="@dimen/dp_8"
+                        android:text="Healthy Lifestyle
+"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="@android:color/white"
+                        android:textSize="@dimen/sp_20" />
+
+                    <TextView
+                        android:id="@+id/etstaymotivated"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/healthylifestyle"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="@dimen/dp_30"
+                        android:layout_marginTop="@dimen/dp_16"
+
+
+                        android:layout_marginEnd="@dimen/dp_30"
+
+                        android:background="@drawable/background_border_gray_with_white_back_rounded"
+                        android:fontFamily="@font/bebasneue_regular"
+                        android:padding="@dimen/dp_8"
+                        android:text="Stay Motivated
+
+"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="@android:color/white"
+                        android:textSize="@dimen/sp_20" />
+
+                    <TextView
+                        android:id="@+id/etsomethingelse"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/etstaymotivated"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="@dimen/dp_30"
+                        android:layout_marginTop="@dimen/dp_16"
+
+
+                        android:layout_marginEnd="@dimen/dp_30"
+
+                        android:background="@drawable/background_border_gray_with_white_back_rounded"
+                        android:fontFamily="@font/bebasneue_regular"
+                        android:padding="@dimen/dp_8"
+                        android:text="Something Else
+
+
+"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="@android:color/white"
+                        android:textSize="@dimen/sp_20" />
+
+
+                    <TextView
+                        android:id="@+id/NEXT"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/etsomethingelse"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="@dimen/dp_30"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_marginEnd="@dimen/dp_30"
+
+                        android:layout_marginBottom="@dimen/dp_10"
+                        android:background="@drawable/background_border_sky_blue_with_blue_background_rounded"
+                        android:fontFamily="@font/bebasneue_regular"
+                        android:padding="@dimen/dp_8"
+                        android:text="NEXT"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="@android:color/white"
+                        android:textSize="@dimen/sp_20"
+                        android:visibility="gone" />
+
+
+                </LinearLayout>
+            </RelativeLayout>
+        </ScrollView>
+
+
+    </FrameLayout>
+</layout>

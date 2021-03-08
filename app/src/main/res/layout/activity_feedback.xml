@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.FeedbackActivity">
+
+    <include layout="@layout/layout_tool_feedback" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@color/vertical_line_color"
+        android:layout_height="2dp"/>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_90"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:orientation="vertical"
+        android:background="@drawable/edittextstyle"
+        android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/dp_7"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/bebasneue_regular"
+        android:gravity="center"
+        android:text=" Give your Valuable Feedback"
+        android:textColor="@color/black_btn"
+        android:textSize="@dimen/sp_18"
+        android:textStyle="italic">
+
+
+
+    </TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@color/bottom_gray"
+            android:layout_height="2dp">
+        </LinearLayout>
+
+
+    <com.hsalf.smilerating.SmileRating
+        android:id="@+id/ratingView"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/dp_40"
+        app:angryColor="#f29a68"
+        app:drawingColor="#353431"
+        app:isIndicator="false"
+        app:normalColor="#f2dd68"
+        app:placeHolderBackgroundColor="#e6e8ed"
+        app:placeHolderSmileColor="#ffffff"
+        app:textNonSelectionColor="#AEB3B5"
+        app:textSelectionColor="#000000" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginRight="@dimen/dp_10"
+        android:fontFamily="@font/bebasneue_regular"
+        android:text="Other's"
+        android:textColor="@color/black_btn"
+        android:textSize="@dimen/sp_18"
+        android:textStyle="italic"
+        android:visibility="gone">
+
+    </TextView>
+
+    <EditText
+        android:id="@+id/otherFeedback"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_12"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@drawable/edittextstyle"
+        android:gravity="start"
+        android:hint="Please give your Feedback.."
+        android:padding="@dimen/dp_10"
+        android:textColor="@color/unselected_color"
+        android:visibility="visible">
+
+
+    </EditText>
+
+    <TextView
+        android:id="@+id/submitfeedbackbutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="@dimen/dp_8"
+        android:background="@drawable/background_border_sky_blue_with_blue_background_rounded"
+        android:elevation="@dimen/dp_4"
+        android:fontFamily="@font/bebasneue_regular"
+        android:letterSpacing=".05"
+        android:padding="@dimen/dp_8"
+        android:text="Submit"
+
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="@dimen/sp_20"
+        android:textStyle="italic"
+        android:visibility="gone" />
+
+</LinearLayout>

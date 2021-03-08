@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivBackBtnnew"
+            android:layout_width="@dimen/dp_10"
+            android:layout_height="@dimen/dp_24"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_8"
+            android:scaleType="centerInside"
+            android:src="@drawable/back_icon"
+            android:tint="@color/light_blue" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="@dimen/dp_4"
+            android:ellipsize="end"
+            android:fontFamily="@font/bebasneue_regular"
+            android:gravity="center"
+
+            android:text="Privacy policy"
+            android:maxWidth="@dimen/dp_200"
+            android:maxLines="2"
+            android:textAllCaps="false"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_20"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+</layout>

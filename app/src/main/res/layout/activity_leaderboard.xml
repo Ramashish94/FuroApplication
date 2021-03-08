@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_toolbar_leaderboard" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabProfileTab"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_2"
+        android:elevation="@dimen/dp_4"
+        app:tabGravity="center"
+        app:tabMinWidth="@dimen/dp_200"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/light_blue"
+        app:tabTextAppearance="@style/MyCustomTextAppearance"
+        app:tabTextColor="@color/tab_unselected" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/profile_back_gray"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/dp_8"
+                    android:paddingBottom="@dimen/dp_8">
+
+
+                    <com.app.furoapp.widget.francyconverflow.FancyCoverFlow
+                        android:id="@+id/vpFacnyView"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_140"
+                        android:layout_marginTop="@dimen/dp_4"
+                        android:layout_marginBottom="@dimen/dp_4" />
+
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tabLeaderboard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:padding="4dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/din_rugular_alternate"
+                    android:text="Activity: "
+                    android:textColor="@color/black_btn"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tvActivityValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/bebasneue_regular"
+                    android:text="PUSH-UPS"
+                    android:textColor="@color/black_btn"
+                    android:textSize="20sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/dp_20"
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="center"
+
+                android:layout_height="match_parent">
+
+                <ProgressBar
+                    android:layout_gravity="center"
+                    android:id="@+id/progressBar"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:visibility="gone"
+
+                    />
+
+                <TextView
+                    android:id="@+id/pbText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="@dimen/dp_10"
+
+                    android:visibility="gone"
+                    android:textColor="@color/light_blue"
+                    android:text="loading ..."/>
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>

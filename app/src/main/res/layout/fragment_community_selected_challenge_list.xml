@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <include layout="@layout/layout_community_delect_challange_list" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/dp_4"
+            android:fontFamily="@font/bebase_font_family_regular"
+            android:text="@string/challenges"
+            android:textColor="@color/black_btn"
+            android:textSize="@dimen/sp_20" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:background="@color/bottom_gray" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCommunitiesChallengesList"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+             />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/nochallangesforyou"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="no challenges for you"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+
+            android:id="@+id/nochallanges"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/dp_98"
+            android:textStyle="italic"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="@dimen/dp_20"
+            android:fontFamily="@font/bebase_font_family_regular"
+            android:text="No Challenges For you"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+</layout>

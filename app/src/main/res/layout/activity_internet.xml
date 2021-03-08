@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".activity.InternetActivity">
+    <ImageView
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:src="@mipmap/app_icon_new_foreground"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_marginTop="@dimen/dp_90"
+        android:layout_width="match_parent"
+        android:text="No Internet ?"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:textSize="@dimen/dp_20"
+        android:textStyle="bold"
+        android:textColor="@color/black_color"
+        android:layout_height="wrap_content" />
+
+
+    <ImageView
+        android:layout_marginTop="@dimen/dp_45"
+        android:layout_width="match_parent"
+        android:src="@drawable/ic_signal_wifi_off_black_24dp"
+        android:layout_height="200dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dp_40"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tryAgain"
+            android:layout_marginLeft="@dimen/dp_20"
+           android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:text=" FQ FURO "
+            android:textColor="@color/light_blue"
+            android:textColorHint="@color/light_blue"
+            android:gravity="center"
+            android:textSize="@dimen/dp_16"
+            android:textStyle="bold"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:text=" is not connected to Internet"
+            android:gravity="center"
+            android:textSize="@dimen/dp_16"
+            android:textStyle="bold"
+            android:textColor="@color/black_color"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:text=" Check your network ??"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dp_10"
+        android:textSize="@dimen/dp_16"
+        android:textStyle="bold"
+        android:textColor="@color/black_color"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.google.android.material.card.MaterialCardView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/dp_2"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <com.app.furoapp.widget.MyCircleImageView
+                    android:layout_width="@dimen/dp_60"
+                    android:layout_height="@dimen/dp_60"
+                    android:layout_margin="@dimen/dp_2"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/sample_image" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+
+
+                    <TextView
+
+                        android:id="@+id/Name"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+
+                        android:layout_weight="1"
+                        android:fontFamily="@font/din_alter_nate_bold"
+                        android:gravity="start"
+                        android:maxLines="1"
+                        android:paddingEnd="@dimen/dp_2"
+                        android:text="Name"
+                        android:textColor="@color/black_btn"
+                        android:textSize="@dimen/sp_14" />
+                    <TextView
+
+                        android:id="@+id/uniqueName"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+
+                        android:layout_weight="1"
+                        android:fontFamily="@font/din_alter_nate_bold"
+                        android:gravity="start"
+                        android:maxLines="1"
+                        android:paddingEnd="@dimen/dp_2"
+                        android:text="UniqueName"
+                        android:textColor="@color/bottom_gray"
+                        android:textSize="@dimen/sp_12" />
+
+                </LinearLayout>
+
+                <CheckBox
+                    android:visibility="gone"
+                    android:id="@+id/checkBox"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".1"
+                    android:layout_marginRight="@dimen/dp_20"
+
+                    android:fontFamily="@font/din_alter_nate_bold"
+                    android:gravity="center"
+                    android:paddingEnd="@dimen/dp_2"
+                    android:textColor="@color/light_blue"
+                    android:textSize="@dimen/sp_12" />
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@color/bottom_gray"
+
+                android:layout_height="1dp"/>
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

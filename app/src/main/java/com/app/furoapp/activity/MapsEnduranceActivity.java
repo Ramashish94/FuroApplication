@@ -1,15 +1,18 @@
 package com.app.furoapp.activity;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -18,6 +21,7 @@ import android.graphics.Rect;
 import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -36,6 +40,7 @@ import com.app.furoapp.R;
 import com.app.furoapp.databinding.ActivityEnduranceMapBinding;
 import com.app.furoapp.databinding.FragmentendurancemapBinding;
 import com.app.furoapp.fragment.enduranceMapFragments.EnduranceMapFragmentStart;
+import com.app.furoapp.services.MyBackgroundLocationService;
 import com.app.furoapp.utils.FullScreenHelper;
 import com.app.furoapp.utils.FuroPrefs;
 import com.google.android.gms.common.api.ApiException;
@@ -69,6 +74,7 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
+import com.app.furoapp.activity.LocationTrack;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -78,11 +84,13 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class MapsEnduranceActivity extends FragmentActivity implements OnMapReadyCallback {
-
 
     ActivityEnduranceMapBinding binding;
     SupportMapFragment mapFragment;
@@ -139,6 +147,16 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
     String temp;
     String nameActivity;
 
+    private ArrayList<String> permissionsToRequest;
+    private ArrayList<String> permissionsRejected = new ArrayList<>();
+    private ArrayList<String> permissions = new ArrayList<>();
+    private final static int ALL_PERMISSIONS_RESULT = 101;
+    public LocationTrack locationTrack;
+    public int TIMECOUNT = 10000;
+    public boolean ISTRAVERSING = true;
+    public double longitud, latitude;
+    Handler handler = new Handler();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +172,7 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
 
         init();
         startLocationUpdates();
+//        locationUpdate();
         imageView = findViewById(R.id.imageviewmapNew);
         nameActivity = FuroPrefs.getString(getApplicationContext(), "subCategory");
         actName.setText(nameActivity);
@@ -164,7 +183,13 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
                 mRequestingLocationUpdates = false;
                 stopLocationUpdates();
                 CaptureMapScreen();
-                handler();
+
+                FuroPrefs.putString(MapsEnduranceActivity.this, "tracking", "STOPPED");
+                double distance = FuroPrefs.getFloat(MapsEnduranceActivity.this, "tripDistance");
+                handler(distance);
+                Toast.makeText(MapsEnduranceActivity.this, "Distance: " + distance, Toast.LENGTH_LONG).show();
+
+                FuroPrefs.putFloat(MapsEnduranceActivity.this, "tripDistance", 0f);
 
 
             }
@@ -268,6 +293,7 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
 
 
     private void startLocationUpdates() {
+
         mSettingsClient
                 .checkLocationSettings(mLocationSettingsRequest)
                 .addOnSuccessListener(MapsEnduranceActivity.this, new OnSuccessListener<LocationSettingsResponse>() {
@@ -278,12 +304,6 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
                         //noinspection MissingPermission
                         mFusedLocationClient.requestLocationUpdates(mLocationRequest,
                                 mLocationCallback, Looper.myLooper());
-
-                        /*Toast.makeText(mContext, (int) +StartlatLongDistance.latitude, Toast.LENGTH_SHORT).show();
-                        Toast.makeText(mContext, (int) +StartlatLongDistance.longitude, Toast.LENGTH_SHORT).show();
-
-                        Toast.makeText(mContext, (int) +endLatLongDistance.latitude, Toast.LENGTH_SHORT).show();
-                        Toast.makeText(mContext, (int) +endLatLongDistance.longitude, Toast.LENGTH_SHORT).show();*/
 
                     }
                 })
@@ -307,13 +327,12 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
                                 String errorMessage = "Location settings are inadequate, and cannot be " +
                                         "fixed here. Fix in Settings.";
                                 Log.e(TAG, errorMessage);
-
-
                         }
-
-
                     }
                 });
+
+        Intent intent = new Intent(this, MyBackgroundLocationService.class);
+        ContextCompat.startForegroundService(this, intent);
     }
 
 
@@ -340,8 +359,7 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
             Log.i("endlat", String.valueOf(endLatLongDistance));
 
 
-
-            CalculationByDistance();
+            // CalculationByDistance();
         }
 
 
@@ -425,12 +443,9 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
             addCameraToMap(latLng);
             drawPolyline(latLng);
 
-
         }
-
-
     }
-
+            /*calculate distance 1st method*/
     public double CalculationByDistance() {
 
         Location startPoint = new Location("locationA");
@@ -444,8 +459,8 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
 
         return distance;
     }
-
-   /* public double CalculationByDistance() {
+    /*calculate distance 2nd method*/
+    public double CalculationByDistance2() {
         double lat1 = StartlatLongDistance.latitude;
         Log.i("lat1", String.valueOf(lat1));
         double lat2 = endLatLongDistance.latitude;
@@ -462,7 +477,7 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
                 * Math.sin(dLon / 2);
         c = 2 * Math.asin(Math.sqrt(a));
         double valueResult = Radius * c;
-         km = valueResult / 1000;
+        km = valueResult / 1000;
         DecimalFormat newFormat = new DecimalFormat("####");
         int kmInDec = Integer.valueOf(newFormat.format(km));
         //FuroPrefs.putString(getApplicationContext(), "Distanceinm", String.valueOf(kmInDec));
@@ -473,70 +488,7 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
                 + " Meter   " + meterInDec);
 
         return Radius * c;
-    }*/
-
-//    private void CalculationByDistance (/*double currentLat2, double currentLong2, float lastLat, float lastLong*/) {
-////        if (ConnectivityReceiver.isConnected()) {private void CalculationByDistance (/*double currentLat2, double currentLong2, float lastLat, float lastLong*/) {
-//            new AsyncTask<Void, Void, Double>() {
-//                @Override
-//                protected Double doInBackground(Void... voids) {
-//
-//                    Location startPoint = new Location("");
-//                    startPoint.setLatitude(StartlatLongDistance.latitude);
-//                    startPoint.setLongitude(StartlatLongDistance.longitude);
-//
-//                    Location endPoint = new Location("");
-//                    endPoint.setLatitude(endLatLongDistance.latitude);
-//                    endPoint.setLongitude(endLatLongDistance.longitude);
-//
-//                    return Double.valueOf(startPoint.distanceTo(endPoint));
-//
-//
-////                   double theta = lon1 - lon2;
-////                   double dist = Math.sin(deg2rad(lat1))
-////                           * Math.sin(deg2rad(lat2))
-////                           + Math.cos(deg2rad(lat1))
-////                           * Math.cos(deg2rad(lat2))
-////                           * Math.cos(deg2rad(theta));
-////                   dist = Math.acos(dist);
-////                   dist = rad2deg(dist);
-////                   dist = dist * 60 * 1.1515;
-////                   return dist;
-//                }
-//
-//                @Override
-//                protected void onPostExecute(Double dist) {
-//                    super.onPostExecute(dist);
-//                    if (dist > 250) {
-//                        try{
-//                            double distance =  FullScreenHelper.getDoubleKey(MapsEnduranceActivity.this, "tripDistance");
-//                            distance = distance + dist;
-//
-//                            FullScreenHelper.putKey(MapsEnduranceActivity.this, "tripDistance", (float) distance);
-//
-//                            FullScreenHelper.putKey(MapsEnduranceActivity.this, "lastLat", (float) StartlatLongDistance.latitude);
-//                            FullScreenHelper.putKey(MapsEnduranceActivity.this, "lastLong", (float) StartlatLongDistance.longitude);
-//
-//                            String data ="Latitude: "+ String.valueOf(endLatLongDistance.latitude)+ " Longitude : "+ String.valueOf(endLatLongDistance.longitude)+" Distance gap "+dist+"\n";
-////                            FullScreenHelper.putKey(MapsEnduranceActivity.this, ""+System.currentTimeMillis(), data);
-//
-//                        }catch (Exception e){
-//                            e.printStackTrace();
-//
-//                        }
-//
-//                        // AppUtils.writeToFile(data, MyBackgroundLocationService.this);
-//
-//
-//                    }
-//
-//
-//                    //SharedHelper.putKey(MainActivity.this, "totalDist", String.valueOf(TRIPDISTANCE));
-//
-//                }
-//            }.execute();
-//       }}
-
+    }
 
 
     public void drawPolyline(LatLng latLng) {
@@ -591,7 +543,7 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
     }
 
 
-    public void handler() {
+    public void handler(double distance) {
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -599,7 +551,7 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
                 timeSwapBuff += timeInMilliseconds;
                 customHandler.removeCallbacks(updateTimerThread);
                 Intent mainIntent = new Intent(MapsEnduranceActivity.this, PreviewCardActivity.class);
-                mainIntent.putExtra("Distanceinm",distance);
+                mainIntent.putExtra("Distanceinm", MapsEnduranceActivity.this.distance);
                 FuroPrefs.putString(getApplicationContext(), "mapScreenshot", temp);
                 startActivity(mainIntent);
                 finish();
@@ -667,6 +619,137 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
         }
 
     };
+
+
+    /////////////location update ///////////////////////// not use at/////////////////////////////////////////////////////////////////////////
+   /* private void locationUpdate() {
+        gpsTrackingWithOutServiceClass();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                handler.removeCallbacks(sendData);
+                ISTRAVERSING = false;
+
+                gpsTrackingWithOutServiceClass();
+            }
+        }, 5000);
+    }
+
+    private void gpsTrackingWithOutServiceClass() {
+        permissions.add(ACCESS_FINE_LOCATION);
+        permissions.add(ACCESS_COARSE_LOCATION);
+
+        permissionsToRequest = findUnAskedPermissions(permissions);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if (permissionsToRequest.size() > 0)
+                requestPermissions(permissionsToRequest.toArray(new String[permissionsToRequest.size()]), ALL_PERMISSIONS_RESULT);
+        }
+
+        locationTrack = new LocationTrack(MapsEnduranceActivity.this);
+
+        if (locationTrack.canGetLocation()) {
+
+            longitud = locationTrack.getLongitude();
+            latitude = locationTrack.getLatitude();
+            Toast.makeText(MapsEnduranceActivity.this, "Longitude:" + Double.toString(longitud) + "\n" +
+                    "Latitude:" + Double.toString(latitude), Toast.LENGTH_SHORT).show();
+
+            ISTRAVERSING = true;
+            handler.postDelayed(sendData, TIMECOUNT);
+
+        } else {
+
+            locationTrack.showSettingsAlert();
+        }
+    }
+
+    private Runnable sendData = new Runnable() {
+        public void run() {
+            try {
+                //prepare and send the data here..
+                // gpsTrackingWithServiceClass();
+                if (ISTRAVERSING) {
+                    handler.postDelayed(sendData, TIMECOUNT);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    private ArrayList<String> findUnAskedPermissions(ArrayList<String> wanted) {
+        ArrayList<String> result = new ArrayList<String>();
+
+        for (String perm : wanted) {
+            if (!hasPermission(perm)) {
+                result.add(perm);
+            }
+        }
+
+        return result;
+    }
+
+    private boolean hasPermission(String permission) {
+        if (canMakeSmores()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                return (MapsEnduranceActivity.this.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED);
+            }
+        }
+        return true;
+    }
+    private boolean canMakeSmores() {
+        return (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1);
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+
+        switch (requestCode) {
+
+            case ALL_PERMISSIONS_RESULT:
+                for (String perms : permissionsToRequest) {
+                    if (!hasPermission(perms)) {
+                        permissionsRejected.add(perms);
+                    }
+                }
+
+                if (permissionsRejected.size() > 0) {
+
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (shouldShowRequestPermissionRationale(permissionsRejected.get(0))) {
+                            showMessageOKCancel("These permissions are mandatory for the application. Please allow access.",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                                requestPermissions(permissionsRejected.toArray(new String[permissionsRejected.size()]), ALL_PERMISSIONS_RESULT);
+                                            }
+                                        }
+                                    });
+                            return;
+                        }
+                    }
+
+                }
+
+                break;
+        }
+
+    }
+
+    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(MapsEnduranceActivity.this)
+                .setMessage(message)
+                .setPositiveButton("OK", okListener)
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show();
+    }*/
+    /////////////location update//////////////////////
 
 
 }

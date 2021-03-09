@@ -99,7 +99,7 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
     TextView textViewTime;
     LatLng StartlatLongDistance;
     Context mContext;
-    int distance;
+//    int distance;
     int Radius = 6371;// radius of earth in Km
     double c;
 
@@ -156,7 +156,7 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
     public boolean ISTRAVERSING = true;
     public double longitud, latitude;
     Handler handler = new Handler();
-
+    double distance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,17 +180,21 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
         binding.StopButtonNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mRequestingLocationUpdates = false;
-                stopLocationUpdates();
-                CaptureMapScreen();
+                //mRequestingLocationUpdates = false;
+                mRequestingLocationUpdates = true;
+
 
                 FuroPrefs.putString(MapsEnduranceActivity.this, "tracking", "STOPPED");
-                double distance = FuroPrefs.getFloat(MapsEnduranceActivity.this, "tripDistance");
-                handler(distance);
+                distance = FuroPrefs.getFloat(MapsEnduranceActivity.this, "tripDistance");
+
                 Toast.makeText(MapsEnduranceActivity.this, "Distance: " + distance, Toast.LENGTH_LONG).show();
 
                 FuroPrefs.putFloat(MapsEnduranceActivity.this, "tripDistance", 0f);
 
+                stopLocationUpdates();
+                CaptureMapScreen();
+
+                handler();
 
             }
         });
@@ -207,6 +211,7 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
                                 mRequestingLocationUpdates = true;
                                 binding.StartButtonNew.setVisibility(View.GONE);
                                 binding.StopButtonNew.setVisibility(View.VISIBLE);
+                                FuroPrefs.putString(MapsEnduranceActivity.this, "tracking","STARTED");
                                 startLocationUpdates();
                                 startTime = SystemClock.uptimeMillis();
                                 customHandler.postDelayed(updateTimerThread, 0);
@@ -455,9 +460,9 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
         Location endPoint = new Location("locationA");
         endPoint.setLatitude(endLatLongDistance.latitude);
         endPoint.setLongitude(endLatLongDistance.longitude);
-        distance = (int) startPoint.distanceTo(endPoint);
+        int totDistance = (int) startPoint.distanceTo(endPoint);
 
-        return distance;
+        return totDistance;
     }
     /*calculate distance 2nd method*/
     public double CalculationByDistance2() {
@@ -543,7 +548,7 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
     }
 
 
-    public void handler(double distance) {
+    public void handler() {
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -551,7 +556,7 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
                 timeSwapBuff += timeInMilliseconds;
                 customHandler.removeCallbacks(updateTimerThread);
                 Intent mainIntent = new Intent(MapsEnduranceActivity.this, PreviewCardActivity.class);
-                mainIntent.putExtra("Distanceinm", MapsEnduranceActivity.this.distance);
+                mainIntent.putExtra("Distanceinm", distance);
                 FuroPrefs.putString(getApplicationContext(), "mapScreenshot", temp);
                 startActivity(mainIntent);
                 finish();
@@ -753,5 +758,3 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
 
 
 }
-
-

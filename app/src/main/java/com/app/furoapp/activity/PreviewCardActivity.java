@@ -57,6 +57,10 @@ public class PreviewCardActivity extends AppCompatActivity {
 
     ImageView imageView, iconfuro, dotImage, imageSharePreview, imageBackButton, profileImageView, textViewFb, textViewWhatsApp, imageDownload;
     private TextView userNameNew, uniqueTimerMap, activityChallenge, tvTextSec;
+    public String imgOfMap_SnapShoot;
+    public String bitmapOfMapScreenShoot;
+    public String urlOfImgMapScreenshot;
+    public double totWalkingDistance;
 
 
     @Override
@@ -83,7 +87,13 @@ public class PreviewCardActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         distanceInKm = String.valueOf(intent.getIntExtra("Distanceinm", 0));
+        totWalkingDistance = intent.getDoubleExtra("Distanceinm",0);
         image = FuroPrefs.getString(getApplication(), "mapScreenshot");
+
+        imgOfMap_SnapShoot = FuroPrefs.getString(getApplication(), "imgOfMap_SnapShoot");// comming from 2nd method
+        bitmapOfMapScreenShoot = FuroPrefs.getString(getApplication(), "bitmapOfMapScreenShoot");// comming from 2nd method
+       // urlOfImgMapScreenshot = FuroPrefs.getString(getApplication(), "urlOfImgMapScreenshot");// comming from 2nd method
+
         /* distanceInKm = FuroPrefs.getString(getApplicationContext(), "Distanceinm");*/
         userMapImage = FuroPrefs.getString(getApplication(), "userImage");
         uniqueUsernewName = FuroPrefs.getString(getApplication(), "loginUserNameNew");
@@ -103,16 +113,16 @@ public class PreviewCardActivity extends AppCompatActivity {
 
         } else {
             Picasso.with(getApplicationContext()).load(userMapImage).error(R.drawable.ic_userimageiconss).into(profileImageView);
-
-
         }
-
-
 
         userNameNew.setText(uniqueUsernewName);
         uniqueTimerMap.setText(uniqueTimer);
         activityChallenge.setText(actChallName);
         tvDistanceMeter.setText(distanceInKm);
+
+//        imageView.setImageURI(Uri.fromFile(new File(imgOfMap_SnapShoot)));
+//        imageView.setImageURI(Uri.fromFile(new File(urlOfImgMapScreenshot)));
+//        imageView.setImageURI(Uri.fromFile(new File(urlOfImgMapScreenshot)));
 
 
         textViewChallenge.setOnClickListener(new View.OnClickListener() {

@@ -144,7 +144,7 @@ public class MyBackgroundLocationService extends Service {
                         FuroPrefs.putFloat(MyBackgroundLocationService.this, "lastLong", (float) currentLong2);
 
                         String data = "Latitude: " + String.valueOf(lastLat) + " Longitude : " + String.valueOf(lastLong) + " Distance gap " + dist + "\n";
-                        //  FuroPrefs.putKey(MyBackgroundLocationService.this, ""+System.currentTimeMillis(), data);
+                        //FuroPrefs.putKey(MyBackgroundLocationService.this, ""+System.currentTimeMillis(), data);
 
                         Toast.makeText(MyBackgroundLocationService.this, "Latitude: " +String.valueOf(lastLat), Toast.LENGTH_SHORT).show();
                         Toast.makeText(MyBackgroundLocationService.this, "Longitude: " +String.valueOf(lastLong), Toast.LENGTH_SHORT).show();

@@ -23,6 +23,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
@@ -69,10 +70,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.app.furoapp.activity.LocationTrack;
 
@@ -99,7 +102,7 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
     TextView textViewTime;
     LatLng StartlatLongDistance;
     Context mContext;
-//    int distance;
+    //int distance;
     int Radius = 6371;// radius of earth in Km
     double c;
 
@@ -156,7 +159,11 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
     public boolean ISTRAVERSING = true;
     public double longitud, latitude;
     Handler handler = new Handler();
-    double distance;
+    public String mPath;
+    public Bitmap bitmap;
+    public Uri uri;
+    public double totDistance;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,6 +178,8 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
 
 
         init();
+
+        getPermission();
         startLocationUpdates();
 //        locationUpdate();
         imageView = findViewById(R.id.imageviewmapNew);
@@ -180,22 +189,19 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
         binding.StopButtonNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //mRequestingLocationUpdates = false;
-                mRequestingLocationUpdates = true;
-
-
-                FuroPrefs.putString(MapsEnduranceActivity.this, "tracking", "STOPPED");
-                distance = FuroPrefs.getFloat(MapsEnduranceActivity.this, "tripDistance");
-
-                Toast.makeText(MapsEnduranceActivity.this, "Distance: " + distance, Toast.LENGTH_LONG).show();
-
-                FuroPrefs.putFloat(MapsEnduranceActivity.this, "tripDistance", 0f);
-
+                mRequestingLocationUpdates = false;
                 stopLocationUpdates();
                 CaptureMapScreen();
 
-                handler();
+                FuroPrefs.putString(MapsEnduranceActivity.this, "tracking", "STOPPED");
+                totDistance = FuroPrefs.getFloat(MapsEnduranceActivity.this, "tripDistance");
 
+                handler();
+                Toast.makeText(MapsEnduranceActivity.this, "Distance: " + totDistance, Toast.LENGTH_LONG).show();
+
+                FuroPrefs.putFloat(MapsEnduranceActivity.this, "tripDistance", 0f);
+
+                takeScreenshot();
             }
         });
 
@@ -211,7 +217,7 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
                                 mRequestingLocationUpdates = true;
                                 binding.StartButtonNew.setVisibility(View.GONE);
                                 binding.StopButtonNew.setVisibility(View.VISIBLE);
-                                FuroPrefs.putString(MapsEnduranceActivity.this, "tracking","STARTED");
+                                FuroPrefs.putString(MapsEnduranceActivity.this, "tracking", "STARTED");
                                 startLocationUpdates();
                                 startTime = SystemClock.uptimeMillis();
                                 customHandler.postDelayed(updateTimerThread, 0);
@@ -450,7 +456,8 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
 
         }
     }
-            /*calculate distance 1st method*/
+
+    /*calculate distance 1st method*/
     public double CalculationByDistance() {
 
         Location startPoint = new Location("locationA");
@@ -460,10 +467,11 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
         Location endPoint = new Location("locationA");
         endPoint.setLatitude(endLatLongDistance.latitude);
         endPoint.setLongitude(endLatLongDistance.longitude);
-        int totDistance = (int) startPoint.distanceTo(endPoint);
+        int distance = (int) startPoint.distanceTo(endPoint);
 
-        return totDistance;
+        return distance;
     }
+
     /*calculate distance 2nd method*/
     public double CalculationByDistance2() {
         double lat1 = StartlatLongDistance.latitude;
@@ -556,8 +564,13 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
                 timeSwapBuff += timeInMilliseconds;
                 customHandler.removeCallbacks(updateTimerThread);
                 Intent mainIntent = new Intent(MapsEnduranceActivity.this, PreviewCardActivity.class);
-                mainIntent.putExtra("Distanceinm", distance);
+                Toast.makeText(MapsEnduranceActivity.this, "Tot Distance" + totDistance, Toast.LENGTH_SHORT).show();
+                mainIntent.putExtra("Distanceinm", totDistance);
                 FuroPrefs.putString(getApplicationContext(), "mapScreenshot", temp);
+                FuroPrefs.putString(getApplicationContext(), "imgOfMap_SnapShoot", mPath); // comming from 2nd method
+                FuroPrefs.putString(getApplicationContext(), "bitmapOfMapScreenShoot", String.valueOf(bitmap));// comming from 2nd method
+               // FuroPrefs.putString(getApplicationContext(), "urlOfImgMapScreenshot", String.valueOf(uri));
+
                 startActivity(mainIntent);
                 finish();
                 binding.StartButtonNew.setVisibility(View.VISIBLE);
@@ -567,7 +580,7 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
         }, SPLASH_DISPLAY_LENGTH);
     }
 
-
+    // 1s method of capture img
     public void CaptureMapScreen() {
         GoogleMap.SnapshotReadyCallback callback = new GoogleMap.SnapshotReadyCallback() {
             Bitmap bitmap;
@@ -603,6 +616,44 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
 
     }
 
+    // 2nd method of capture img <snapshoot>
+    private void takeScreenshot() {
+        Date now = new Date();
+        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
+
+        try {
+            // image naming and path  to include sd card  appending name you choose for file
+            mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg";
+
+            // create bitmap screen capture
+            View v1 = getWindow().getDecorView().getRootView();
+            v1.setDrawingCacheEnabled(true);
+            bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+            v1.setDrawingCacheEnabled(false);
+
+            File imageFile = new File(mPath);
+
+            FileOutputStream outputStream = new FileOutputStream(imageFile);
+            int quality = 100;
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+            outputStream.flush();
+            outputStream.close();
+
+            openScreenshot(imageFile);
+        } catch (Throwable e) {
+            // Several error may come out with file handling or DOM
+            e.printStackTrace();
+        }
+    }
+
+    private void openScreenshot(File imageFile) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        uri = Uri.fromFile(imageFile);
+        intent.setDataAndType(uri, "image/*");
+        startActivity(intent);
+    }
+
 
     private Runnable updateTimerThread = new Runnable() {
 
@@ -624,6 +675,33 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
         }
 
     };
+
+    private void getPermission() {
+        Dexter.withActivity(this)
+                .withPermissions(/*Manifest.permission.READ_CONTACTS,*/
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        if (report.areAllPermissionsGranted()) {
+
+
+                        }
+
+                        if (report.isAnyPermissionPermanentlyDenied()) {
+
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).check();
+    }
 
 
     /////////////location update ///////////////////////// not use at/////////////////////////////////////////////////////////////////////////

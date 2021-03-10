@@ -33,7 +33,7 @@ import java.util.List;
 
 public class MyBackgroundLocationService extends Service {
     private static final String TAG = MyBackgroundLocationService.class.getSimpleName();
-    private static final String ACTION_CURRENT_LOCATION_BROADCAST = "com.app.furo";
+    private static final String ACTION_CURRENT_LOCATION_BROADCAST ="com.app.furo" ;
     private FusedLocationProviderClient mLocationClient;
     private LocationCallback mLocationCallback;
     protected String actionReceiver;
@@ -64,30 +64,31 @@ public class MyBackgroundLocationService extends Service {
 
                 helper.saveLocationResults();
                 if (locations != null && locations.size() > 0) {
-                    mLastKnownLocation = locations.get(0);
+                    mLastKnownLocation=locations.get(0);
 
-                    Log.d("location", "" + mLastKnownLocation.getLatitude());
-                    Log.d("location1", "" + mLastKnownLocation.getLongitude());
+                    Log.d("location",""+mLastKnownLocation.getLatitude());
+                    Log.d("location1",""+mLastKnownLocation.getLongitude());
 
                     FuroPrefs.putString(MyBackgroundLocationService.this, "current_latitude", String.valueOf(locations.get(0).getLatitude()));
                     FuroPrefs.putString(MyBackgroundLocationService.this, "current_longitude", String.valueOf(locations.get(0).getLongitude()));
 
 
-                    if (FuroPrefs.getString(MyBackgroundLocationService.this, "tracking").equalsIgnoreCase("STARTED")) {
+                    if (FuroPrefs.getString(MyBackgroundLocationService.this, "tracking").equalsIgnoreCase("STARTED")){
 //
 //
-                        if (FuroPrefs.getFloat(MyBackgroundLocationService.this, "lastLat") > -1.0) {
+                        if (FuroPrefs.getFloat(MyBackgroundLocationService.this, "lastLat")>-1.0){
                             getDistance(locations.get(0).getLatitude(), locations.get(0).getLongitude(),
                                     FuroPrefs.getFloat(MyBackgroundLocationService.this, "lastLat"),
                                     FuroPrefs.getFloat(MyBackgroundLocationService.this, "lastLong")
                             );
-                        } else {
+                        }else{
                             FuroPrefs.putFloat(MyBackgroundLocationService.this, "lastLat", (float) locations.get(0).getLatitude());
                             FuroPrefs.putFloat(MyBackgroundLocationService.this, "lastLong", (float) locations.get(0).getLongitude());
 
                         }
 //
                     }
+
 
 
                 }
@@ -113,7 +114,7 @@ public class MyBackgroundLocationService extends Service {
                 loc2.setLatitude(lastLat);
                 loc2.setLongitude(lastLong);
 
-                return Double.valueOf(loc1.distanceTo(loc2)/1000);
+                return Double.valueOf(loc1.distanceTo(loc2));
 
 
 //                   double theta = lon1 - lon2;
@@ -132,26 +133,32 @@ public class MyBackgroundLocationService extends Service {
             protected void onPostExecute(Double dist) {
                 super.onPostExecute(dist);
 
-                Log.d("dist", "" + dist);
+                Log.d("dist",""+dist);
 
                 if (dist > 5) {
-                    try {
-                        double distance = FuroPrefs.getFloat(MyBackgroundLocationService.this, "tripDistance");
+                    try{
+                        double distance =  FuroPrefs.getFloat(MyBackgroundLocationService.this, "tripDistance");
+
                         distance = distance + dist;
+
                         FuroPrefs.putFloat(MyBackgroundLocationService.this, "tripDistance", (float) distance);
 
                         FuroPrefs.putFloat(MyBackgroundLocationService.this, "lastLat", (float) currentLat2);
                         FuroPrefs.putFloat(MyBackgroundLocationService.this, "lastLong", (float) currentLong2);
 
-                        String data = "Latitude: " + String.valueOf(lastLat) + " Longitude : " + String.valueOf(lastLong) + " Distance gap " + dist + "\n";
-                        //FuroPrefs.putKey(MyBackgroundLocationService.this, ""+System.currentTimeMillis(), data);
+                        String data ="Latitude: "+ String.valueOf(lastLat)+ " Longitude : "+ String.valueOf(lastLong)+" Distance gap "+dist+"\n";
+                        //  FuroPrefs.putKey(MyBackgroundLocationService.this, ""+System.currentTimeMillis(), data);
 
-                        Toast.makeText(MyBackgroundLocationService.this, "Latitude: " +String.valueOf(lastLat), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(MyBackgroundLocationService.this, "Longitude: " +String.valueOf(lastLong), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(MyBackgroundLocationService.this, "Distance gap: " +String.valueOf(dist), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(MyBackgroundLocationService.this, "Tot Distance:"+distance, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MyBackgroundLocationService.this, "latlog" +lastLat, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MyBackgroundLocationService.this, "latlog" +lastLong, Toast.LENGTH_SHORT).show();
 
-                    } catch (Exception e) {
+                        Toast.makeText(MyBackgroundLocationService.this, "currentLat2" +currentLat2, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MyBackgroundLocationService.this, "currentLong2" +currentLong2, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MyBackgroundLocationService.this, "Distance gap"+dist, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MyBackgroundLocationService.this, "Distance=" +distance, Toast.LENGTH_SHORT).show();
+
+
+                    }catch (Exception e){
                         e.printStackTrace();
 
                     }
@@ -207,7 +214,7 @@ public class MyBackgroundLocationService extends Service {
 
         NotificationCompat.Builder notificationBuilder = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "test";
+            CharSequence name ="test";
             String description = "test2";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel("default-channel", name, importance);

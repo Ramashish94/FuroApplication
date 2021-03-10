@@ -86,13 +86,13 @@ public class PreviewCardActivity extends AppCompatActivity {
         imageSharePreview = findViewById(R.id.shareOreviewCard);
 
         Intent intent = getIntent();
-        distanceInKm = String.valueOf(intent.getIntExtra("Distanceinm", 0));
-        totWalkingDistance = intent.getDoubleExtra("Distanceinm",0);
+        distanceInKm = String.valueOf(intent.getDoubleExtra("Distanceinm", 0));
+//        distanceInKm = String.valueOf(intent.getDoubleExtra("Distanceinm", 0));
         image = FuroPrefs.getString(getApplication(), "mapScreenshot");
 
         imgOfMap_SnapShoot = FuroPrefs.getString(getApplication(), "imgOfMap_SnapShoot");// comming from 2nd method
         bitmapOfMapScreenShoot = FuroPrefs.getString(getApplication(), "bitmapOfMapScreenShoot");// comming from 2nd method
-       // urlOfImgMapScreenshot = FuroPrefs.getString(getApplication(), "urlOfImgMapScreenshot");// comming from 2nd method
+        // urlOfImgMapScreenshot = FuroPrefs.getString(getApplication(), "urlOfImgMapScreenshot");// comming from 2nd method
 
         /* distanceInKm = FuroPrefs.getString(getApplicationContext(), "Distanceinm");*/
         userMapImage = FuroPrefs.getString(getApplication(), "userImage");
@@ -146,27 +146,27 @@ public class PreviewCardActivity extends AppCompatActivity {
         });
 
         textViewWhatsApp.setOnClickListener(new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View view) {
-                                                    Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
-                                                    whatsappIntent.setType("text/plain");
-                                                    whatsappIntent.setPackage("com.whatsapp");
-                                                    whatsappIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "I have taken a challenge on the FQ app. To watch and beat my score, download the app");
-                                                    whatsappIntent.putExtra(Intent.EXTRA_TEXT, " Do you know your Fitness Quotient?\n" +
-                                                            "I’m inviting you to the Fitness Quotient by Furo Sports App. Click on the link below & install the FQ App. \n" +
-                                                            "Know your fitness quotient, challenge yourself & #StayFitEveryday! \n https://play.google.com/store/apps/details?id=com.app.furoapp&ah=6k4dewAj7xLuYXgtSTZmJToGouQ");
-                                                    try {
-                                                        startActivity(whatsappIntent);
-                                                    } catch (android.content.ActivityNotFoundException ex) {
-                                                        https:
+            @Override
+            public void onClick(View view) {
+                Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
+                whatsappIntent.setType("text/plain");
+                whatsappIntent.setPackage("com.whatsapp");
+                whatsappIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "I have taken a challenge on the FQ app. To watch and beat my score, download the app");
+                whatsappIntent.putExtra(Intent.EXTRA_TEXT, " Do you know your Fitness Quotient?\n" +
+                        "I’m inviting you to the Fitness Quotient by Furo Sports App. Click on the link below & install the FQ App. \n" +
+                        "Know your fitness quotient, challenge yourself & #StayFitEveryday! \n https://play.google.com/store/apps/details?id=com.app.furoapp&ah=6k4dewAj7xLuYXgtSTZmJToGouQ");
+                try {
+                    startActivity(whatsappIntent);
+                } catch (android.content.ActivityNotFoundException ex) {
+                    https:
 //example.app.link/fzmLEhobLD?$custom_data=123&hello=world
-                                                        Toast.makeText(PreviewCardActivity.this, "Whatsapp have not been installed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PreviewCardActivity.this, "Whatsapp have not been installed", Toast.LENGTH_SHORT).show();
 
-                                                    }
+                }
 
-                                                }
+            }
 
-                                            });
+        });
 
 
         textViewFb.setOnClickListener(new View.OnClickListener() {
@@ -279,7 +279,6 @@ public class PreviewCardActivity extends AppCompatActivity {
     }
 
 
-
     public void saveMapData() {
         String challengeIdUser = "";
 
@@ -300,7 +299,7 @@ public class PreviewCardActivity extends AppCompatActivity {
             imagee = MultipartBody.Part.createFormData("image", imageFileNew.getName(), fileReqBody);
 
             Util.showProgressDialog(this);
-            RestClient.saveMapChallenge(userId, acitivityduration, distance, challengeactivity,challUserId, imagee, new Callback<ChallenegeMapResponse>() {
+            RestClient.saveMapChallenge(userId, acitivityduration, distance, challengeactivity, challUserId, imagee, new Callback<ChallenegeMapResponse>() {
                 @Override
                 public void onResponse(Call<ChallenegeMapResponse> call, Response<ChallenegeMapResponse> response) {
                     Util.dismissProgressDialog();
@@ -314,13 +313,12 @@ public class PreviewCardActivity extends AppCompatActivity {
                         FuroPrefs.putString(getApplicationContext(), "getChallengeActivity", actName);
 
 
-
                         textViewChallenge.setVisibility(View.VISIBLE);
                         String actOpen = "map";
-                        FuroPrefs.putString(getApplicationContext(),"activity_open",actOpen);
+                        FuroPrefs.putString(getApplicationContext(), "activity_open", actOpen);
                         if (response.body().getStatus().equalsIgnoreCase("200")) {
                             String challengeid = String.valueOf(response.body().getNewchallenge().getId());
-                            FuroPrefs.putString(getApplicationContext(),"challengeidforshare",challengeid);
+                            FuroPrefs.putString(getApplicationContext(), "challengeidforshare", challengeid);
 
                             Toast.makeText(getApplicationContext(), "Image Saved Successfully", Toast.LENGTH_SHORT).show();
 
@@ -397,7 +395,7 @@ public class PreviewCardActivity extends AppCompatActivity {
                 imageSharePreview.setVisibility(View.GONE);
 
                 iconfuro.setVisibility(View.VISIBLE);
-                saveandShare .setVisibility(View.GONE);
+                saveandShare.setVisibility(View.GONE);
 
 
                 takeScreenshot();
@@ -407,6 +405,7 @@ public class PreviewCardActivity extends AppCompatActivity {
         dialog.show();
 
     }
+
     @Override
     public void onBackPressed() {
 

@@ -162,7 +162,7 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
     public String mPath;
     public Bitmap bitmap;
     public Uri uri;
-    public double totDistance;
+    // public double totDistance;
 
 
     @Override
@@ -194,14 +194,14 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
                 CaptureMapScreen();
 
                 FuroPrefs.putString(MapsEnduranceActivity.this, "tracking", "STOPPED");
-                totDistance = FuroPrefs.getFloat(MapsEnduranceActivity.this, "tripDistance");
-
-                handler();
-                Toast.makeText(MapsEnduranceActivity.this, "Distance: " + totDistance, Toast.LENGTH_LONG).show();
+                double distance = FuroPrefs.getFloat(MapsEnduranceActivity.this, "tripDistance");
+                
+                handler(distance);
+                // Toast.makeText(MapsEnduranceActivity.this, "Distance: " + distance, Toast.LENGTH_LONG).show();
 
                 FuroPrefs.putFloat(MapsEnduranceActivity.this, "tripDistance", 0f);
 
-                takeScreenshot();
+//                takeScreenshot();
             }
         });
 
@@ -556,20 +556,21 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
     }
 
 
-    public void handler() {
+    public void handler(double totTripDistance) {
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 timeSwapBuff += timeInMilliseconds;
                 customHandler.removeCallbacks(updateTimerThread);
+
                 Intent mainIntent = new Intent(MapsEnduranceActivity.this, PreviewCardActivity.class);
-                Toast.makeText(MapsEnduranceActivity.this, "Tot Distance" + totDistance, Toast.LENGTH_SHORT).show();
-                mainIntent.putExtra("Distanceinm", totDistance);
+                Toast.makeText(MapsEnduranceActivity.this, "Tot Distance" + totTripDistance, Toast.LENGTH_SHORT).show();
+                mainIntent.putExtra("Distanceinm", totTripDistance);
                 FuroPrefs.putString(getApplicationContext(), "mapScreenshot", temp);
-                FuroPrefs.putString(getApplicationContext(), "imgOfMap_SnapShoot", mPath); // comming from 2nd method
-                FuroPrefs.putString(getApplicationContext(), "bitmapOfMapScreenShoot", String.valueOf(bitmap));// comming from 2nd method
-               // FuroPrefs.putString(getApplicationContext(), "urlOfImgMapScreenshot", String.valueOf(uri));
+//                FuroPrefs.putString(getApplicationContext(), "imgOfMap_SnapShoot", mPath); // comming from 2nd method
+//                FuroPrefs.putString(getApplicationContext(), "bitmapOfMapScreenShoot", String.valueOf(bitmap));// comming from 2nd method
+//                // FuroPrefs.putString(getApplicationContext(), "urlOfImgMapScreenshot", String.valueOf(uri));
 
                 startActivity(mainIntent);
                 finish();

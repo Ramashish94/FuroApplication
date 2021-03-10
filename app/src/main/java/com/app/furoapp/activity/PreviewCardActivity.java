@@ -86,8 +86,7 @@ public class PreviewCardActivity extends AppCompatActivity {
         imageSharePreview = findViewById(R.id.shareOreviewCard);
 
         Intent intent = getIntent();
-        distanceInKm = String.valueOf(intent.getDoubleExtra("Distanceinm", 0));
-//        distanceInKm = String.valueOf(intent.getDoubleExtra("Distanceinm", 0));
+        distanceInKm = String.valueOf(intent.getIntExtra("Distanceinm", 0));
         image = FuroPrefs.getString(getApplication(), "mapScreenshot");
 
         imgOfMap_SnapShoot = FuroPrefs.getString(getApplication(), "imgOfMap_SnapShoot");// comming from 2nd method

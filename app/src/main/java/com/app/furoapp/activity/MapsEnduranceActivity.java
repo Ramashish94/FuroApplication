@@ -194,8 +194,8 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
                 CaptureMapScreen();
 
                 FuroPrefs.putString(MapsEnduranceActivity.this, "tracking", "STOPPED");
-                double distance = FuroPrefs.getFloat(MapsEnduranceActivity.this, "tripDistance");
-                
+                int distance = (int) FuroPrefs.getFloat(MapsEnduranceActivity.this, "tripDistance");
+
                 handler(distance);
                 // Toast.makeText(MapsEnduranceActivity.this, "Distance: " + distance, Toast.LENGTH_LONG).show();
 
@@ -556,7 +556,7 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
     }
 
 
-    public void handler(double totTripDistance) {
+    public void handler(int totTripDistance) {
 
         new Handler().postDelayed(new Runnable() {
             @Override

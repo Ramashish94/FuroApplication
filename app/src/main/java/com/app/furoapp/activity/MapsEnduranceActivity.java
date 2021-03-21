@@ -197,11 +197,11 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
                 int distance = (int) FuroPrefs.getFloat(MapsEnduranceActivity.this, "tripDistance");
 
                 handler(distance);
-                // Toast.makeText(MapsEnduranceActivity.this, "Distance: " + distance, Toast.LENGTH_LONG).show();
+                Toast.makeText(MapsEnduranceActivity.this, " Tot Distance: " + distance, Toast.LENGTH_LONG).show();
 
                 FuroPrefs.putFloat(MapsEnduranceActivity.this, "tripDistance", 0f);
 
-//                takeScreenshot();
+                takeScreenshot();
             }
         });
 
@@ -556,7 +556,7 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
     }
 
 
-    public void handler(int totTripDistance) {
+    public void handler(int distance) {
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -565,12 +565,11 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
                 customHandler.removeCallbacks(updateTimerThread);
 
                 Intent mainIntent = new Intent(MapsEnduranceActivity.this, PreviewCardActivity.class);
-                Toast.makeText(MapsEnduranceActivity.this, "Tot Distance" + totTripDistance, Toast.LENGTH_SHORT).show();
-                mainIntent.putExtra("Distanceinm", totTripDistance);
+                mainIntent.putExtra("Distanceinm", distance);
                 FuroPrefs.putString(getApplicationContext(), "mapScreenshot", temp);
-//                FuroPrefs.putString(getApplicationContext(), "imgOfMap_SnapShoot", mPath); // comming from 2nd method
-//                FuroPrefs.putString(getApplicationContext(), "bitmapOfMapScreenShoot", String.valueOf(bitmap));// comming from 2nd method
-//                // FuroPrefs.putString(getApplicationContext(), "urlOfImgMapScreenshot", String.valueOf(uri));
+                FuroPrefs.putString(getApplicationContext(), "imgOfMap_SnapShoot", mPath); // comming from 2nd method
+                FuroPrefs.putString(getApplicationContext(), "bitmapOfMapScreenShoot", String.valueOf(bitmap));// comming from 2nd method
+                // FuroPrefs.putString(getApplicationContext(), "urlOfImgMapScreenshot", String.valueOf(uri));
 
                 startActivity(mainIntent);
                 finish();

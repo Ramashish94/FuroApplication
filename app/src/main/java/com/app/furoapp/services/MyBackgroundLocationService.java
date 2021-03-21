@@ -86,15 +86,9 @@ public class MyBackgroundLocationService extends Service {
                             FuroPrefs.putFloat(MyBackgroundLocationService.this, "lastLong", (float) locations.get(0).getLongitude());
 
                         }
-//
                     }
-
-
-
                 }
-
                 //     Toast.makeText(getApplicationContext(), "Location received: " + locations.size(), Toast.LENGTH_SHORT).show();
-
             }
         };
     }
@@ -135,7 +129,7 @@ public class MyBackgroundLocationService extends Service {
 
                 Log.d("dist",""+dist);
 
-                if (dist > 5) {
+                if (dist > 15) {
                     try{
                         double distance =  FuroPrefs.getFloat(MyBackgroundLocationService.this, "tripDistance");
 
@@ -147,15 +141,6 @@ public class MyBackgroundLocationService extends Service {
                         FuroPrefs.putFloat(MyBackgroundLocationService.this, "lastLong", (float) currentLong2);
 
                         String data ="Latitude: "+ String.valueOf(lastLat)+ " Longitude : "+ String.valueOf(lastLong)+" Distance gap "+dist+"\n";
-                        //  FuroPrefs.putKey(MyBackgroundLocationService.this, ""+System.currentTimeMillis(), data);
-
-//                        Toast.makeText(MyBackgroundLocationService.this, "latlog" +lastLat, Toast.LENGTH_SHORT).show();
-//                        Toast.makeText(MyBackgroundLocationService.this, "latlog" +lastLong, Toast.LENGTH_SHORT).show();
-
-                        Toast.makeText(MyBackgroundLocationService.this, "currentLat2" +currentLat2, Toast.LENGTH_SHORT).show();
-                        Toast.makeText(MyBackgroundLocationService.this, "currentLong2" +currentLong2, Toast.LENGTH_SHORT).show();
-                        Toast.makeText(MyBackgroundLocationService.this, "Distance gap"+dist, Toast.LENGTH_SHORT).show();
-                        Toast.makeText(MyBackgroundLocationService.this, "Distance=" +distance, Toast.LENGTH_SHORT).show();
 
 
                     }catch (Exception e){

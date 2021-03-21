@@ -40,7 +40,10 @@ public class FuroPrefs {
     }
 
 
-
+    public static float getFloat(Context context, String str) {
+        getInstance(context);
+        return sharedPreferences.getFloat(str, 0f);
+    }
 
     public static void putBoolean(Context context, String str, boolean z) {
         getInstance(context);
@@ -67,9 +70,6 @@ public class FuroPrefs {
         sharedPreferences.edit().putFloat(str, f).apply();
     }
 
-    public static float getFloat(Context context, String str) {
-        getInstance(context);
-        return sharedPreferences.getFloat(str, 0f);
-    }
+
 
 }

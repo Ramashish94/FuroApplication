@@ -66,49 +66,43 @@ public class MyBackgroundLocationService extends Service {
                 if (locations != null && locations.size() > 0) {
                     mLastKnownLocation=locations.get(0);
 
-                    Log.d("location",""+mLastKnownLocation.getLatitude());
-                    Log.d("location1",""+mLastKnownLocation.getLongitude());
-
-                    FuroPrefs.putString(MyBackgroundLocationService.this, "current_latitude", String.valueOf(locations.get(0).getLatitude()));
-                    FuroPrefs.putString(MyBackgroundLocationService.this, "current_longitude", String.valueOf(locations.get(0).getLongitude()));
-
 
                     if (FuroPrefs.getString(MyBackgroundLocationService.this, "tracking").equalsIgnoreCase("STARTED")){
-//
-//
-                        if (FuroPrefs.getFloat(MyBackgroundLocationService.this, "lastLat")>-1.0){
-                            getDistance(locations.get(0).getLatitude(), locations.get(0).getLongitude(),
-                                    FuroPrefs.getFloat(MyBackgroundLocationService.this, "lastLat"),
-                                    FuroPrefs.getFloat(MyBackgroundLocationService.this, "lastLong")
-                            );
-                        }else{
-                            FuroPrefs.putFloat(MyBackgroundLocationService.this, "lastLat", (float) locations.get(0).getLatitude());
-                            FuroPrefs.putFloat(MyBackgroundLocationService.this, "lastLong", (float) locations.get(0).getLongitude());
+                        if ( Double.parseDouble(FuroPrefs.getString(MyBackgroundLocationService.this, "lastLat"))>0){
+                            if (locations.get(0).getLatitude()>-1.0){
+                                getDistance(locations.get(0).getLatitude(), locations.get(0).getLongitude(),
+                                        Double.parseDouble(FuroPrefs.getString(MyBackgroundLocationService.this, "lastLat")),
+                                        Double.parseDouble( FuroPrefs.getString(MyBackgroundLocationService.this, "lastLong"))
+                                );
+                            }
 
+                        }else{
+                            FuroPrefs.putString(MyBackgroundLocationService.this, "lastLat", ""+ locations.get(0).getLatitude());
+                            FuroPrefs.putString(MyBackgroundLocationService.this, "lastLong", ""+ locations.get(0).getLongitude());
                         }
                     }
                 }
-                //     Toast.makeText(getApplicationContext(), "Location received: " + locations.size(), Toast.LENGTH_SHORT).show();
+
             }
         };
     }
 
 
-    private void getDistance(double currentLat2, double currentLong2, float lastLat, float lastLong) {
+    private void getDistance(double currentLat2, double currentLong2, double lastLat, double lastLong) {
         //   if (ConnectivityReceiver.isConnected()) {
-        new AsyncTask<Void, Void, Double>() {
+        new AsyncTask<Void, Void, Integer>() {
             @Override
-            protected Double doInBackground(Void... voids) {
+            protected Integer doInBackground(Void... voids) {
 
-                Location loc1 = new Location("");
-                loc1.setLatitude(currentLat2);
-                loc1.setLongitude(currentLong2);
+                Location currentLoc = new Location("");
+                currentLoc.setLatitude(currentLat2);
+                currentLoc.setLongitude(currentLong2);
 
-                Location loc2 = new Location("");
-                loc2.setLatitude(lastLat);
-                loc2.setLongitude(lastLong);
+                Location lastLoc = new Location("");
+                lastLoc.setLatitude(lastLat);
+                lastLoc.setLongitude(lastLong);
 
-                return Double.valueOf(loc1.distanceTo(loc2));
+                return (int) lastLoc.distanceTo(currentLoc);
 
 
 //                   double theta = lon1 - lon2;
@@ -124,24 +118,22 @@ public class MyBackgroundLocationService extends Service {
             }
 
             @Override
-            protected void onPostExecute(Double dist) {
+            protected void onPostExecute(Integer dist) {
                 super.onPostExecute(dist);
 
                 Log.d("dist",""+dist);
 
-                if (dist > 15) {
+                if (dist > 5) {
                     try{
-                        double distance =  FuroPrefs.getFloat(MyBackgroundLocationService.this, "tripDistance");
-
+                        int distance = FuroPrefs.getInt(MyBackgroundLocationService.this, "tripDistance",0);
                         distance = distance + dist;
+                        FuroPrefs.putInt(MyBackgroundLocationService.this, "tripDistance", (int) distance);
 
-                        FuroPrefs.putFloat(MyBackgroundLocationService.this, "tripDistance", (float) distance);
-
-                        FuroPrefs.putFloat(MyBackgroundLocationService.this, "lastLat", (float) currentLat2);
-                        FuroPrefs.putFloat(MyBackgroundLocationService.this, "lastLong", (float) currentLong2);
+                        FuroPrefs.putString(MyBackgroundLocationService.this, "lastLat",  ""+currentLat2);
+                        FuroPrefs.putString(MyBackgroundLocationService.this, "lastLong",  ""+currentLong2);
 
                         String data ="Latitude: "+ String.valueOf(lastLat)+ " Longitude : "+ String.valueOf(lastLong)+" Distance gap "+dist+"\n";
-                        Toast.makeText(MyBackgroundLocationService.this, "distance" +distance, Toast.LENGTH_SHORT).show();
+                        //  FuroPrefs.putKey(MyBackgroundLocationService.this, ""+System.currentTimeMillis(), data);
 
                     }catch (Exception e){
                         e.printStackTrace();
@@ -226,10 +218,10 @@ public class MyBackgroundLocationService extends Service {
 
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(60 * 1000);
+        locationRequest.setInterval(2*60 * 1000);
         locationRequest.setFastestInterval(30000);
 
-        locationRequest.setMaxWaitTime(60 * 1000);
+        locationRequest.setMaxWaitTime(2*60 * 1000);
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {

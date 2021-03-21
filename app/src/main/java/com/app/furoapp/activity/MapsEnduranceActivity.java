@@ -23,7 +23,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
@@ -102,7 +101,7 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
     TextView textViewTime;
     LatLng StartlatLongDistance;
     Context mContext;
-    //int distance;
+    int distance;
     int Radius = 6371;// radius of earth in Km
     double c;
 
@@ -159,10 +158,6 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
     public boolean ISTRAVERSING = true;
     public double longitud, latitude;
     Handler handler = new Handler();
-    public String mPath;
-    public Bitmap bitmap;
-    public Uri uri;
-    // public double totDistance;
 
 
     @Override
@@ -176,10 +171,8 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
         textViewTime = findViewById(R.id.timeActivity);
         actName = findViewById(R.id.activityName);
 
-
-        init();
-
         getPermission();
+        init();
         startLocationUpdates();
 //        locationUpdate();
         imageView = findViewById(R.id.imageviewmapNew);
@@ -190,18 +183,17 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
             @Override
             public void onClick(View view) {
                 mRequestingLocationUpdates = false;
+
                 stopLocationUpdates();
                 CaptureMapScreen();
-
                 FuroPrefs.putString(MapsEnduranceActivity.this, "tracking", "STOPPED");
-                int distance = (int) FuroPrefs.getFloat(MapsEnduranceActivity.this, "tripDistance");
-
+                int distance = FuroPrefs.getInt(MapsEnduranceActivity.this, "tripDistance",0);
                 handler(distance);
-                Toast.makeText(MapsEnduranceActivity.this, " Tot Distance: " + distance, Toast.LENGTH_LONG).show();
+                Toast.makeText(MapsEnduranceActivity.this, "Distance: " + distance, Toast.LENGTH_LONG).show();
 
-                FuroPrefs.putFloat(MapsEnduranceActivity.this, "tripDistance", 0f);
-
-                takeScreenshot();
+                FuroPrefs.putInt(MapsEnduranceActivity.this, "tripDistance", 0);
+                FuroPrefs.putString(MapsEnduranceActivity.this, "lastLat",  "0.0");
+                FuroPrefs.putString(MapsEnduranceActivity.this, "lastLong",  "0.0");
             }
         });
 
@@ -217,7 +209,8 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
                                 mRequestingLocationUpdates = true;
                                 binding.StartButtonNew.setVisibility(View.GONE);
                                 binding.StopButtonNew.setVisibility(View.VISIBLE);
-                                FuroPrefs.putString(MapsEnduranceActivity.this, "tracking", "STARTED");
+                                FuroPrefs.putString(MapsEnduranceActivity.this, "tracking","STARTED");
+
                                 startLocationUpdates();
                                 startTime = SystemClock.uptimeMillis();
                                 customHandler.postDelayed(updateTimerThread, 0);
@@ -342,6 +335,9 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
                     }
                 });
 
+        FuroPrefs.putString(MapsEnduranceActivity.this, "lastLat",  "0.0");
+        FuroPrefs.putString(MapsEnduranceActivity.this, "lastLong",  "0.0");
+
         Intent intent = new Intent(this, MyBackgroundLocationService.class);
         ContextCompat.startForegroundService(this, intent);
     }
@@ -359,19 +355,19 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
 
                     }
                 });
-        if (listOfLocations.size() > 0) {
-            StartlatLongDistance = listOfLocations.get(0);
-
-            Log.i("startlat", String.valueOf(StartlatLongDistance));
-
-
-            // find last element
-            endLatLongDistance = listOfLocations.get(listOfLocations.size() - 1);
-            Log.i("endlat", String.valueOf(endLatLongDistance));
-
-
-            // CalculationByDistance();
-        }
+//        if (listOfLocations.size() > 0) {
+//            StartlatLongDistance = listOfLocations.get(0);
+//
+//            Log.i("startlat", String.valueOf(StartlatLongDistance));
+//
+//
+//            // find last element
+//            endLatLongDistance = listOfLocations.get(listOfLocations.size() - 1);
+//            Log.i("endlat", String.valueOf(endLatLongDistance));
+//
+//
+//            // CalculationByDistance();
+//        }
 
 
     }
@@ -456,8 +452,7 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
 
         }
     }
-
-    /*calculate distance 1st method*/
+            /*calculate distance 1st method*/
     public double CalculationByDistance() {
 
         Location startPoint = new Location("locationA");
@@ -467,11 +462,10 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
         Location endPoint = new Location("locationA");
         endPoint.setLatitude(endLatLongDistance.latitude);
         endPoint.setLongitude(endLatLongDistance.longitude);
-        int distance = (int) startPoint.distanceTo(endPoint);
+        distance = (int) startPoint.distanceTo(endPoint);
 
         return distance;
     }
-
     /*calculate distance 2nd method*/
     public double CalculationByDistance2() {
         double lat1 = StartlatLongDistance.latitude;
@@ -563,14 +557,9 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
             public void run() {
                 timeSwapBuff += timeInMilliseconds;
                 customHandler.removeCallbacks(updateTimerThread);
-
                 Intent mainIntent = new Intent(MapsEnduranceActivity.this, PreviewCardActivity.class);
                 mainIntent.putExtra("Distanceinm", distance);
                 FuroPrefs.putString(getApplicationContext(), "mapScreenshot", temp);
-                FuroPrefs.putString(getApplicationContext(), "imgOfMap_SnapShoot", mPath); // comming from 2nd method
-                FuroPrefs.putString(getApplicationContext(), "bitmapOfMapScreenShoot", String.valueOf(bitmap));// comming from 2nd method
-                // FuroPrefs.putString(getApplicationContext(), "urlOfImgMapScreenshot", String.valueOf(uri));
-
                 startActivity(mainIntent);
                 finish();
                 binding.StartButtonNew.setVisibility(View.VISIBLE);
@@ -580,7 +569,7 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
         }, SPLASH_DISPLAY_LENGTH);
     }
 
-    // 1s method of capture img
+
     public void CaptureMapScreen() {
         GoogleMap.SnapshotReadyCallback callback = new GoogleMap.SnapshotReadyCallback() {
             Bitmap bitmap;
@@ -614,44 +603,6 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
 
         mMapNew.snapshot(callback);
 
-    }
-
-    // 2nd method of capture img <snapshoot>
-    private void takeScreenshot() {
-        Date now = new Date();
-        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
-
-        try {
-            // image naming and path  to include sd card  appending name you choose for file
-            mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg";
-
-            // create bitmap screen capture
-            View v1 = getWindow().getDecorView().getRootView();
-            v1.setDrawingCacheEnabled(true);
-            bitmap = Bitmap.createBitmap(v1.getDrawingCache());
-            v1.setDrawingCacheEnabled(false);
-
-            File imageFile = new File(mPath);
-
-            FileOutputStream outputStream = new FileOutputStream(imageFile);
-            int quality = 100;
-            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
-            outputStream.flush();
-            outputStream.close();
-
-            openScreenshot(imageFile);
-        } catch (Throwable e) {
-            // Several error may come out with file handling or DOM
-            e.printStackTrace();
-        }
-    }
-
-    private void openScreenshot(File imageFile) {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        uri = Uri.fromFile(imageFile);
-        intent.setDataAndType(uri, "image/*");
-        startActivity(intent);
     }
 
 

@@ -13,12 +13,10 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -29,22 +27,67 @@
         android:icon="@mipmap/app_icon_new"
         android:label="@string/app_name"
         android:largeHeap="true"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/app_icon_new_round"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        android:requestLegacyExternalStorage="true"
-
-        > <!--added-->
+        android:usesCleartextTraffic="true">
+        <activity android:name=".activity.newFeature.waterIntakeCalculator.WhatsYourBedTimeActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".activity.newFeature.waterIntakeCalculator.WakeUpTimeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.newFeature.waterIntakeCalculator.TellUsMoreActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.newFeature.waterIntakeCalculator.YourGenderWICActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.newFeature.bmiCalculator.YourScoreActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.newFeature.notification.NotificationSectionActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.newFeature.bmiCalculator.CalculateBMIActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.newFeature.bmiCalculator.RecordedScoreActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.newFeature.bmiCalculator.SelectGenderAndAgeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.newFeature.healthCare.Days21FitnessChallangeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.newFeature.caloriesCalculator.CalculateCaloriesActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.newFeature.waterIntakeCalculator.WaterIntakeCalculateStartActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.newFeature.bmiCalculator.FindYourBmiActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.newFeature.dailyStepsCounter.DailyStepsTrackerActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.newFeature.healthCare.HealthCenterDashboardActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.newFeature.likeAndSaved.LikedAndSavedActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" /> <!-- added -->
         <service
             android:name=".services.MyBackgroundLocationService"
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".activity.VideoRecoringViewAct"
+        <activity
+            android:name=".activity.VideoRecoringViewAct"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Translucent">
-
-        </activity>
+            android:theme="@style/Theme.AppCompat.Translucent" />
         <activity
             android:name=".activity.AboutContestChallengeActivity"
             android:screenOrientation="portrait"

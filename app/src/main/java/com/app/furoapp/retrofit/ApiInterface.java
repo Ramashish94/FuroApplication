@@ -91,12 +91,15 @@ import com.app.furoapp.model.whatBringsYoutoFuro.WhatBringsYouToFuroRequest;
 import com.app.furoapp.model.whatBringsYoutoFuro.WhatBringsYouToFuroResponse;
 import com.app.furoapp.model.winnerApi.WinnerRequest;
 import com.app.furoapp.model.winnerApi.WinnerResponse;
+import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.LikedListResponse;
+import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.SavedListResponse;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -105,20 +108,23 @@ import retrofit2.http.Part;
 public interface ApiInterface {
 
 
-    // api calling for Activity Content feed
+    String TOKEN_KEY = "Authorization";
 
+    // api calling for Activity Content feed
     @GET("all-activities")
     Call<ContentFeedModel> getActivities();
 
-    // api calling for AllActivity Content feed
-    @GET("all-activity-listings")
-    Call<ActivitiesListing> getAllActivities();
+    // api calling for AllActivity Content feed  landing page
+//    @GET("all-activity-listings")
+//    Call<ActivitiesListing> getAllActivities();
 
+    // New api calling for AllActivity Content feed  Content feed home fragment landing page
+    @POST("all-activity-listings-new")
+    Call<ActivitiesListing> ActivitiesListing(@Header(TOKEN_KEY) String token);
 
     // api calling  for login with email
     @POST("login")
     Call<LoginResponse> loginUser(@Body LoginRequest loginRequest);
-
 
     //api calling for contentFeddDetail
     @POST("activity-details")
@@ -172,7 +178,7 @@ public interface ApiInterface {
     // send video to server
     @Multipart
     @POST("https://furoapi.ml/api/create-challenge-video")
-    Call<CreateVideoChallangeResponse>videouploadChallange(
+    Call<CreateVideoChallangeResponse> videouploadChallange(
 
             @Part("user_id") RequestBody user_id,
             @Part("acitivity_duration") RequestBody acitivity_duration,
@@ -228,7 +234,7 @@ public interface ApiInterface {
 
     //challangedetail
     @POST("challenge-details")
-    Call<ChallangeDetailResponse>challengeDetail(@Body ChallangeDetailRequest challangeDetailRequest);
+    Call<ChallangeDetailResponse> challengeDetail(@Body ChallangeDetailRequest challangeDetailRequest);
 
 
     //openand close challenge
@@ -329,7 +335,7 @@ public interface ApiInterface {
     Call<ChallenegeByYouDetailResponse> challenegeByDetail(@Body ChallenegeByYouDetailRequest challenegeByYouDetailRequest);
 
     @POST("challenge-for-you-details")
-    Call<ChallengeForYouDetailResponse>challenegeForDetail(@Body ChallengeForYouDetailRequest challengeForYouDetailRequest);
+    Call<ChallengeForYouDetailResponse> challenegeForDetail(@Body ChallengeForYouDetailRequest challengeForYouDetailRequest);
 
     @POST("feedback")
     Call<FeedbackResponse> feedBack(@Body FeedbackRequest feedbackRequest);
@@ -348,7 +354,7 @@ public interface ApiInterface {
     Call<MapChallengeRecieveResponse> mapChallengeRecieve(@Body MapChallengeRecieveRequest mapChallengeRecieveRequest);
 
     @POST("community-members")
-    Call<CommunityMembersResponse>commuintymembers(@Body CommunityMembersRequest communityMembersRequest);
+    Call<CommunityMembersResponse> commuintymembers(@Body CommunityMembersRequest communityMembersRequest);
 
     @POST("draft-challenges")
     Call<DraftResponse> draft(@Body DraftRequest draftRequest);
@@ -374,5 +380,11 @@ public interface ApiInterface {
     @POST("user-image")
     Call<UserImageResponse> user_image(@Body UserImageRequest userImageRequest);
 
-
+//    /*post Saved-list*/
+//    @POST("saved-list")
+//    Call<SavedListResponse> savedList(@Header(TOKEN_KEY) String token);
+//
+//    /*Liked list*/
+//    @POST("like-list")
+//    Call<LikedListResponse> likedList(@Header(TOKEN_KEY) String token);
 }

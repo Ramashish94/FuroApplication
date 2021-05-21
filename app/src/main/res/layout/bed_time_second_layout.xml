@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bedtime2bg"
+    android:gravity="center"
+    android:id="@+id/llSecondWaterGlassBg">
+
+    <LinearLayout
+        android:id="@+id/llGlassTakebg"
+        android:layout_width="312dp"
+        android:layout_height="520dp"
+        android:background="@drawable/closingbg2"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/llClosedIcon"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:layout_gravity="end|center_horizontal"
+            android:gravity="end|center_vertical">
+
+            <ImageView
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                android:layout_marginRight="18dp"
+                android:src="@drawable/closediconwhite" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvGlassWater"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@drawable/viewline"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_marginRight="@dimen/dp_30"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                android:id="@+id/ivSave"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="28dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/continue1" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

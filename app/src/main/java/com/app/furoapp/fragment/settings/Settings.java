@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
+import com.app.furoapp.BuildConfig;
 import com.app.furoapp.R;
 import com.app.furoapp.activity.FaqActivity;
 import com.app.furoapp.activity.HelpandSupportActivity;
@@ -39,12 +40,12 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class Settings extends Fragment {
     HomeMainActivity homeMainActivity;
-    TextView logoutTv;
+    TextView logoutTv, tvAppVersion;
     SwitchCompat mySwitch;
     String on, of;
     RelativeLayout relativeLayoutlogout, relativeLayouthelpandsupport, relativeLayoutProfile, relativeAccountSetting, faq;
     SwitchButton switchButtonVideolow, switchButtonVideoHigh;
-
+    View leadView;
     public GoogleSignInClient mGoogleSignInClient;
 
 
@@ -59,7 +60,7 @@ public class Settings extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View leadView = inflater.inflate(R.layout.fragment_settings, container, false);
+        /*View*/ leadView = inflater.inflate(R.layout.fragment_settings, container, false);
         relativeLayouthelpandsupport = leadView.findViewById(R.id.helpandsupport);
         relativeLayoutlogout = leadView.findViewById(R.id.logoutrelative);
         logoutTv = leadView.findViewById(R.id.logouttextview);
@@ -136,12 +137,19 @@ public class Settings extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ProfileHomeNewActivity.class);
                 startActivity(intent);
-               // homeMainActivity.replaceFragmentWithStack(R.id.container_main, ProfilesHomeNewFragment.newInstance(null), ProfilesHomeNewFragment.class.getSimpleName());
+                // homeMainActivity.replaceFragmentWithStack(R.id.container_main, ProfilesHomeNewFragment.newInstance(null), ProfilesHomeNewFragment.class.getSimpleName());
 
             }
         });
 
+        setVersionName();
+
         return leadView;
+    }
+
+    private void setVersionName() {
+        tvAppVersion = leadView.findViewById(R.id.tvAppVersion);
+        tvAppVersion.setText("Version : " + BuildConfig.VERSION_NAME);
     }
 
 
@@ -195,7 +203,7 @@ public class Settings extends Fragment {
 
     }*/
 
-    public  void logout(){
+    public void logout() {
 
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = this.getLayoutInflater();
@@ -236,13 +244,10 @@ public class Settings extends Fragment {
                 getActivity().finishAffinity();
 
 
-
             }
         });
 
         dialog.show();
-
-
 
 
     }

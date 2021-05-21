@@ -9,9 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -28,6 +26,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.furoapp.R;
+import com.app.furoapp.activity.newFeature.healthCare.HealthCenterDashboardActivity;
+import com.app.furoapp.activity.newFeature.bmiCalculator.FindYourBmiActivity;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.WaterIntakeCalculateStartActivity;
 import com.app.furoapp.databinding.ActivityMainFramelayoutBinding;
 import com.app.furoapp.enums.EnumConstants;
 import com.app.furoapp.fragment.YoutubePlayerFragment;
@@ -70,24 +71,14 @@ import com.app.furoapp.utils.FuroPrefs;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.MultiplePermissionsReport;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionDeniedResponse;
-import com.karumi.dexter.listener.PermissionGrantedResponse;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-import com.karumi.dexter.listener.single.PermissionListener;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
-
 public class HomeMainActivity extends AppCompatActivity {
+    private String getAccessToke;
+
     public static final int REQUEST_CODE = 301;
     public static final int REQUEST_CODE_1 = 302;
     public static final int REQUEST_CODE_2 = 303;
@@ -96,6 +87,8 @@ public class HomeMainActivity extends AppCompatActivity {
     BottomSheetDialog mBottomSheetDialog;
     Fragment contentFeedMainFragment;
     String contest;
+    public LinearLayout llHealthCanterDashboard, llDailyStepTracker, llWaterIntakeCalculator, llTrackBMI, llCalculateCalories;
+
     private FirebaseAnalytics mFirebaseAnalytics;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -264,9 +257,11 @@ public class HomeMainActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main_framelayout);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
+        /*getToken....added*/
+      //  getAccessToke = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
+
         Intent intent = getIntent();
         contest = intent.getStringExtra("contestpage");
-
 
         Bundle bundle = new Bundle();
 
@@ -279,6 +274,14 @@ public class HomeMainActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); // add on 20-11-2019 by pankaj
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        /*added*/
+        llHealthCanterDashboard = findViewById(R.id.llHealthCenterDashBoard);
+        llDailyStepTracker = findViewById(R.id.llDailyStepTracker);
+        llWaterIntakeCalculator = findViewById(R.id.llWaterIntakeCalculator);
+        llTrackBMI = findViewById(R.id.llTrackBMI);
+        llCalculateCalories = findViewById(R.id.llCalculateCalories);
+
+
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.getMenu().findItem(R.id.navigation_feeds).setChecked(true);
 
@@ -298,9 +301,11 @@ public class HomeMainActivity extends AppCompatActivity {
 
 
         fcmTokenUpdate();
+        clickEvetntOnHealthItem();
 
 
     }
+
 
     public void setDisplayFragment(int id, Bundle bundle) {
         switch (id) {
@@ -719,6 +724,56 @@ public class HomeMainActivity extends AppCompatActivity {
 
         }
         super.onResume();
+    }
+
+    private void clickEvetntOnHealthItem() {
+        llHealthCanterDashboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HealthCenterDashboardActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+        llDailyStepTracker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(HomeMainActivity.this, "Click Success on daily steps counter", Toast.LENGTH_SHORT).show();
+               /* Intent intent = new Intent(getApplicationContext(), DailyStepsTrackerActivity.class);
+                startActivity(intent);*/
+
+            }
+        });
+
+        llWaterIntakeCalculator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), WaterIntakeCalculateStartActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+        llTrackBMI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(HomeMainActivity.this, "Working on this", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), FindYourBmiActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+        llCalculateCalories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(HomeMainActivity.this, "Click Success on calculate calories", Toast.LENGTH_SHORT).show();
+                /*Intent intent = new Intent(getApplicationContext(), CalculateCaloriesActivity.class);
+                startActivity(intent);*/
+
+            }
+        });
     }
 
 

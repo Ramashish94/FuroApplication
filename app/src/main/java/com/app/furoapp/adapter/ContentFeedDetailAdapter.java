@@ -32,6 +32,13 @@ public class ContentFeedDetailAdapter extends RecyclerView.Adapter<ContentFeedDe
     String video_id2;
     ContentFeedDetailInterface contentFeedDetailInterface;
 
+    public ContentFeedDetailAdapter(List<Body> bodyList, Context context) {
+        this.bodyList = bodyList;
+        this.context = context;
+
+
+    }
+
     @NonNull
     @Override
     public ContentFeedDetailAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,13 +46,6 @@ public class ContentFeedDetailAdapter extends RecyclerView.Adapter<ContentFeedDe
                 .inflate(R.layout.content_feed_detail_recycler_item, parent, false);
 
         return new ContentFeedDetailAdapter.MyViewHolder(itemView);
-    }
-
-    public ContentFeedDetailAdapter(List<Body> bodyList, Context context) {
-        this.bodyList = bodyList;
-        this.context = context;
-
-
     }
 
     @Override

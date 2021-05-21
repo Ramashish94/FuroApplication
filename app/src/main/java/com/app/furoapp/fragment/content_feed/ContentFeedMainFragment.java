@@ -1,7 +1,6 @@
 package com.app.furoapp.fragment.content_feed;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,15 +24,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.furoapp.R;
 import com.app.furoapp.activity.AboutContestChallengeActivity;
 import com.app.furoapp.activity.WelcomeActivityContentFeed;
-import com.app.furoapp.adapter.BannerImageAdapter;
+import com.app.furoapp.activity.newFeature.notification.NotificationSectionActivity;
 import com.app.furoapp.adapter.BannerImageeAdapter;
 import com.app.furoapp.databinding.FragmentContentFeedMainBinding;
 import com.app.furoapp.model.Bannersecond.Banner;
 import com.app.furoapp.model.Bannersecond.BannerSecondResponse;
-import com.app.furoapp.model.bannerresponse.BannerResponse;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.GifImageView;
-import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
@@ -50,8 +48,8 @@ public class ContentFeedMainFragment extends Fragment {
     BannerImageeAdapter bannerImageAdapter;
     GifImageView gifImageView;
     RecyclerView recyclerView;
-    ImageView imageViewcontentquestionmark,contestChallenge;
-
+    ImageView imageViewcontentquestionmark, contestChallenge;
+    public LinearLayout llNotificationSection;
     BottomNavigationView navigationFeed;
 
 
@@ -63,24 +61,20 @@ public class ContentFeedMainFragment extends Fragment {
     }
 
 
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_content_feed_main, container, false);
         View view = binding.getRoot();
         setOnClickListeners();
-        recyclerView=binding.bannerSecond;
-        imageView= binding.imagebanner;
+        recyclerView = binding.bannerSecond;
+        imageView = binding.imagebanner;
 
 
         navigationFeed = binding.navigationfeed;
 
 
-
         imageViewcontentquestionmark = view.findViewById(R.id.contentfeed);
-
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +88,15 @@ public class ContentFeedMainFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), WelcomeActivityContentFeed.class);
+                startActivity(intent);
+            }
+        });
+
+        llNotificationSection = view.findViewById(R.id.llNotificationSection);
+        llNotificationSection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), NotificationSectionActivity.class);
                 startActivity(intent);
             }
         });

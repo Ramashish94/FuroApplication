@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,18 +23,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.furoapp.R;
 import com.app.furoapp.activity.ContentFeedDetailActivity;
 import com.app.furoapp.activity.HomeMainActivity;
-import com.app.furoapp.activity.SplashActivity;
+import com.app.furoapp.activity.newFeature.healthCare.Days21FitnessChallangeActivity;
+import com.app.furoapp.activity.newFeature.likeAndSaved.LikedAndSavedActivity;
 import com.app.furoapp.activity.YoutubePlayerActivity;
 import com.app.furoapp.adapter.ContentFeedHomeAdapter;
 import com.app.furoapp.databinding.FragmentContentFeedsListBinding;
 import com.app.furoapp.model.content_feed.activityListing.ActivitiesListing;
 import com.app.furoapp.model.content_feed.activityListing.Datum;
-import com.app.furoapp.model.updateToken.UdateTokenRequest;
 import com.app.furoapp.model.updateToken.UdateTokenResponse;
 import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
-import com.app.furoapp.utils.Utils;
 import com.app.furoapp.widget.SwitchButton;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -67,6 +67,9 @@ public class ContentFeedHomeFragment extends Fragment {
     Datum datum;
     List<Datum> data = new ArrayList<>();
     public static String TAG = ContentFeedHomeFragment.class.getSimpleName();
+    public LinearLayout llSavedBookmarked, llViewDetals;
+    public Boolean clicked = true;
+    private String getAccessToken;
 
 
     @Override
@@ -89,19 +92,22 @@ public class ContentFeedHomeFragment extends Fragment {
         recyclerView = view.findViewById(R.id.rvContentfeed);
         switchButtonVideo = binding.switchButtonVideo;
         switchButtonArticle = binding.switchbuttonArticle;
+        llSavedBookmarked = view.findViewById(R.id.llSavedBookmarked);
+        llViewDetals = view.findViewById(R.id.llViewDetals);
 
         unique_id = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
         loginuserid = FuroPrefs.getString(getContext(), "loginUserId");
+        /*added get access token*/
+
+        getAccessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
+
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(homeMainActivity, new OnSuccessListener<InstanceIdResult>() {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
                 newToken = instanceIdResult.getToken();
                 FuroPrefs.putString(getActivity(), "token", newToken);
-
-
             }
         });
-
 
         //  Toast.makeText(homeMainActivity, "uniqueid" + unique_id + "" + "fcmtoken" + newToken + "" + "userid" + loginuserid, Toast.LENGTH_LONG).show();
 
@@ -133,31 +139,26 @@ public class ContentFeedHomeFragment extends Fragment {
                 } else {
                     getDataAll("Video");
                 }
-
             }
         });
-
         getDataAll(type);
         updateTokenDetails();
 
+        clickListener();
+        clickOnLikeAndDislike();
         return view;
     }
 
-
     private void getDataAll(String type) {
-
-
         Util.isInternetConnected(getContext());
         Util.showProgressDialog(getActivity());
-        RestClient.myContentfeedAllActivity(new Callback<ActivitiesListing>() {
+        RestClient.myContentfeedAllActivity(getAccessToken, new Callback<ActivitiesListing>() {
             @Override
-
             public void onResponse(Call<ActivitiesListing> call, Response<ActivitiesListing> response) {
                 Util.dismissProgressDialog();
 
                 if (response.body() != null) {
                     ActivitiesListing activitiesListing = response.body();
-
 
                     if (activitiesListing != null && activitiesListing.getData() != null) {
                         List<Datum> datumList = activitiesListing.getData();
@@ -186,6 +187,7 @@ public class ContentFeedHomeFragment extends Fragment {
                                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
                                 recyclerView.setLayoutManager(layoutManager);
                                 recyclerView.setItemAnimator(new DefaultItemAnimator());
+                                // recyclerView.OnLikeCommentsShareViewsBookmark(this);
                                 recyclerView.setAdapter(contentFeedHomeAdapter);
 
 
@@ -230,22 +232,14 @@ public class ContentFeedHomeFragment extends Fragment {
                                     recyclerView.setItemAnimator(new DefaultItemAnimator());
                                     recyclerView.setAdapter(contentFeedHomeAdapter);
                                 }
-
-
                             }
-
-
                         }
-
 
                         contentFeedHomeAdapter.setContentFeedList(new ContentFeedHomeAdapter.ContentFeedInterface() {
                             @Override
                             public void contentFeedItem(int videoid) {
-
                                 Intent intent = new Intent(getContext(), YoutubePlayerActivity.class);
                                 startActivity(intent);
-
-
                             }
 
                             @Override
@@ -254,10 +248,27 @@ public class ContentFeedHomeFragment extends Fragment {
                                 startActivity(intent);
                                 FuroPrefs.putString(getActivity(), "id", String.valueOf(id));
                             }
+                            /*@Override
+                            public void shareContentVideoPOst(int videoid) {
+                                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                                sharingIntent.setType("text/plain");
+                                String shareBody ="\"http://img.youtube.com/vi/\" + videoid + \"/0.jpg\"";
+                                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+                                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                                startActivity(Intent.createChooser(sharingIntent, "Share via"));
+                            }
+
+                            @Override
+                            public void shareContentPost(int id) {
+                                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                                sharingIntent.setType("text/plain");
+                                String shareBody = "\"http://img.youtube.com/vi/\" + videoid + \"/0.jpg\"";
+                                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+                                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                                startActivity(Intent.createChooser(sharingIntent, "Share via"));
+                            }*/
                         });
-
                     }
-
                 }
             }
 
@@ -330,7 +341,7 @@ public class ContentFeedHomeFragment extends Fragment {
 
         String userfcmticket = FuroPrefs.getString(homeMainActivity, "token");
 
-        Log.i("userfcmticketttt",userfcmticket);
+        Log.i("userfcmticketttt", userfcmticket);
 
         RequestBody Iduser = RequestBody.create(MediaType.parse("text/plain"), loginuserid);
         RequestBody userdeviceid = RequestBody.create(MediaType.parse("text/plain"), unique_id);
@@ -342,18 +353,13 @@ public class ContentFeedHomeFragment extends Fragment {
                 if (response.body() != null) {
                     // Toast.makeText(homeMainActivity, "success", Toast.LENGTH_SHORT).show();
                 } else {
-
                 }
-
             }
 
             @Override
             public void onFailure(Call<UdateTokenResponse> call, Throwable t) {
-
             }
         });
-
-
     }
    /* public boolean isNetworkConnectionAvailable() {
         ConnectivityManager cm =
@@ -385,6 +391,29 @@ public class ContentFeedHomeFragment extends Fragment {
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         }*/
+
+    private void clickListener() {
+        llSavedBookmarked.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), LikedAndSavedActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        llViewDetals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Days21FitnessChallangeActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void clickOnLikeAndDislike() {
+
+
+    }
 }
 
 

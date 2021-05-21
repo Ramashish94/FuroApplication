@@ -126,16 +126,16 @@ public class LoginWithEmailActivity extends AppCompatActivity {
                             FuroPrefs.putBoolean(getApplicationContext(), Constants.LOGGEDALERADYIN, true);
                             String loginUserId = String.valueOf(response.body().getUser().getId());
 //                            Toast.makeText(LoginWithEmailActivity.this, ""+loginUserId, Toast.LENGTH_SHORT).show();
-                            Log.e("userId",loginUserId);
+                            Log.e("userId", loginUserId);
                             String userNameee = response.body().getUser().getName();
                             String Image = response.body().getUser().getImage();
                             String accessToken = response.body().getAccessToken();
-                            FuroPrefs.putString(getApplicationContext(), "accessToken", accessToken);
+                            //FuroPrefs.putString(getApplicationContext(), "accessToken", accessToken);
                             FuroPrefs.putString(getApplicationContext(), "loginUserId", loginUserId);
                             FuroPrefs.putString(getApplicationContext(), "userimage", Image);
                             FuroPrefs.putString(getApplicationContext(), "loginUserNameNew", userNameee);
-
                             Intent intent = new Intent(getApplicationContext(), WelcomeUserYouAreInActivity.class);
+                            FuroPrefs.putString(getApplicationContext(), Constants.Get_ACCESS_TOKEN, "Bearer "+response.body().getAccessToken());
                             startActivity(intent);
                             finish();
                             //tutorialScreen.setDisplayFragment(EnumConstants.HOME_TUTORIAL_PAGE, null);
@@ -144,15 +144,18 @@ public class LoginWithEmailActivity extends AppCompatActivity {
                         } else if (response.body().getReasons().equalsIgnoreCase("1")) {
                             FuroPrefs.putBoolean(getApplicationContext(), Constants.LOGGEDIN, true);
                             String loginUserId = String.valueOf(response.body().getUser().getId());
-                            Log.e("userId",loginUserId);
-                          
+                            Log.e("userId", loginUserId);
+
                             String userNameNew = response.body().getUser().getName();
                             String Image = response.body().getUser().getImage();
                             FuroPrefs.putString(getApplicationContext(), "loginUserId", loginUserId);
                             FuroPrefs.putString(getApplicationContext(), "userimage", Image);
                             FuroPrefs.putString(getApplicationContext(), "loginUserNameNew", userNameNew);
+
+                            FuroPrefs.putString(getApplicationContext(), Constants.Get_ACCESS_TOKEN, "Bearer "+response.body().getAccessToken());
+
                             Intent intent = new Intent(getApplicationContext(), HomeMainActivity.class);
-                            intent.putExtra("contestpage","");
+                            intent.putExtra("contestpage", "");
                             startActivity(intent);
 
                         }

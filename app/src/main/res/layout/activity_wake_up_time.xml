@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg4"
+    tools:context=".activity.newFeature.waterIntakeCalculator.WakeUpTimeActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="228dp"
+                android:layout_height="27dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="80dp"
+                android:src="@drawable/wekuptime" />
+
+            <LinearLayout
+                android:layout_width="312dp"
+                android:layout_height="149dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp_30"
+                android:background="@drawable/wekup_bg">
+
+                <TimePicker
+                    android:id="@+id/timePicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:timePickerMode="spinner"
+                    android:layout_gravity="center" />
+
+               <!-- <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvWakeupTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_100"
+                    android:layout_gravity="center" />-->
+            </LinearLayout>
+
+            <View
+                android:layout_width="312dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp_30"
+                android:background="@drawable/viewline" />
+
+            <ImageView
+                android:layout_width="228dp"
+                android:layout_height="27dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp_30"
+                android:src="@drawable/bedtime" />
+
+            <LinearLayout
+                android:layout_width="312dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp_30"
+                android:background="@drawable/wekup_bg"
+                android:orientation="horizontal">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvBedTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="@dimen/dp_30"
+                    android:layout_marginRight="@dimen/dp_30"
+                    android:layout_gravity="center" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/ivContinue"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:layout_marginBottom="45dp"
+            android:background="@drawable/continue1" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

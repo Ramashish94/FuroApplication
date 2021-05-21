@@ -20,7 +20,6 @@ import com.app.furoapp.R;
 import com.app.furoapp.activity.VideoChallangeFriendsActivity;
 import com.app.furoapp.adapter.ChallengeByUserandChallengeForUserDetailActivityAdapter;
 import com.app.furoapp.adapter.ChallengeByYouDetailAdapter;
-import com.app.furoapp.databinding.SocialFragmentBinding;
 import com.app.furoapp.model.challengeByYouDetail.ChallenegeByYouDetailRequest;
 import com.app.furoapp.model.challengeByYouDetail.ChallenegeByYouDetailResponse;
 import com.app.furoapp.model.challengeByYouDetail.ChallengeDetails;

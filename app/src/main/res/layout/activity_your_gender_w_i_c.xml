@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/your_geder_bg"
+    android:orientation="vertical"
+    tools:context=".activity.newFeature.waterIntakeCalculator.YourGenderWICActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="270dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="254dp"
+            android:layout_height="130dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ivIconOfMale"
+                android:layout_width="115dp"
+                android:layout_height="115dp"
+                android:layout_gravity="start|center_vertical"
+                android:background="@drawable/unselected_male_icon1" />
+
+            <ImageView
+                android:id="@+id/ivIconOfFemale"
+                android:layout_width="115dp"
+                android:layout_height="115dp"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:background="@drawable/unselect_femaleinwtc" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="254dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvMale"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Male"
+                android:textColor="#3D3D3D"
+                android:textStyle="normal"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/tvFemale"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Female"
+                android:textColor="#3D3D3D"
+                android:textStyle="normal"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/dp_8"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivContinue"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:layout_marginBottom="45dp"
+            android:background="@drawable/continue1" />
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -153,12 +153,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_20"
-
                             android:layout_marginTop="@dimen/dp_10"
-
                             android:textColor="@android:color/white"
                             android:textColorHint="@color/light_blue"
-
                             android:textSize="@dimen/dp_14"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -205,9 +202,6 @@
                             <TextView
                                 android:id="@+id/inches"
                                 android:layout_alignParentRight="true"
-
-
-
                                 style="@style/TextAppearance.AppCompat.Small"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -231,12 +225,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="@dimen/dp_10"
-
                                 android:layout_marginTop="@dimen/dp_10"
-
                                 android:textColor="@android:color/white"
                                 android:textColorHint="@color/light_blue"
-
                                 android:textSize="@dimen/dp_20"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -244,14 +235,11 @@
 
                         </RelativeLayout>
                         <com.kevalpatel2106.rulerpicker.RulerValuePicker
-
                             android:id="@+id/height_ruler_picker"
                             android:layout_width="match_parent"
                             android:layout_height="100dp"
                             android:layout_marginLeft="@dimen/dp_10"
                             android:layout_marginRight="@dimen/dp_10"
-
-
                             android:background="@drawable/ruler_rectangle_shape_background"
                             app:indicator_color="@android:color/white"
                             app:indicator_interval="8dp"
@@ -264,7 +252,6 @@
                             app:ruler_text_size="4sp" />
 
                         <androidx.appcompat.widget.AppCompatTextView
-
                             android:id="@+id/weight_picker_heading"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

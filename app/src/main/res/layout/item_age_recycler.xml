@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?actionBarSize"
+    android:background="@color/transparent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/llAge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/tvAge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="20"
+            android:textAllCaps="true"
+            android:textColor="@color/bottom_gray"
+            android:textSize="22dp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="256dp"
+            android:layout_height="@dimen/dp_1"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:background="#8C8888" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llWakeUpTime"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_35"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tvWakeTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="20"
+            android:textAllCaps="true"
+            android:textColor="@color/bottom_gray"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            />
+
+        <View
+            android:id="@+id/viewLine"
+            android:layout_width="256dp"
+            android:layout_height="@dimen/dp_1"
+            android:layout_gravity="center"
+            android:layout_marginTop="2dp"
+            android:background="@color/white"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>

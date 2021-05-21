@@ -1,73 +1,310 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/dp_8">
-
-
-                <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                    android:id="@+id/youtube_player_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    app:autoPlay="true"
-                    android:visibility="gone"
-
-                    app:showFullScreenButton="false"
-                    app:videoId="cxcxcxcxcxc" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:id="@+id/contentDetailRecycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                android:background="@color/white"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_marginTop="350dp"
                     android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:visibility="gone"
-                    android:id="@+id/linearLayoutContentfeeddetail"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical">
 
-                    android:layout_height="match_parent">
-
-                    <ProgressBar
-                        android:id="@+id/progressBar"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:visibility="visible"
-
-                        />
-
-                    <TextView
-                        android:id="@+id/pbText"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:layout_marginLeft="@dimen/dp_10"
+                        android:orientation="vertical"
+                        android:padding="@dimen/dp_8">
 
-                        android:visibility="gone"
-                        android:textColor="@color/light_blue"
-                        android:text="loading ..."/>
+                        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                            android:id="@+id/youtube_player_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="250dp"
+                            android:visibility="gone"
+                            app:autoPlay="true"
+                            app:showFullScreenButton="false"
+                            app:videoId="cxcxcxcxcxc" />
 
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/contentDetailRecycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_10" />
+
+                        <LinearLayout
+                            android:id="@+id/linearLayoutContentfeeddetail"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="350dp"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <ProgressBar
+                                android:id="@+id/progressBar"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:visibility="visible" />
+
+                            <TextView
+                                android:id="@+id/pbText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_10"
+                                android:text="loading ..."
+                                android:textColor="@color/light_blue"
+                                android:textStyle="bold"
+                                android:visibility="gone" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
 
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_20"
+                            android:layout_height="@dimen/dp_20"
+                            android:src="@drawable/chat_and_msg" />
+
+                        <TextView
+                            android:id="@+id/tvTotNosOfComments"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_8"
+                            android:text="22"
+                            android:textColor="@color/black_color" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_5"
+                            android:text="comments"
+                            android:textColor="@color/black_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:layout_marginRight="@dimen/dp_15"
+                            android:background="@color/vertical_line_color" />
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvComment"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_200"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:background="@drawable/comments_recy_bg"
+                        android:padding="@dimen/dp_12" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_5"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:background="@color/transparent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/dp_2"
+                        android:paddingBottom="@dimen/dp_2">
+
+                        <ImageView
+                            android:id="@+id/ivlikeAndUnlike"
+                            android:layout_width="@dimen/dp_20"
+                            android:layout_height="@dimen/dp_20"
+                            android:layout_marginLeft="@dimen/dp_5"
+                            android:src="@drawable/thumb_unlike" />
+
+                        <TextView
+                            android:id="@+id/tvLikeCounts"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_8"
+                            android:text="22"
+                            android:textColor="@color/black_color" />
+
+                        <TextView
+                            android:id="@+id/tvLiksTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_5"
+                            android:text="likes"
+                            android:textColor="@color/black_color" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="@dimen/dp_10"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:background="@color/vertical_line_color" />
+
+                        <LinearLayout
+                            android:id="@+id/llComntsSec"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_8"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/ivChat"
+                                android:layout_width="@dimen/dp_15"
+                                android:layout_height="@dimen/dp_15"
+                                android:src="@drawable/chat_and_msg" />
+
+                            <TextView
+                                android:id="@+id/tvCmntsCount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_8"
+                                android:text="22"
+                                android:textColor="@color/black_color" />
+
+                            <TextView
+                                android:id="@+id/tvCmntsTxt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_5"
+                                android:text="comments"
+                                android:textColor="@color/black_color" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="@dimen/dp_10"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:background="@color/vertical_line_color" />
+
+                        <LinearLayout
+                            android:id="@+id/llViewsSec"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_8"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/ivViews"
+                                android:layout_width="@dimen/dp_20"
+                                android:layout_height="@dimen/dp_20"
+                                android:src="@drawable/view_image" />
+
+                            <TextView
+                                android:id="@+id/tvViewsCounts"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_8"
+                                android:text="23"
+                                android:textColor="@color/black_color" />
+
+                            <TextView
+                                android:id="@+id/tvViewsTxt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_5"
+                                android:text="views"
+
+                                android:textColor="@color/black_color" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/ivShare"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dp_30"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:src="@drawable/share_icons"
+                            android:textAlignment="textEnd" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginTop="@dimen/dp_15"
+                        android:layout_marginBottom="@dimen/dp_20"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/etAddComments"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_30"
+                            android:layout_weight="30"
+                            android:background="@drawable/comments_btn_shape"
+                            android:gravity="center_vertical"
+                            android:hint="Add comment"
+                            android:paddingLeft="@dimen/dp_10" />
+
+                        <LinearLayout
+                            android:id="@+id/llPostBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_30"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:layout_marginRight="@dimen/dp_10"
+                            android:layout_weight="70"
+                            android:background="@drawable/btn_shape_post"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="POst"
+                                android:textAllCaps="true"
+                                android:textColor="@color/white"
+                                android:gravity="center"
+                                android:textSize="@dimen/sp_14"
+                                android:layout_marginLeft="@dimen/dp_8"/>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/coments_post_arrow"
+                                android:layout_marginLeft="@dimen/dp_5"/>
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
     </LinearLayout>
+
 </layout>

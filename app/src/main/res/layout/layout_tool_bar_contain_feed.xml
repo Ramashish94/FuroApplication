@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dp_45"
         android:theme="@style/AppTheme.AppBarOverlay">
 
 
@@ -27,42 +27,84 @@
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <LinearLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-
-                android:gravity="center"
                 android:orientation="horizontal">
 
-
-                <TextView
-                    android:id="@+id/tvToolbarTitle"
-                    android:layout_width="@dimen/dp_100"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/dp_30"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/bebasneue_regular"
+                    android:layout_weight="15"
                     android:gravity="center"
-                    android:maxWidth="@dimen/dp_200"
-                    android:maxLines="2"
-                    android:text="Content feed"
-                    android:textAllCaps="false"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/sp_18"
-                    android:textStyle="italic"
+                    android:orientation="horizontal">
 
-                    />
+                    <TextView
+                        android:id="@+id/tvToolbarTitle"
+                        android:layout_width="@dimen/dp_100"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/dp_30"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/bebasneue_regular"
+                        android:gravity="center"
+                        android:maxWidth="@dimen/dp_200"
+                        android:maxLines="2"
+                        android:text="Content feed"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/sp_18"
+                        android:textStyle="italic" />
 
+                    <ImageView
+                        android:id="@+id/contentfeed"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:background="@drawable/welcome_activity_icon" />
+                </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/contentfeed"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/dp_20"
-                    android:background="@drawable/welcome_activity_icon" />
+                <LinearLayout
+                    android:id="@+id/llNotificationSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_weight="85"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_25"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/ic_baseline_notifications_none_24" />
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_marginLeft="27dp"
+                            android:layout_marginTop="16dp"
+                            android:src="@drawable/bg_ovel_red_shape" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="29.7dp"
+                            android:layout_marginTop="17dp"
+                            android:text="22"
+                            android:maxLength="23"
+                            android:textSize="8sp"
+                            android:textColor="@color/white"/>
+
+                    </FrameLayout>
+                </LinearLayout>
 
 
             </LinearLayout>

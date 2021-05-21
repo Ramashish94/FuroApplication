@@ -4,7 +4,7 @@ import static android.provider.ContactsContract.Directory.PACKAGE_NAME;
 
 public class Constants {
 
-    public static final String ACCESS_TOKEN = "access_token";
+   // public static final String ACCESS_TOKEN = "access_token";
     public static final String ACCESS_TOKEN_EMAIL = "access_token_email";
     public static final String NAME = "name";
     public static final String EMAILID = "emailid";
@@ -58,4 +58,6 @@ public class Constants {
     public static final String REJECTCHALLENGE = "Rejectchallenge";
     public static final String CONTANT = "Content";
     public static final String SUBMITCHALLENGE = "Submitchallenge";
+    /* added*/
+    public static String Get_ACCESS_TOKEN="access_token";
 }

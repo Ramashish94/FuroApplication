@@ -1,15 +1,13 @@
 package com.app.furoapp.retrofit;
 
 
-import com.app.furoapp.activity.newFeature.contentFeedActivityDetaisNew.addComments.AddCommentsResponse;
-import com.app.furoapp.activity.newFeature.contentFeedActivityDetaisNew.totComments.TotelCommentsResponse;
-import com.app.furoapp.activity.newFeature.newModelByM.ActivityDetailResponse;
-import com.app.furoapp.activity.newFeature.newModelByM.AddCommentRequest;
-import com.app.furoapp.activity.newFeature.newModelByM.AddCommentResponse;
-import com.app.furoapp.activity.newFeature.newModelByM.LikeRequest;
-import com.app.furoapp.activity.newFeature.newModelByM.LikeResponse;
-import com.app.furoapp.activity.newFeature.newModelByM.SavedRequest;
-import com.app.furoapp.activity.newFeature.newModelByM.SavedResponse;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.activityDetailsNew.ActivityDetailResponse;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.addComments.AddCommentRequest;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.addComments.AddCommentResponse;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.like.LikeRequest;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.like.LikeResponse;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.saveBookmark.SavedRequest;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.saveBookmark.SavedResponse;
 import com.app.furoapp.model.Bannersecond.BannerSecondResponse;
 import com.app.furoapp.model.FriendModel.AddFriend;
 import com.app.furoapp.model.FriendModel.FriendInviteModel;
@@ -56,7 +54,7 @@ import com.app.furoapp.model.communitymembers.CommunityMembersResponse;
 import com.app.furoapp.model.contentFeedDetail.ContentFeedDetailRequest;
 import com.app.furoapp.model.contentFeedDetail.ContentFeedDetailResponse;
 import com.app.furoapp.model.content_feed.ContentFeedModel;
-import com.app.furoapp.model.content_feed.activityListing.ActivitiesListing;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.feedHomeFragment_ListingNew.ActivitiesListing;
 import com.app.furoapp.model.createVideoChallenge.CreateVideoChallangeResponse;
 import com.app.furoapp.model.draft.DraftRequest;
 import com.app.furoapp.model.draft.DraftResponse;
@@ -110,11 +108,6 @@ public class RestClient {
 
     public static void myContentfeedActivity(Callback<ContentFeedModel> callback) {
         RetrofitClient.getClient().getActivities().enqueue(callback);
-    }
-
-    /*modify*/
-    public static void myContentfeedAllActivity(String token, Callback<ActivitiesListing> callback) {
-        RetrofitClient.getClient().ActivitiesListing(token).enqueue(callback);
     }
 
     public static void signUpNewUser(RequestBody name, RequestBody email, RequestBody password, RequestBody dob, RequestBody gender, RequestBody country, RequestBody state, RequestBody city, RequestBody platform, RequestBody fbid, RequestBody google_id, RequestBody username, RequestBody mobile, MultipartBody.Part image, Callback<SignupResponse> callback) {
@@ -341,19 +334,25 @@ public class RestClient {
     }
 
     /*added new feature in FQ*/
+    /*modify*/
+    public static void myContentfeedAllActivity(String token, Callback<ActivitiesListing> callback) {
+        RetrofitClient.getClient().ActivitiesListing(token).enqueue(callback);
+    }
+
+    public static void activityDetailNew(String token, ContentFeedDetailRequest contentFeedDetailRequest, Callback<ActivityDetailResponse> callback) {
+        RetrofitClient.getClient().contentDetailNew(token, contentFeedDetailRequest).enqueue(callback);
+    }
+
     public static void userPostLike(String token, LikeRequest request, Callback<LikeResponse> callback) {
         RetrofitClient.getClientnew().userPostLike(token, request).enqueue(callback);
     }
 
-    public static void activityDetailNew(String token,ContentFeedDetailRequest contentFeedDetailRequest, Callback<ActivityDetailResponse> callback) {
-        RetrofitClient.getClient().contentDetailNew(token,contentFeedDetailRequest).enqueue(callback);
-    }
-
     public static void userCommentOnPost(String token, AddCommentRequest request, Callback<AddCommentResponse> callback) {
-        RetrofitClient.getClient().userCommentOnPost(token,request).enqueue(callback);
+        RetrofitClient.getClient().userCommentOnPost(token, request).enqueue(callback);
     }
 
     public static void userPostSaved(String token, SavedRequest request, Callback<SavedResponse> callback) {
-        RetrofitClient.getClient().userPostSaved(token,request).enqueue(callback);
+        RetrofitClient.getClient().userPostSaved(token, request).enqueue(callback);
     }
+
 }

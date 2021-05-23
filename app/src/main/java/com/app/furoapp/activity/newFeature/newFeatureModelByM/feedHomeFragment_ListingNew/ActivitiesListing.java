@@ -1,5 +1,5 @@
 
-package com.app.furoapp.model.content_feed.activityListing;
+package com.app.furoapp.activity.newFeature.newFeatureModelByM.feedHomeFragment_ListingNew;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

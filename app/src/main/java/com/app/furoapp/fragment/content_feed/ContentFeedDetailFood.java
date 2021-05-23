@@ -25,7 +25,6 @@ import com.app.furoapp.model.contentFeedDetail.ContentFeedDetailRequest;
 import com.app.furoapp.model.contentFeedDetail.ContentFeedDetailResponse;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.FuroPrefs;
-import com.app.furoapp.utils.Util;
 
 import java.util.List;
 

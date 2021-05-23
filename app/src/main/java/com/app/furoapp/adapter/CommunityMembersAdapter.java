@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
 import com.app.furoapp.model.communitymembers.Member;
-import com.app.furoapp.model.contentFeedDetail.Body;
-import com.app.furoapp.model.content_feed.Motivation;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

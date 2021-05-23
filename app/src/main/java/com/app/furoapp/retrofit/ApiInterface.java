@@ -1,15 +1,13 @@
 package com.app.furoapp.retrofit;
 
 
-import com.app.furoapp.activity.newFeature.contentFeedActivityDetaisNew.addComments.Comment;
-import com.app.furoapp.activity.newFeature.contentFeedActivityDetaisNew.totComments.TotelCommentsResponse;
-import com.app.furoapp.activity.newFeature.newModelByM.ActivityDetailResponse;
-import com.app.furoapp.activity.newFeature.newModelByM.AddCommentRequest;
-import com.app.furoapp.activity.newFeature.newModelByM.AddCommentResponse;
-import com.app.furoapp.activity.newFeature.newModelByM.LikeRequest;
-import com.app.furoapp.activity.newFeature.newModelByM.LikeResponse;
-import com.app.furoapp.activity.newFeature.newModelByM.SavedRequest;
-import com.app.furoapp.activity.newFeature.newModelByM.SavedResponse;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.activityDetailsNew.ActivityDetailResponse;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.addComments.AddCommentRequest;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.addComments.AddCommentResponse;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.like.LikeRequest;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.like.LikeResponse;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.saveBookmark.SavedRequest;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.saveBookmark.SavedResponse;
 import com.app.furoapp.model.Bannersecond.BannerSecondResponse;
 import com.app.furoapp.model.FriendModel.AddFriend;
 import com.app.furoapp.model.FriendModel.FriendInviteModel;
@@ -56,7 +54,7 @@ import com.app.furoapp.model.communitymembers.CommunityMembersResponse;
 import com.app.furoapp.model.contentFeedDetail.ContentFeedDetailRequest;
 import com.app.furoapp.model.contentFeedDetail.ContentFeedDetailResponse;
 import com.app.furoapp.model.content_feed.ContentFeedModel;
-import com.app.furoapp.model.content_feed.activityListing.ActivitiesListing;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.feedHomeFragment_ListingNew.ActivitiesListing;
 import com.app.furoapp.model.createVideoChallenge.CreateVideoChallangeResponse;
 import com.app.furoapp.model.draft.DraftRequest;
 import com.app.furoapp.model.draft.DraftResponse;
@@ -125,10 +123,6 @@ public interface ApiInterface {
 //    @GET("all-activity-listings")
 //    Call<ActivitiesListing> getAllActivities();
 
-    // New api calling for AllActivity Content feed  Content feed home fragment landing page
-    @POST("all-activity-listings-new")
-    Call<ActivitiesListing> ActivitiesListing(@Header(TOKEN_KEY) String token);
-
     // api calling  for login with email
     @POST("login")
     Call<LoginResponse> loginUser(@Body LoginRequest loginRequest);
@@ -136,10 +130,6 @@ public interface ApiInterface {
     //api calling for contentFeddDetail
     @POST("activity-details")
     Call<ContentFeedDetailResponse> contentDetail(@Body ContentFeedDetailRequest contentFeedDetailRequest);
-
-    //api calling for contentFeddDetail
-    @POST("activity-details-new")
-    Call<ActivityDetailResponse> contentDetailNew(@Header(TOKEN_KEY) String token, @Body ContentFeedDetailRequest contentFeedDetailRequest );
 
     //loginwithfb
     @POST("login-with-fb-new")
@@ -392,13 +382,23 @@ public interface ApiInterface {
     Call<UserImageResponse> user_image(@Body UserImageRequest userImageRequest);
 
     /*added new feature in Fq*/
+    // New api calling for AllActivity Content feed  Content feed home fragment landing page
+    @POST("all-activity-listings-new")
+    Call<ActivitiesListing> ActivitiesListing(@Header(TOKEN_KEY) String token);
 
+    //api calling for contentFeddDetail
+    @POST("activity-details-new")
+    Call<ActivityDetailResponse> contentDetailNew(@Header(TOKEN_KEY) String token, @Body ContentFeedDetailRequest contentFeedDetailRequest);
+
+    /*like*/
     @POST("like")
     Call<LikeResponse> userPostLike(@Header(TOKEN_KEY) String token, @Body LikeRequest request);
 
+    /*Add comment*/
     @POST("add-comment")
     Call<AddCommentResponse> userCommentOnPost(@Header(TOKEN_KEY) String token, @Body AddCommentRequest request);
 
+    /*Saved*/
     @POST("saved")
     Call<SavedResponse> userPostSaved(@Header(TOKEN_KEY) String token, @Body SavedRequest request);
 

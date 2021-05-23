@@ -19,13 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
 import com.app.furoapp.activity.newFeature.likeAndSaved.ComentsModelTest;
-import com.app.furoapp.activity.newFeature.newModelByM.ActivityDetailResponse;
-import com.app.furoapp.activity.newFeature.newModelByM.ActivityDetailsItem;
-import com.app.furoapp.activity.newFeature.newModelByM.AddCommentRequest;
-import com.app.furoapp.activity.newFeature.newModelByM.AddCommentResponse;
-import com.app.furoapp.activity.newFeature.newModelByM.BodyItem;
-import com.app.furoapp.activity.newFeature.newModelByM.LikeRequest;
-import com.app.furoapp.activity.newFeature.newModelByM.LikeResponse;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.activityDetailsNew.ActivityDetailResponse;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.activityDetailsNew.ActivityDetailsItem;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.addComments.AddCommentRequest;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.addComments.AddCommentResponse;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.activityDetailsNew.BodyItem;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.like.LikeRequest;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.like.LikeResponse;
 import com.app.furoapp.adapter.ActivityDetailAdapter;
 import com.app.furoapp.adapter.LikeShareCommentsAdapter;
 import com.app.furoapp.model.contentFeedDetail.ContentFeedDetailRequest;
@@ -50,7 +50,7 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ProgressBar progressBarr;
     TextView textView;
-    LinearLayout linearLayout, llPostBtn;
+    LinearLayout linearLayout,llLikeksSection, llPostBtn;
     RecyclerView rvComment;
     ImageView ivlikeAndUnlike, ivShare;
     TextView tvLikeCounts, tvLiksTxt, tvCmntsCount, tvCmntsTxt, tvViewsCounts, tvViewsTxt, tvTotNosOfComments;
@@ -75,6 +75,7 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.contentDetailRecycler);
 
         rvComment = findViewById(R.id.rvComment);
+        llLikeksSection = findViewById(R.id.llLikeksSection);
         ivlikeAndUnlike = findViewById(R.id.ivlikeAndUnlike);
         tvLikeCounts = findViewById(R.id.tvLikeCounts);
         tvLiksTxt = findViewById(R.id.tvLiksTxt);
@@ -153,7 +154,7 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
             tvLiksTxt.setTextColor(Color.parseColor("#19CFE6"));
         }
 
-        ivlikeAndUnlike.setOnClickListener(v -> {
+        llLikeksSection.setOnClickListener(v -> {
             if (clicked) {
                 clicked = false;
                 ivlikeAndUnlike.setImageResource(R.drawable.thumb_unlike);
@@ -168,10 +169,10 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
             int dataUserLike;
             if (clicked) {
                 dataUserLike = 1;
-                tvLikeCounts.setText(detailsItem.getTotalLikes()+1);
+               // tvLikeCounts.setText(Integer.toString(detailsItem.getTotalLikes())+1);
             } else {
                 dataUserLike = 0;
-                tvLikeCounts.setText(detailsItem.getTotalLikes()-1);
+               // tvLikeCounts.setText(detailsItem.getTotalLikes()-1);
             }
             callLikeApi(getLikeApiParams(Integer.parseInt(activityId), dataUserLike));
 

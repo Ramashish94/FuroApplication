@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
-import com.app.furoapp.model.content_feed.activityListing.Datum;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.feedHomeFragment_ListingNew.Datum;
 import com.app.furoapp.utils.FuroPrefs;
 import com.squareup.picasso.Picasso;
 

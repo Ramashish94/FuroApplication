@@ -90,7 +90,7 @@
                 android:layout_marginTop="1.5dp"
                 android:layout_marginRight="48dp"
                 android:layout_weight="1"
-                android:src="@drawable/heart_blue" />
+                android:src="@drawable/thumb_like" />
         </LinearLayout>
     </FrameLayout>
 

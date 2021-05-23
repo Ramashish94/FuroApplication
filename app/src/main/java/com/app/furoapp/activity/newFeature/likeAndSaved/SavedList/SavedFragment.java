@@ -64,12 +64,12 @@ public class SavedFragment extends Fragment {
 
         setSavedAdapter();
         // setSavedListAdapter();
-        getApiCalling();
+        //getApiCalling();
         return view;
     }
 
 
-    private void getApiCalling() {
+   /* private void getApiCalling() {
         Util.isInternetConnected(getContext());
         Util.showProgressDialog(getActivity());
         RestClient.getAllSavedList(getAccessToken, new Callback<SavedListResponse>() {
@@ -90,7 +90,7 @@ public class SavedFragment extends Fragment {
                 Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    }*/
 
 
     private void setSavedAdapter() {

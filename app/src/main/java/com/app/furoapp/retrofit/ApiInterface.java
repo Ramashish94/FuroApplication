@@ -1,6 +1,15 @@
 package com.app.furoapp.retrofit;
 
 
+import com.app.furoapp.activity.newFeature.contentFeedActivityDetaisNew.addComments.Comment;
+import com.app.furoapp.activity.newFeature.contentFeedActivityDetaisNew.totComments.TotelCommentsResponse;
+import com.app.furoapp.activity.newFeature.newModelByM.ActivityDetailResponse;
+import com.app.furoapp.activity.newFeature.newModelByM.AddCommentRequest;
+import com.app.furoapp.activity.newFeature.newModelByM.AddCommentResponse;
+import com.app.furoapp.activity.newFeature.newModelByM.LikeRequest;
+import com.app.furoapp.activity.newFeature.newModelByM.LikeResponse;
+import com.app.furoapp.activity.newFeature.newModelByM.SavedRequest;
+import com.app.furoapp.activity.newFeature.newModelByM.SavedResponse;
 import com.app.furoapp.model.Bannersecond.BannerSecondResponse;
 import com.app.furoapp.model.FriendModel.AddFriend;
 import com.app.furoapp.model.FriendModel.FriendInviteModel;
@@ -91,8 +100,6 @@ import com.app.furoapp.model.whatBringsYoutoFuro.WhatBringsYouToFuroRequest;
 import com.app.furoapp.model.whatBringsYoutoFuro.WhatBringsYouToFuroResponse;
 import com.app.furoapp.model.winnerApi.WinnerRequest;
 import com.app.furoapp.model.winnerApi.WinnerResponse;
-import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.LikedListResponse;
-import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.SavedListResponse;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -129,6 +136,10 @@ public interface ApiInterface {
     //api calling for contentFeddDetail
     @POST("activity-details")
     Call<ContentFeedDetailResponse> contentDetail(@Body ContentFeedDetailRequest contentFeedDetailRequest);
+
+    //api calling for contentFeddDetail
+    @POST("activity-details-new")
+    Call<ActivityDetailResponse> contentDetailNew(@Header(TOKEN_KEY) String token, @Body ContentFeedDetailRequest contentFeedDetailRequest );
 
     //loginwithfb
     @POST("login-with-fb-new")
@@ -380,11 +391,15 @@ public interface ApiInterface {
     @POST("user-image")
     Call<UserImageResponse> user_image(@Body UserImageRequest userImageRequest);
 
-//    /*post Saved-list*/
-//    @POST("saved-list")
-//    Call<SavedListResponse> savedList(@Header(TOKEN_KEY) String token);
-//
-//    /*Liked list*/
-//    @POST("like-list")
-//    Call<LikedListResponse> likedList(@Header(TOKEN_KEY) String token);
+    /*added new feature in Fq*/
+
+    @POST("like")
+    Call<LikeResponse> userPostLike(@Header(TOKEN_KEY) String token, @Body LikeRequest request);
+
+    @POST("add-comment")
+    Call<AddCommentResponse> userCommentOnPost(@Header(TOKEN_KEY) String token, @Body AddCommentRequest request);
+
+    @POST("saved")
+    Call<SavedResponse> userPostSaved(@Header(TOKEN_KEY) String token, @Body SavedRequest request);
+
 }

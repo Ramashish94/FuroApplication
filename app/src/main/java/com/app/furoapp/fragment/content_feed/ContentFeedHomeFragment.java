@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,12 +24,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.furoapp.R;
 import com.app.furoapp.activity.ContentFeedDetailActivity;
 import com.app.furoapp.activity.HomeMainActivity;
+import com.app.furoapp.activity.YoutubePlayerActivity;
 import com.app.furoapp.activity.newFeature.healthCare.Days21FitnessChallangeActivity;
 import com.app.furoapp.activity.newFeature.likeAndSaved.LikedAndSavedActivity;
-import com.app.furoapp.activity.YoutubePlayerActivity;
+import com.app.furoapp.activity.newFeature.newModelByM.LikeRequest;
+import com.app.furoapp.activity.newFeature.newModelByM.LikeResponse;
+import com.app.furoapp.activity.newFeature.newModelByM.SavedRequest;
+import com.app.furoapp.activity.newFeature.newModelByM.SavedResponse;
 import com.app.furoapp.adapter.ContentFeedHomeAdapter;
 import com.app.furoapp.databinding.FragmentContentFeedsListBinding;
 import com.app.furoapp.model.content_feed.activityListing.ActivitiesListing;
+import com.app.furoapp.model.content_feed.activityListing.ActivityFilterData;
 import com.app.furoapp.model.content_feed.activityListing.Datum;
 import com.app.furoapp.model.updateToken.UdateTokenResponse;
 import com.app.furoapp.retrofit.RestClient;
@@ -40,6 +46,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -53,7 +60,7 @@ import retrofit2.Response;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-public class ContentFeedHomeFragment extends Fragment {
+public class ContentFeedHomeFragment extends Fragment implements ContentFeedHomeAdapter.ContentFeedCallback {
 
 
     FragmentContentFeedsListBinding binding;
@@ -100,7 +107,7 @@ public class ContentFeedHomeFragment extends Fragment {
         /*added get access token*/
 
         getAccessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
-
+        Log.d(TAG, "onCreateView()" + getAccessToken);
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(homeMainActivity, new OnSuccessListener<InstanceIdResult>() {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
@@ -111,7 +118,6 @@ public class ContentFeedHomeFragment extends Fragment {
 
         //  Toast.makeText(homeMainActivity, "uniqueid" + unique_id + "" + "fcmtoken" + newToken + "" + "userid" + loginuserid, Toast.LENGTH_LONG).show();
 
-
         switchButtonVideo.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
@@ -119,9 +125,12 @@ public class ContentFeedHomeFragment extends Fragment {
                     type = "Video";
                     switchButtonArticle.setChecked(false);
                     getDataAll(type);
-
                 } else {
-                    getDataAll("Article");
+                    if ((switchButtonArticle.isChecked()))
+                        getDataAll("Article");
+                    else {
+                        getDataAll("");
+                    }
                 }
             }
         });
@@ -134,18 +143,21 @@ public class ContentFeedHomeFragment extends Fragment {
                     type = "Article";
                     switchButtonVideo.setChecked(false);
                     getDataAll(type);
-
-
                 } else {
-                    getDataAll("Video");
+                    if ((switchButtonVideo.isChecked()))
+                        getDataAll("Video");
+                    else {
+                        getDataAll("");
+                    }
                 }
             }
         });
+
         getDataAll(type);
         updateTokenDetails();
 
         clickListener();
-        clickOnLikeAndDislike();
+//        clickOnLikeAndDislike();
         return view;
     }
 
@@ -169,12 +181,14 @@ public class ContentFeedHomeFragment extends Fragment {
                                 for (int i = 0; i < datumList.size(); i++) {
 
                                     if (datumList.get(i).getVideo() != null) {
-                                        datum = new Datum();
+                                        ActivityFilterData filterData = new ActivityFilterData();
+                                        filterData.setDatum(datumList.get(i));
+                                        datum = filterData.getDatum();
                                         datum.setVideo("" + datumList.get(i).getVideo());
                                         datum.setId(datumList.get(i).getId());
                                         datum.setIcon(datumList.get(i).getIcon());
                                         datum.setType("" + datumList.get(i).getType());
-                                        datum.setType("" + datumList.get(i).getType());
+//                                        datum.setType("" + datumList.get(i).getType());
                                         datum.setDescription("" + datumList.get(i).getDescription());
 
                                         Log.d(TAG, "Add DatumList");
@@ -182,92 +196,45 @@ public class ContentFeedHomeFragment extends Fragment {
                                     }
 
                                 }
-
-                                contentFeedHomeAdapter = new ContentFeedHomeAdapter(data, getContext());
-                                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-                                recyclerView.setLayoutManager(layoutManager);
-                                recyclerView.setItemAnimator(new DefaultItemAnimator());
-                                // recyclerView.OnLikeCommentsShareViewsBookmark(this);
-                                recyclerView.setAdapter(contentFeedHomeAdapter);
-
-
+                                setContentFeedHomeAdapter(data);
+//                                contentFeedHomeAdapter = new ContentFeedHomeAdapter(data, getContext(), this);
+//                                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+//                                recyclerView.setLayoutManager(layoutManager);
+//                                recyclerView.setItemAnimator(new DefaultItemAnimator());
+//                                // recyclerView.OnLikeCommentsShareViewsBookmark(this);
+//                                recyclerView.setAdapter(contentFeedHomeAdapter);
                             }
                             if (type.equalsIgnoreCase("Article")) {
                                 for (int i = 0; i < datumList.size(); i++) {
 
                                     if (datumList.get(i).getVideo() == null) {
-                                        datum = new Datum();
+                                        ActivityFilterData filterData = new ActivityFilterData();
+                                        filterData.setDatum(datumList.get(i));
+                                        datum = filterData.getDatum();
                                         datum.setImage("" + datumList.get(i).getImage());
                                         datum.setId(datumList.get(i).getId());
                                         datum.setIcon(datumList.get(i).getIcon());
                                         datum.setType("" + datumList.get(i).getType());
-                                        datum.setType("" + datumList.get(i).getType());
+//                                        datum.setType("" + datumList.get(i).getType());
                                         datum.setDescription("" + datumList.get(i).getDescription());
                                         data.addAll(Collections.singleton(datum));
                                     }
 
                                 }
-
-                                contentFeedHomeAdapter = new ContentFeedHomeAdapter(data, getContext());
-                                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-                                recyclerView.setLayoutManager(layoutManager);
-                                recyclerView.setItemAnimator(new DefaultItemAnimator());
-                                recyclerView.setAdapter(contentFeedHomeAdapter);
-
-
+                                setContentFeedHomeAdapter(data);
                             }
                         }
 
                         if (type.equalsIgnoreCase("")) {
 
-                            for (int i = 0; i < datumList.size(); i++) {
-                                if (datumList != null && datumList.size() > 0) {
-                                    ActivitiesListing activitiesListingNew = response.body();
-
-                                    int id = activitiesListingNew.getData().get(i).getId();
-                                    FuroPrefs.putString(getContext(), "activity_id", String.valueOf(id));
-                                    contentFeedHomeAdapter = new ContentFeedHomeAdapter(datumList, getContext());
-                                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-                                    recyclerView.setLayoutManager(layoutManager);
-                                    recyclerView.setItemAnimator(new DefaultItemAnimator());
-                                    recyclerView.setAdapter(contentFeedHomeAdapter);
-                                }
+//                            for (int i = 0; i < datumList.size(); i++) {
+                            if (datumList != null && datumList.size() > 0) {
+                                int id = datumList.get(0).getId();
+                                FuroPrefs.putString(getContext(), "activity_id", String.valueOf(id));
+                                setContentFeedHomeAdapter(datumList);
+                                recyclerView.setAdapter(contentFeedHomeAdapter);
                             }
                         }
-
-                        contentFeedHomeAdapter.setContentFeedList(new ContentFeedHomeAdapter.ContentFeedInterface() {
-                            @Override
-                            public void contentFeedItem(int videoid) {
-                                Intent intent = new Intent(getContext(), YoutubePlayerActivity.class);
-                                startActivity(intent);
-                            }
-
-                            @Override
-                            public void contentFeedItem2(int id) {
-                                Intent intent = new Intent(getContext(), ContentFeedDetailActivity.class);
-                                startActivity(intent);
-                                FuroPrefs.putString(getActivity(), "id", String.valueOf(id));
-                            }
-                            /*@Override
-                            public void shareContentVideoPOst(int videoid) {
-                                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                                sharingIntent.setType("text/plain");
-                                String shareBody ="\"http://img.youtube.com/vi/\" + videoid + \"/0.jpg\"";
-                                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
-                                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                                startActivity(Intent.createChooser(sharingIntent, "Share via"));
-                            }
-
-                            @Override
-                            public void shareContentPost(int id) {
-                                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                                sharingIntent.setType("text/plain");
-                                String shareBody = "\"http://img.youtube.com/vi/\" + videoid + \"/0.jpg\"";
-                                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
-                                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                                startActivity(Intent.createChooser(sharingIntent, "Share via"));
-                            }*/
-                        });
                     }
                 }
             }
@@ -279,6 +246,14 @@ public class ContentFeedHomeFragment extends Fragment {
             }
         });
 
+    }
+
+    private void setContentFeedHomeAdapter(List<Datum> list) {
+        contentFeedHomeAdapter = new ContentFeedHomeAdapter(list, getContext(), this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(contentFeedHomeAdapter);
     }
 
 
@@ -332,8 +307,6 @@ public class ContentFeedHomeFragment extends Fragment {
 
             }
         });
-
-
     }
 
 
@@ -361,58 +334,155 @@ public class ContentFeedHomeFragment extends Fragment {
             }
         });
     }
-   /* public boolean isNetworkConnectionAvailable() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null &&
-                activeNetwork.isConnected();
-        if (isConnected) {
-            Log.d("Network", "Connected");
-            return true;
-        } else {
-            checkNetworkConnection();
-            Log.d("Network", "Not Connected");
-            return false;
-        }
-    }
-
-        public void checkNetworkConnection(){
-            AlertDialog.Builder builder =new AlertDialog.Builder(getContext());
-            builder.setTitle("No internet Connection");
-            builder.setMessage("Please turn on internet connection to continue");
-            builder.setNegativeButton("close", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
-        }*/
 
     private void clickListener() {
-        llSavedBookmarked.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), LikedAndSavedActivity.class);
-                startActivity(intent);
-            }
+        llSavedBookmarked.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), LikedAndSavedActivity.class);
+            startActivity(intent);
         });
 
-        llViewDetals.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Days21FitnessChallangeActivity.class);
-                startActivity(intent);
-            }
+        llViewDetals.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), Days21FitnessChallangeActivity.class);
+            startActivity(intent);
         });
     }
 
     private void clickOnLikeAndDislike() {
 
 
+        Toast.makeText(homeMainActivity, "Success", Toast.LENGTH_SHORT).show();
+
+
+    }
+
+    private void callLikeApi(LikeRequest data) {
+//       Util.isInternetConnected(getContext());
+//        Util.showProgressDialog(getActivity());
+        RestClient.userPostLike(getAccessToken, data, new Callback<LikeResponse>() {
+            @Override
+            public void onResponse(Call<LikeResponse> call, Response<LikeResponse> response) {
+//               Util.dismissProgressDialog();
+                if (response.body() != null) {
+                    LikeResponse likeResponse = response.body();
+                    showToast(likeResponse.getStatus());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LikeResponse> call, Throwable t) {
+                Toast.makeText(homeMainActivity, "No internet connection!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private LikeRequest getLikeApiParams(int postId, int flag) {
+        LikeRequest request = new LikeRequest();
+        request.setLikeFlag(flag);
+        request.setPostId(postId);
+        return request;
+    }
+
+    private void callSavedApi(SavedRequest data) {
+        RestClient.userPostSaved(getAccessToken, data, new Callback<SavedResponse>() {
+            @Override
+            public void onResponse(Call<SavedResponse> call, Response<SavedResponse> response) {
+                if (response.body() != null) {
+                    SavedResponse likeResponse = response.body();
+                    showToast(likeResponse.getStatus());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SavedResponse> call, Throwable t) {
+                Toast.makeText(homeMainActivity, "No internet connection!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private SavedRequest getSavedApiParams(int postId, int flag) {
+        SavedRequest request = new SavedRequest();
+        request.setSaveFlag(flag);
+        request.setPostId(postId);
+        return request;
+    }
+
+    @Override
+    public void contentFeedItem(int videoId) {
+        Intent intent = new Intent(getContext(), YoutubePlayerActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void contentFeedItem2(int id) {
+        Intent intent = new Intent(getContext(), ContentFeedDetailActivity.class);
+        startActivity(intent);
+        FuroPrefs.putString(getActivity(), "id", String.valueOf(id));
+    }
+
+    @Override
+    public void onClickLike(int pos, Datum data) {
+//        showToast(data.getUserLike());
+        if (data.getUserLike().equals("0")) {
+            data.setTotalLikes(data.getTotalLikes() + 1);
+            data.setUserLike("1");
+        } else {
+            data.setTotalLikes(data.getTotalLikes() - 1);
+            data.setUserLike("0");
+        }
+        contentFeedHomeAdapter.updateData(pos, data);
+        callLikeApi(getLikeApiParams(data.getId(), Integer.parseInt(data.getUserLike())));
+    }
+
+    @Override
+    public void onClickBookmark(int pos, Datum data) {
+        if (data.getUserSave().equals("0")) {
+            data.setUserSave("1");
+        } else {
+            data.setUserSave("0");
+        }
+        contentFeedHomeAdapter.updateData(pos, data);
+        callSavedApi(getSavedApiParams(data.getId(), Integer.parseInt(data.getUserSave())));
+    }
+
+    @Override
+    public void onClickShare(int pos, Datum data) {
+        String title = data.getDescription();
+        String url;
+        String videoId = null;
+        try {
+            videoId = Util.extractYoutubeId(data.getVideo());
+        } catch (
+                MalformedURLException e) {
+            e.printStackTrace();
+        }
+        if (!TextUtils.isEmpty(videoId)) {
+            url = "http://www.youtube.com/watch?v=" + videoId;
+        } else {
+            url = data.getImage();
+        }
+        String fullMessage = title + "\n" + url;
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Furo FQ");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, fullMessage);
+        startActivity(Intent.createChooser(sharingIntent, "Share via"));
+    }
+
+    @Override
+    public void onClickComment(int pos, Datum data) {
+        Intent intent = new Intent(getApplicationContext(), ContentFeedDetailActivity.class);
+        FuroPrefs.putString(getApplicationContext(), "id", String.valueOf(data.getId()));
+        startActivity(intent);
+    }
+
+    @Override
+    public void onClickView(int pos, Datum data) {
+
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 }
 

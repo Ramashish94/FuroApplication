@@ -21,7 +21,6 @@ public class ContentFeedDetailResponse {
     public void setActivityDetails(List<ActivityDetail> activityDetails) {
         this.activityDetails = activityDetails;
     }
-
     public String getStatus() {
         return status;
     }

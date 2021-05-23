@@ -1,6 +1,15 @@
 package com.app.furoapp.retrofit;
 
 
+import com.app.furoapp.activity.newFeature.contentFeedActivityDetaisNew.addComments.AddCommentsResponse;
+import com.app.furoapp.activity.newFeature.contentFeedActivityDetaisNew.totComments.TotelCommentsResponse;
+import com.app.furoapp.activity.newFeature.newModelByM.ActivityDetailResponse;
+import com.app.furoapp.activity.newFeature.newModelByM.AddCommentRequest;
+import com.app.furoapp.activity.newFeature.newModelByM.AddCommentResponse;
+import com.app.furoapp.activity.newFeature.newModelByM.LikeRequest;
+import com.app.furoapp.activity.newFeature.newModelByM.LikeResponse;
+import com.app.furoapp.activity.newFeature.newModelByM.SavedRequest;
+import com.app.furoapp.activity.newFeature.newModelByM.SavedResponse;
 import com.app.furoapp.model.Bannersecond.BannerSecondResponse;
 import com.app.furoapp.model.FriendModel.AddFriend;
 import com.app.furoapp.model.FriendModel.FriendInviteModel;
@@ -91,8 +100,6 @@ import com.app.furoapp.model.whatBringsYoutoFuro.WhatBringsYouToFuroRequest;
 import com.app.furoapp.model.whatBringsYoutoFuro.WhatBringsYouToFuroResponse;
 import com.app.furoapp.model.winnerApi.WinnerRequest;
 import com.app.furoapp.model.winnerApi.WinnerResponse;
-import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.LikedListResponse;
-import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.SavedListResponse;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -332,12 +339,21 @@ public class RestClient {
     public static void userimageGet(UserImageRequest userImageRequest, Callback<UserImageResponse> callback) {
         RetrofitClient.getClient().user_image(userImageRequest).enqueue(callback);
     }
-    /*getAll Saved list*/
-   /* public static void getAllSavedList(String token, Callback<SavedListResponse> callback) {
-        RetrofitClient.getClient().savedList(token).enqueue(callback);
+
+    /*added new feature in FQ*/
+    public static void userPostLike(String token, LikeRequest request, Callback<LikeResponse> callback) {
+        RetrofitClient.getClientnew().userPostLike(token, request).enqueue(callback);
     }
-    *//*getAll Liked List*//*
-    public static void getAllLikedList(String token, Callback<LikedListResponse> callback) {
-        RetrofitClient.getClient().likedList(token).enqueue(callback);
-    }*/
+
+    public static void activityDetailNew(String token,ContentFeedDetailRequest contentFeedDetailRequest, Callback<ActivityDetailResponse> callback) {
+        RetrofitClient.getClient().contentDetailNew(token,contentFeedDetailRequest).enqueue(callback);
+    }
+
+    public static void userCommentOnPost(String token, AddCommentRequest request, Callback<AddCommentResponse> callback) {
+        RetrofitClient.getClient().userCommentOnPost(token,request).enqueue(callback);
+    }
+
+    public static void userPostSaved(String token, SavedRequest request, Callback<SavedResponse> callback) {
+        RetrofitClient.getClient().userPostSaved(token,request).enqueue(callback);
+    }
 }

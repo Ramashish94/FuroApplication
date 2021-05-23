@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import com.app.furoapp.R;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -132,6 +134,27 @@ public class Util {
         String strDate = "Current Date : " + mdformat.format(calendar.getTime());
         return strDate;
 
+    }
+
+
+
+
+    public static String extractYoutubeId(String url) throws MalformedURLException {
+        try {
+            String query = new URL(url).getQuery();
+            String[] param = query.split("&");
+            String id = null;
+            for (String row : param) {
+                String[] param1 = row.split("=");
+                if (param1[0].equals("v")) {
+                    id = param1[1];
+                }
+            }
+            return id;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 

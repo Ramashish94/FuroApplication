@@ -96,7 +96,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_8"
-                            android:text="22"
+                            android:text=" "
                             android:textColor="@color/black_color" />
 
                         <TextView
@@ -154,7 +154,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_8"
-                            android:text="22"
+                            android:text=" "
                             android:textColor="@color/black_color" />
 
                         <TextView
@@ -189,7 +189,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dp_8"
-                                android:text="22"
+                                android:text=" "
                                 android:textColor="@color/black_color" />
 
                             <TextView
@@ -227,7 +227,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dp_8"
-                                android:text="23"
+                                android:text=" "
                                 android:textColor="@color/black_color" />
 
                             <TextView

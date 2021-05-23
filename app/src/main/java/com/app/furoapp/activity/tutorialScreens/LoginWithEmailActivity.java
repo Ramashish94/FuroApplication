@@ -135,7 +135,7 @@ public class LoginWithEmailActivity extends AppCompatActivity {
                             FuroPrefs.putString(getApplicationContext(), "userimage", Image);
                             FuroPrefs.putString(getApplicationContext(), "loginUserNameNew", userNameee);
                             Intent intent = new Intent(getApplicationContext(), WelcomeUserYouAreInActivity.class);
-                            FuroPrefs.putString(getApplicationContext(), Constants.Get_ACCESS_TOKEN, "Bearer "+response.body().getAccessToken());
+                            FuroPrefs.putString(getApplicationContext(), Constants.Get_ACCESS_TOKEN, "Bearer"+" "+response.body().getAccessToken());
                             startActivity(intent);
                             finish();
                             //tutorialScreen.setDisplayFragment(EnumConstants.HOME_TUTORIAL_PAGE, null);
@@ -152,7 +152,7 @@ public class LoginWithEmailActivity extends AppCompatActivity {
                             FuroPrefs.putString(getApplicationContext(), "userimage", Image);
                             FuroPrefs.putString(getApplicationContext(), "loginUserNameNew", userNameNew);
 
-                            FuroPrefs.putString(getApplicationContext(), Constants.Get_ACCESS_TOKEN, "Bearer "+response.body().getAccessToken());
+                            FuroPrefs.putString(getApplicationContext(), Constants.Get_ACCESS_TOKEN,"Bearer"+" "+response.body().getAccessToken());
 
                             Intent intent = new Intent(getApplicationContext(), HomeMainActivity.class);
                             intent.putExtra("contestpage", "");

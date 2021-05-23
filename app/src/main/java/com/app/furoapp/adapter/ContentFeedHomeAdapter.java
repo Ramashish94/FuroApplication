@@ -1,7 +1,6 @@
 package com.app.furoapp.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -15,10 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.HomeMainActivity;
 import com.app.furoapp.model.content_feed.activityListing.Datum;
 import com.app.furoapp.utils.FuroPrefs;
-import com.app.furoapp.widget.SwitchButton;
 import com.squareup.picasso.Picasso;
 
 import java.net.MalformedURLException;
@@ -28,15 +25,15 @@ import java.util.List;
 public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHomeAdapter.MyViewHolder> {
 
     public List<Datum> datumList;
-    private ContentFeedInterface contentFeedInterface;
     private Context context;
-    HomeMainActivity homeMainActivity;
-    public Boolean clicked = true;
+    //    public Boolean clicked = true;
     int indexPosition;
+    private ContentFeedCallback feedCallback;
 
-    public ContentFeedHomeAdapter(List<Datum> datumList, Context context) {
+    public ContentFeedHomeAdapter(List<Datum> datumList, Context context, ContentFeedCallback feedCallback) {
         this.datumList = datumList;
         this.context = context;
+        this.feedCallback = feedCallback;
     }
 
     @NonNull
@@ -56,9 +53,12 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
         Picasso.with(context).load(datum.getIcon()).into(holder.actIcon);
         holder.tvTextAll.setText(datum.getDescription());
         /*added*/
-        /*holder.tvCountLike.setText(datum.getTotalLikes());
-        holder.tvCountsCmnt.setText(datum.getTotalComments());
-        holder.tvCountViews.setText(datum.getTotalViews());*/
+        if (datum.getTotalLikes() != null)
+            holder.tvCountLike.setText(datum.getTotalLikes().toString());
+        if (datum.getTotalComments() != null)
+            holder.tvCountsCmnt.setText(datum.getTotalComments().toString());
+        if (datum.getTotalViews() != null)
+            holder.tvCountViews.setText(datum.getTotalViews().toString());
         try {
             videoid = extractYoutubeId(datum.getVideo());
         } catch (MalformedURLException e) {
@@ -73,34 +73,15 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
 
 
             final String videoNewId = videoid;
-            holder.ivPlaybutton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (contentFeedInterface != null) {
-                        FuroPrefs.putString(context, "Youtube_Video_Id", videoNewId);
-                        contentFeedInterface.contentFeedItem(holder.getAdapterPosition());
-                    }
-                }
+            holder.ivPlaybutton.setOnClickListener(view -> {
+                FuroPrefs.putString(context, "Youtube_Video_Id", videoNewId);
+                feedCallback.contentFeedItem(holder.getAdapterPosition());
             });
-            /*added*/
-           /* holder.llLikeAndDislike.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (onLikeCommentsShareViewsBookmarkClick != null) {
-                        FuroPrefs.putString(context, "Youtube_Video_Id", videoNewId);
-                    }
-                }
-            });*/
-
-            holder.ivImageCategoryall.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (contentFeedInterface != null) {
-                        contentFeedInterface.contentFeedItem2(datum.getId());
-                    }
-
-                }
+            /*............*/
+            holder.ivImageCategoryall.setOnClickListener(view -> {
+                feedCallback.contentFeedItem2(datum.getId());
             });
+            /*............*/
 
         } else {
             if (!TextUtils.isEmpty(datum.getImage())) {
@@ -110,31 +91,35 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
                 holder.ivImageCategoryall.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
-                        if (contentFeedInterface != null) {
-                            contentFeedInterface.contentFeedItem2(datum.getId());
-                        }
-
+                        feedCallback.contentFeedItem2(datum.getId());
                     }
                 });
             }
         }
 
-        holder.llLikeAndDislike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (clicked) {
-                    clicked = false;
-                    holder.ivLikeUnlikeImg.setImageResource(R.drawable.thumb_like);
-                    holder.tvCountLike.setTextColor(Color.parseColor("#19CFE6"));
-                    holder.tvLiketxt.setTextColor(Color.parseColor("#19CFE6"));
-                } else {
-                    clicked = true;
-                    holder.ivLikeUnlikeImg.setImageResource(R.drawable.thumb_unlike);
-                    holder.tvCountLike.setTextColor(Color.BLACK);
-                    holder.tvLiketxt.setTextColor(Color.BLACK);
-                }
+        holder.llLikeAndDislike.setOnClickListener(v -> {
+            feedCallback.onClickLike(position, datum);
+        });
+        if (datum.getUserLike() != null)
+            if (datum.getUserLike().equals("0")) {
+//                    clicked = false;
+                holder.ivLikeUnlikeImg.setImageResource(R.drawable.thumb_unlike);
+                holder.tvCountLike.setTextColor(Color.BLACK);
+                holder.tvLiketxt.setTextColor(Color.BLACK);
+            } else {
+//                    clicked = true;
+                holder.ivLikeUnlikeImg.setImageResource(R.drawable.thumb_like);
+                holder.tvCountLike.setTextColor(Color.parseColor("#19CFE6"));
+                holder.tvLiketxt.setTextColor(Color.parseColor("#19CFE6"));
             }
+        holder.ivSave.setOnClickListener(v -> {
+            feedCallback.onClickBookmark(position, datum);
+        });
+        holder.ivShare.setOnClickListener(v -> {
+            feedCallback.onClickShare(position, datum);
+        });
+        holder.llComntsSec.setOnClickListener(v -> {
+            feedCallback.onClickComment(position, datum);
         });
     }
 
@@ -166,12 +151,16 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
         }
     }
 
+    public void updateData(int position, Datum data) {
+        datumList.set(position, data);
+        notifyDataSetChanged();
+    }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public ImageView ivImageCategoryall, ivPlaybutton, actIcon;
         public TextView tvTextAll, tvTitleAll, tvCountLike, tvLiketxt, tvCountsCmnt, tvComntsTxt, tvCountViews, tvView;
         public LinearLayout linearLayout, llComntsSec;
-        public ImageView ivLikeUnlikeImg, ivChat, ivViews, ivShare;
+        public ImageView ivLikeUnlikeImg, ivChat, ivViews, ivShare, ivSave;
         public LinearLayout llLikeAndDislike;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -195,36 +184,24 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
             tvCountViews = itemView.findViewById(R.id.tvCountViews);
             tvView = itemView.findViewById(R.id.tvView);
             ivShare = itemView.findViewById(R.id.ivShare);
+            ivSave = itemView.findViewById(R.id.ivBookMark);
 
         }
     }
 
-    public interface ContentFeedInterface {
-        void contentFeedItem(int videoid);
+    public interface ContentFeedCallback {
+        void contentFeedItem(int videoId);
 
         void contentFeedItem2(int id);
 
+        void onClickLike(int pos, Datum data);
+
+        void onClickBookmark(int pos, Datum data);
+
+        void onClickShare(int pos, Datum data);
+
+        void onClickComment(int pos, Datum data);
+
+        void onClickView(int pos, Datum data);
     }
-
-    public void setContentFeedList(ContentFeedInterface contentFeedInterface) {
-        this.contentFeedInterface = contentFeedInterface;
-    }
-
-    /*added*/
-    public OnLikeCommentsShareViewsBookmarkClick onLikeCommentsShareViewsBookmarkClick;
-
-    public void OnLikeCommentsShareViewsBookmark(OnLikeCommentsShareViewsBookmarkClick onLikeCommentsShareViewsBookmark) {
-        this.onLikeCommentsShareViewsBookmarkClick = onLikeCommentsShareViewsBookmarkClick;
-    }
-
-    public interface OnLikeCommentsShareViewsBookmarkClick {
-        void onLikeAndDislikeClick(int id);
-
-        void onCommentsUnCommentsClick();
-
-        void onViewsClick(int id);
-
-        Void onBookedUnBookMarkedClick(int id);
-    }
-
 }

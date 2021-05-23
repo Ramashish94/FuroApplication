@@ -71,7 +71,7 @@ public class LikeFragment extends Fragment {
     }
 
 
-    private void getApiCalling() {
+    /*private void getApiCalling() {
         Util.isInternetConnected(getContext());
         Util.showProgressDialog(getActivity());
         RestClient.getAllLikedList(getAccessToken, new Callback<LikedListResponse>() {
@@ -91,7 +91,7 @@ public class LikeFragment extends Fragment {
                 Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    }*/
 
     private void setSavedAdapter() {
         savedAdapter = new SavedAdapter(getApplicationContext(), savedTestModelList);

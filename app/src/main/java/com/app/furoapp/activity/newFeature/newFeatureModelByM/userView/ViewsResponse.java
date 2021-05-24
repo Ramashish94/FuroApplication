@@ -1,25 +1,24 @@
-package com.app.furoapp.activity.newFeature.likeAndSaved.SavedList;
 
-
-import java.util.List;
+package com.app.furoapp.activity.newFeature.newFeatureModelByM.userView;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class SavedListResponse {
-    @SerializedName("Saved")
+public class ViewsResponse {
+
+    @SerializedName("view")
     @Expose
-    private List<Object> saved = null;
+    private View view;
     @SerializedName("status")
     @Expose
     private String status;
 
-    public List<Object> getSaved() {
-        return saved;
+    public View getView() {
+        return view;
     }
 
-    public void setSaved(List<Object> saved) {
-        this.saved = saved;
+    public void setView(View view) {
+        this.view = view;
     }
 
     public String getStatus() {

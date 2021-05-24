@@ -1,6 +1,10 @@
 package com.app.furoapp.retrofit;
 
 
+import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListRequest;
+import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListResponse;
+import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListRequest;
+import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
 import com.app.furoapp.activity.newFeature.newFeatureModelByM.activityDetailsNew.ActivityDetailResponse;
 import com.app.furoapp.activity.newFeature.newFeatureModelByM.addComments.AddCommentRequest;
 import com.app.furoapp.activity.newFeature.newFeatureModelByM.addComments.AddCommentResponse;
@@ -8,6 +12,8 @@ import com.app.furoapp.activity.newFeature.newFeatureModelByM.like.LikeRequest;
 import com.app.furoapp.activity.newFeature.newFeatureModelByM.like.LikeResponse;
 import com.app.furoapp.activity.newFeature.newFeatureModelByM.saveBookmark.SavedRequest;
 import com.app.furoapp.activity.newFeature.newFeatureModelByM.saveBookmark.SavedResponse;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.userView.ViewsRequest;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.userView.ViewsResponse;
 import com.app.furoapp.model.Bannersecond.BannerSecondResponse;
 import com.app.furoapp.model.FriendModel.AddFriend;
 import com.app.furoapp.model.FriendModel.FriendInviteModel;
@@ -353,6 +359,18 @@ public class RestClient {
 
     public static void userPostSaved(String token, SavedRequest request, Callback<SavedResponse> callback) {
         RetrofitClient.getClient().userPostSaved(token, request).enqueue(callback);
+    }
+
+    public static void userPostView(String token, ViewsRequest request, Callback<ViewsResponse> callback) {
+        RetrofitClient.getClient().userPostView(token, request).enqueue(callback);
+    }
+
+    public static void saveList(String token, SavedListRequest savedListRequest, Callback<SavedListResponse> callback) {
+        RetrofitClient.getClient().saveOnPost(token,savedListRequest).enqueue(callback);
+    }
+
+    public static void likeList(String token, LikeListRequest likeListRequest, Callback<LikeListResponse> callback) {
+        RetrofitClient.getClient().likeList(token,likeListRequest).enqueue(callback);
     }
 
 }

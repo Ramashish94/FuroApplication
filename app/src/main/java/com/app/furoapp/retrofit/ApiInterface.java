@@ -1,13 +1,20 @@
 package com.app.furoapp.retrofit;
 
 
+import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListRequest;
+import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListResponse;
+import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListRequest;
+import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
 import com.app.furoapp.activity.newFeature.newFeatureModelByM.activityDetailsNew.ActivityDetailResponse;
 import com.app.furoapp.activity.newFeature.newFeatureModelByM.addComments.AddCommentRequest;
 import com.app.furoapp.activity.newFeature.newFeatureModelByM.addComments.AddCommentResponse;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.feedHomeFragment_ListingNew.ActivitiesListing;
 import com.app.furoapp.activity.newFeature.newFeatureModelByM.like.LikeRequest;
 import com.app.furoapp.activity.newFeature.newFeatureModelByM.like.LikeResponse;
 import com.app.furoapp.activity.newFeature.newFeatureModelByM.saveBookmark.SavedRequest;
 import com.app.furoapp.activity.newFeature.newFeatureModelByM.saveBookmark.SavedResponse;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.userView.ViewsRequest;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.userView.ViewsResponse;
 import com.app.furoapp.model.Bannersecond.BannerSecondResponse;
 import com.app.furoapp.model.FriendModel.AddFriend;
 import com.app.furoapp.model.FriendModel.FriendInviteModel;
@@ -54,7 +61,6 @@ import com.app.furoapp.model.communitymembers.CommunityMembersResponse;
 import com.app.furoapp.model.contentFeedDetail.ContentFeedDetailRequest;
 import com.app.furoapp.model.contentFeedDetail.ContentFeedDetailResponse;
 import com.app.furoapp.model.content_feed.ContentFeedModel;
-import com.app.furoapp.activity.newFeature.newFeatureModelByM.feedHomeFragment_ListingNew.ActivitiesListing;
 import com.app.furoapp.model.createVideoChallenge.CreateVideoChallangeResponse;
 import com.app.furoapp.model.draft.DraftRequest;
 import com.app.furoapp.model.draft.DraftResponse;
@@ -402,4 +408,15 @@ public interface ApiInterface {
     @POST("saved")
     Call<SavedResponse> userPostSaved(@Header(TOKEN_KEY) String token, @Body SavedRequest request);
 
+    /*Views*/
+    @POST("views")
+    Call<ViewsResponse> userPostView(@Header(TOKEN_KEY) String token, @Body ViewsRequest request);
+
+    /*Saved list*/
+    @POST("saved-list")
+    Call<SavedListResponse>saveOnPost (@Header(TOKEN_KEY) String token, @Body SavedListRequest savedListRequest);
+
+    /*Liked list*/
+    @POST("like-list")
+    Call<LikeListResponse>likeList (@Header(TOKEN_KEY) String token, @Body LikeListRequest likeListRequest);
 }

@@ -31,6 +31,8 @@ import com.app.furoapp.activity.newFeature.newFeatureModelByM.like.LikeRequest;
 import com.app.furoapp.activity.newFeature.newFeatureModelByM.like.LikeResponse;
 import com.app.furoapp.activity.newFeature.newFeatureModelByM.saveBookmark.SavedRequest;
 import com.app.furoapp.activity.newFeature.newFeatureModelByM.saveBookmark.SavedResponse;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.userView.ViewsRequest;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.userView.ViewsResponse;
 import com.app.furoapp.adapter.ContentFeedHomeAdapter;
 import com.app.furoapp.databinding.FragmentContentFeedsListBinding;
 import com.app.furoapp.activity.newFeature.newFeatureModelByM.feedHomeFragment_ListingNew.ActivitiesListing;
@@ -77,6 +79,7 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
     public LinearLayout llSavedBookmarked, llViewDetals;
     public Boolean clicked = true;
     private String getAccessToken;
+    public Integer id;
 
 
     @Override
@@ -105,9 +108,9 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
         unique_id = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
         loginuserid = FuroPrefs.getString(getContext(), "loginUserId");
         /*added get access token*/
-
         getAccessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
         Log.d(TAG, "onCreateView()" + getAccessToken);
+
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(homeMainActivity, new OnSuccessListener<InstanceIdResult>() {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
@@ -157,7 +160,6 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
         updateTokenDetails();
 
         clickListener();
-//        clickOnLikeAndDislike();
         return view;
     }
 
@@ -171,7 +173,6 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
 
                 if (response.body() != null) {
                     ActivitiesListing activitiesListing = response.body();
-
                     if (activitiesListing != null && activitiesListing.getData() != null) {
                         List<Datum> datumList = activitiesListing.getData();
                         if (datumList != null && datumList.size() > 0) {
@@ -179,7 +180,6 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
                             data.clear();
                             if (type.equalsIgnoreCase("video")) {
                                 for (int i = 0; i < datumList.size(); i++) {
-
                                     if (datumList.get(i).getVideo() != null) {
                                         ActivityFilterData filterData = new ActivityFilterData();
                                         filterData.setDatum(datumList.get(i));
@@ -194,19 +194,11 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
                                         Log.d(TAG, "Add DatumList");
                                         data.addAll(Collections.singleton(datum));
                                     }
-
                                 }
                                 setContentFeedHomeAdapter(data);
-//                                contentFeedHomeAdapter = new ContentFeedHomeAdapter(data, getContext(), this);
-//                                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-//                                recyclerView.setLayoutManager(layoutManager);
-//                                recyclerView.setItemAnimator(new DefaultItemAnimator());
-//                                // recyclerView.OnLikeCommentsShareViewsBookmark(this);
-//                                recyclerView.setAdapter(contentFeedHomeAdapter);
                             }
                             if (type.equalsIgnoreCase("Article")) {
                                 for (int i = 0; i < datumList.size(); i++) {
-
                                     if (datumList.get(i).getVideo() == null) {
                                         ActivityFilterData filterData = new ActivityFilterData();
                                         filterData.setDatum(datumList.get(i));
@@ -226,11 +218,10 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
                         }
 
                         if (type.equalsIgnoreCase("")) {
-
-//                            for (int i = 0; i < datumList.size(); i++) {
                             if (datumList != null && datumList.size() > 0) {
-                                int id = datumList.get(0).getId();
+                                id = datumList.get(0).getId();
                                 FuroPrefs.putString(getContext(), "activity_id", String.valueOf(id));
+                                FuroPrefs.putString(getApplicationContext(),Constants.ACTIVITY_Id, String.valueOf(id));
                                 setContentFeedHomeAdapter(datumList);
                                 recyclerView.setAdapter(contentFeedHomeAdapter);
                             }
@@ -269,30 +260,6 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
         return fragment;
     }
 
-
-    /*    private List<ContentListModel> getContentListRecord(){
-
-            List<ContentListModel> contentListRecords = new ArrayList<ContentListModel>();
-            String  categoryName[] ={"Activities", "Food", "Food", "Food", "Health", "Health", "Motivation", "Motivation"};
-            Integer categoryImage[] = {R.drawable.activity_ic, R.drawable.food_ic, R.drawable.food_ic, R.drawable.food_ic, R.drawable.heart_ic, R.drawable.heart_ic, R.drawable.motivatioin_ic, R.drawable.motivatioin_ic};
-            Integer contentImage[] = {R.drawable.activities_first, R.drawable.food_first, R.drawable.food_second, R.drawable.food_third, R.drawable.health_first, R.drawable.health_second, R.drawable.motivation_first, R.drawable.motivation_second};
-
-            for (int index= 0; index<10; index++)
-                for (int i= 0; i<  categoryImage.length;i++) {
-                    ContentListModel  model =  new ContentListModel();
-                    model.setFeedTypeCategoryImage(categoryImage[i]);
-                    model.setFeedTypeCategoryName( categoryName[i]);
-                    model.setFeedType( categoryName[i]);
-                    model.setVideo(i == 0);
-                    model.setContentImage( contentImage[i]);
-                    model.setFeedTitle(  "Sample Title");
-                    contentListRecords.add(model);
-                }
-
-
-
-            return contentListRecords;
-        }*/
     public void setSwitchButtonVideo() {
         switchButtonVideo.setChecked(true);
         switchButtonVideo.isChecked();
@@ -311,15 +278,11 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
 
 
     public void updateTokenDetails() {
-
         String userfcmticket = FuroPrefs.getString(homeMainActivity, "token");
-
         Log.i("userfcmticketttt", userfcmticket);
-
         RequestBody Iduser = RequestBody.create(MediaType.parse("text/plain"), loginuserid);
         RequestBody userdeviceid = RequestBody.create(MediaType.parse("text/plain"), unique_id);
         RequestBody userfcmtoken = RequestBody.create(MediaType.parse("text/plain"), userfcmticket);
-
         RestClient.updateTokenofuser(Iduser, userdeviceid, userfcmtoken, new Callback<UdateTokenResponse>() {
             @Override
             public void onResponse(Call<UdateTokenResponse> call, Response<UdateTokenResponse> response) {
@@ -335,33 +298,24 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
         });
     }
 
-    private void clickListener() {
-        llSavedBookmarked.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), LikedAndSavedActivity.class);
-            startActivity(intent);
-        });
-
-        llViewDetals.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), Days21FitnessChallangeActivity.class);
-            startActivity(intent);
-        });
+    @Override
+    public void contentFeedItem(int videoId) {
+        Intent intent = new Intent(getContext(), YoutubePlayerActivity.class);
+        startActivity(intent);
     }
 
-    private void clickOnLikeAndDislike() {
-
-
-        Toast.makeText(homeMainActivity, "Success", Toast.LENGTH_SHORT).show();
-
-
+    @Override
+    public void contentFeedItem2(int id) {
+        Intent intent = new Intent(getContext(), ContentFeedDetailActivity.class);
+        startActivity(intent);
+        FuroPrefs.putString(getActivity(), "id", String.valueOf(id));
     }
 
+    /*Like event */
     private void callLikeApi(LikeRequest data) {
-//       Util.isInternetConnected(getContext());
-//        Util.showProgressDialog(getActivity());
         RestClient.userPostLike(getAccessToken, data, new Callback<LikeResponse>() {
             @Override
             public void onResponse(Call<LikeResponse> call, Response<LikeResponse> response) {
-//               Util.dismissProgressDialog();
                 if (response.body() != null) {
                     LikeResponse likeResponse = response.body();
                     showToast(likeResponse.getStatus());
@@ -383,6 +337,58 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
         return request;
     }
 
+    @Override
+    public void onClickLike(int pos, Datum data) {
+//        showToast(data.getUserLike());
+        if (data.getUserLike().equals("0")) {
+            data.setTotalLikes(data.getTotalLikes() + 1);
+            data.setUserLike("1");
+        } else {
+            data.setTotalLikes(data.getTotalLikes() - 1);
+            data.setUserLike("0");
+        }
+        contentFeedHomeAdapter.updateData(pos, data);
+        callLikeApi(getLikeApiParams(data.getId(), Integer.parseInt(data.getUserLike())));
+    }
+
+    /*View event*/
+    private void callViewsApi(ViewsRequest data) {
+        RestClient.userPostView(getAccessToken, data, new Callback<ViewsResponse>() {
+            @Override
+            public void onResponse(Call<ViewsResponse> call, Response<ViewsResponse> response) {
+                if (response.body() != null) {
+                    ViewsResponse viewsResponse = response.body();
+                    showToast(viewsResponse.getStatus());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ViewsResponse> call, Throwable t) {
+                Toast.makeText(homeMainActivity, "No internet connection!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private ViewsRequest getViewsApiParams(Integer id, int postId) {
+        ViewsRequest request = new ViewsRequest();
+        request.setPostId(postId);
+        return request;
+    }
+
+    @Override
+    public void onClickView(int pos, Datum data) {
+        if (data.getUserView().equals("0")) {
+            data.setTotalViews(data.getTotalViews() + 1);
+            data.setUserView("1");
+        } else {
+            data.setTotalViews(data.getTotalViews() - 1);
+            data.setUserView("0");
+        }
+        contentFeedHomeAdapter.updateData(pos, data);
+        callViewsApi(getViewsApiParams(data.getId(), Integer.parseInt(data.getUserView())));
+    }
+
+    /*Saved event*/
     private void callSavedApi(SavedRequest data) {
         RestClient.userPostSaved(getAccessToken, data, new Callback<SavedResponse>() {
             @Override
@@ -408,34 +414,7 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
     }
 
     @Override
-    public void contentFeedItem(int videoId) {
-        Intent intent = new Intent(getContext(), YoutubePlayerActivity.class);
-        startActivity(intent);
-    }
-
-    @Override
-    public void contentFeedItem2(int id) {
-        Intent intent = new Intent(getContext(), ContentFeedDetailActivity.class);
-        startActivity(intent);
-        FuroPrefs.putString(getActivity(), "id", String.valueOf(id));
-    }
-
-    @Override
-    public void onClickLike(int pos, Datum data) {
-//        showToast(data.getUserLike());
-        if (data.getUserLike().equals("0")) {
-            data.setTotalLikes(data.getTotalLikes() + 1);
-            data.setUserLike("1");
-        } else {
-            data.setTotalLikes(data.getTotalLikes() - 1);
-            data.setUserLike("0");
-        }
-        contentFeedHomeAdapter.updateData(pos, data);
-        callLikeApi(getLikeApiParams(data.getId(), Integer.parseInt(data.getUserLike())));
-    }
-
-    @Override
-    public void onClickBookmark(int pos, Datum data) {
+    public void onClickSaveBookmark(int pos, Datum data) {
         if (data.getUserSave().equals("0")) {
             data.setUserSave("1");
         } else {
@@ -476,9 +455,17 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
         startActivity(intent);
     }
 
-    @Override
-    public void onClickView(int pos, Datum data) {
+    private void clickListener() {
+        llSavedBookmarked.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), LikedAndSavedActivity.class);
+            FuroPrefs.putString(getApplicationContext(), "id", String.valueOf(id));
+            startActivity(intent);
+        });
 
+        llViewDetals.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), Days21FitnessChallangeActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void showToast(String message) {

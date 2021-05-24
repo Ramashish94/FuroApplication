@@ -4,7 +4,7 @@ import static android.provider.ContactsContract.Directory.PACKAGE_NAME;
 
 public class Constants {
 
-   // public static final String ACCESS_TOKEN = "access_token";
+    // public static final String ACCESS_TOKEN = "access_token";
     public static final String ACCESS_TOKEN_EMAIL = "access_token_email";
     public static final String NAME = "name";
     public static final String EMAILID = "emailid";
@@ -25,10 +25,10 @@ public class Constants {
             "com.app.furoapp";
     public static final String RESULT_DATA_KEY = PACKAGE_NAME + ".RESULT_DATA_KEY";
     public static final String DEVELOPER_KEY = "AIzaSyB-GCpmgas6btA_0VDkSC8KjGhxAQWUW7A";
-    public static final String ADDRESS ="address" ;
-    public static final String CITY ="city" ;
-    public static final String COUNTRY ="country" ;
-    public static final String PINCODE ="pincode" ;
+    public static final String ADDRESS = "address";
+    public static final String CITY = "city";
+    public static final String COUNTRY = "country";
+    public static final String PINCODE = "pincode";
     public static final int SUCCESS_RESULT = 0;
     public static final String RECEIVER = PACKAGE_NAME + ".RECEIVER";
     public static final String LOCATION_DATA_EXTRA = PACKAGE_NAME + ".LOCATION_DATA_EXTRA";
@@ -59,5 +59,6 @@ public class Constants {
     public static final String CONTANT = "Content";
     public static final String SUBMITCHALLENGE = "Submitchallenge";
     /* added*/
-    public static String Get_ACCESS_TOKEN="access_token";
+    public static String Get_ACCESS_TOKEN = "access_token";
+    public static String ACTIVITY_Id = "id";
 }

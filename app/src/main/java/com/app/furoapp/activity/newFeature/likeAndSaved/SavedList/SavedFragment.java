@@ -13,13 +13,15 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.app.furoapp.R;
+import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListRequest;
+import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListResponse;
+import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedOnPost;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import retrofit2.Call;
@@ -30,10 +32,11 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class SavedFragment extends Fragment {
     public RecyclerView rvSavedRecycler;
-    SavedAdapter savedAdapter;
-    List<SavedTestModel> savedTestModelList = new ArrayList<>();
+    SavedListAdapter savedListAdapter;
+    List<SavedOnPost> savedOnPostList = new ArrayList<>();
     public String getAccessToken;
-    public List<Object> savedListResponses = new ArrayList<>();
+    public String activityId;
+   List<SavedListResponse >savedListResponseList=new ArrayList<>();
 
 
     public SavedFragment() {
@@ -62,24 +65,26 @@ public class SavedFragment extends Fragment {
         rvSavedRecycler = view.findViewById(R.id.rvSavedRecycler);
         getAccessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
 
-        setSavedAdapter();
-        // setSavedListAdapter();
-        //getApiCalling();
+        setSavedListAdapter();
+        getApiCalling();
         return view;
     }
 
+    private void getApiCalling() {
+        activityId = FuroPrefs.getString(getApplicationContext(), "id");
+        SavedListRequest savedListRequest = new SavedListRequest();
+        savedListRequest.setActivityId(activityId);
 
-   /* private void getApiCalling() {
         Util.isInternetConnected(getContext());
         Util.showProgressDialog(getActivity());
-        RestClient.getAllSavedList(getAccessToken, new Callback<SavedListResponse>() {
+        RestClient.saveList(getAccessToken, savedListRequest, new Callback<SavedListResponse>() {
             @Override
             public void onResponse(Call<SavedListResponse> call, Response<SavedListResponse> response) {
                 if (response != null && response.code() == 200 && response.body() != null) {
-                    if (response.body().getSaved() != null) {
-                        //saved post list
-                        //notifySavedListAdapter(response.body().getSaved());
+                    if (response.body().getStatus()!=null){
+                        notifySavedListAdapter(response.body().getSavedOnPost());
                     }
+
                 } else {
                     Toast.makeText(getApplicationContext(), "Failure" + response.code(), Toast.LENGTH_SHORT).show();
                 }
@@ -90,31 +95,20 @@ public class SavedFragment extends Fragment {
                 Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         });
-    }*/
+    }
 
-
-    private void setSavedAdapter() {
-        savedAdapter = new SavedAdapter(getApplicationContext(), savedTestModelList);
+    private void setSavedListAdapter() {
+        savedListAdapter = new SavedListAdapter(getApplicationContext(), savedOnPostList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         rvSavedRecycler.setLayoutManager(layoutManager);
         rvSavedRecycler.setItemAnimator(new DefaultItemAnimator());
-        rvSavedRecycler.setAdapter(savedAdapter);
-        List<SavedTestModel> savedTestModels = new ArrayList<>();
-        for (int i = 0; i <= 10; i++) {
-            SavedTestModel savedTestModel = new SavedTestModel();
-            savedTestModel.setTittle("ACTIVITY" + i);
-            savedTestModel.setDefineText("BUSTIG MYTHUS ABOUT WORKOUT INJURIES");
-            savedTestModels.add(savedTestModel);
-        }
-        SavedAdapter savedAdapter = new SavedAdapter(getApplicationContext(), savedTestModels);
-        rvSavedRecycler.setAdapter(savedAdapter);
+        rvSavedRecycler.setAdapter(savedListAdapter);
     }
-
-    private void notifySavedListAdapter(List<Object> saved) {
-        savedTestModelList.clear();
-        // savedTestModelList.addAll(saved);
-        if (savedListResponses != null && savedListResponses.size() > 0) {
-            savedAdapter.notifyDataSetChanged();
+    private void notifySavedListAdapter(List<SavedOnPost> savedOnPost) {
+        savedOnPostList.clear();
+        savedOnPostList.addAll(savedOnPost);
+        if (savedListResponseList != null && savedListResponseList.size() > 0) {
+            savedListAdapter.notifyDataSetChanged();
         }
     }
 }

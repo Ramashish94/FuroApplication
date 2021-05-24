@@ -13,9 +13,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.SavedAdapter;
-import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.SavedListResponse;
-import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.SavedTestModel;
+import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListRequest;
+import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
+import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeOnPost;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
@@ -32,10 +32,11 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class LikeFragment extends Fragment {
     RecyclerView rvLikeRecy;
-    SavedAdapter savedAdapter;
-    List<SavedTestModel> savedTestModelList = new ArrayList<>();
+    LikeListAdapter likeListAdapter;
+    List<LikeOnPost> likeOnPostList = new ArrayList<>();
     private String getAccessToken;
-    List<LikedListResponse >likedListResponse=new ArrayList<>();
+    List<LikeListResponse> likeListResponses = new ArrayList<>();
+    private String activityId;
 
     public LikeFragment() {
         // Required empty public constructor
@@ -64,57 +65,52 @@ public class LikeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_like, container, false);
         rvLikeRecy = view.findViewById(R.id.rvLikeRecy);
         getAccessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
-        setSavedAdapter();
-
-       // getApiCalling();
+        setLikeListAdapter();
+        getApiCalling();
         return view;
     }
 
 
-    /*private void getApiCalling() {
+    private void getApiCalling() {
+
+        activityId = FuroPrefs.getString(getApplicationContext(), "id");
+        LikeListRequest likeListRequest = new LikeListRequest();
+        likeListRequest.setActivityId(activityId);
+
         Util.isInternetConnected(getContext());
         Util.showProgressDialog(getActivity());
-        RestClient.getAllLikedList(getAccessToken, new Callback<LikedListResponse>() {
+
+        RestClient.likeList(getAccessToken, likeListRequest,new Callback<LikeListResponse>() {
             @Override
-            public void onResponse(Call<LikedListResponse> call, Response<LikedListResponse> response) {
+            public void onResponse(Call<LikeListResponse> call, Response<LikeListResponse> response) {
                 if (response != null && response.code() == 200 && response.body() != null) {
-                    if (response.body().getSaved() != null) {
-                        //saved post list
-                       // notifyLikeListAdapter(response.body().getSaved());
+                    if (response.body().getStatus() != null) {
+                        notifyLikeListAdapter(response.body().getLikeOnPost());
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), "Failure" + response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
-            public void onFailure(Call<LikedListResponse> call, Throwable t) {
+            public void onFailure(Call<LikeListResponse> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         });
-    }*/
+    }
 
-    private void setSavedAdapter() {
-        savedAdapter = new SavedAdapter(getApplicationContext(), savedTestModelList);
+    private void setLikeListAdapter() {
+        likeListAdapter = new LikeListAdapter(getApplicationContext(), likeOnPostList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         rvLikeRecy.setLayoutManager(layoutManager);
         rvLikeRecy.setItemAnimator(new DefaultItemAnimator());
-        rvLikeRecy.setAdapter(savedAdapter);
-        List<SavedTestModel> savedTestModels = new ArrayList<>();
-        for (int i = 0; i <= 10; i++) {
-            SavedTestModel savedTestModel = new SavedTestModel();
-            savedTestModel.setTittle("ACTIVITY" + i);
-            savedTestModel.setDefineText("BUSTIG MYTHUS ABOUT WORKOUT INJURIES");
-            savedTestModels.add(savedTestModel);
-        }
-        SavedAdapter savedAdapter = new SavedAdapter(getApplicationContext(), savedTestModels);
-        rvLikeRecy.setAdapter(savedAdapter);
+        rvLikeRecy.setAdapter(likeListAdapter);
     }
 
-    private void notifyLikeListAdapter(List<Object> saved) {
-        savedTestModelList.clear();
-        // savedTestModelList.addAll(saved);
-        if (likedListResponse != null && likedListResponse.size() > 0) {
-            savedAdapter.notifyDataSetChanged();
+    private void notifyLikeListAdapter(List<LikeOnPost> saved) {
+        likeOnPostList.clear();
+        likeOnPostList.addAll(saved);
+        if (likeListResponses != null && likeListResponses.size() > 0) {
+            likeListAdapter.notifyDataSetChanged();
         }
     }
 }

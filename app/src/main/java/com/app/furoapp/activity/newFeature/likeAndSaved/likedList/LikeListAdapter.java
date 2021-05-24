@@ -1,4 +1,4 @@
-package com.app.furoapp.activity.newFeature.likeAndSaved.SavedList;
+package com.app.furoapp.activity.newFeature.likeAndSaved.likedList;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,40 +11,42 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
+import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedOnPost;
+import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeOnPost;
 import com.google.android.youtube.player.YouTubePlayerView;
 
 import java.util.List;
 
-public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.MyViewHolder> {
+public class LikeListAdapter extends RecyclerView.Adapter<LikeListAdapter.MyViewHolder> {
 
     private Context context;
-    List<SavedTestModel> savedTestModelList;
+    List<LikeOnPost> likeOnPostList;
 
-    public SavedAdapter(Context applicationContext, List<SavedTestModel> savedTestModelList) {
+    public LikeListAdapter(Context applicationContext, List<LikeOnPost> likeOnPostList) {
         this.context = applicationContext;
-        this.savedTestModelList = savedTestModelList;
+        this.likeOnPostList = likeOnPostList;
     }
 
     @NonNull
     @Override
-    public SavedAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public LikeListAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_bookmarked_saved, parent, false);
 
-        return new SavedAdapter.MyViewHolder(itemView);
+        return new LikeListAdapter.MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SavedAdapter.MyViewHolder holder, int position) {
-        SavedTestModel savedTestModel = savedTestModelList.get(position);
-        holder.tvTittle.setText("" + savedTestModel.getTittle());
-        holder.tvAcTextall.setText("" + savedTestModel.getDefineText());
+    public void onBindViewHolder(@NonNull LikeListAdapter.MyViewHolder holder, int position) {
+        LikeOnPost likeOnPost = likeOnPostList.get(holder.getAdapterPosition());
+        holder.tvTittle.setText("" + likeOnPost.getTitle());
+        holder.tvAcTextall.setText("" + likeOnPost.getDescription());
     }
 
     @Override
     public int getItemCount() {
-        if (savedTestModelList != null && savedTestModelList.size() > 0) {
-            return savedTestModelList.size();
+        if (likeOnPostList != null && likeOnPostList.size() > 0) {
+            return likeOnPostList.size();
         } else {
             return 0;
         }

@@ -96,31 +96,59 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
                 });
             }
         }
-
+        /*like*/
         holder.llLikeAndDislike.setOnClickListener(v -> {
             feedCallback.onClickLike(position, datum);
         });
         if (datum.getUserLike() != null)
             if (datum.getUserLike().equals("0")) {
-//                    clicked = false;
+                    //clicked = false;
                 holder.ivLikeUnlikeImg.setImageResource(R.drawable.thumb_unlike);
                 holder.tvCountLike.setTextColor(Color.BLACK);
                 holder.tvLiketxt.setTextColor(Color.BLACK);
             } else {
-//                    clicked = true;
+                   //clicked = true;
                 holder.ivLikeUnlikeImg.setImageResource(R.drawable.thumb_like);
                 holder.tvCountLike.setTextColor(Color.parseColor("#19CFE6"));
                 holder.tvLiketxt.setTextColor(Color.parseColor("#19CFE6"));
             }
-        holder.ivSave.setOnClickListener(v -> {
-            feedCallback.onClickBookmark(position, datum);
-        });
-        holder.ivShare.setOnClickListener(v -> {
-            feedCallback.onClickShare(position, datum);
-        });
+
+        /*comments*/
         holder.llComntsSec.setOnClickListener(v -> {
             feedCallback.onClickComment(position, datum);
         });
+
+        /*views*/
+        holder.llViewsSec.setOnClickListener(v -> {
+            feedCallback.onClickView(position, datum);
+        });
+        if (datum.getUserView() != null)
+            if (datum.getUserView().equals("0")) {
+                holder.ivViews.setImageResource(R.drawable.view_image);
+                holder.tvCountViews.setTextColor(Color.BLACK);
+                holder.tvView.setTextColor(Color.BLACK);
+            } else {
+                holder.ivViews.setImageResource(R.drawable.selectviews);
+                holder.tvCountViews.setTextColor(Color.parseColor("#19CFE6"));
+                holder.tvView.setTextColor(Color.parseColor("#19CFE6"));
+            }
+
+        /*share*/
+        holder.ivShare.setOnClickListener(v -> {
+            feedCallback.onClickShare(position, datum);
+        });
+
+        /*save*/
+        holder.ivSave.setOnClickListener(v -> {
+            feedCallback.onClickSaveBookmark(position, datum);
+        });
+        if (datum.getUserSave() != null)
+            if (datum.getUserSave().equals("0")) {
+                holder.ivSave.setImageResource(R.drawable.unselct_bookmark_ribbon);
+            } else {
+                holder.ivSave.setImageResource(R.drawable.select_bookmark_ribbon);
+
+            }
     }
 
     public String extractYoutubeId(String url) throws MalformedURLException {
@@ -159,7 +187,7 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public ImageView ivImageCategoryall, ivPlaybutton, actIcon;
         public TextView tvTextAll, tvTitleAll, tvCountLike, tvLiketxt, tvCountsCmnt, tvComntsTxt, tvCountViews, tvView;
-        public LinearLayout linearLayout, llComntsSec;
+        public LinearLayout linearLayout, llComntsSec, llViewsSec;
         public ImageView ivLikeUnlikeImg, ivChat, ivViews, ivShare, ivSave;
         public LinearLayout llLikeAndDislike;
 
@@ -181,6 +209,7 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
             tvCountsCmnt = itemView.findViewById(R.id.tvCountsCmnt);
             tvComntsTxt = itemView.findViewById(R.id.tvComntsTxt);
             ivViews = itemView.findViewById(R.id.ivViews);
+            llViewsSec = itemView.findViewById(R.id.llViewsSec);
             tvCountViews = itemView.findViewById(R.id.tvCountViews);
             tvView = itemView.findViewById(R.id.tvView);
             ivShare = itemView.findViewById(R.id.ivShare);
@@ -196,7 +225,7 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
 
         void onClickLike(int pos, Datum data);
 
-        void onClickBookmark(int pos, Datum data);
+        void onClickSaveBookmark(int pos, Datum data);
 
         void onClickShare(int pos, Datum data);
 

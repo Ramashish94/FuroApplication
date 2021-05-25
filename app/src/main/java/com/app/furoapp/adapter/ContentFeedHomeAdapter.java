@@ -26,7 +26,7 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
 
     public List<Datum> datumList;
     private Context context;
-    //    public Boolean clicked = true;
+    public Boolean clicked = true;
     int indexPosition;
     private ContentFeedCallback feedCallback;
 
@@ -71,7 +71,6 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
             Picasso.with(context).load(img_url).error(R.drawable.back_icon)
                     .into(holder.ivImageCategoryall);
 
-
             final String videoNewId = videoid;
             holder.ivPlaybutton.setOnClickListener(view -> {
                 FuroPrefs.putString(context, "Youtube_Video_Id", videoNewId);
@@ -102,12 +101,12 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
         });
         if (datum.getUserLike() != null)
             if (datum.getUserLike().equals("0")) {
-                    //clicked = false;
+                clicked = false;
                 holder.ivLikeUnlikeImg.setImageResource(R.drawable.thumb_unlike);
                 holder.tvCountLike.setTextColor(Color.BLACK);
                 holder.tvLiketxt.setTextColor(Color.BLACK);
             } else {
-                   //clicked = true;
+                clicked = true;
                 holder.ivLikeUnlikeImg.setImageResource(R.drawable.thumb_like);
                 holder.tvCountLike.setTextColor(Color.parseColor("#19CFE6"));
                 holder.tvLiketxt.setTextColor(Color.parseColor("#19CFE6"));
@@ -124,10 +123,12 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
         });
         if (datum.getUserView() != null)
             if (datum.getUserView().equals("0")) {
+                clicked = false;
                 holder.ivViews.setImageResource(R.drawable.view_image);
                 holder.tvCountViews.setTextColor(Color.BLACK);
                 holder.tvView.setTextColor(Color.BLACK);
             } else {
+                clicked=true;
                 holder.ivViews.setImageResource(R.drawable.selectviews);
                 holder.tvCountViews.setTextColor(Color.parseColor("#19CFE6"));
                 holder.tvView.setTextColor(Color.parseColor("#19CFE6"));
@@ -144,8 +145,10 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
         });
         if (datum.getUserSave() != null)
             if (datum.getUserSave().equals("0")) {
+                clicked=false;
                 holder.ivSave.setImageResource(R.drawable.unselct_bookmark_ribbon);
             } else {
+                clicked=true;
                 holder.ivSave.setImageResource(R.drawable.select_bookmark_ribbon);
 
             }

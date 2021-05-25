@@ -115,6 +115,7 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
         linearLayout.setVisibility(View.VISIBLE);
         progressBarr.setVisibility(View.VISIBLE);
         accessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
+
         RestClient.activityDetailNew(accessToken, contentFeedDetailRequest, new Callback<ActivityDetailResponse>() {
             @Override
             public void onResponse(Call<ActivityDetailResponse> call, Response<ActivityDetailResponse> response) {

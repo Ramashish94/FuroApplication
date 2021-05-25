@@ -458,7 +458,7 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
     private void clickListener() {
         llSavedBookmarked.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), LikedAndSavedActivity.class);
-            FuroPrefs.putString(getApplicationContext(), "id", String.valueOf(id));
+           // FuroPrefs.putString(getApplicationContext(), "id", String.valueOf(id));
             startActivity(intent);
         });
 

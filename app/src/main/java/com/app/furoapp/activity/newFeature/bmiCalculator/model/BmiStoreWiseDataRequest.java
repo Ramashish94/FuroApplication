@@ -1,9 +1,9 @@
-package com.app.furoapp.activity.newFeature.bmiCalculator;
+package com.app.furoapp.activity.newFeature.bmiCalculator.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RecordedBmiModel {
+public class BmiStoreWiseDataRequest {
     @SerializedName("gender")
     @Expose
     private String gender;
@@ -60,7 +60,6 @@ public class RecordedBmiModel {
     public void setBmi(String bmi) {
         this.bmi = bmi;
     }
-
 
 
 }

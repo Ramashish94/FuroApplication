@@ -1,6 +1,8 @@
 package com.app.furoapp.activity.newFeature.likeAndSaved.SavedList;
 
 import android.content.Context;
+import android.net.Uri;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,18 +14,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
 import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedOnPost;
+import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.LikeListAdapter;
+import com.app.furoapp.utils.FuroPrefs;
 import com.google.android.youtube.player.YouTubePlayerView;
+import com.squareup.picasso.Picasso;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 public class SavedListAdapter extends RecyclerView.Adapter<SavedListAdapter.MyViewHolder> {
 
     private Context context;
     List<SavedOnPost> savedOnPostList;
+    public ContentSavedCallback contentSavedCallback;
+    public String imageUrl = "https://api.fitnessquotient.in/common/images/blogs/";
 
-    public SavedListAdapter(Context applicationContext, List<SavedOnPost> savedOnPostList) {
+    public SavedListAdapter(Context applicationContext, List<SavedOnPost> savedOnPostList, ContentSavedCallback contentSavedCallback) {
         this.context = applicationContext;
         this.savedOnPostList = savedOnPostList;
+        this.contentSavedCallback = contentSavedCallback;
     }
 
     @NonNull
@@ -38,8 +48,67 @@ public class SavedListAdapter extends RecyclerView.Adapter<SavedListAdapter.MyVi
     @Override
     public void onBindViewHolder(@NonNull SavedListAdapter.MyViewHolder holder, int position) {
         SavedOnPost savedOnPost = savedOnPostList.get(holder.getAdapterPosition());
-        holder.tvTittle.setText("" + savedOnPost.getTitle());
-        holder.tvAcTextall.setText("" + savedOnPost.getDescription());
+        holder.tvTopTitel.setText("" + savedOnPost.getActivityDetail().getType());
+        Picasso.with(context).load(savedOnPost.getActivityDetail().getIcon()).error(R.drawable.activity_ic).into(holder.ivTopIcon);
+        Picasso.with(context).load(imageUrl + savedOnPost.getActivityDetail().getImage()).error(R.drawable.fq_bannnnnner).into(holder.ivAllImage);
+
+        holder.tvBottomTittal.setText("" + savedOnPost.getActivityDetail().getDescription());
+        String videoid = null;
+
+        try {
+            videoid = extractYoutubeId((String) savedOnPost.getActivityDetail().getVideo());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        if (!TextUtils.isEmpty(videoid)) {
+            String img_url = "http://img.youtube.com/vi/" + videoid + "/0.jpg";
+            holder.ivPlayIcon.setVisibility(View.VISIBLE);
+            Picasso.with(context).load(img_url).error(R.drawable.back_icon)
+                    .into(holder.ivAllImage);
+
+            final String videoNewId = videoid;
+            holder.ivPlayIcon.setOnClickListener(view -> {
+                FuroPrefs.putString(context, "Youtube_Video_Id", videoNewId);
+                contentSavedCallback.contentSavedItem(holder.getAdapterPosition());
+            });
+
+//            holder.ivAllImage.setOnClickListener(view -> {
+//                contentSavedCallback.contentSavedItem2(savedOnPost.getId());
+//            });
+        } else {
+            if (!TextUtils.isEmpty(savedOnPost.getActivityDetail().getImageUrl())) {
+                holder.ivPlayIcon.setVisibility(View.GONE);
+                Picasso.with(context).load(savedOnPost.getActivityDetail().getImageUrl()).into(holder.ivAllImage);
+
+                holder.ivAllImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        contentSavedCallback.contentSavedItem2(savedOnPost.getPostId());
+                    }
+                });
+            }
+        }
+
+
+    }
+
+    public String extractYoutubeId(String url) throws MalformedURLException {
+        try {
+            String query = new URL(url).getQuery();
+            String[] param = query.split("&");
+            String id = null;
+            for (String row : param) {
+                String[] param1 = row.split("=");
+                if (param1[0].equals("v")) {
+                    id = param1[1];
+                }
+            }
+            return id;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     @Override
@@ -52,17 +121,35 @@ public class SavedListAdapter extends RecyclerView.Adapter<SavedListAdapter.MyVi
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public ImageView ivActivityImageAll, ivIconActivity, ivPlayIconAllListNew;
+        public ImageView ivAllImage, ivTopIcon, ivPlayIcon;
         public YouTubePlayerView youtubebe_player;
-        public TextView tvTittle, tvAcTextall;
+        public TextView tvTopTitel, tvBottomTittal;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            ivActivityImageAll = itemView.findViewById(R.id.ivActivityImageAll);
-            ivIconActivity = itemView.findViewById(R.id.ivIconActivity);
-            ivPlayIconAllListNew = itemView.findViewById(R.id.ivPlayIconAllListNew);
-            tvTittle = itemView.findViewById(R.id.tvTittle);
-            tvAcTextall = itemView.findViewById(R.id.tvAcTextall);
+            ivAllImage = itemView.findViewById(R.id.ivAllImage);
+            ivTopIcon = itemView.findViewById(R.id.ivTopIcon);
+            ivPlayIcon = itemView.findViewById(R.id.ivPlayIcon);
+            tvTopTitel = itemView.findViewById(R.id.tvTopTitel);
+            tvBottomTittal = itemView.findViewById(R.id.tvBottomTittal);
         }
     }
+
+    public interface ContentSavedCallback {
+        void contentSavedItem(int videoId);
+
+        void contentSavedItem2(int id);
+
+//        void onClickLike(int pos, Datum data);
+//
+//        void onClickSaveBookmark(int pos, Datum data);
+//
+//        void onClickShare(int pos, Datum data);
+//
+//        void onClickComment(int pos, Datum data);
+//
+//        void onClickView(int pos, Datum data);
+    }
+
+
 }

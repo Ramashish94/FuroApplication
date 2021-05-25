@@ -1,5 +1,6 @@
 package com.app.furoapp.activity.newFeature.likeAndSaved.likedList;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,7 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListRequest;
+import com.app.furoapp.activity.ContentFeedDetailActivity;
+import com.app.furoapp.activity.YoutubePlayerActivity;
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeOnPost;
 import com.app.furoapp.retrofit.RestClient;
@@ -30,7 +32,7 @@ import retrofit2.Response;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-public class LikeFragment extends Fragment {
+public class LikeFragment extends Fragment implements LikeListAdapter.ContentLikeCallback{
     RecyclerView rvLikeRecy;
     LikeListAdapter likeListAdapter;
     List<LikeOnPost> likeOnPostList = new ArrayList<>();
@@ -72,17 +74,12 @@ public class LikeFragment extends Fragment {
 
 
     private void getApiCalling() {
-
-        activityId = FuroPrefs.getString(getApplicationContext(), "id");
-        LikeListRequest likeListRequest = new LikeListRequest();
-        likeListRequest.setActivityId(activityId);
-
         Util.isInternetConnected(getContext());
         Util.showProgressDialog(getActivity());
-
-        RestClient.likeList(getAccessToken, likeListRequest,new Callback<LikeListResponse>() {
+        RestClient.likeList(getAccessToken,new Callback<LikeListResponse>() {
             @Override
             public void onResponse(Call<LikeListResponse> call, Response<LikeListResponse> response) {
+                Util.dismissProgressDialog();
                 if (response != null && response.code() == 200 && response.body() != null) {
                     if (response.body().getStatus() != null) {
                         notifyLikeListAdapter(response.body().getLikeOnPost());
@@ -99,7 +96,7 @@ public class LikeFragment extends Fragment {
     }
 
     private void setLikeListAdapter() {
-        likeListAdapter = new LikeListAdapter(getApplicationContext(), likeOnPostList);
+        likeListAdapter = new LikeListAdapter(getApplicationContext(), likeOnPostList,this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         rvLikeRecy.setLayoutManager(layoutManager);
         rvLikeRecy.setItemAnimator(new DefaultItemAnimator());
@@ -109,8 +106,28 @@ public class LikeFragment extends Fragment {
     private void notifyLikeListAdapter(List<LikeOnPost> saved) {
         likeOnPostList.clear();
         likeOnPostList.addAll(saved);
-        if (likeListResponses != null && likeListResponses.size() > 0) {
+        if (likeOnPostList != null && likeOnPostList.size() > 0) {
             likeListAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void contentLikeItem(int videoId) {
+        Intent intent = new Intent(getContext(), YoutubePlayerActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void contentLikeItem2(int id) {
+        Intent intent = new Intent(getContext(), ContentFeedDetailActivity.class);
+        FuroPrefs.putString(getActivity(), "id", String.valueOf(id));
+        startActivity(intent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setLikeListAdapter();
+        getApiCalling();
     }
 }

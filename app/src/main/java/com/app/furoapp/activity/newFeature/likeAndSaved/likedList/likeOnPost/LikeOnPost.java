@@ -1,7 +1,6 @@
 
 package com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,48 +9,34 @@ public class LikeOnPost {
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("activity_id")
+    @SerializedName("user_id")
     @Expose
-    private Object activityId;
-    @SerializedName("type")
+    private String userId;
+    @SerializedName("post_id")
     @Expose
-    private String type;
-    @SerializedName("title")
+    private Integer postId;
+    @SerializedName("comment_id")
     @Expose
-    private String title;
-    @SerializedName("image")
+    private Object commentId;
+    @SerializedName("ip_address")
     @Expose
-    private String image;
-    @SerializedName("video")
+    private String ipAddress;
+    @SerializedName("like_flag")
     @Expose
-    private Object video;
-    @SerializedName("video_thumbnail")
+    private Integer likeFlag;
+    @SerializedName("status")
     @Expose
-    private Object videoThumbnail;
-    @SerializedName("link")
-    @Expose
-    private Object link;
-    @SerializedName("body")
-    @Expose
-    private List<Body> body = null;
-    @SerializedName("description")
-    @Expose
-    private String description;
+    private String status;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
-    @SerializedName("likes_count")
+    @SerializedName("activity_detail")
     @Expose
-    private Integer likesCount;
-    @SerializedName("views_count")
-    @Expose
-    private Integer viewsCount;
-    @SerializedName("comments_count")
-    @Expose
-    private Integer commentsCount;
+    private ActivityDetail activityDetail;
+
 
     public Integer getId() {
         return id;
@@ -61,76 +46,52 @@ public class LikeOnPost {
         this.id = id;
     }
 
-    public Object getActivityId() {
-        return activityId;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setActivityId(Object activityId) {
-        this.activityId = activityId;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getType() {
-        return type;
+    public Integer getPostId() {
+        return postId;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setPostId(Integer postId) {
+        this.postId = postId;
     }
 
-    public String getTitle() {
-        return title;
+    public Object getCommentId() {
+        return commentId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setCommentId(Object commentId) {
+        this.commentId = commentId;
     }
 
-    public String getImage() {
-        return image;
+    public String getIpAddress() {
+        return ipAddress;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
     }
 
-    public Object getVideo() {
-        return video;
+    public Integer getLikeFlag() {
+        return likeFlag;
     }
 
-    public void setVideo(Object video) {
-        this.video = video;
+    public void setLikeFlag(Integer likeFlag) {
+        this.likeFlag = likeFlag;
     }
 
-    public Object getVideoThumbnail() {
-        return videoThumbnail;
+    public String getStatus() {
+        return status;
     }
 
-    public void setVideoThumbnail(Object videoThumbnail) {
-        this.videoThumbnail = videoThumbnail;
-    }
-
-    public Object getLink() {
-        return link;
-    }
-
-    public void setLink(Object link) {
-        this.link = link;
-    }
-
-    public List<Body> getBody() {
-        return body;
-    }
-
-    public void setBody(List<Body> body) {
-        this.body = body;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getCreatedAt() {
@@ -149,28 +110,12 @@ public class LikeOnPost {
         this.updatedAt = updatedAt;
     }
 
-    public Integer getLikesCount() {
-        return likesCount;
+    public ActivityDetail getActivityDetail() {
+        return activityDetail;
     }
 
-    public void setLikesCount(Integer likesCount) {
-        this.likesCount = likesCount;
-    }
-
-    public Integer getViewsCount() {
-        return viewsCount;
-    }
-
-    public void setViewsCount(Integer viewsCount) {
-        this.viewsCount = viewsCount;
-    }
-
-    public Integer getCommentsCount() {
-        return commentsCount;
-    }
-
-    public void setCommentsCount(Integer commentsCount) {
-        this.commentsCount = commentsCount;
+    public void setActivityDetail(ActivityDetail activityDetail) {
+        this.activityDetail = activityDetail;
     }
 
 }

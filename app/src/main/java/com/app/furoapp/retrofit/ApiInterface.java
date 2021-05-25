@@ -1,9 +1,9 @@
 package com.app.furoapp.retrofit;
 
 
-import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListRequest;
+import com.app.furoapp.activity.newFeature.bmiCalculator.model.BmiStoreWiseDataRequest;
+import com.app.furoapp.activity.newFeature.bmiCalculator.model.BmiStoreWiseDataResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListResponse;
-import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListRequest;
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
 import com.app.furoapp.activity.newFeature.newFeatureModelByM.activityDetailsNew.ActivityDetailResponse;
 import com.app.furoapp.activity.newFeature.newFeatureModelByM.addComments.AddCommentRequest;
@@ -414,9 +414,13 @@ public interface ApiInterface {
 
     /*Saved list*/
     @POST("saved-list")
-    Call<SavedListResponse>saveOnPost (@Header(TOKEN_KEY) String token, @Body SavedListRequest savedListRequest);
+    Call<SavedListResponse> saveOnPost(@Header(TOKEN_KEY) String token);
 
     /*Liked list*/
     @POST("like-list")
-    Call<LikeListResponse>likeList (@Header(TOKEN_KEY) String token, @Body LikeListRequest likeListRequest);
+    Call<LikeListResponse> likeList(@Header(TOKEN_KEY) String token);
+
+    /*Bmi Store data*/
+    @POST("like-list")
+    Call<BmiStoreWiseDataResponse> getBmi(@Header(TOKEN_KEY) String token, @Body BmiStoreWiseDataRequest bmiStoreWiseDataRequest);
 }

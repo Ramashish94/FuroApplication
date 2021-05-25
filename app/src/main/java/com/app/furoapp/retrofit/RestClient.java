@@ -1,9 +1,9 @@
 package com.app.furoapp.retrofit;
 
 
-import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListRequest;
+import com.app.furoapp.activity.newFeature.bmiCalculator.model.BmiStoreWiseDataRequest;
+import com.app.furoapp.activity.newFeature.bmiCalculator.model.BmiStoreWiseDataResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListResponse;
-import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListRequest;
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
 import com.app.furoapp.activity.newFeature.newFeatureModelByM.activityDetailsNew.ActivityDetailResponse;
 import com.app.furoapp.activity.newFeature.newFeatureModelByM.addComments.AddCommentRequest;
@@ -365,12 +365,16 @@ public class RestClient {
         RetrofitClient.getClient().userPostView(token, request).enqueue(callback);
     }
 
-    public static void saveList(String token, SavedListRequest savedListRequest, Callback<SavedListResponse> callback) {
-        RetrofitClient.getClient().saveOnPost(token,savedListRequest).enqueue(callback);
+    public static void saveList(String token, Callback<SavedListResponse> callback) {
+        RetrofitClient.getClient().saveOnPost(token).enqueue(callback);
     }
 
-    public static void likeList(String token, LikeListRequest likeListRequest, Callback<LikeListResponse> callback) {
-        RetrofitClient.getClient().likeList(token,likeListRequest).enqueue(callback);
+    public static void likeList(String token, Callback<LikeListResponse> callback) {
+        RetrofitClient.getClient().likeList(token).enqueue(callback);
+    }
+
+    public static void likeList(String token, BmiStoreWiseDataRequest bmiStoreWiseDataRequest, Callback<BmiStoreWiseDataResponse> callback) {
+        RetrofitClient.getClient().getBmi(token,bmiStoreWiseDataRequest).enqueue(callback);
     }
 
 }

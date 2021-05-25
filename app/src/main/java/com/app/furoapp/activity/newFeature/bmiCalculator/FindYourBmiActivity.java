@@ -33,9 +33,9 @@ public class FindYourBmiActivity extends AppCompatActivity {
         llFindUrs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SelectGenderAndAgeActivity.class);
                 llFindYoursOthers.setBackgroundResource(R.drawable.find_yours_others);
                 llFindUrs.setBackgroundResource(R.drawable.btn_next_shape);
+                Intent intent = new Intent(getApplicationContext(), SelectGenderAndAgeActivity.class);
                 startActivity(intent);
 
             }
@@ -44,9 +44,9 @@ public class FindYourBmiActivity extends AppCompatActivity {
         llFindYoursOthers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SelectGenderAndAgeActivity.class);
                 llFindYoursOthers.setBackgroundResource(R.drawable.btn_next_shape);
                 llFindUrs.setBackgroundResource(R.drawable.find_yours_others);
+                Intent intent = new Intent(getApplicationContext(), SelectGenderAndAgeActivity.class);
                 startActivity(intent);
             }
         });

@@ -1,8 +1,8 @@
-package com.app.furoapp.activity.newFeature.newFeatureModelByM.saveBookmark;
+package com.app.furoapp.activity.newFeature.ContentEngagementModel.addComments;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Saved{
+public class Comment{
 
 	@SerializedName("post_id")
 	private String postId;
@@ -16,11 +16,14 @@ public class Saved{
 	@SerializedName("created_at")
 	private String createdAt;
 
+	@SerializedName("comment")
+	private String comment;
+
 	@SerializedName("id")
 	private int id;
 
-	@SerializedName("save_flag")
-	private String saveFlag;
+	@SerializedName("status")
+	private String status;
 
 	public void setPostId(String postId){
 		this.postId = postId;
@@ -54,6 +57,14 @@ public class Saved{
 		return createdAt;
 	}
 
+	public void setComment(String comment){
+		this.comment = comment;
+	}
+
+	public String getComment(){
+		return comment;
+	}
+
 	public void setId(int id){
 		this.id = id;
 	}
@@ -62,11 +73,11 @@ public class Saved{
 		return id;
 	}
 
-	public void setSaveFlag(String saveFlag){
-		this.saveFlag = saveFlag;
+	public void setStatus(String status){
+		this.status = status;
 	}
 
-	public String getSaveFlag(){
-		return saveFlag;
+	public String getStatus(){
+		return status;
 	}
 }

@@ -1,11 +1,11 @@
-package com.app.furoapp.activity.newFeature.newFeatureModelByM.addComments;
+package com.app.furoapp.activity.newFeature.ContentEngagementModel.like;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Comment{
+public class Like{
 
 	@SerializedName("post_id")
-	private String postId;
+	private int postId;
 
 	@SerializedName("updated_at")
 	private String updatedAt;
@@ -16,8 +16,8 @@ public class Comment{
 	@SerializedName("created_at")
 	private String createdAt;
 
-	@SerializedName("comment")
-	private String comment;
+	@SerializedName("ip_address")
+	private String ipAddress;
 
 	@SerializedName("id")
 	private int id;
@@ -25,11 +25,11 @@ public class Comment{
 	@SerializedName("status")
 	private String status;
 
-	public void setPostId(String postId){
+	public void setPostId(int postId){
 		this.postId = postId;
 	}
 
-	public String getPostId(){
+	public int getPostId(){
 		return postId;
 	}
 
@@ -57,12 +57,12 @@ public class Comment{
 		return createdAt;
 	}
 
-	public void setComment(String comment){
-		this.comment = comment;
+	public void setIpAddress(String ipAddress){
+		this.ipAddress = ipAddress;
 	}
 
-	public String getComment(){
-		return comment;
+	public String getIpAddress(){
+		return ipAddress;
 	}
 
 	public void setId(int id){

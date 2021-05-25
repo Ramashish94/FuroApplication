@@ -8,32 +8,38 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.furoapp.R;
+import com.app.furoapp.utils.Constants;
+import com.app.furoapp.utils.FuroPrefs;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectGenderAndAgeActivity extends AppCompatActivity {
+public class SelectGenderAndAgeActivity extends AppCompatActivity implements AgeAdapter.AgeClickCallBack {
     public RecyclerView rvAge;
     Button btnStartJanury;
     AgeAdapter ageAdapter;
     public ImageView ivMaleIcon, ivFemaleIcon;
     TextView tvFemale, tvMale;
     List<AgeModelTest> ageModelTest = new ArrayList<>();
+    private int selected;
+    private String maleVal, femaleVal;
+    private String genderVal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_gender_and_age);
         findViews();
-        setSavedRecyAdapter();
         clickEvent();
-
+        setSavedRecyAdapter();
     }
 
     private void findViews() {
@@ -45,23 +51,6 @@ public class SelectGenderAndAgeActivity extends AppCompatActivity {
         btnStartJanury = findViewById(R.id.btnStartJanury);
     }
 
-    private void setSavedRecyAdapter() {
-        ageAdapter = new AgeAdapter(getApplicationContext(), ageModelTest);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        rvAge.setLayoutManager(layoutManager);
-        rvAge.setItemAnimator(new DefaultItemAnimator());
-        rvAge.setAdapter(ageAdapter);
-        List<AgeModelTest> ageModelTestArrayList = new ArrayList<>();
-        for (int i = 0; i <= 40; i++) {
-            AgeModelTest ageModelTest = new AgeModelTest();
-            ageModelTest.setAge("" + i);
-            ageModelTestArrayList.add(ageModelTest);
-        }
-        AgeAdapter ageAdapter = new AgeAdapter(getApplicationContext(), ageModelTestArrayList);
-        rvAge.setAdapter(ageAdapter);
-    }
-
-
     private void clickEvent() {
 
         ivMaleIcon.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +60,11 @@ public class SelectGenderAndAgeActivity extends AppCompatActivity {
                 ivFemaleIcon.setBackgroundResource(R.drawable.unselected_female_icon);
                 tvMale.setTextColor(Color.parseColor("#4CCFF9"));
                 tvFemale.setTextColor(Color.parseColor("#C4C4C4"));
+
+               /* maleVal = tvMale.getText().toString();
+                Log.d("maleVal", maleVal);*/
+                genderVal = tvMale.getText().toString();
+                Log.d("genderVal", genderVal);
             }
         });
 
@@ -81,18 +75,45 @@ public class SelectGenderAndAgeActivity extends AppCompatActivity {
                 ivMaleIcon.setBackgroundResource(R.drawable.male_sunselected_icon_______);
                 tvMale.setTextColor(Color.parseColor("#C4C4C4"));
                 tvFemale.setTextColor(Color.parseColor("#4CCFF9"));
+
+                /*femaleVal = tvFemale.getText().toString();
+                Log.d("femaleVal", femaleVal);*/
+                genderVal = tvFemale.getText().toString();
+                Log.d("genderVal", genderVal);
             }
         });
-
 
         btnStartJanury.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CalculateBMIActivity.class);
+                FuroPrefs.putString(getApplicationContext(), Constants.GENDER_VAL, genderVal);
                 startActivity(intent);
-
             }
         });
     }
 
+
+    private void setSavedRecyAdapter() {
+        ageAdapter = new AgeAdapter(getApplicationContext(), ageModelTest, this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        rvAge.setLayoutManager(layoutManager);
+        rvAge.setItemAnimator(new DefaultItemAnimator());
+        rvAge.setAdapter(ageAdapter);
+        List<AgeModelTest> ageModelTestArrayList = new ArrayList<>();
+        for (int i = 20; i <= 60; i++) {
+            AgeModelTest ageModelTest = new AgeModelTest();
+            ageModelTest.setAge("" + i);
+            ageModelTestArrayList.add(ageModelTest);
+        }
+        AgeAdapter ageAdapter = new AgeAdapter(getApplicationContext(), ageModelTestArrayList, this);
+        rvAge.setAdapter(ageAdapter);
+    }
+
+
+    @Override
+    public void ageSelectItem(int age) {
+      //  Log.d("Age", String.valueOf(age));
+        Toast.makeText(this, "Age" +age, Toast.LENGTH_SHORT).show();
+    }
 }

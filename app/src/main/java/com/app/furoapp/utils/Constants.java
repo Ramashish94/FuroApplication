@@ -61,4 +61,10 @@ public class Constants {
     /* added*/
     public static String Get_ACCESS_TOKEN = "access_token";
     public static String ACTIVITY_Id = "id";
+    /*for Bmi*/
+    public static final String GENDER_MALE = "male";
+    public static final String GENDER_FEMALE = "female";
+    public static final String GENDER_VAL = "genderVal";
+
+
 }

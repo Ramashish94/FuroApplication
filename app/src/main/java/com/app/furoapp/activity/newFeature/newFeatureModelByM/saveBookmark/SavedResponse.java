@@ -1,4 +1,4 @@
-package com.app.furoapp.activity.newFeature.ContentEngagementModel.saveBookmark;
+package com.app.furoapp.activity.newFeature.newFeatureModelByM.saveBookmark;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -1,247 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/linearLayout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/dp_4"
-    android:background="@color/bottom_gray"
-    android:orientation="vertical"
-    app:cardCornerRadius="@dimen/dp_2">
-
-
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_5"
-            android:layout_marginRight="@dimen/dp_5"
-            android:elevation="@dimen/dp_5">
+            android:orientation="vertical">
 
-
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginLeft="@dimen/dp_5"
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginRight="@dimen/dp_5"
+                android:elevation="@dimen/dp_5">
 
-
-                <FrameLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-
-                    <ImageView
-                        android:id="@+id/ivAllImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="230dp"
-                        android:adjustViewBounds="true"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/fq_bannnnnner"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/ivPlayIcon"
-                        android:layout_width="@dimen/dp_40"
-                        android:layout_height="@dimen/dp_40"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_play_button"
-                        android:tint="@android:color/white"
-                        android:visibility="gone" />
-
-                    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                        android:id="@+id/youtubebe_player"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone">
-
-                    </com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView>
-
-                    <RelativeLayout
-                        android:id="@+id/rlActivityType"
-                        android:layout_width="@dimen/dp_150"
-                        android:layout_height="@dimen/dp_35"
-                        android:layout_marginTop="@dimen/dp_5"
-                        android:background="@drawable/background_border_black_with_black_rounded"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-
-                        <ImageView
-                            android:id="@+id/ivTopIcon"
-                            android:layout_width="@dimen/dp_24"
-                            android:layout_height="@dimen/dp_24"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerVertical="true"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="@dimen/dp_8"
-                            android:tint="@android:color/white" />
-
-                        <TextView
-                            android:id="@+id/tvTopTitel"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:fontFamily="@font/bebasneue_regular"
-                            android:gravity="center"
-                            android:lines="1"
-                            android:padding="@dimen/dp_4"
-                            android:text="Activity"
-                            android:textAllCaps="true"
-                            android:textColor="@android:color/white"
-                            android:textColorHint="@android:color/white"
-                            android:textSize="@dimen/sp_18"
-                            android:textStyle="italic" />
-
-                    </RelativeLayout>
-
-                </FrameLayout>
-
-
-                <TextView
-                    android:id="@+id/tvBottomTittal"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_7"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_7"
-                    android:layout_marginBottom="@dimen/dp_7"
-                    android:elevation="@dimen/dp_10"
-                    android:fontFamily="@font/bebase_neue"
-                    android:text="How to Run like a pro for beginners"
-                    android:textAlignment="textStart"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black_btn"
-                    android:textSize="@dimen/sp_16"
-                    android:textStyle="italic" />
-            </LinearLayout>
+                    android:orientation="vertical">
 
-        </androidx.cardview.widget.CardView>
-        <!--like comments and view sections-->
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/ivActivityImageAll"
+                            android:layout_width="match_parent"
+                            android:layout_height="230dp"
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/fq_trans_logo_watermark"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/ivPlayIconAllListNew"
+                            android:layout_width="@dimen/dp_40"
+                            android:layout_height="@dimen/dp_40"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_play_button"
+                            android:tint="@android:color/white"
+                            />
+                        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                            android:id="@+id/youtubebe_player"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone">
+                        </com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView>
+
+
+                        <RelativeLayout
+                            android:id="@+id/rlActivityType"
+                            android:layout_width="@dimen/dp_150"
+                            android:layout_height="@dimen/dp_35"
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:background="@drawable/background_border_black_with_black_rounded"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:id="@+id/ivIconActivity"
+                                android:layout_width="@dimen/dp_24"
+                                android:layout_height="@dimen/dp_24"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="@dimen/dp_8"
+                                android:tint="@android:color/white" />
+
+                            <TextView
+                                android:id="@+id/tvTittle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="@font/bebasneue_regular"
+                                android:gravity="center"
+                                android:lines="1"
+                                android:padding="@dimen/dp_4"
+                                android:text="Activity"
+                                android:textAllCaps="true"
+                                android:textColor="@android:color/white"
+                                android:textColorHint="@android:color/white"
+                                android:textSize="@dimen/sp_18"
+                                android:textStyle="italic" />
+                        </RelativeLayout>
+
+                    </FrameLayout>
+
+
+                    <TextView
+                        android:id="@+id/tvAcTextall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_7"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_marginRight="@dimen/dp_7"
+                        android:layout_marginBottom="@dimen/dp_7"
+                        android:elevation="@dimen/dp_10"
+                        android:fontFamily="@font/bebase_neue"
+                        android:text="How to Run like a pro for beginners"
+                        android:textAlignment="textStart"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black_btn"
+                        android:textSize="@dimen/sp_16"
+                        android:textStyle="italic" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
-
-
-    <!-- <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:orientation="vertical">
-
-         <androidx.cardview.widget.CardView
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_marginLeft="@dimen/dp_5"
-             android:layout_marginTop="@dimen/dp_5"
-             android:layout_marginRight="@dimen/dp_5"
-             android:elevation="@dimen/dp_5">
-
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:orientation="vertical">
-
-                 <FrameLayout
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content">
-
-                     <ImageView
-                         android:id="@+id/ivActivityImageAll"
-                         android:layout_width="match_parent"
-                         android:layout_height="230dp"
-                         android:adjustViewBounds="true"
-                         android:scaleType="centerCrop"
-                         android:src="@drawable/fq_trans_logo_watermark"
-                         app:layout_constraintEnd_toEndOf="parent"
-                         app:layout_constraintHorizontal_bias="1.0"
-                         app:layout_constraintStart_toStartOf="parent"
-                         app:layout_constraintTop_toTopOf="parent" />
-
-                     <ImageView
-                         android:id="@+id/ivPlayIconAllListNew"
-                         android:layout_width="@dimen/dp_40"
-                         android:layout_height="@dimen/dp_40"
-                         android:layout_gravity="center"
-                         android:src="@drawable/ic_play_button"
-                         android:tint="@android:color/white"
-                         android:visibility="gone" />
-
-                     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                         android:id="@+id/youtubebe_player"
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         android:visibility="gone">
-
-                     </com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView>
-
-
-                     <RelativeLayout
-                         android:id="@+id/rlActivityType"
-                         android:layout_width="@dimen/dp_150"
-                         android:layout_height="@dimen/dp_35"
-                         android:layout_marginTop="@dimen/dp_5"
-                         android:background="@drawable/background_border_black_with_black_rounded"
-                         app:layout_constraintStart_toStartOf="parent"
-                         app:layout_constraintTop_toTopOf="parent">
-
-                         <ImageView
-                             android:id="@+id/ivIconActivity"
-                             android:layout_width="@dimen/dp_24"
-                             android:layout_height="@dimen/dp_24"
-                             android:layout_alignParentStart="true"
-                             android:layout_centerVertical="true"
-                             android:layout_gravity="center_vertical"
-                             android:layout_marginStart="@dimen/dp_8"
-                             android:tint="@android:color/white" />
-
-                         <TextView
-                             android:id="@+id/tvTittle"
-                             android:layout_width="match_parent"
-                             android:layout_height="wrap_content"
-                             android:layout_alignParentRight="true"
-                             android:layout_centerVertical="true"
-                             android:fontFamily="@font/bebasneue_regular"
-                             android:gravity="center"
-                             android:lines="1"
-                             android:padding="@dimen/dp_4"
-                             android:text="Activity"
-                             android:textAllCaps="true"
-                             android:textColor="@android:color/white"
-                             android:textColorHint="@android:color/white"
-                             android:textSize="@dimen/sp_18"
-                             android:textStyle="italic" />
-                     </RelativeLayout>
-
-                 </FrameLayout>
-
-
-                 <TextView
-                     android:id="@+id/tvAcTextall"
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:layout_marginLeft="@dimen/dp_7"
-                     android:layout_marginTop="@dimen/dp_10"
-                     android:layout_marginRight="@dimen/dp_7"
-                     android:layout_marginBottom="@dimen/dp_7"
-                     android:elevation="@dimen/dp_10"
-                     android:fontFamily="@font/bebase_neue"
-                     android:text="How to Run like a pro for beginners"
-                     android:textAlignment="textStart"
-                     android:textAllCaps="true"
-                     android:textColor="@color/black_btn"
-                     android:textSize="@dimen/sp_16"
-                     android:textStyle="italic" />
-             </LinearLayout>
-         </androidx.cardview.widget.CardView>
-     </LinearLayout>-->
-
 

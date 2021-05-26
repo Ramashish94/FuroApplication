@@ -1,24 +1,24 @@
 
-package com.app.furoapp.activity.newFeature.bmiCalculator.model;
+package com.app.furoapp.activity.newFeature.newFeatureModelByM.userView;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class BmiStoreWiseDataResponse {
+public class ViewsResponse {
 
-    @SerializedName("BMI")
+    @SerializedName("view")
     @Expose
-    private Bmi bmi;
+    private View view;
     @SerializedName("status")
     @Expose
     private String status;
 
-    public Bmi getBmi() {
-        return bmi;
+    public View getView() {
+        return view;
     }
 
-    public void setBmi(Bmi bmi) {
-        this.bmi = bmi;
+    public void setView(View view) {
+        this.view = view;
     }
 
     public String getStatus() {

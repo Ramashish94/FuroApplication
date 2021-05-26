@@ -27,17 +27,17 @@ import com.app.furoapp.activity.HomeMainActivity;
 import com.app.furoapp.activity.YoutubePlayerActivity;
 import com.app.furoapp.activity.newFeature.healthCare.Days21FitnessChallangeActivity;
 import com.app.furoapp.activity.newFeature.likeAndSaved.LikedAndSavedActivity;
-import com.app.furoapp.activity.newFeature.ContentEngagementModel.like.LikeRequest;
-import com.app.furoapp.activity.newFeature.ContentEngagementModel.like.LikeResponse;
-import com.app.furoapp.activity.newFeature.ContentEngagementModel.saveBookmark.SavedRequest;
-import com.app.furoapp.activity.newFeature.ContentEngagementModel.saveBookmark.SavedResponse;
-import com.app.furoapp.activity.newFeature.ContentEngagementModel.userView.ViewsRequest;
-import com.app.furoapp.activity.newFeature.ContentEngagementModel.userView.ViewsResponse;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.like.LikeRequest;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.like.LikeResponse;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.saveBookmark.SavedRequest;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.saveBookmark.SavedResponse;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.userView.ViewsRequest;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.userView.ViewsResponse;
 import com.app.furoapp.adapter.ContentFeedHomeAdapter;
 import com.app.furoapp.databinding.FragmentContentFeedsListBinding;
-import com.app.furoapp.activity.newFeature.ContentEngagementModel.feedHomeFragment_ListingNew.ActivitiesListing;
-import com.app.furoapp.activity.newFeature.ContentEngagementModel.feedHomeFragment_ListingNew.ActivityFilterData;
-import com.app.furoapp.activity.newFeature.ContentEngagementModel.feedHomeFragment_ListingNew.Datum;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.feedHomeFragment_ListingNew.ActivitiesListing;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.feedHomeFragment_ListingNew.ActivityFilterData;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.feedHomeFragment_ListingNew.Datum;
 import com.app.furoapp.model.updateToken.UdateTokenResponse;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
@@ -458,7 +458,7 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
     private void clickListener() {
         llSavedBookmarked.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), LikedAndSavedActivity.class);
-           // FuroPrefs.putString(getApplicationContext(), "id", String.valueOf(id));
+            FuroPrefs.putString(getApplicationContext(), "id", String.valueOf(id));
             startActivity(intent);
         });
 

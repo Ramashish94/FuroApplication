@@ -1,4 +1,4 @@
-package com.app.furoapp.activity.newFeature.ContentEngagementModel.userView;
+package com.app.furoapp.activity.newFeature.newFeatureModelByM.userView;
 
 import com.google.gson.annotations.SerializedName;
 

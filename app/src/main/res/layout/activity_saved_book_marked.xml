@@ -63,9 +63,7 @@
                 android:id="@+id/tab2Liked"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="liked"
-                android:layout_marginTop="@dimen/dp_5"
-                android:layout_gravity="bottom"/>
+                android:text="liked" />
         </com.google.android.material.tabs.TabLayout>
 
         <LinearLayout

@@ -1,7 +1,6 @@
 package com.app.furoapp.activity.newFeature.bmiCalculator;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,25 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.LikeListAdapter;
 
 import java.util.List;
 
 public class AgeAdapter extends RecyclerView.Adapter<AgeAdapter.MyViewHolder> {
     Context context;
     List<AgeModelTest> ageModelTestList;
-    public AgeClickCallBack ageClickCallBack;
-    private int row_index=-1;
-    public Boolean clicked = false;
 
-
-
-    public AgeAdapter(Context applicationContext, List<AgeModelTest> ageModelTestList, AgeClickCallBack ageClickCallBack) {
+    public AgeAdapter(Context applicationContext, List<AgeModelTest> ageModelTestList) {
         this.context = applicationContext;
         this.ageModelTestList = ageModelTestList;
-        this.ageClickCallBack= ageClickCallBack;
     }
-
 
     @NonNull
     @Override
@@ -44,22 +35,7 @@ public class AgeAdapter extends RecyclerView.Adapter<AgeAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         AgeModelTest ageModelTest = ageModelTestList.get(position);
         holder.tvAge.setText("" + ageModelTest.getAge());
-        // holder.tvWakeTime.setText("" + ageModelTest.getAge());
-
-        holder.tvAge.setOnClickListener(v -> {
-            ageClickCallBack.ageSelectItem(Integer.parseInt(ageModelTest.getAge()));
-            row_index = position;
-            notifyDataSetChanged();
-        });
-
-        if(row_index==position){
-//            clicked=true;
-            holder.tvAge.setTextColor(Color.parseColor("#19CFE6"));
-        }
-        else {
-//           clicked=false;
-            holder.tvAge.setTextColor(Color.parseColor("#FFFFFF"));
-        }
+       // holder.tvWakeTime.setText("" + ageModelTest.getAge());
 
     }
 
@@ -80,9 +56,5 @@ public class AgeAdapter extends RecyclerView.Adapter<AgeAdapter.MyViewHolder> {
             tvAge = itemView.findViewById(R.id.tvAge);
             tvWakeTime = itemView.findViewById(R.id.tvWakeTime);
         }
-    }
-
-    public interface AgeClickCallBack {
-        void ageSelectItem(int age);
     }
 }

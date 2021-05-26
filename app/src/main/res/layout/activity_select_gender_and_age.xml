@@ -59,46 +59,29 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_marginTop="14dp"
-                android:gravity="center"
                 android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                <TextView
+                    android:id="@+id/tvMale"
+                    android:layout_width="@dimen/dp_120"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="@dimen/dp_40"
                     android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:inputType="textCapWords"
+                    android:text="Male"
+                    android:textColor="#C4C4C4" />
 
-                    <TextView
-                        android:id="@+id/tvMale"
-                        android:layout_width="@dimen/dp_120"
-                        android:layout_height="24dp"
-                        android:layout_marginLeft="@dimen/dp_40"
-                        android:gravity="center"
-                        android:inputType="textCapWords"
-                        android:text="Male"
-                        android:textColor="#C4C4C4" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                <TextView
+                    android:id="@+id/tvFemale"
+                    android:layout_width="@dimen/dp_120"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="@dimen/dp_20"
                     android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/tvFemale"
-                        android:layout_width="@dimen/dp_120"
-                        android:layout_height="24dp"
-                        android:gravity="center"
-                        android:text="Female"
-                        android:layout_marginRight="@dimen/dp_20"
-                        android:textColor="#C4C4C4" />
-                </LinearLayout>
-
+                    android:gravity="center"
+                    android:text="Female"
+                    android:textColor="#C4C4C4" />
             </LinearLayout>
 
             <TextView
@@ -125,14 +108,14 @@
                 android:id="@+id/btnStartJanury"
                 android:layout_width="312dp"
                 android:layout_height="@dimen/dp_40"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dp_70"
                 android:background="@drawable/btn_next_shape"
-                android:fontFamily="@font/bebase_neue"
                 android:text="Start Jounary"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textStyle="italic" />
+                android:layout_marginTop="@dimen/dp_70"
+                android:layout_gravity="center"
+                android:textStyle="italic"
+                android:fontFamily="@font/bebase_neue"/>
 
         </LinearLayout>
 

@@ -1,11 +1,11 @@
 
-package com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost;
+package com.app.furoapp.activity.newFeature.newFeatureModelByM.feedHomeFragment_ListingNew;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ActivityDetail {
+public class Datum {
 
     @SerializedName("id")
     @Expose
@@ -18,7 +18,7 @@ public class ActivityDetail {
     private String type;
     @SerializedName("title")
     @Expose
-    private String title;
+    private Object title;
     @SerializedName("image")
     @Expose
     private String image;
@@ -46,9 +46,25 @@ public class ActivityDetail {
     @SerializedName("icon")
     @Expose
     private String icon;
-    @SerializedName("image_url")
+    /*added by me*/
+    @SerializedName("total_likes")
     @Expose
-    private String imageUrl;
+    private Integer totalLikes;
+    @SerializedName("user_like")
+    @Expose
+    private String userLike;
+    @SerializedName("total_comments")
+    @Expose
+    private Integer totalComments;
+    @SerializedName("total_views")
+    @Expose
+    private Integer totalViews;
+    @SerializedName("user_view")
+    @Expose
+    private String userView;
+    @SerializedName("user_save")
+    @Expose
+    private String userSave;
 
     public Integer getId() {
         return id;
@@ -74,11 +90,11 @@ public class ActivityDetail {
         this.type = type;
     }
 
-    public String getTitle() {
+    public Object getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(Object title) {
         this.title = title;
     }
 
@@ -145,6 +161,7 @@ public class ActivityDetail {
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
+
     public String getIcon() {
         return icon;
     }
@@ -152,12 +169,54 @@ public class ActivityDetail {
     public void setIcon(String icon) {
         this.icon = icon;
     }
-    public String getImageUrl() {
-        return imageUrl;
+
+    public Integer getTotalLikes() {
+        return totalLikes;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setTotalLikes(Integer totalLikes) {
+        this.totalLikes = totalLikes;
     }
+
+    public String getUserLike() {
+        return userLike;
+    }
+
+    public void setUserLike(String userLike) {
+        this.userLike = userLike;
+    }
+
+    public Integer getTotalComments() {
+        return totalComments;
+    }
+
+    public void setTotalComments(Integer totalComments) {
+        this.totalComments = totalComments;
+    }
+
+    public Integer getTotalViews() {
+        return totalViews;
+    }
+
+    public void setTotalViews(Integer totalViews) {
+        this.totalViews = totalViews;
+    }
+
+    public String getUserView() {
+        return userView;
+    }
+
+    public void setUserView(String userView) {
+        this.userView = userView;
+    }
+
+    public String getUserSave() {
+        return userSave;
+    }
+
+    public void setUserSave(String userSave) {
+        this.userSave = userSave;
+    }
+
 
 }

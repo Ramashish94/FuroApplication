@@ -34,7 +34,7 @@ public class RecordedScoreAdapter extends RecyclerView.Adapter<RecordedScoreAdap
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         RecordedBmiModel recordedBmiModel = recordedBmiModelList.get(position);
-        holder.tvBmiScore.setText("" + recordedBmiModel.getBmi());
+        holder.tvBmiScore.setText("" + recordedBmiModel.getBmiScore());
         holder.tvGender.setText("" + recordedBmiModel.getGender());
         holder.tvWaight.setText("" + recordedBmiModel.getWeight());
         holder.tvHeight.setText("" + recordedBmiModel.getHeight());

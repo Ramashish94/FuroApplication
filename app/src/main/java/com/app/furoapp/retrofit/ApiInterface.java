@@ -1,20 +1,20 @@
 package com.app.furoapp.retrofit;
 
 
-import com.app.furoapp.activity.newFeature.bmiCalculator.model.BmiStoreWiseDataRequest;
-import com.app.furoapp.activity.newFeature.bmiCalculator.model.BmiStoreWiseDataResponse;
+import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListRequest;
 import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListResponse;
+import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListRequest;
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
-import com.app.furoapp.activity.newFeature.ContentEngagementModel.activityDetailsNew.ActivityDetailResponse;
-import com.app.furoapp.activity.newFeature.ContentEngagementModel.addComments.AddCommentRequest;
-import com.app.furoapp.activity.newFeature.ContentEngagementModel.addComments.AddCommentResponse;
-import com.app.furoapp.activity.newFeature.ContentEngagementModel.feedHomeFragment_ListingNew.ActivitiesListing;
-import com.app.furoapp.activity.newFeature.ContentEngagementModel.like.LikeRequest;
-import com.app.furoapp.activity.newFeature.ContentEngagementModel.like.LikeResponse;
-import com.app.furoapp.activity.newFeature.ContentEngagementModel.saveBookmark.SavedRequest;
-import com.app.furoapp.activity.newFeature.ContentEngagementModel.saveBookmark.SavedResponse;
-import com.app.furoapp.activity.newFeature.ContentEngagementModel.userView.ViewsRequest;
-import com.app.furoapp.activity.newFeature.ContentEngagementModel.userView.ViewsResponse;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.activityDetailsNew.ActivityDetailResponse;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.addComments.AddCommentRequest;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.addComments.AddCommentResponse;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.feedHomeFragment_ListingNew.ActivitiesListing;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.like.LikeRequest;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.like.LikeResponse;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.saveBookmark.SavedRequest;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.saveBookmark.SavedResponse;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.userView.ViewsRequest;
+import com.app.furoapp.activity.newFeature.newFeatureModelByM.userView.ViewsResponse;
 import com.app.furoapp.model.Bannersecond.BannerSecondResponse;
 import com.app.furoapp.model.FriendModel.AddFriend;
 import com.app.furoapp.model.FriendModel.FriendInviteModel;
@@ -414,13 +414,9 @@ public interface ApiInterface {
 
     /*Saved list*/
     @POST("saved-list")
-    Call<SavedListResponse> saveOnPost(@Header(TOKEN_KEY) String token);
+    Call<SavedListResponse>saveOnPost (@Header(TOKEN_KEY) String token, @Body SavedListRequest savedListRequest);
 
     /*Liked list*/
     @POST("like-list")
-    Call<LikeListResponse> likeList(@Header(TOKEN_KEY) String token);
-
-    /*Bmi Store data*/
-    @POST("like-list")
-    Call<BmiStoreWiseDataResponse> getBmi(@Header(TOKEN_KEY) String token, @Body BmiStoreWiseDataRequest bmiStoreWiseDataRequest);
+    Call<LikeListResponse>likeList (@Header(TOKEN_KEY) String token, @Body LikeListRequest likeListRequest);
 }

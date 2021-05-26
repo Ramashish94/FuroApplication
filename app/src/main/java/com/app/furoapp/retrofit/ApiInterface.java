@@ -1,11 +1,11 @@
 package com.app.furoapp.retrofit;
 
 
+import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.ActivityDetailsResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListRequest;
 import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListRequest;
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
-import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.ActivityDetailResponse;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.addComments.AddCommentRequest;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.addComments.AddCommentResponse;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragment_ListingNew.ActivitiesListing;
@@ -394,7 +394,7 @@ public interface ApiInterface {
 
     //api calling for contentFeddDetail
     @POST("activity-details-new")
-    Call<ActivityDetailResponse> contentDetailNew(@Header(TOKEN_KEY) String token, @Body ContentFeedDetailRequest contentFeedDetailRequest);
+    Call<ActivityDetailsResponse> contentDetailNew(@Header(TOKEN_KEY) String token, @Body ContentFeedDetailRequest contentFeedDetailRequest);
 
     /*like*/
     @POST("like")

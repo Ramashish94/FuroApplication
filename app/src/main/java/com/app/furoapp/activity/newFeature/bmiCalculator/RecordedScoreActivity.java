@@ -43,7 +43,7 @@ public class RecordedScoreActivity extends AppCompatActivity {
         List<RecordedBmiModel> recordedBmiModelArrayList = new ArrayList<>();
         for (int i = 0; i <= 10; i++) {
             RecordedBmiModel recordedBmiModel = new RecordedBmiModel();
-            recordedBmiModel.setBmiScore("24.5" + i);
+            recordedBmiModel.setBmi("24.5" + i);
             recordedBmiModel.setGender("Male");
             recordedBmiModel.setHeight("5'4" + i);
             recordedBmiModel.setWeight("78" + "kg" + i);

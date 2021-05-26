@@ -18,16 +18,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.likeAndSaved.ComentsModelTest;
-import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.ActivityDetailResponse;
-import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.ActivityDetailsItem;
+import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.ActivityDetail;
+import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.ActivityDetailsResponse;
+import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.Body;
+import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.Comment;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.addComments.AddCommentRequest;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.addComments.AddCommentResponse;
-import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.BodyItem;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.like.LikeRequest;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.like.LikeResponse;
 import com.app.furoapp.adapter.ActivityDetailAdapter;
-import com.app.furoapp.adapter.LikeShareCommentsAdapter;
+import com.app.furoapp.adapter.CommentsAdapter;
 import com.app.furoapp.model.contentFeedDetail.ContentFeedDetailRequest;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
@@ -58,9 +58,9 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
     public String activityId;
     public Boolean clicked = true;
     private String accessToken;
-    private ActivityDetailsItem detailsItem;
-    LikeShareCommentsAdapter likeShareCommentsAdapter;
-    List<ComentsModelTest> comentsModelTestList = new ArrayList<>();
+    private ActivityDetail detailsItem;
+    CommentsAdapter commentsAdapter;
+    List<Comment> commentArrayList = new ArrayList<>();
 
 
     @Override
@@ -115,27 +115,29 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
         linearLayout.setVisibility(View.VISIBLE);
         progressBarr.setVisibility(View.VISIBLE);
         accessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
-        RestClient.activityDetailNew(accessToken, contentFeedDetailRequest, new Callback<ActivityDetailResponse>() {
+        RestClient.activityDetailNew(accessToken, contentFeedDetailRequest, new Callback<ActivityDetailsResponse>() {
             @Override
-            public void onResponse(Call<ActivityDetailResponse> call, Response<ActivityDetailResponse> response) {
+            public void onResponse(Call<ActivityDetailsResponse> call, Response<ActivityDetailsResponse> response) {
                 linearLayout.setVisibility(View.GONE);
                 progressBarr.setVisibility(View.GONE);
 
-                if (response != null) {
+                if (response.code()==200 && response != null) {
                     if (response.body() != null) {
                         setData(response.body().getActivityDetails().get(0));
-                        List<BodyItem> bodyList = response.body().getActivityDetails().get(0).getBody();
+                        List<Body> bodyList = response.body().getActivityDetails().get(0).getBody();
                         contentFeedDetailAdapter = new ActivityDetailAdapter(bodyList, getApplicationContext());
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
                         recyclerView.setLayoutManager(layoutManager);
                         recyclerView.setItemAnimator(new DefaultItemAnimator());
                         recyclerView.setAdapter(contentFeedDetailAdapter);
                     }
+                    //if (response.body()!=null && response.body().getActivityDetails().get(0).getComments())
                 }
-            }
 
+
+            }
             @Override
-            public void onFailure(Call<ActivityDetailResponse> call, Throwable t) {
+            public void onFailure(Call<ActivityDetailsResponse> call, Throwable t) {
                 Toast.makeText(ContentFeedDetailActivity.this, " Something went wrong !!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -184,20 +186,11 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
     }
 
     private void setCommentsAdapter() {
-        likeShareCommentsAdapter = new LikeShareCommentsAdapter(getApplicationContext(), comentsModelTestList);
+        commentsAdapter = new CommentsAdapter(getApplicationContext(), commentArrayList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         rvComment.setLayoutManager(layoutManager);
         rvComment.setItemAnimator(new DefaultItemAnimator());
-        rvComment.setAdapter(likeShareCommentsAdapter);
-        List<ComentsModelTest> comentsModelTestLists = new ArrayList<>();
-        for (int i = 0; i <= 10; i++) {
-            ComentsModelTest comentsModelTestList = new ComentsModelTest();
-            comentsModelTestList.setName("kamal" + i);
-            comentsModelTestList.setComments("fantastic" + i + "Nice");
-            comentsModelTestLists.add(comentsModelTestList);
-        }
-        LikeShareCommentsAdapter likeShareCommentsAdapter1 = new LikeShareCommentsAdapter(getApplicationContext(), comentsModelTestLists);
-        rvComment.setAdapter(likeShareCommentsAdapter1);
+        rvComment.setAdapter(commentsAdapter);
     }
 
     private AddCommentRequest getCommentApiParams(int postId, String comment){
@@ -226,7 +219,7 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void setData(ActivityDetailsItem data) {
+    private void setData(ActivityDetail data) {
         detailsItem = data;
         tvLikeCounts.setText("" + data.getTotalLikes());
         tvCmntsCount.setText("" + data.getTotalComments());

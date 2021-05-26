@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.ContentEngagementModel.activityDetailsNew.BodyItem;
+import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.Body;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener;
@@ -27,12 +27,12 @@ import java.net.URL;
 import java.util.List;
 
 public class ActivityDetailAdapter extends RecyclerView.Adapter<ActivityDetailAdapter.MyViewHolder> {
-    private List<BodyItem> bodyList;
+    private List<Body> bodyList;
     private Context context;
     String video_id2;
     ContentFeedDetailInterface contentFeedDetailInterface;
 
-    public ActivityDetailAdapter(List<BodyItem> bodyList, Context context) {
+    public ActivityDetailAdapter(List<Body> bodyList, Context context) {
         this.bodyList = bodyList;
         this.context = context;
 
@@ -50,7 +50,7 @@ public class ActivityDetailAdapter extends RecyclerView.Adapter<ActivityDetailAd
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        BodyItem body = bodyList.get(position);
+        Body body = bodyList.get(position);
 
         holder.mainParagraph.setVisibility(View.GONE);
         holder.mainTitle2.setVisibility(View.GONE);

@@ -4,23 +4,24 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.likeAndSaved.ComentsModelTest;
+import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.Comment;
 
 import java.util.List;
 
-public class LikeShareCommentsAdapter extends RecyclerView.Adapter<LikeShareCommentsAdapter.VewHolder> {
+public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.VewHolder> {
     Context context;
-    List<ComentsModelTest> comentsModelTests;
+    List<Comment> commentList;
 
-    public LikeShareCommentsAdapter(Context applicationContext, List<ComentsModelTest> comentsModelTests) {
+    public CommentsAdapter(Context applicationContext, List<Comment> commentList) {
         this.context = applicationContext;
-        this.comentsModelTests = comentsModelTests;
+        this.commentList = commentList;
     }
 
     @NonNull
@@ -34,29 +35,30 @@ public class LikeShareCommentsAdapter extends RecyclerView.Adapter<LikeShareComm
 
     @Override
     public void onBindViewHolder(@NonNull VewHolder holder, int position) {
-         ComentsModelTest comentsModelTest = comentsModelTests.get(position);
-         holder.tvName.setText(""+comentsModelTest.getName());
-        holder.tvComments.setText(""+comentsModelTest.getComments());
-
+        Comment comment = commentList.get(position);
+        holder.tvName.setText("" + comment.getUsername());
+        holder.tvComments.setText("" + comment.getComment());
 
     }
 
     @Override
     public int getItemCount() {
-        if (comentsModelTests!=null && comentsModelTests.size()>0){
-            return comentsModelTests.size();
-        }else {
+        if (commentList != null && commentList.size() > 0) {
+            return commentList.size();
+        } else {
             return 0;
         }
     }
 
     public class VewHolder extends RecyclerView.ViewHolder {
-        public TextView tvComments,tvName;
+        public TextView tvComments, tvName;
+        public ImageView ivUserImage;
+
         public VewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvName);
             tvComments = itemView.findViewById(R.id.tvComments);
-
+            ivUserImage=itemView.findViewById(R.id.ivUserImage);
         }
     }
 }

@@ -1,11 +1,11 @@
 package com.app.furoapp.retrofit;
 
 
+import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.ActivityDetailsResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListRequest;
 import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListRequest;
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
-import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.ActivityDetailResponse;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.addComments.AddCommentRequest;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.addComments.AddCommentResponse;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.like.LikeRequest;
@@ -345,7 +345,7 @@ public class RestClient {
         RetrofitClient.getClient().ActivitiesListing(token).enqueue(callback);
     }
 
-    public static void activityDetailNew(String token, ContentFeedDetailRequest contentFeedDetailRequest, Callback<ActivityDetailResponse> callback) {
+    public static void activityDetailNew(String token, ContentFeedDetailRequest contentFeedDetailRequest, Callback<ActivityDetailsResponse> callback) {
         RetrofitClient.getClient().contentDetailNew(token, contentFeedDetailRequest).enqueue(callback);
     }
 

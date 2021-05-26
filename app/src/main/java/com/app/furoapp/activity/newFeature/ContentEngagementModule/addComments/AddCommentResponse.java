@@ -1,4 +1,4 @@
-package com.app.furoapp.activity.newFeature.newFeatureModelByM.addComments;
+package com.app.furoapp.activity.newFeature.ContentEngagementModule.addComments;
 
 import com.google.gson.annotations.SerializedName;
 

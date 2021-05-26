@@ -1,4 +1,4 @@
-package com.app.furoapp.activity.newFeature.newFeatureModelByM.like;
+package com.app.furoapp.activity.newFeature.ContentEngagementModule.like;
 
 import com.google.gson.annotations.SerializedName;
 

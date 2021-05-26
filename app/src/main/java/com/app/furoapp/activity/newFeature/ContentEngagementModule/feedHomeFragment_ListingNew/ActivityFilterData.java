@@ -1,4 +1,4 @@
-package com.app.furoapp.activity.newFeature.newFeatureModelByM.feedHomeFragment_ListingNew;
+package com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragment_ListingNew;
 
 public class ActivityFilterData {
 

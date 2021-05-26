@@ -1,5 +1,6 @@
-package com.app.furoapp.activity.newFeature.newFeatureModelByM.activityDetailsNew;
+package com.app.furoapp.activity.newFeature.ContentEngagementModel.activityDetailsNew;
 
+import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.ActivityDetailsItem;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;

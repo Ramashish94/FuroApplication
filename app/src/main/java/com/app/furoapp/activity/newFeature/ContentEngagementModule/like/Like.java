@@ -1,11 +1,8 @@
-package com.app.furoapp.activity.newFeature.newFeatureModelByM.activityDetailsNew;
+package com.app.furoapp.activity.newFeature.ContentEngagementModule.like;
 
 import com.google.gson.annotations.SerializedName;
 
-public class CommentsItem{
-
-	@SerializedName("child_id")
-	private Object childId;
+public class Like{
 
 	@SerializedName("post_id")
 	private int postId;
@@ -19,25 +16,14 @@ public class CommentsItem{
 	@SerializedName("created_at")
 	private String createdAt;
 
-	@SerializedName("comment")
-	private String comment;
+	@SerializedName("ip_address")
+	private String ipAddress;
 
 	@SerializedName("id")
 	private int id;
 
-	@SerializedName("reply")
-	private Object reply;
-
 	@SerializedName("status")
 	private String status;
-
-	public void setChildId(Object childId){
-		this.childId = childId;
-	}
-
-	public Object getChildId(){
-		return childId;
-	}
 
 	public void setPostId(int postId){
 		this.postId = postId;
@@ -71,12 +57,12 @@ public class CommentsItem{
 		return createdAt;
 	}
 
-	public void setComment(String comment){
-		this.comment = comment;
+	public void setIpAddress(String ipAddress){
+		this.ipAddress = ipAddress;
 	}
 
-	public String getComment(){
-		return comment;
+	public String getIpAddress(){
+		return ipAddress;
 	}
 
 	public void setId(int id){
@@ -85,14 +71,6 @@ public class CommentsItem{
 
 	public int getId(){
 		return id;
-	}
-
-	public void setReply(Object reply){
-		this.reply = reply;
-	}
-
-	public Object getReply(){
-		return reply;
 	}
 
 	public void setStatus(String status){

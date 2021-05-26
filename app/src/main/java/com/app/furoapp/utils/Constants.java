@@ -61,4 +61,13 @@ public class Constants {
     /* added*/
     public static String Get_ACCESS_TOKEN = "access_token";
     public static String ACTIVITY_Id = "id";
+    /*foe bmi calculator*/
+    public static final String FIND_OURS_TYPE = "typeBmiVal";
+    public static final String GENDER_VAL = "genderVal";
+    public static final String USER_AGE_SELECT = "user_age";
+    public static final String USER_HEIGHT_IN_CM = "height_in_cm";
+    public static final String USER_WEIGHT = "height_in_cm";
+
+
+
 }

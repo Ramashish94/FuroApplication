@@ -1,8 +1,7 @@
 
-package com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew;
+package com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost;
 
 import java.util.List;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -19,13 +18,13 @@ public class ActivityDetail {
     private String type;
     @SerializedName("title")
     @Expose
-    private String title;
+    private Object title;
     @SerializedName("image")
     @Expose
     private String image;
     @SerializedName("video")
     @Expose
-    private String video;
+    private Object video;
     @SerializedName("video_thumbnail")
     @Expose
     private Object videoThumbnail;
@@ -44,39 +43,12 @@ public class ActivityDetail {
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
-    @SerializedName("total_likes")
-    @Expose
-    private Integer totalLikes;
-    @SerializedName("user_like")
-    @Expose
-    private String userLike;
-    @SerializedName("total_comments")
-    @Expose
-    private Integer totalComments;
-    @SerializedName("comments")
-    @Expose
-    private List<Comment> comments = null;
-    @SerializedName("total_views")
-    @Expose
-    private Integer totalViews;
-    @SerializedName("user_view")
-    @Expose
-    private String userView;
-    @SerializedName("user_save")
-    @Expose
-    private Integer userSave;
     @SerializedName("icon")
     @Expose
     private String icon;
     @SerializedName("image_url")
     @Expose
     private String imageUrl;
-    @SerializedName("likes")
-    @Expose
-    private List<Like> likes = null;
-    @SerializedName("views")
-    @Expose
-    private List<Object> views = null;
 
     public Integer getId() {
         return id;
@@ -102,11 +74,11 @@ public class ActivityDetail {
         this.type = type;
     }
 
-    public String getTitle() {
+    public Object getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(Object title) {
         this.title = title;
     }
 
@@ -118,11 +90,11 @@ public class ActivityDetail {
         this.image = image;
     }
 
-    public String getVideo() {
+    public Object getVideo() {
         return video;
     }
 
-    public void setVideo(String video) {
+    public void setVideo(Object video) {
         this.video = video;
     }
 
@@ -174,62 +146,6 @@ public class ActivityDetail {
         this.updatedAt = updatedAt;
     }
 
-    public Integer getTotalLikes() {
-        return totalLikes;
-    }
-
-    public void setTotalLikes(Integer totalLikes) {
-        this.totalLikes = totalLikes;
-    }
-
-    public String getUserLike() {
-        return userLike;
-    }
-
-    public void setUserLike(String userLike) {
-        this.userLike = userLike;
-    }
-
-    public Integer getTotalComments() {
-        return totalComments;
-    }
-
-    public void setTotalComments(Integer totalComments) {
-        this.totalComments = totalComments;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public Integer getTotalViews() {
-        return totalViews;
-    }
-
-    public void setTotalViews(Integer totalViews) {
-        this.totalViews = totalViews;
-    }
-
-    public String getUserView() {
-        return userView;
-    }
-
-    public void setUserView(String userView) {
-        this.userView = userView;
-    }
-
-    public Integer getUserSave() {
-        return userSave;
-    }
-
-    public void setUserSave(Integer userSave) {
-        this.userSave = userSave;
-    }
-
     public String getIcon() {
         return icon;
     }
@@ -244,22 +160,6 @@ public class ActivityDetail {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public List<Like> getLikes() {
-        return likes;
-    }
-
-    public void setLikes(List<Like> likes) {
-        this.likes = likes;
-    }
-
-    public List<Object> getViews() {
-        return views;
-    }
-
-    public void setViews(List<Object> views) {
-        this.views = views;
     }
 
 }

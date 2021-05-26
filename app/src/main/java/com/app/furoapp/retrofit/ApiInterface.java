@@ -2,10 +2,10 @@ package com.app.furoapp.retrofit;
 
 
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.ActivityDetailsResponse;
-import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListRequest;
+import com.app.furoapp.activity.newFeature.bmiCalculator.bmiModel.BmiStoreDataRequest;
+import com.app.furoapp.activity.newFeature.bmiCalculator.bmiModel.BmiStoreDataResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListRequest;
-import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.addComments.AddCommentRequest;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.addComments.AddCommentResponse;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragment_ListingNew.ActivitiesListing;
@@ -15,6 +15,7 @@ import com.app.furoapp.activity.newFeature.ContentEngagementModule.saveBookmark.
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.saveBookmark.SavedResponse;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsRequest;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsResponse;
+import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
 import com.app.furoapp.model.Bannersecond.BannerSecondResponse;
 import com.app.furoapp.model.FriendModel.AddFriend;
 import com.app.furoapp.model.FriendModel.FriendInviteModel;
@@ -220,7 +221,7 @@ public interface ApiInterface {
 
     /* //pushNotification
      @POST("check-contacts")
-     Call<ExistsContactResponse> checkExistsContact(@Body ExistsContactRequest existsContactRequest);
+     Call<ExistsContactResponse> checkExistsContact(@com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.Body ExistsContactRequest existsContactRequest);
  */
     @Multipart
     @POST("check-contacts-seperate")
@@ -414,9 +415,13 @@ public interface ApiInterface {
 
     /*Saved list*/
     @POST("saved-list")
-    Call<SavedListResponse>saveOnPost (@Header(TOKEN_KEY) String token, @Body SavedListRequest savedListRequest);
+    Call<SavedListResponse>saveOnPost (@Header(TOKEN_KEY) String token);
 
     /*Liked list*/
     @POST("like-list")
-    Call<LikeListResponse>likeList (@Header(TOKEN_KEY) String token, @Body LikeListRequest likeListRequest);
+    Call<LikeListResponse>likeList (@Header(TOKEN_KEY) String token);
+
+    /*Liked list*/
+    @POST("store-user-wise-data")
+    Call<BmiStoreDataResponse>bmiStoreData (@Header(TOKEN_KEY) String token, BmiStoreDataRequest bmiStoreDataRequest);
 }

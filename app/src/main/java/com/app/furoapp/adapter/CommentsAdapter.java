@@ -36,7 +36,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.VewHol
     @Override
     public void onBindViewHolder(@NonNull VewHolder holder, int position) {
         Comment comment = commentList.get(position);
-        holder.tvName.setText("" + comment.getUsername());
+        holder.tvName.setText("" + comment.getUser().getUsername());
         holder.tvComments.setText("" + comment.getComment());
 
     }

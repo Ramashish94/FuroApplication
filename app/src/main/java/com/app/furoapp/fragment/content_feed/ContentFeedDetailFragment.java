@@ -23,7 +23,7 @@ import com.app.furoapp.R;
 import com.app.furoapp.activity.HomeMainActivity;
 import com.app.furoapp.adapter.ContentFeedDetailAdapter;
 import com.app.furoapp.databinding.FragmentContentFeedDetailsBinding;
-import com.app.furoapp.model.contentFeedDetail.Body;
+import com.app.furoapp.model.contentFeedDetail.com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.Body;
 import com.app.furoapp.model.contentFeedDetail.ContentFeedDetailRequest;
 import com.app.furoapp.model.contentFeedDetail.ContentFeedDetailResponse;
 import com.app.furoapp.retrofit.RestClient;
@@ -105,7 +105,7 @@ public class ContentFeedDetailFragment extends Fragment {
 
                 if (response != null) {
                     if (response.body() != null) {
-                        List<Body> bodyList = response.body().getActivityDetails().get(0).getBody();
+                        List<com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.Body> bodyList = response.body().getActivityDetails().get(0).getBody();
                         contentFeedDetailAdapter = new ContentFeedDetailAdapter(bodyList, getContext());
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
                         recyclerView.setLayoutManager(layoutManager);

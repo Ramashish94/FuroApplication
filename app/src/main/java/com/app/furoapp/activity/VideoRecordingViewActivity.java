@@ -157,7 +157,7 @@ public class VideoRecordingViewActivity extends AppCompatActivity {
             } else if (resultCode == RESULT_CANCELED) {
                 // user cancelled recording
                 Toast.makeText(getApplicationContext(),
-                        "User cancelled video recording", Toast.LENGTH_SHORT)
+                        "com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.User cancelled video recording", Toast.LENGTH_SHORT)
                         .show();
             } else {
                 // failed to record video

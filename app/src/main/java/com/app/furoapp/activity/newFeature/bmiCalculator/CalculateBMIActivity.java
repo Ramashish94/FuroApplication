@@ -12,12 +12,15 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.app.furoapp.R;
+import com.app.furoapp.utils.Constants;
+import com.app.furoapp.utils.FuroPrefs;
 import com.kevalpatel2106.rulerpicker.RulerValuePicker;
 import com.kevalpatel2106.rulerpicker.RulerValuePickerListener;
 
 public class CalculateBMIActivity extends AppCompatActivity {
     public TextView tvRecordedScores, tvHeightRulerValueInCms, tvHeightRulerValueInFeet, tvHeightRulerValueInInch, tvWeightRulerValueInKgs;
     public Button btnStartJanury;
+    public String userHeightInCm,userWeightInKg;
 
 
     @Override
@@ -47,13 +50,15 @@ public class CalculateBMIActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onValueChange(final int selectedValue) {
-                tvHeightRulerValueInCms.setText(selectedValue + " cm ");
-                centimeterToFeet(String.valueOf(selectedValue));
+                userHeightInCm = String.valueOf(selectedValue);
+                tvHeightRulerValueInCms.setText(userHeightInCm + " cm ");
+                centimeterToFeet(String.valueOf(userHeightInCm));
             }
 
             @Override
             public void onIntermediateValueChange(final int selectedValue) {
-                tvHeightRulerValueInCms.setText(selectedValue + " cm ");
+                userHeightInCm = String.valueOf(selectedValue);
+                tvHeightRulerValueInCms.setText(userHeightInCm + " cm ");
             }
         });
 
@@ -63,12 +68,14 @@ public class CalculateBMIActivity extends AppCompatActivity {
         weightPicker.setValuePickerListener(new RulerValuePickerListener() {
             @Override
             public void onValueChange(final int selectedValue) {
-                tvWeightRulerValueInKgs.setText(selectedValue + " kg ");
+                userWeightInKg= String.valueOf(selectedValue);
+                tvWeightRulerValueInKgs.setText(userWeightInKg + " kg ");
             }
 
             @Override
             public void onIntermediateValueChange(final int selectedValue) {
-                tvWeightRulerValueInKgs.setText(selectedValue + " kg ");
+                userWeightInKg= String.valueOf(selectedValue);
+                tvWeightRulerValueInKgs.setText(userWeightInKg + " kg ");
             }
         });
     }
@@ -83,15 +90,14 @@ public class CalculateBMIActivity extends AppCompatActivity {
             inchesPart = (int) Math.ceil((dCentimeter / 2.54) - (feetPart * 12));
             String inchesss = String.valueOf(inchesPart);
             String feettt = String.valueOf(feetPart);
-            tvHeightRulerValueInFeet.setText("(" + feettt+" ' ");
-            tvHeightRulerValueInInch.setText(inchesss +" '' " +")  ");
+            tvHeightRulerValueInFeet.setText("(" + feettt + " ' ");
+            tvHeightRulerValueInInch.setText(inchesss + " '' " + ")  ");
 
         }
         return String.format("%d' %d''", feetPart, inchesPart);
     }
 
     private void clickEvent() {
-
 
         tvRecordedScores.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +111,8 @@ public class CalculateBMIActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), YourScoreActivity.class);
+                FuroPrefs.putString(getApplicationContext(), Constants.USER_HEIGHT_IN_CM, String.valueOf(userHeightInCm));
+                FuroPrefs.putString(getApplicationContext(), Constants.USER_WEIGHT, String.valueOf(userWeightInKg));
                 startActivity(intent);
             }
         });

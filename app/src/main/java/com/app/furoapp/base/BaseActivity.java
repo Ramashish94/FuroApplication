@@ -542,7 +542,7 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
             if (grantResults.length <= 0) {
                 // If user interaction was interrupted, the permission request is cancelled and you
                 // receive empty arrays.
-                //   Log.i(TAG, "User interaction was cancelled.");
+                //   Log.i(TAG, "com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.User interaction was cancelled.");
             } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission granted.
                 getAddress();
@@ -770,7 +770,7 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
 
     }
 
-    *//*  Show Popup to access User Permission  *//*
+    *//*  Show Popup to access com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.User Permission  *//*
     private void requestLocationPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(com.app.furoapp.activity.SignUpActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION)) {
             ActivityCompat.requestPermissions(com.app.furoapp.activity.SignUpActivity.this,

@@ -35,8 +35,6 @@ public class ActivityDetailAdapter extends RecyclerView.Adapter<ActivityDetailAd
     public ActivityDetailAdapter(List<Body> bodyList, Context context) {
         this.bodyList = bodyList;
         this.context = context;
-
-
     }
 
     @NonNull

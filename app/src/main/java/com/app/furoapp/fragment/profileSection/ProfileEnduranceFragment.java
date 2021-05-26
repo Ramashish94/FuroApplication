@@ -138,7 +138,7 @@ public class ProfileEnduranceFragment extends BaseFragment {
         HIOptions options = new HIOptions();
 
         HITitle title = new HITitle();
-        title.setText("User Progress");
+        title.setText("com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.User Progress");
         options.setTitle(title);
 
         HIYAxis yAxis1 = new HIYAxis();

@@ -26,6 +26,8 @@ import com.app.furoapp.activity.newFeature.ContentEngagementModule.addComments.A
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.addComments.AddCommentResponse;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.like.LikeRequest;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.like.LikeResponse;
+import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsRequest;
+import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsResponse;
 import com.app.furoapp.adapter.ActivityDetailAdapter;
 import com.app.furoapp.adapter.CommentsAdapter;
 import com.app.furoapp.model.contentFeedDetail.ContentFeedDetailRequest;
@@ -50,15 +52,16 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ProgressBar progressBarr;
     TextView textView;
-    LinearLayout linearLayout,llLikeksSection, llPostBtn;
+    LinearLayout linearLayout, llLikeksSection, llPostBtn, llLikeAndDislike, llViewsSec;
     RecyclerView rvComment;
-    ImageView ivlikeAndUnlike, ivShare;
+    ImageView ivlikeAndUnlike, ivShare, ivViews;
     TextView tvLikeCounts, tvLiksTxt, tvCmntsCount, tvCmntsTxt, tvViewsCounts, tvViewsTxt, tvTotNosOfComments;
     EditText etAddComments;
     public String activityId;
     public Boolean clicked = true;
     private String accessToken;
     private ActivityDetail detailsItem;
+    //ActivityDetail activityDetail;
     CommentsAdapter commentsAdapter;
     List<Comment> commentArrayList = new ArrayList<>();
 
@@ -75,12 +78,15 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.contentDetailRecycler);
 
         rvComment = findViewById(R.id.rvComment);
-        llLikeksSection = findViewById(R.id.llLikeksSection);
+        //llLikeksSection = findViewById(R.id.llLikeksSection);
+        llLikeAndDislike = findViewById(R.id.llLikeAndDislike);
         ivlikeAndUnlike = findViewById(R.id.ivlikeAndUnlike);
         tvLikeCounts = findViewById(R.id.tvLikeCounts);
         tvLiksTxt = findViewById(R.id.tvLiksTxt);
         tvCmntsCount = findViewById(R.id.tvCmntsCount);
         tvCmntsTxt = findViewById(R.id.tvCmntsTxt);
+        llViewsSec = findViewById(R.id.llViewsSec);
+        ivViews = findViewById(R.id.ivViews);
         tvViewsCounts = findViewById(R.id.tvViewsCounts);
         tvViewsTxt = findViewById(R.id.tvViewsTxt);
         ivShare = findViewById(R.id.ivShare);
@@ -95,14 +101,13 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
     }
 
     private void inputValidation() {
-        String comment=etAddComments.getText().toString().trim();
-        if (!comment.isEmpty()){
-            callCommentApi( getCommentApiParams(Integer.parseInt(activityId),comment));
+        String comment = etAddComments.getText().toString().trim();
+        if (!comment.isEmpty()) {
+            callCommentApi(getCommentApiParams(Integer.parseInt(activityId), comment));
             etAddComments.setText("");
-        }else{
+        } else {
             showToast("Please enter comments");
         }
-
     }
 
     public void contentFeedApi() {
@@ -121,9 +126,10 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
                 linearLayout.setVisibility(View.GONE);
                 progressBarr.setVisibility(View.GONE);
 
-                if (response.code()==200 && response != null) {
+                if (response.code() == 200 && response != null) {
                     if (response.body() != null) {
                         setData(response.body().getActivityDetails().get(0));
+
                         List<Body> bodyList = response.body().getActivityDetails().get(0).getBody();
                         contentFeedDetailAdapter = new ActivityDetailAdapter(bodyList, getApplicationContext());
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -131,11 +137,13 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
                         recyclerView.setItemAnimator(new DefaultItemAnimator());
                         recyclerView.setAdapter(contentFeedDetailAdapter);
                     }
-                    //if (response.body()!=null && response.body().getActivityDetails().get(0).getComments())
+                    if (response.body() != null && response.body().getActivityDetails() != null) {
+                        notifyCommentAdapter(response.body().getActivityDetails().get(0).getComments());
+
+                    }
                 }
-
-
             }
+
             @Override
             public void onFailure(Call<ActivityDetailsResponse> call, Throwable t) {
                 Toast.makeText(ContentFeedDetailActivity.this, " Something went wrong !!", Toast.LENGTH_SHORT).show();
@@ -143,62 +151,12 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void getLikeShareAndCmntsData(String userLike) {
-        if (userLike.equals("0")) {
-            clicked = false;
-            ivlikeAndUnlike.setImageResource(R.drawable.thumb_unlike);
-            tvLikeCounts.setTextColor(Color.BLACK);
-            tvLiksTxt.setTextColor(Color.BLACK);
-        } else {
-            clicked = true;
-            ivlikeAndUnlike.setImageResource(R.drawable.thumb_like);
-            tvLikeCounts.setTextColor(Color.parseColor("#19CFE6"));
-            tvLiksTxt.setTextColor(Color.parseColor("#19CFE6"));
-        }
 
-        llLikeksSection.setOnClickListener(v -> {
-            if (clicked) {
-                clicked = false;
-                ivlikeAndUnlike.setImageResource(R.drawable.thumb_unlike);
-                tvLikeCounts.setTextColor(Color.BLACK);
-                tvLiksTxt.setTextColor(Color.BLACK);
-            } else {
-                clicked = true;
-                ivlikeAndUnlike.setImageResource(R.drawable.thumb_like);
-                tvLikeCounts.setTextColor(Color.parseColor("#19CFE6"));
-                tvLiksTxt.setTextColor(Color.parseColor("#19CFE6"));
-            }
-            int dataUserLike;
-            if (clicked) {
-                dataUserLike = 1;
-               // tvLikeCounts.setText(Integer.toString(detailsItem.getTotalLikes())+1);
-            } else {
-                dataUserLike = 0;
-               // tvLikeCounts.setText(detailsItem.getTotalLikes()-1);
-            }
-            callLikeApi(getLikeApiParams(Integer.parseInt(activityId), dataUserLike));
-
-        });
-
-        ivShare.setOnClickListener(v -> {
-            shareData();
-        });
-    }
-
-    private void setCommentsAdapter() {
-        commentsAdapter = new CommentsAdapter(getApplicationContext(), commentArrayList);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        rvComment.setLayoutManager(layoutManager);
-        rvComment.setItemAnimator(new DefaultItemAnimator());
-        rvComment.setAdapter(commentsAdapter);
-    }
-
-    private AddCommentRequest getCommentApiParams(int postId, String comment){
-        AddCommentRequest request=new AddCommentRequest();
+    private AddCommentRequest getCommentApiParams(int postId, String comment) {
+        AddCommentRequest request = new AddCommentRequest();
         request.setComment(comment);
         request.setPostId(postId);
         return request;
-
     }
 
     private void callCommentApi(AddCommentRequest request) {
@@ -219,34 +177,57 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
         });
     }
 
+
     private void setData(ActivityDetail data) {
         detailsItem = data;
         tvLikeCounts.setText("" + data.getTotalLikes());
-        tvCmntsCount.setText("" + data.getTotalComments());
-        tvTotNosOfComments.setText("" + data.getTotalComments());
-        tvViewsCounts.setText("" + data.getTotalViews());
-        getLikeShareAndCmntsData(data.getUserLike());
+        tvCmntsCount.setText("" + data.getTotalComments().toString());
+        tvTotNosOfComments.setText("" + data.getTotalComments().toString());
+        tvViewsCounts.setText("" + data.getTotalViews().toString());
+        getLikeShareData(data.getTotalLikes().toString());
+        getViewsData(data.getTotalViews().toString());
     }
 
-    private void callLikeApi(LikeRequest data) {
-//        Util.isInternetConnected(getContext());
-//        Util.showProgressDialog(getActivity());
-        RestClient.userPostLike(accessToken, data, new Callback<LikeResponse>() {
-            @Override
-            public void onResponse(Call<LikeResponse> call, Response<LikeResponse> response) {
-//                Util.dismissProgressDialog();
+    private void getLikeShareData(String userLike) {
+        if (userLike.equals("0")) {
+            clicked = false;
+            ivlikeAndUnlike.setImageResource(R.drawable.thumb_unlike);
+            tvLikeCounts.setTextColor(Color.BLACK);
+            tvLiksTxt.setTextColor(Color.BLACK);
+        } else {
+            clicked = true;
+            ivlikeAndUnlike.setImageResource(R.drawable.thumb_like);
+            tvLikeCounts.setTextColor(Color.parseColor("#19CFE6"));
+            tvLiksTxt.setTextColor(Color.parseColor("#19CFE6"));
+        }
 
-                if (response.body() != null) {
-                    LikeResponse likeResponse = response.body();
-                    showToast(likeResponse.getStatus());
-                }
+        llLikeAndDislike.setOnClickListener(v -> {
+            if (clicked) {
+                clicked = false;
+                ivlikeAndUnlike.setImageResource(R.drawable.thumb_unlike);
+                tvLikeCounts.setTextColor(Color.BLACK);
+                tvLiksTxt.setTextColor(Color.BLACK);
+            } else {
+                clicked = true;
+                ivlikeAndUnlike.setImageResource(R.drawable.thumb_like);
+                tvLikeCounts.setTextColor(Color.parseColor("#19CFE6"));
+                tvLiksTxt.setTextColor(Color.parseColor("#19CFE6"));
             }
-            @Override
-            public void onFailure(Call<LikeResponse> call, Throwable t) {
-                showToast("No internet connection!");
+            int dataUserLike;
+            if (clicked) {
+                dataUserLike = 1;
+                // tvLikeCounts.setText(Integer.toString(detailsItem.getTotalLikes())+1);
+            } else {
+                dataUserLike = 0;
+                // tvLikeCounts.setText(detailsItem.getTotalLikes()-1);
             }
+            callLikeApi(getLikeApiParams(Integer.parseInt(activityId), dataUserLike));
+
         });
 
+        ivShare.setOnClickListener(v -> {
+            shareData();
+        });
     }
 
     private LikeRequest getLikeApiParams(int postId, int flag) {
@@ -255,6 +236,90 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
         request.setPostId(postId);
         return request;
     }
+
+    private void callLikeApi(LikeRequest data) {
+        RestClient.userPostLike(accessToken, data, new Callback<LikeResponse>() {
+            @Override
+            public void onResponse(Call<LikeResponse> call, Response<LikeResponse> response) {
+                if (response.body() != null) {
+                   /* LikeResponse likeResponse = response.body();
+                    showToast(likeResponse.getStatus());*/
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LikeResponse> call, Throwable t) {
+                showToast("No internet connection!");
+            }
+        });
+
+    }
+
+
+    private void getViewsData(String userViews) {
+        if (userViews.equals("0")) {
+            clicked = false;
+            ivViews.setImageResource(R.drawable.view_image);
+            tvViewsCounts.setTextColor(Color.BLACK);
+            tvViewsTxt.setTextColor(Color.BLACK);
+        } else {
+            clicked = true;
+            ivViews.setImageResource(R.drawable.selectviews);
+            tvViewsCounts.setTextColor(Color.parseColor("#19CFE6"));
+            tvViewsTxt.setTextColor(Color.parseColor("#19CFE6"));
+        }
+
+        llViewsSec.setOnClickListener(v -> {
+            if (clicked) {
+                clicked = false;
+                ivViews.setImageResource(R.drawable.view_image);
+                tvViewsCounts.setTextColor(Color.BLACK);
+                tvViewsTxt.setTextColor(Color.BLACK);
+            } else {
+                clicked = true;
+                ivViews.setImageResource(R.drawable.selectviews);
+                tvViewsCounts.setTextColor(Color.parseColor("#19CFE6"));
+                tvViewsTxt.setTextColor(Color.parseColor("#19CFE6"));
+            }
+            int dataUserViews;
+            if (clicked) {
+                dataUserViews = 1;
+                // tvLikeCounts.setText(Integer.toString(detailsItem.getTotalLikes())+1);
+            } else {
+                dataUserViews = 0;
+                // tvLikeCounts.setText(detailsItem.getTotalLikes()-1);
+            }
+            callViewsApi(getViewsApiParams(Integer.parseInt(activityId), dataUserViews));
+
+        });
+
+    }
+
+
+    private void callViewsApi(ViewsRequest data) {
+        RestClient.userPostView(accessToken, data, new Callback<ViewsResponse>() {
+            @Override
+            public void onResponse(Call<ViewsResponse> call, Response<ViewsResponse> response) {
+                if (response.body() != null) {
+                   /* LikeResponse likeResponse = response.body();
+                    showToast(likeResponse.getStatus());*/
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ViewsResponse> call, Throwable t) {
+                showToast("No internet connection!");
+            }
+        });
+
+    }
+
+    private ViewsRequest getViewsApiParams(int postId, int flag) {
+        ViewsRequest request = new ViewsRequest();
+        request.setPostId(postId);
+        return request;
+    }
+
 
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
@@ -282,5 +347,21 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Furo FQ");
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, fullMessage);
         startActivity(Intent.createChooser(sharingIntent, "Share via"));
+    }
+
+    private void setCommentsAdapter() {
+        commentsAdapter = new CommentsAdapter(getApplicationContext(), commentArrayList);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        rvComment.setLayoutManager(layoutManager);
+        rvComment.setItemAnimator(new DefaultItemAnimator());
+        rvComment.setAdapter(commentsAdapter);
+    }
+
+    private void notifyCommentAdapter(List<Comment> comments) {
+        commentArrayList.clear();
+        commentArrayList.addAll(comments);
+        if (commentArrayList != null && commentArrayList.size() > 0) {
+            commentsAdapter.notifyDataSetChanged();
+        }
     }
 }

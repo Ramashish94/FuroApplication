@@ -311,14 +311,14 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
         FuroPrefs.putString(getActivity(), "id", String.valueOf(id));
     }
 
-    /*Like event */
+    /*com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.Like event */
     private void callLikeApi(LikeRequest data) {
         RestClient.userPostLike(getAccessToken, data, new Callback<LikeResponse>() {
             @Override
             public void onResponse(Call<LikeResponse> call, Response<LikeResponse> response) {
                 if (response.body() != null) {
-                    LikeResponse likeResponse = response.body();
-                    showToast(likeResponse.getStatus());
+                    /*LikeResponse likeResponse = response.body();
+                    showToast(likeResponse.getStatus());*/
                 }
             }
 
@@ -357,8 +357,8 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
             @Override
             public void onResponse(Call<ViewsResponse> call, Response<ViewsResponse> response) {
                 if (response.body() != null) {
-                    ViewsResponse viewsResponse = response.body();
-                    showToast(viewsResponse.getStatus());
+                    /*ViewsResponse viewsResponse = response.body();
+                    showToast(viewsResponse.getStatus());*/
                 }
             }
 
@@ -394,8 +394,8 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
             @Override
             public void onResponse(Call<SavedResponse> call, Response<SavedResponse> response) {
                 if (response.body() != null) {
-                    SavedResponse likeResponse = response.body();
-                    showToast(likeResponse.getStatus());
+                   /* SavedResponse likeResponse = response.body();
+                    showToast(likeResponse.getStatus());*/
                 }
             }
 

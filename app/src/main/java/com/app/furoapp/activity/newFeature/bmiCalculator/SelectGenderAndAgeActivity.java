@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.app.furoapp.R;
 import com.app.furoapp.utils.Constants;
@@ -32,6 +31,7 @@ public class SelectGenderAndAgeActivity extends AppCompatActivity implements Age
     private int selected;
     private String maleVal, femaleVal;
     private String genderVal;
+    private String userAge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +49,30 @@ public class SelectGenderAndAgeActivity extends AppCompatActivity implements Age
         tvFemale = findViewById(R.id.tvFemale);
         tvMale = findViewById(R.id.tvMale);
         btnStartJanury = findViewById(R.id.btnStartJanury);
+    }
+
+    private void setSavedRecyAdapter() {
+        ageAdapter = new AgeAdapter(getApplicationContext(), ageModelTest, this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        rvAge.setLayoutManager(layoutManager);
+        rvAge.setItemAnimator(new DefaultItemAnimator());
+        rvAge.setAdapter(ageAdapter);
+        List<AgeModelTest> ageModelTestArrayList = new ArrayList<>();
+        for (int i = 20; i <= 60; i++) {
+            AgeModelTest ageModelTest = new AgeModelTest();
+            ageModelTest.setAge("" + i);
+            ageModelTestArrayList.add(ageModelTest);
+        }
+        AgeAdapter ageAdapter = new AgeAdapter(getApplicationContext(), ageModelTestArrayList, this);
+        rvAge.setAdapter(ageAdapter);
+    }
+
+    @Override
+    public void ageSelectItem(int age) {
+         userAge = String.valueOf(age);
+        Log.d("com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.User Age", userAge);
+        //Toast.makeText(this, "Age" + age, Toast.LENGTH_SHORT).show();
+        //FuroPrefs.putString(getApplicationContext(), Constants.AGE_SELECT, userAge);
     }
 
     private void clickEvent() {
@@ -87,33 +111,10 @@ public class SelectGenderAndAgeActivity extends AppCompatActivity implements Age
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CalculateBMIActivity.class);
-                //FuroPrefs.putString(getApplicationContext(), Constants.GENDER_VAL, genderVal);
+                FuroPrefs.putString(getApplicationContext(), Constants.GENDER_VAL, genderVal);
+                FuroPrefs.putString(getApplicationContext(), Constants.USER_AGE_SELECT, userAge);
                 startActivity(intent);
             }
         });
-    }
-
-
-    private void setSavedRecyAdapter() {
-        ageAdapter = new AgeAdapter(getApplicationContext(), ageModelTest, this);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        rvAge.setLayoutManager(layoutManager);
-        rvAge.setItemAnimator(new DefaultItemAnimator());
-        rvAge.setAdapter(ageAdapter);
-        List<AgeModelTest> ageModelTestArrayList = new ArrayList<>();
-        for (int i = 20; i <= 60; i++) {
-            AgeModelTest ageModelTest = new AgeModelTest();
-            ageModelTest.setAge("" + i);
-            ageModelTestArrayList.add(ageModelTest);
-        }
-        AgeAdapter ageAdapter = new AgeAdapter(getApplicationContext(), ageModelTestArrayList, this);
-        rvAge.setAdapter(ageAdapter);
-    }
-
-
-    @Override
-    public void ageSelectItem(int age) {
-        //  Log.d("Age", String.valueOf(age));
-        Toast.makeText(this, "Age" +age, Toast.LENGTH_SHORT).show();
     }
 }

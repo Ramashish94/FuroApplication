@@ -1,6 +1,7 @@
 
 package com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew;
 
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -33,9 +34,9 @@ public class Comment {
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
-    @SerializedName("user_name")
+    @SerializedName("user")
     @Expose
-    private String username;
+    private User user;
 
     public Integer getId() {
         return id;
@@ -109,13 +110,12 @@ public class Comment {
         this.updatedAt = updatedAt;
     }
 
-    public String getUsername() {
-        return username;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(User user) {
+        this.user = user;
     }
-
 
 }

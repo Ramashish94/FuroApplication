@@ -30,7 +30,7 @@ public class LikedAndSavedActivity extends AppCompatActivity {
        /* if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setTitle("Like And Saved Videos");
+            getSupportActionBar().setTitle("com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.Like And Saved Videos");
 
         }*/
 

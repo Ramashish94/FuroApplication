@@ -1965,7 +1965,7 @@ instanceKlass com/sun/tools/javac/tree/EndPosTable
 instanceKlass com/sun/tools/javac/parser/JavacParser
 instanceKlass com/sun/tools/javac/parser/UnicodeReader
 instanceKlass sun/misc/FloatingDecimal$HexFloatPattern
-instanceKlass com/sun/tools/javac/parser/Tokens$Comment
+instanceKlass com/sun/tools/javac/parser/Tokens$com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.Comment
 instanceKlass com/sun/tools/javac/parser/Scanner
 instanceKlass com/sun/source/tree/LineMap
 instanceKlass com/sun/tools/javac/util/BaseFileManager$ContentCacheEntry
@@ -6145,7 +6145,7 @@ instanceKlass com/google/common/collect/Iterables
 instanceKlass com/google/common/collect/Ordering
 instanceKlass com/android/support/AndroidxNameUtils$$Lambda$245
 instanceKlass com/sun/org/apache/xerces/internal/dom/NamedNodeMapImpl
-instanceKlass org/w3c/dom/Comment
+instanceKlass org/w3c/dom/com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.Comment
 instanceKlass com/sun/org/apache/xerces/internal/dom/CharacterDataImpl$1
 instanceKlass org/w3c/dom/Text
 instanceKlass org/w3c/dom/CharacterData
@@ -13825,7 +13825,7 @@ instanceKlass com/sun/tools/javac/tree/JCTree$JCLambda$ParameterKind
 instanceKlass com/sun/tools/javac/tree/JCTree$JCPolyExpression$PolyKind
 instanceKlass com/sun/tools/javac/code/BoundKind
 instanceKlass com/sun/tools/javac/parser/JavacParser$ParensResult
-instanceKlass com/sun/tools/javac/parser/Tokens$Comment$CommentStyle
+instanceKlass com/sun/tools/javac/parser/Tokens$com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.Comment$CommentStyle
 instanceKlass javax/lang/model/type/TypeKind
 instanceKlass com/sun/tools/javac/util/RichDiagnosticFormatter$RichConfiguration$RichFormatterFeature
 instanceKlass com/sun/tools/javac/util/RichDiagnosticFormatter$WhereClauseKind

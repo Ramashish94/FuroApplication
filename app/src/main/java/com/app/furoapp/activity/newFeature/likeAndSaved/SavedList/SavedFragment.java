@@ -1,5 +1,6 @@
 package com.app.furoapp.activity.newFeature.likeAndSaved.SavedList;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,7 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListRequest;
+import com.app.furoapp.activity.ContentFeedDetailActivity;
+import com.app.furoapp.activity.YoutubePlayerActivity;
 import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedOnPost;
 import com.app.furoapp.retrofit.RestClient;
@@ -30,7 +32,7 @@ import retrofit2.Response;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-public class SavedFragment extends Fragment {
+public class SavedFragment extends Fragment implements SavedListAdapter.ContentSavedCallback {
     public RecyclerView rvSavedRecycler;
     SavedListAdapter savedListAdapter;
     List<SavedOnPost> savedOnPostList = new ArrayList<>();
@@ -66,20 +68,17 @@ public class SavedFragment extends Fragment {
         getAccessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
 
         setSavedListAdapter();
-        getApiCalling();
+        getSavedApiCalling();
         return view;
     }
 
-    private void getApiCalling() {
-        activityId = FuroPrefs.getString(getApplicationContext(), "id");
-        SavedListRequest savedListRequest = new SavedListRequest();
-        savedListRequest.setActivityId(activityId);
-
+    private void getSavedApiCalling() {
         Util.isInternetConnected(getContext());
         Util.showProgressDialog(getActivity());
-        RestClient.saveList(getAccessToken, savedListRequest, new Callback<SavedListResponse>() {
+        RestClient.saveList(getAccessToken, new Callback<SavedListResponse>() {
             @Override
             public void onResponse(Call<SavedListResponse> call, Response<SavedListResponse> response) {
+                Util.dismissProgressDialog();
                 if (response != null && response.code() == 200 && response.body() != null) {
                     if (response.body().getStatus()!=null){
                         notifySavedListAdapter(response.body().getSavedOnPost());
@@ -98,7 +97,7 @@ public class SavedFragment extends Fragment {
     }
 
     private void setSavedListAdapter() {
-        savedListAdapter = new SavedListAdapter(getApplicationContext(), savedOnPostList);
+        savedListAdapter = new SavedListAdapter(getApplicationContext(), savedOnPostList,this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         rvSavedRecycler.setLayoutManager(layoutManager);
         rvSavedRecycler.setItemAnimator(new DefaultItemAnimator());
@@ -107,8 +106,29 @@ public class SavedFragment extends Fragment {
     private void notifySavedListAdapter(List<SavedOnPost> savedOnPost) {
         savedOnPostList.clear();
         savedOnPostList.addAll(savedOnPost);
-        if (savedListResponseList != null && savedListResponseList.size() > 0) {
+        if (savedOnPostList != null && savedOnPostList.size() > 0) {
             savedListAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void contentSavedItem(int videoId) {
+        Intent intent = new Intent(getContext(), YoutubePlayerActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void contentSavedItem2(int id) {
+        Intent intent = new Intent(getContext(), ContentFeedDetailActivity.class);
+        FuroPrefs.putString(getActivity(), "id", String.valueOf(id));
+        startActivity(intent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getSavedApiCalling();
+        setSavedListAdapter();
+
     }
 }

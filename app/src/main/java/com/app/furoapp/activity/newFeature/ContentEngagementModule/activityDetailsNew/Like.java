@@ -1,10 +1,11 @@
 
-package com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost;
+package com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew;
+
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class LikeOnPost {
+public class Like {
 
     @SerializedName("id")
     @Expose
@@ -33,9 +34,9 @@ public class LikeOnPost {
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
-    @SerializedName("activity_detail")
+    @SerializedName("user")
     @Expose
-    private ActivityDetail activityDetail;
+    private User__1 user;
 
     public Integer getId() {
         return id;
@@ -109,12 +110,12 @@ public class LikeOnPost {
         this.updatedAt = updatedAt;
     }
 
-    public ActivityDetail getActivityDetail() {
-        return activityDetail;
+    public User__1 getUser() {
+        return user;
     }
 
-    public void setActivityDetail(ActivityDetail activityDetail) {
-        this.activityDetail = activityDetail;
+    public void setUser(User__1 user) {
+        this.user = user;
     }
 
 }

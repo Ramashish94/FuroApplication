@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class AddCommentsResponse {
 
-    @SerializedName("Comment")
+    @SerializedName("com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.Comment")
     @Expose
     private Comment comment;
     @SerializedName("status")

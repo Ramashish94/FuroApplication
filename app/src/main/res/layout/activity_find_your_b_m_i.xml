@@ -79,6 +79,7 @@
                      android:background="@drawable/find_yours_others">
 
                      <TextView
+                         android:id="@+id/tvFindYours"
                          android:layout_width="match_parent"
                          android:layout_height="match_parent"
                          android:layout_gravity="center"
@@ -97,7 +98,7 @@
                  android:layout_weight="1">
 
                  <LinearLayout
-                     android:id="@+id/llFindYoursOthers"
+                     android:id="@+id/llFindForOthers"
                      android:layout_width="match_parent"
                      android:layout_height="@dimen/dp_40"
                      android:layout_gravity="bottom"
@@ -107,6 +108,7 @@
                      android:background="@drawable/find_yours_others">
 
                      <TextView
+                         android:id="@+id/tvFidForOthers"
                          android:layout_width="match_parent"
                          android:layout_height="match_parent"
                          android:layout_gravity="center"

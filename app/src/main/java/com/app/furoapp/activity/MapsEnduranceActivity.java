@@ -381,11 +381,11 @@ public class MapsEnduranceActivity extends FragmentActivity implements OnMapRead
             case REQUEST_CHECK_SETTINGS:
                 switch (resultCode) {
                     case Activity.RESULT_OK:
-                        Log.e(TAG, "User agreed to make required location settings changes.");
+                        Log.e(TAG, "com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.User agreed to make required location settings changes.");
                         // Nothing to do. startLocationupdates() gets called in onResume again.
                         break;
                     case Activity.RESULT_CANCELED:
-                        Log.e(TAG, "User chose not to make required location settings changes.");
+                        Log.e(TAG, "com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.User chose not to make required location settings changes.");
                         mRequestingLocationUpdates = false;
                         break;
                 }

@@ -9,10 +9,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.app.furoapp.R;
+import com.app.furoapp.utils.Constants;
+import com.app.furoapp.utils.FuroPrefs;
 
 public class FindYourBmiActivity extends AppCompatActivity {
-    public LinearLayout llFindUrs, llFindYoursOthers;
-    public TextView tvRecordedScores;
+    public LinearLayout llFindUrs, llFindForOthers;
+    public TextView tvRecordedScores,tvFindYours,tvFidForOthers;
+    private String findYoursType;
 
 
     @Override
@@ -25,28 +28,36 @@ public class FindYourBmiActivity extends AppCompatActivity {
 
     private void initViews() {
         llFindUrs = findViewById(R.id.llFindUrs);
-        llFindYoursOthers = findViewById(R.id.llFindYoursOthers);
+        llFindForOthers = findViewById(R.id.llFindForOthers);
         tvRecordedScores = findViewById(R.id.tvRecordedScores);
+        tvFindYours = findViewById(R.id.tvFindYours);
+        tvFidForOthers = findViewById(R.id.tvFidForOthers);
     }
 
     private void clickEvent() {
         llFindUrs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SelectGenderAndAgeActivity.class);
-                llFindYoursOthers.setBackgroundResource(R.drawable.find_yours_others);
+                llFindForOthers.setBackgroundResource(R.drawable.find_yours_others);
                 llFindUrs.setBackgroundResource(R.drawable.btn_next_shape);
+                findYoursType = tvFindYours.getText().toString();
+                Intent intent = new Intent(getApplicationContext(), SelectGenderAndAgeActivity.class);
+                FuroPrefs.putString(getApplicationContext(), Constants.FIND_OURS_TYPE, findYoursType);
+
                 startActivity(intent);
 
             }
         });
 
-        llFindYoursOthers.setOnClickListener(new View.OnClickListener() {
+        llFindForOthers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SelectGenderAndAgeActivity.class);
-                llFindYoursOthers.setBackgroundResource(R.drawable.btn_next_shape);
+                llFindForOthers.setBackgroundResource(R.drawable.btn_next_shape);
                 llFindUrs.setBackgroundResource(R.drawable.find_yours_others);
+                findYoursType = tvFindYours.getText().toString();
+
+                Intent intent = new Intent(getApplicationContext(), SelectGenderAndAgeActivity.class);
+                FuroPrefs.putString(getApplicationContext(), Constants.FIND_OURS_TYPE, findYoursType);
                 startActivity(intent);
             }
         });
@@ -55,6 +66,7 @@ public class FindYourBmiActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), RecordedScoreActivity.class);
+
                 startActivity(intent);
 
             }
@@ -66,7 +78,7 @@ public class FindYourBmiActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         llFindUrs.setBackgroundResource(R.drawable.find_yours_others);
-        llFindYoursOthers.setBackgroundResource(R.drawable.find_yours_others);
+        llFindForOthers.setBackgroundResource(R.drawable.find_yours_others);
 
     }
 }

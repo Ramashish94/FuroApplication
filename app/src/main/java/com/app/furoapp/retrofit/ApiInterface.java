@@ -423,5 +423,5 @@ public interface ApiInterface {
 
     /*Liked list*/
     @POST("store-user-wise-data")
-    Call<BmiStoreDataResponse>bmiStoreData (@Header(TOKEN_KEY) String token, BmiStoreDataRequest bmiStoreDataRequest);
+    Call<BmiStoreDataResponse>bmiStoreData (@Header(TOKEN_KEY) String token, @Body BmiStoreDataRequest bmiStoreDataRequest);
 }

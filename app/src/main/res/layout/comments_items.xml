@@ -22,7 +22,7 @@
                 android:layout_height="@dimen/dp_40"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:background="@drawable/circcle_shape"
-                android:src="@drawable/fb" />
+                android:src="@drawable/star" />
 
             <LinearLayout
                 android:layout_width="match_parent"

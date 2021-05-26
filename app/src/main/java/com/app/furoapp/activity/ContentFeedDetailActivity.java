@@ -221,6 +221,13 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
                 dataUserLike = 0;
                 // tvLikeCounts.setText(detailsItem.getTotalLikes()-1);
             }
+            if (detailsItem.getTotalLikes().equals("0")) {
+                detailsItem.setTotalLikes(detailsItem.getTotalLikes() + 1);
+                detailsItem.setUserView("1");
+            } else {
+                detailsItem.setTotalLikes(detailsItem.getTotalLikes() - 1);
+                detailsItem.setUserView("0");
+            }
             callLikeApi(getLikeApiParams(Integer.parseInt(activityId), dataUserLike));
 
         });
@@ -289,6 +296,14 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
                 dataUserViews = 0;
                 // tvLikeCounts.setText(detailsItem.getTotalLikes()-1);
             }
+            if (detailsItem.getTotalViews().equals("0")) {
+                detailsItem.setTotalViews(detailsItem.getTotalViews() + 1);
+                detailsItem.setUserView("1");
+            } else {
+                detailsItem.setTotalViews(detailsItem.getTotalViews() - 1);
+                detailsItem.setUserView("0");
+            }
+
             callViewsApi(getViewsApiParams(Integer.parseInt(activityId), dataUserViews));
 
         });
@@ -339,7 +354,7 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(videoId)) {
             url = "http://www.youtube.com/watch?v=" + videoId;
         } else {
-            url = detailsItem.getImage();
+            url = detailsItem.getImageUrl();
         }
         String fullMessage = title + "\n" + url;
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -361,7 +376,9 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
         commentArrayList.clear();
         commentArrayList.addAll(comments);
         if (commentArrayList != null && commentArrayList.size() > 0) {
+            rvComment.setVisibility(View.VISIBLE);
             commentsAdapter.notifyDataSetChanged();
         }
+
     }
 }

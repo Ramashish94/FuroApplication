@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.furoapp.R;
 import com.app.furoapp.utils.Constants;
@@ -32,6 +33,7 @@ public class SelectGenderAndAgeActivity extends AppCompatActivity implements Age
     private String maleVal, femaleVal;
     private String genderVal;
     private String userAge;
+    private boolean isGenderSelected, isAgeSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +71,9 @@ public class SelectGenderAndAgeActivity extends AppCompatActivity implements Age
 
     @Override
     public void ageSelectItem(int age) {
-         userAge = String.valueOf(age);
-        Log.d("com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.User Age", userAge);
+        userAge = String.valueOf(age);
+        isAgeSelected = true;
+        Log.d(" Age", userAge);
         //Toast.makeText(this, "Age" + age, Toast.LENGTH_SHORT).show();
         //FuroPrefs.putString(getApplicationContext(), Constants.AGE_SELECT, userAge);
     }
@@ -80,6 +83,7 @@ public class SelectGenderAndAgeActivity extends AppCompatActivity implements Age
         ivMaleIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isGenderSelected = true;
                 ivMaleIcon.setBackgroundResource(R.drawable.selected_male_icon);
                 ivFemaleIcon.setBackgroundResource(R.drawable.unselected_female_icon);
                 tvMale.setTextColor(Color.parseColor("#4CCFF9"));
@@ -95,6 +99,7 @@ public class SelectGenderAndAgeActivity extends AppCompatActivity implements Age
         ivFemaleIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isGenderSelected = true;
                 ivFemaleIcon.setBackgroundResource(R.drawable.selected_female_icon);
                 ivMaleIcon.setBackgroundResource(R.drawable.male_sunselected_icon_______);
                 tvMale.setTextColor(Color.parseColor("#C4C4C4"));
@@ -110,10 +115,15 @@ public class SelectGenderAndAgeActivity extends AppCompatActivity implements Age
         btnStartJanury.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), CalculateBMIActivity.class);
-                FuroPrefs.putString(getApplicationContext(), Constants.GENDER_VAL, genderVal);
-                FuroPrefs.putString(getApplicationContext(), Constants.USER_AGE_SELECT, userAge);
-                startActivity(intent);
+                if (isGenderSelected && isAgeSelected){
+                    Intent intent = new Intent(getApplicationContext(), CalculateBMIActivity.class);
+                    FuroPrefs.putString(getApplicationContext(), Constants.GENDER_VAL, genderVal);
+                    FuroPrefs.putString(getApplicationContext(), Constants.USER_AGE_SELECT, userAge);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(SelectGenderAndAgeActivity.this, "Please select gender and age ! ", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
     }

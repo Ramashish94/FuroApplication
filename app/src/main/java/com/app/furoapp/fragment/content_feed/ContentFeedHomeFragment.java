@@ -471,6 +471,12 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
     private void showToast(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getDataAll(type);
+    }
 }
 
 

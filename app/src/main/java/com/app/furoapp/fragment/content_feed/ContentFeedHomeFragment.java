@@ -80,6 +80,7 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
     public Boolean clicked = true;
     private String getAccessToken;
     public Integer id;
+    int adapterCurrentPos = 0;
 
 
     @Override
@@ -221,9 +222,9 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
                             if (datumList != null && datumList.size() > 0) {
                                 id = datumList.get(0).getId();
                                 FuroPrefs.putString(getContext(), "activity_id", String.valueOf(id));
-                                FuroPrefs.putString(getApplicationContext(),Constants.ACTIVITY_Id, String.valueOf(id));
+                                FuroPrefs.putString(getApplicationContext(), Constants.ACTIVITY_Id, String.valueOf(id));
                                 setContentFeedHomeAdapter(datumList);
-                                recyclerView.setAdapter(contentFeedHomeAdapter);
+                                //recyclerView.setAdapter(contentFeedHomeAdapter);
                             }
                         }
                     }
@@ -245,6 +246,8 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(contentFeedHomeAdapter);
+
+        recyclerView.scrollToPosition(adapterCurrentPos);   // scroll to current position in android
     }
 
 
@@ -298,20 +301,7 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
         });
     }
 
-    @Override
-    public void contentFeedItem(int videoId) {
-        Intent intent = new Intent(getContext(), YoutubePlayerActivity.class);
-        startActivity(intent);
-    }
-
-    @Override
-    public void contentFeedItem2(int id) {
-        Intent intent = new Intent(getContext(), ContentFeedDetailActivity.class);
-        startActivity(intent);
-        FuroPrefs.putString(getActivity(), "id", String.valueOf(id));
-    }
-
-    /*com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.Like event */
+       /*com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.Like event */
     private void callLikeApi(LikeRequest data) {
         RestClient.userPostLike(getAccessToken, data, new Callback<LikeResponse>() {
             @Override
@@ -381,7 +371,7 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
             data.setTotalViews(data.getTotalViews() + 1);/**/
             data.setUserView("1");
         } else {
-            data.setTotalViews(data.getTotalViews()- 1);/* */
+            data.setTotalViews(data.getTotalViews() - 1);/* */
             data.setUserView("0");
         }
         contentFeedHomeAdapter.updateData(pos, data);
@@ -449,7 +439,23 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
     }
 
     @Override
+    public void contentFeedItem(int pos,int videoId) {
+        adapterCurrentPos=pos;
+        Intent intent = new Intent(getContext(), YoutubePlayerActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void contentFeedItem2(int pos,int id) {
+        adapterCurrentPos=pos;
+        Intent intent = new Intent(getContext(), ContentFeedDetailActivity.class);
+        startActivity(intent);
+        FuroPrefs.putString(getActivity(), "id", String.valueOf(id));
+    }
+
+    @Override
     public void onClickComment(int pos, Datum data) {
+        adapterCurrentPos = pos;
         Intent intent = new Intent(getApplicationContext(), ContentFeedDetailActivity.class);
         FuroPrefs.putString(getApplicationContext(), "id", String.valueOf(data.getId()));
         startActivity(intent);

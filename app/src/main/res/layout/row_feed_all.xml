@@ -180,7 +180,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="@dimen/dp_10"
-                    android:layout_marginLeft="@dimen/dp_6"
+                    android:layout_marginLeft="@dimen/dp_8"
                     android:background="@color/vertical_line_color" />
 
                 <LinearLayout
@@ -188,7 +188,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/dp_6"
+                    android:layout_marginLeft="@dimen/dp_8"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -219,7 +219,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="@dimen/dp_10"
-                    android:layout_marginLeft="@dimen/dp_6"
+                    android:layout_marginLeft="@dimen/dp_8"
                     android:background="@color/vertical_line_color" />
 
                 <LinearLayout
@@ -227,7 +227,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/dp_6"
+                    android:layout_marginLeft="@dimen/dp_8"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -254,34 +254,35 @@
                         android:textColor="@color/black_color" />
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/ivShare"
-                    android:layout_width="@dimen/dp_30"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/dp_8"
-                    android:src="@drawable/share_icons" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="@dimen/dp_10"
-                    android:layout_marginLeft="@dimen/dp_2"
-                    android:background="@color/vertical_line_color" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_gravity="center">
+                    android:gravity="end"
+                    android:layout_marginRight="@dimen/dp_5"
+                    >
+                    <ImageView
+                        android:id="@+id/ivShare"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:layout_marginRight="@dimen/dp_3"
+                        android:src="@drawable/share_icons" />
 
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="@dimen/dp_10"
+                        android:layout_marginLeft="@dimen/dp_1"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="@dimen/dp_6"
+                        android:background="@color/vertical_line_color" />
                     <ImageView
                         android:id="@+id/ivBookMark"
                         android:layout_width="28dp"
                         android:layout_height="@dimen/dp_30"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/unselct_bookmark_ribbon"/>
+                        android:layout_gravity="end"
+                        android:src="@drawable/unselct_bookmark_ribbon" />
                 </LinearLayout>
-
 
             </LinearLayout>
 

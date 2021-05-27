@@ -130,6 +130,5 @@ public class LikeFragment extends Fragment implements LikeListAdapter.ContentLik
         super.onResume();
         getLikeApiCalling();
         setLikeListAdapter();
-
     }
 }

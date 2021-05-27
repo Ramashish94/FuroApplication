@@ -74,11 +74,11 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
             final String videoNewId = videoid;
             holder.ivPlaybutton.setOnClickListener(view -> {
                 FuroPrefs.putString(context, "Youtube_Video_Id", videoNewId);
-                feedCallback.contentFeedItem(holder.getAdapterPosition());
+                feedCallback.contentFeedItem(position,holder.getAdapterPosition());
             });
             /*............*/
             holder.ivImageCategoryall.setOnClickListener(view -> {
-                feedCallback.contentFeedItem2(datum.getId());
+                feedCallback.contentFeedItem2(position,datum.getId());
             });
             /*............*/
 
@@ -90,7 +90,7 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
                 holder.ivImageCategoryall.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        feedCallback.contentFeedItem2(datum.getId());
+                        feedCallback.contentFeedItem2(position,datum.getId());
                     }
                 });
             }
@@ -218,9 +218,9 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
     }
 
     public interface ContentFeedCallback {
-        void contentFeedItem(int videoId);
+        void contentFeedItem(int pos,int videoId);
 
-        void contentFeedItem2(int id);
+        void contentFeedItem2(int pos,int id);
 
         void onClickLike(int pos, Datum data);
 

@@ -27,7 +27,7 @@ import retrofit2.Response;
 
 public class YourScoreActivity extends AppCompatActivity {
     public LinearLayout llDiscard;
-    public Button btnSave;
+    public Button btnSaveData;
     public ImageView ivBackArrow;
     public TextView tvYouRBmiScore;
     public String genderVal, userAge, userHeightInCm, userWeight;
@@ -36,7 +36,9 @@ public class YourScoreActivity extends AppCompatActivity {
     public double userHeightValInCm;
     public double userWeightValInKg;
     private String findForOthersBmi;
-    private String type = "Find yours";
+    public String bmiType = "Find yours";
+    private String findBmiType;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +46,22 @@ public class YourScoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_your_score);
 
         llDiscard = findViewById(R.id.llDiscard);
-        btnSave = findViewById(R.id.btn_save);
+        btnSaveData = findViewById(R.id.btnSaveData);
         ivBackArrow = findViewById(R.id.ivBackArrow);
         tvYouRBmiScore = findViewById(R.id.tvYouRBmiScore);
+
+        findBmiType = getIntent().getStringExtra("getFindBmiType");
+
+        if (bmiType.equalsIgnoreCase(findBmiType)) {
+            btnSaveData.setVisibility(View.VISIBLE);
+        }
+
+
         getManipulateData();
         bmiScoreCalculation();
         clickEvent();
+
+
     }
 
 
@@ -78,7 +90,7 @@ public class YourScoreActivity extends AppCompatActivity {
             }
         });
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
+        btnSaveData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 callToSaveBmiApi();

@@ -29,11 +29,10 @@ public class SelectGenderAndAgeActivity extends AppCompatActivity implements Age
     public ImageView ivMaleIcon, ivFemaleIcon;
     TextView tvFemale, tvMale;
     List<AgeModelTest> ageModelTest = new ArrayList<>();
-    private int selected;
-    private String maleVal, femaleVal;
     private String genderVal;
     private String userAge;
     private boolean isGenderSelected, isAgeSelected;
+    public String getFindBmiType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +50,9 @@ public class SelectGenderAndAgeActivity extends AppCompatActivity implements Age
         tvFemale = findViewById(R.id.tvFemale);
         tvMale = findViewById(R.id.tvMale);
         btnStartJanury = findViewById(R.id.btnStartJanury);
+
+        getFindBmiType =getIntent().getStringExtra("findBmiType");
+
     }
 
     private void setSavedRecyAdapter() {
@@ -111,12 +113,13 @@ public class SelectGenderAndAgeActivity extends AppCompatActivity implements Age
         btnStartJanury.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isGenderSelected && isAgeSelected){
+                if (isGenderSelected && isAgeSelected) {
                     Intent intent = new Intent(getApplicationContext(), CalculateBMIActivity.class);
                     FuroPrefs.putString(getApplicationContext(), Constants.GENDER_VAL, genderVal);
                     FuroPrefs.putString(getApplicationContext(), Constants.USER_AGE_SELECT, userAge);
+                    intent.putExtra("getFindBmiType", getFindBmiType);
                     startActivity(intent);
-                }else{
+                } else {
                     Toast.makeText(SelectGenderAndAgeActivity.this, "Please select gender and age ! ", Toast.LENGTH_SHORT).show();
 
                 }

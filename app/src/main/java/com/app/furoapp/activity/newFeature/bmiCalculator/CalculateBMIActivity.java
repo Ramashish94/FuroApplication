@@ -19,6 +19,7 @@ public class CalculateBMIActivity extends AppCompatActivity {
     public TextView tvRecordedScores, tvHeightRulerValueInCms, tvHeightRulerValueInFeet, tvHeightRulerValueInInch, tvWeightRulerValueInKgs;
     public Button btnStartJanury;
     public String userHeightInCm,userWeightInKg;
+    public String getFindBmiType;
 
 
     @Override
@@ -38,6 +39,8 @@ public class CalculateBMIActivity extends AppCompatActivity {
         tvHeightRulerValueInFeet = findViewById(R.id.tvHeightRulerValueInFeet);
         tvHeightRulerValueInInch = findViewById(R.id.tvHeightRulerValueInInch);
         tvWeightRulerValueInKgs = findViewById(R.id.tvWeightRulerValueInKgs);
+
+        getFindBmiType =getIntent().getStringExtra("getFindBmiType");
     }
 
     private void rulerPickerValue() {
@@ -111,6 +114,7 @@ public class CalculateBMIActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), YourScoreActivity.class);
                 intent.putExtra("userHeightInCm",userHeightInCm);
                 intent.putExtra("userWeightInKg",userWeightInKg);
+                intent.putExtra("getFindBmiType",getFindBmiType);
                 /*FuroPrefs.putString(getApplicationContext(), Constants.USER_HEIGHT_IN_CM, String.valueOf(userHeightInCm));
                 FuroPrefs.putString(getApplicationContext(), Constants.USER_WEIGHT, String.valueOf(userWeightInKg));*/
                 startActivity(intent);

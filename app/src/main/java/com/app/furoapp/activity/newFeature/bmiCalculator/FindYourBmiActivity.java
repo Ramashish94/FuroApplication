@@ -14,9 +14,9 @@ import com.app.furoapp.utils.FuroPrefs;
 
 public class FindYourBmiActivity extends AppCompatActivity {
     public LinearLayout llFindUrs, llFindForOthers;
-    public TextView tvRecordedScores,tvFindYours,tvFidForOthers;
+    public TextView tvRecordedScores, tvFindYours, tvFidForOthers;
     private String findYoursType;
-    private String finfYours;
+    public String findBmiType;
 
 
     @Override
@@ -42,9 +42,9 @@ public class FindYourBmiActivity extends AppCompatActivity {
 
                 llFindForOthers.setBackgroundResource(R.drawable.find_yours_others);
                 llFindUrs.setBackgroundResource(R.drawable.btn_next_shape);
-                findYoursType = tvFindYours.getText().toString();
-
+                findBmiType = tvFindYours.getText().toString();
                 Intent intent = new Intent(getApplicationContext(), SelectGenderAndAgeActivity.class);
+                intent.putExtra("findBmiType", findBmiType);
                 FuroPrefs.putString(getApplicationContext(), Constants.FIND_TYPE, findYoursType);
                 startActivity(intent);
 
@@ -57,8 +57,6 @@ public class FindYourBmiActivity extends AppCompatActivity {
 
                 llFindForOthers.setBackgroundResource(R.drawable.btn_next_shape);
                 llFindUrs.setBackgroundResource(R.drawable.find_yours_others);
-                //findYoursType = tvFidForOthers.getText().toString();
-
                 Intent intent = new Intent(getApplicationContext(), SelectGenderAndAgeActivity.class);
                 startActivity(intent);
             }

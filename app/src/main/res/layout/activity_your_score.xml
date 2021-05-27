@@ -84,8 +84,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="22dp"
-                    android:layout_marginRight="22dp"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="20dp"
                     android:background="@drawable/rectangle79"
                     android:gravity="center">
 
@@ -213,7 +213,7 @@
 
 
             <Button
-                android:id="@+id/btn_save"
+                android:id="@+id/btnSaveData"
                 android:layout_width="320dp"
                 android:layout_height="@dimen/dp_40"
                 android:layout_gravity="center"
@@ -224,6 +224,7 @@
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textStyle="italic"
+                android:visibility="gone"
                  />
 
             <LinearLayout

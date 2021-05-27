@@ -2,10 +2,10 @@ package com.app.furoapp.retrofit;
 
 
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.ActivityDetailsResponse;
-import com.app.furoapp.activity.newFeature.bmiCalculator.bmiModel.BmiStoreDataRequest;
-import com.app.furoapp.activity.newFeature.bmiCalculator.bmiModel.BmiStoreDataResponse;
+import com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel.BmiStoreDataRequest;
+import com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel.BmiStoreDataResponse;
+import com.app.furoapp.activity.newFeature.bmiCalculator.fetchBmiDataModel.FetchUserWiseDataResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListResponse;
-import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListRequest;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.addComments.AddCommentRequest;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.addComments.AddCommentResponse;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.like.LikeRequest;
@@ -375,6 +375,10 @@ public class RestClient {
     }
     public static void getBmiStoreData(String token, BmiStoreDataRequest bmiStoreDataRequest, Callback<BmiStoreDataResponse> callback) {
         RetrofitClient.getClient().bmiStoreData(token,bmiStoreDataRequest).enqueue(callback);
+    }
+
+    public static void getFetchUserWiseData(String token, Callback<FetchUserWiseDataResponse> callback) {
+        RetrofitClient.getClient().fetchuserWiseData(token).enqueue(callback);
     }
 
 }

@@ -1,5 +1,5 @@
 
-package com.app.furoapp.activity.newFeature.bmiCalculator.bmiModel;
+package com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

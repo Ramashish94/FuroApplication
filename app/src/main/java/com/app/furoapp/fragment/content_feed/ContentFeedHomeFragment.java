@@ -378,10 +378,10 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
     @Override
     public void onClickView(int pos, Datum data) {
         if (data.getUserView().equals("0")) {
-            data.setTotalViews(data.getTotalViews() + 1);
+            data.setTotalViews(data.getTotalViews() + 1);/**/
             data.setUserView("1");
         } else {
-            data.setTotalViews(data.getTotalViews() - 1);
+            data.setTotalViews(data.getTotalViews()- 1);/* */
             data.setUserView("0");
         }
         contentFeedHomeAdapter.updateData(pos, data);

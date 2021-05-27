@@ -1,11 +1,14 @@
 
-package com.app.furoapp.activity.newFeature.bmiCalculator.bmiModel;
+package com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Bmi {
 
+    @SerializedName("id")
+    @Expose
+    private Integer id;
     @SerializedName("user_id")
     @Expose
     private String userId;
@@ -24,15 +27,23 @@ public class Bmi {
     @SerializedName("bmi")
     @Expose
     private String bmi;
-    @SerializedName("updated_at")
+    @SerializedName("date")
     @Expose
-    private String updatedAt;
+    private String date;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
-    @SerializedName("id")
+    @SerializedName("updated_at")
     @Expose
-    private Integer id;
+    private String updatedAt;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getUserId() {
         return userId;
@@ -82,12 +93,12 @@ public class Bmi {
         this.bmi = bmi;
     }
 
-    public String getUpdatedAt() {
-        return updatedAt;
+    public String getDate() {
+        return date;
     }
 
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getCreatedAt() {
@@ -98,12 +109,14 @@ public class Bmi {
         this.createdAt = createdAt;
     }
 
-    public Integer getId() {
-        return id;
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
+
+
 
 }

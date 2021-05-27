@@ -89,8 +89,6 @@ public class SelectGenderAndAgeActivity extends AppCompatActivity implements Age
                 tvMale.setTextColor(Color.parseColor("#4CCFF9"));
                 tvFemale.setTextColor(Color.parseColor("#C4C4C4"));
 
-               /* maleVal = tvMale.getText().toString();
-                Log.d("maleVal", maleVal);*/
                 genderVal = tvMale.getText().toString();
                 Log.d("genderVal", genderVal);
             }
@@ -105,8 +103,6 @@ public class SelectGenderAndAgeActivity extends AppCompatActivity implements Age
                 tvMale.setTextColor(Color.parseColor("#C4C4C4"));
                 tvFemale.setTextColor(Color.parseColor("#4CCFF9"));
 
-                /*femaleVal = tvFemale.getText().toString();
-                Log.d("femaleVal", femaleVal);*/
                 genderVal = tvFemale.getText().toString();
                 Log.d("genderVal", genderVal);
             }

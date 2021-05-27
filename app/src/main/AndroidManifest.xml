@@ -52,7 +52,7 @@
             android:name=".activity.newFeature.bmiCalculator.CalculateBMIActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.newFeature.bmiCalculator.RecordedScoreActivity"
+            android:name=".activity.newFeature.bmiCalculator.RecordDataActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.newFeature.bmiCalculator.SelectGenderAndAgeActivity"

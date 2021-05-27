@@ -71,7 +71,6 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
             Picasso.with(context).load(img_url).error(R.drawable.back_icon)
                     .into(holder.ivImageCategoryall);
 
-
             final String videoNewId = videoid;
             holder.ivPlaybutton.setOnClickListener(view -> {
                 FuroPrefs.putString(context, "Youtube_Video_Id", videoNewId);
@@ -119,7 +118,7 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
         });
 
         /*views*/
-        holder.llViewsSec.setOnClickListener(v -> {
+       /* holder.llViewsSec.setOnClickListener(v -> {
             feedCallback.onClickView(position, datum);
         });
         if (datum.getUserView() != null)
@@ -131,7 +130,7 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
                 holder.ivViews.setImageResource(R.drawable.selectviews);
                 holder.tvCountViews.setTextColor(Color.parseColor("#19CFE6"));
                 holder.tvView.setTextColor(Color.parseColor("#19CFE6"));
-            }
+            }*/
 
         /*share*/
         holder.ivShare.setOnClickListener(v -> {

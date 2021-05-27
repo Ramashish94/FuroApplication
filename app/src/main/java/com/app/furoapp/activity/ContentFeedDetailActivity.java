@@ -59,7 +59,7 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
     EditText etAddComments;
     public String activityId;
     public Boolean clicked = true;
-    private String accessToken;
+    public String accessToken;
     private ActivityDetail detailsItem;
     //ActivityDetail activityDetail;
     CommentsAdapter commentsAdapter;
@@ -96,7 +96,11 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
         llPostBtn.setOnClickListener(v -> {
             inputValidation();
         });
-        contentFeedApi();
+
+        activityId = FuroPrefs.getString(getApplicationContext(), "id");
+        accessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
+
+        callViewsApi(getViewsApiParams(Integer.parseInt(activityId)));
         setCommentsAdapter();
     }
 
@@ -112,14 +116,13 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
 
     public void contentFeedApi() {
 
-        activityId = FuroPrefs.getString(getApplicationContext(), "id");
+        //activityId = FuroPrefs.getString(getApplicationContext(), "id");
         ContentFeedDetailRequest contentFeedDetailRequest = new ContentFeedDetailRequest();
         contentFeedDetailRequest.setActivityId(activityId);
 
         Util.isInternetConnected(this);
         linearLayout.setVisibility(View.VISIBLE);
         progressBarr.setVisibility(View.VISIBLE);
-        accessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
         RestClient.activityDetailNew(accessToken, contentFeedDetailRequest, new Callback<ActivityDetailsResponse>() {
             @Override
             public void onResponse(Call<ActivityDetailsResponse> call, Response<ActivityDetailsResponse> response) {
@@ -185,7 +188,7 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
         tvTotNosOfComments.setText("" + data.getTotalComments().toString());
         tvViewsCounts.setText("" + data.getTotalViews().toString());
         getLikeShareData(data.getTotalLikes().toString());
-        getViewsData(data.getTotalViews().toString());
+        // getViewsData(data.getTotalViews().toString()); /*for views*/
     }
 
     private void getLikeShareData(String userLike) {
@@ -202,31 +205,26 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
         }
 
         llLikeAndDislike.setOnClickListener(v -> {
+            int dataUserLike;
             if (clicked) {
                 clicked = false;
+                dataUserLike = 0;
                 ivlikeAndUnlike.setImageResource(R.drawable.thumb_unlike);
                 tvLikeCounts.setTextColor(Color.BLACK);
                 tvLiksTxt.setTextColor(Color.BLACK);
             } else {
                 clicked = true;
+                dataUserLike = 1;
                 ivlikeAndUnlike.setImageResource(R.drawable.thumb_like);
                 tvLikeCounts.setTextColor(Color.parseColor("#19CFE6"));
                 tvLiksTxt.setTextColor(Color.parseColor("#19CFE6"));
             }
-            int dataUserLike;
-            if (clicked) {
-                dataUserLike = 1;
-                // tvLikeCounts.setText(Integer.toString(detailsItem.getTotalLikes())+1);
+            if (dataUserLike == 0) {
+                String totalCounts = String.valueOf(detailsItem.getTotalLikes() - 1);
+                tvLikeCounts.setText(totalCounts);
             } else {
-                dataUserLike = 0;
-                // tvLikeCounts.setText(detailsItem.getTotalLikes()-1);
-            }
-            if (detailsItem.getTotalLikes().equals("0")) {
-                detailsItem.setTotalLikes(detailsItem.getTotalLikes() + 1);
-                detailsItem.setUserView("1");
-            } else {
-                detailsItem.setTotalLikes(detailsItem.getTotalLikes() - 1);
-                detailsItem.setUserView("0");
+                String totalCounts = String.valueOf(detailsItem.getTotalLikes());
+                tvLikeCounts.setText(totalCounts);
             }
             callLikeApi(getLikeApiParams(Integer.parseInt(activityId), dataUserLike));
 
@@ -271,9 +269,12 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
             tvViewsTxt.setTextColor(Color.BLACK);
         } else {
             clicked = true;
-            ivViews.setImageResource(R.drawable.selectviews);
+           /* ivViews.setImageResource(R.drawable.selectviews);
             tvViewsCounts.setTextColor(Color.parseColor("#19CFE6"));
-            tvViewsTxt.setTextColor(Color.parseColor("#19CFE6"));
+            tvViewsTxt.setTextColor(Color.parseColor("#19CFE6"));*/
+            ivViews.setImageResource(R.drawable.view_image);
+            tvViewsCounts.setTextColor(Color.BLACK);
+            tvViewsTxt.setTextColor(Color.BLACK);
         }
 
         llViewsSec.setOnClickListener(v -> {
@@ -296,15 +297,8 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
                 dataUserViews = 0;
                 // tvLikeCounts.setText(detailsItem.getTotalLikes()-1);
             }
-            if (detailsItem.getTotalViews().equals("0")) {
-                detailsItem.setTotalViews(detailsItem.getTotalViews() + 1);
-                detailsItem.setUserView("1");
-            } else {
-                detailsItem.setTotalViews(detailsItem.getTotalViews() - 1);
-                detailsItem.setUserView("0");
-            }
-
-            callViewsApi(getViewsApiParams(Integer.parseInt(activityId), dataUserViews));
+            //callViewsApi(getViewsApiParams(Integer.parseInt(activityId), dataUserViews));
+            // callViewsApi(getViewsApiParams(Integer.parseInt(activityId)));
 
         });
 
@@ -316,8 +310,7 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ViewsResponse> call, Response<ViewsResponse> response) {
                 if (response.body() != null) {
-                   /* LikeResponse likeResponse = response.body();
-                    showToast(likeResponse.getStatus());*/
+                    contentFeedApi(); /*calling activity detail apis */
                 }
             }
 
@@ -326,10 +319,10 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
                 showToast("No internet connection!");
             }
         });
-
     }
 
-    private ViewsRequest getViewsApiParams(int postId, int flag) {
+
+    private ViewsRequest getViewsApiParams(int postId/*, int flag*/) {
         ViewsRequest request = new ViewsRequest();
         request.setPostId(postId);
         return request;

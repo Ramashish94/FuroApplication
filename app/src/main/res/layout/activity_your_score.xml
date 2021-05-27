@@ -223,7 +223,8 @@
                 android:text="Save"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                 />
 
             <LinearLayout
                 android:id="@+id/llDiscard"
@@ -250,8 +251,6 @@
                     android:layout_marginLeft="17dp"
                     android:layout_gravity="center_vertical"/>
             </LinearLayout>
-
-
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>

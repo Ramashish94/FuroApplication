@@ -16,6 +16,7 @@ public class FindYourBmiActivity extends AppCompatActivity {
     public LinearLayout llFindUrs, llFindForOthers;
     public TextView tvRecordedScores,tvFindYours,tvFidForOthers;
     private String findYoursType;
+    private String finfYours;
 
 
     @Override
@@ -38,12 +39,13 @@ public class FindYourBmiActivity extends AppCompatActivity {
         llFindUrs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 llFindForOthers.setBackgroundResource(R.drawable.find_yours_others);
                 llFindUrs.setBackgroundResource(R.drawable.btn_next_shape);
                 findYoursType = tvFindYours.getText().toString();
-                Intent intent = new Intent(getApplicationContext(), SelectGenderAndAgeActivity.class);
-                FuroPrefs.putString(getApplicationContext(), Constants.FIND_OURS_TYPE, findYoursType);
 
+                Intent intent = new Intent(getApplicationContext(), SelectGenderAndAgeActivity.class);
+                FuroPrefs.putString(getApplicationContext(), Constants.FIND_TYPE, findYoursType);
                 startActivity(intent);
 
             }
@@ -52,12 +54,12 @@ public class FindYourBmiActivity extends AppCompatActivity {
         llFindForOthers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 llFindForOthers.setBackgroundResource(R.drawable.btn_next_shape);
                 llFindUrs.setBackgroundResource(R.drawable.find_yours_others);
-                findYoursType = tvFindYours.getText().toString();
+                //findYoursType = tvFidForOthers.getText().toString();
 
                 Intent intent = new Intent(getApplicationContext(), SelectGenderAndAgeActivity.class);
-                FuroPrefs.putString(getApplicationContext(), Constants.FIND_OURS_TYPE, findYoursType);
                 startActivity(intent);
             }
         });
@@ -65,7 +67,7 @@ public class FindYourBmiActivity extends AppCompatActivity {
         tvRecordedScores.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), RecordedScoreActivity.class);
+                Intent intent = new Intent(getApplicationContext(), RecordDataActivity.class);
 
                 startActivity(intent);
 

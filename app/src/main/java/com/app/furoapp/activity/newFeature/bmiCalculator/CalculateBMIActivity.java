@@ -12,8 +12,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.app.furoapp.R;
-import com.app.furoapp.utils.Constants;
-import com.app.furoapp.utils.FuroPrefs;
 import com.kevalpatel2106.rulerpicker.RulerValuePicker;
 import com.kevalpatel2106.rulerpicker.RulerValuePickerListener;
 
@@ -102,7 +100,7 @@ public class CalculateBMIActivity extends AppCompatActivity {
         tvRecordedScores.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), RecordedScoreActivity.class);
+                Intent intent = new Intent(getApplicationContext(), RecordDataActivity.class);
                 startActivity(intent);
             }
         });
@@ -111,8 +109,10 @@ public class CalculateBMIActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), YourScoreActivity.class);
-                FuroPrefs.putString(getApplicationContext(), Constants.USER_HEIGHT_IN_CM, String.valueOf(userHeightInCm));
-                FuroPrefs.putString(getApplicationContext(), Constants.USER_WEIGHT, String.valueOf(userWeightInKg));
+                intent.putExtra("userHeightInCm",userHeightInCm);
+                intent.putExtra("userWeightInKg",userWeightInKg);
+                /*FuroPrefs.putString(getApplicationContext(), Constants.USER_HEIGHT_IN_CM, String.valueOf(userHeightInCm));
+                FuroPrefs.putString(getApplicationContext(), Constants.USER_WEIGHT, String.valueOf(userWeightInKg));*/
                 startActivity(intent);
             }
         });

@@ -39,6 +39,8 @@ public class SavedFragment extends Fragment implements SavedListAdapter.ContentS
     public String getAccessToken;
     public String activityId;
    List<SavedListResponse >savedListResponseList=new ArrayList<>();
+    int getAdapterCurrentPos=0;
+
 
 
     public SavedFragment() {
@@ -102,6 +104,8 @@ public class SavedFragment extends Fragment implements SavedListAdapter.ContentS
         rvSavedRecycler.setLayoutManager(layoutManager);
         rvSavedRecycler.setItemAnimator(new DefaultItemAnimator());
         rvSavedRecycler.setAdapter(savedListAdapter);
+
+        rvSavedRecycler.scrollToPosition(getAdapterCurrentPos);
     }
     private void notifySavedListAdapter(List<SavedOnPost> savedOnPost) {
         savedOnPostList.clear();
@@ -112,13 +116,15 @@ public class SavedFragment extends Fragment implements SavedListAdapter.ContentS
     }
 
     @Override
-    public void contentSavedItem(int videoId) {
+    public void contentSavedItem(int pos,int videoId) {
+        getAdapterCurrentPos=pos;
         Intent intent = new Intent(getContext(), YoutubePlayerActivity.class);
         startActivity(intent);
     }
 
     @Override
-    public void contentSavedItem2(int id) {
+    public void contentSavedItem2(int pos,int id) {
+        getAdapterCurrentPos=pos;
         Intent intent = new Intent(getContext(), ContentFeedDetailActivity.class);
         FuroPrefs.putString(getActivity(), "id", String.valueOf(id));
         startActivity(intent);

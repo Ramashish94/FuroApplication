@@ -39,6 +39,7 @@ public class LikeFragment extends Fragment implements LikeListAdapter.ContentLik
     private String getAccessToken;
     List<LikeListResponse> likeListResponses = new ArrayList<>();
     private String activityId;
+    int getAdapterPosition=0;
 
     public LikeFragment() {
         // Required empty public constructor
@@ -102,6 +103,8 @@ public class LikeFragment extends Fragment implements LikeListAdapter.ContentLik
         rvLikeRecy.setLayoutManager(layoutManager);
         rvLikeRecy.setItemAnimator(new DefaultItemAnimator());
         rvLikeRecy.setAdapter(likeListAdapter);
+
+        rvLikeRecy.scrollToPosition(getAdapterPosition);
     }
 
     private void notifyLikeListAdapter(List<LikeOnPost> saved) {
@@ -113,13 +116,15 @@ public class LikeFragment extends Fragment implements LikeListAdapter.ContentLik
     }
 
     @Override
-    public void contentLikeItem(int videoId) {
+    public void contentLikeItem(int pos,int videoId) {
+        getAdapterPosition=pos;
         Intent intent = new Intent(getContext(), YoutubePlayerActivity.class);
         startActivity(intent);
     }
 
     @Override
-    public void contentLikeItem2(int id) {
+    public void contentLikeItem2(int pos,int id) {
+        getAdapterPosition=pos;
         Intent intent = new Intent(getContext(), ContentFeedDetailActivity.class);
         FuroPrefs.putString(getActivity(), "id", String.valueOf(id));
         startActivity(intent);

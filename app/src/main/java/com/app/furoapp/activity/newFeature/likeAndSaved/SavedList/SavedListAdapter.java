@@ -66,11 +66,11 @@ public class SavedListAdapter extends RecyclerView.Adapter<SavedListAdapter.MyVi
             final String videoNewId = videoid;
             holder.ivPlayIcon.setOnClickListener(view -> {
                 FuroPrefs.putString(context, "Youtube_Video_Id", videoNewId);
-                contentSavedCallback.contentSavedItem(holder.getAdapterPosition());
+                contentSavedCallback.contentSavedItem(position, holder.getAdapterPosition());
             });
 
 //            holder.ivAllImage.setOnClickListener(view -> {
-//                contentSavedCallback.contentSavedItem2(savedOnPost.getId());
+//                contentSavedCallback.contentSavedItem2(position, savedOnPost.getId());
 //            });
         } else {
             if (!TextUtils.isEmpty(savedOnPost.getActivityDetail().getImageUrl())) {
@@ -79,7 +79,7 @@ public class SavedListAdapter extends RecyclerView.Adapter<SavedListAdapter.MyVi
                 holder.ivAllImage.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        contentSavedCallback.contentSavedItem2(savedOnPost.getPostId());
+                        contentSavedCallback.contentSavedItem2(position, savedOnPost.getPostId());
                     }
                 });
             }
@@ -130,9 +130,9 @@ public class SavedListAdapter extends RecyclerView.Adapter<SavedListAdapter.MyVi
     }
 
     public interface ContentSavedCallback {
-        void contentSavedItem(int videoId);
+        void contentSavedItem(int pos, int videoId);
 
-        void contentSavedItem2(int id);
+        void contentSavedItem2(int pos, int id);
 
 //        void onClickLike(int pos, Datum data);
 //

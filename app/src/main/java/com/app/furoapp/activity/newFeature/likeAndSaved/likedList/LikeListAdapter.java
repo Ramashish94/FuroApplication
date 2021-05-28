@@ -68,12 +68,12 @@ public class LikeListAdapter extends RecyclerView.Adapter<LikeListAdapter.MyView
             final String videoNewId = videoid;
             holder.ivPlayIcon.setOnClickListener(view -> {
                 FuroPrefs.putString(context, "Youtube_Video_Id", videoNewId);
-                contentLikeCallback.contentLikeItem(holder.getAdapterPosition());
+                contentLikeCallback.contentLikeItem(position,holder.getAdapterPosition());
             });
 
-//            holder.ivAllImage.setOnClickListener(view -> {
-//                contentSavedCallback.contentSavedItem2(savedOnPost.getId());
-//            });
+           /* holder.ivAllImage.setOnClickListener(view -> {
+                contentLikeCallback.contentLikeItem2(position,likeOnPost.getId());
+            });*/
         } else {
             if (!TextUtils.isEmpty(likeOnPost.getActivityDetail().getImageUrl())) {
                 holder.ivPlayIcon.setVisibility(View.GONE);
@@ -81,7 +81,7 @@ public class LikeListAdapter extends RecyclerView.Adapter<LikeListAdapter.MyView
                 holder.ivAllImage.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        contentLikeCallback.contentLikeItem2(likeOnPost.getPostId());
+                        contentLikeCallback.contentLikeItem2(position,likeOnPost.getPostId());
                     }
                 });
             }
@@ -129,9 +129,9 @@ public class LikeListAdapter extends RecyclerView.Adapter<LikeListAdapter.MyView
     }
 
     public interface ContentLikeCallback {
-        void contentLikeItem(int videoId);
+        void contentLikeItem(int pos,int videoId);
 
-        void contentLikeItem2(int id);
+        void contentLikeItem2(int pos,int id);
 
     }
 }

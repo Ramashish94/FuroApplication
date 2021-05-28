@@ -28,8 +28,8 @@ import retrofit2.Response;
 public class YourScoreActivity extends AppCompatActivity {
     public LinearLayout llDiscard;
     public Button btnSaveData;
-    public ImageView ivBackArrow;
-    public TextView tvYouRBmiScore;
+    public ImageView ivBackArrow, ivDiscard;
+    public TextView tvYouRBmiScore, tvFindYourBmi;
     public String genderVal, userAge, userHeightInCm, userWeight;
     public double bmiScore;
     public String getAccessToken;
@@ -49,11 +49,19 @@ public class YourScoreActivity extends AppCompatActivity {
         btnSaveData = findViewById(R.id.btnSaveData);
         ivBackArrow = findViewById(R.id.ivBackArrow);
         tvYouRBmiScore = findViewById(R.id.tvYouRBmiScore);
+        tvFindYourBmi = findViewById(R.id.tvFindYourBmi);
+        ivDiscard = findViewById(R.id.ivDiscard);
 
         findBmiType = getIntent().getStringExtra("getFindBmiType");
 
         if (bmiType.equalsIgnoreCase(findBmiType)) {
             btnSaveData.setVisibility(View.VISIBLE);
+            ivDiscard.setVisibility(View.VISIBLE);
+            tvFindYourBmi.setVisibility(View.GONE);
+        }else {
+            btnSaveData.setVisibility(View.GONE);
+            ivDiscard.setVisibility(View.GONE);
+            tvFindYourBmi.setVisibility(View.VISIBLE);
         }
 
 
@@ -86,7 +94,8 @@ public class YourScoreActivity extends AppCompatActivity {
         llDiscard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+               Intent intent = new Intent(getApplicationContext(),FindYourBmiActivity.class);
+               startActivity(intent);
             }
         });
 
@@ -99,7 +108,8 @@ public class YourScoreActivity extends AppCompatActivity {
         ivBackArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(getApplicationContext(),FindYourBmiActivity.class);
+                startActivity(intent);
             }
         });
     }

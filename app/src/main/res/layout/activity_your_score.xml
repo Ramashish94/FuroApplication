@@ -98,9 +98,9 @@
                             android:id="@+id/tvYouRBmiScore"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_gravity="center"
                             android:fontFamily="@font/bebase_neue"
                             android:gravity="center"
-                            android:layout_gravity="center"
                             android:text="22.4"
                             android:textColor="@color/black_color"
                             android:textStyle="italic" />
@@ -187,27 +187,28 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="@drawable/pinkbackground"
                 android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
                 android:layout_marginTop="77dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/pinkbackground"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="21dp"
                     android:layout_height="21dp"
-                    android:src="@drawable/pink_ovel"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="17dp"
-                    android:layout_gravity="center_vertical"/>
+                    android:src="@drawable/pink_ovel" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="7dp"
+                    android:gravity="center_vertical"
                     android:text="Water is crucial for healthy mind and body"
                     android:textColor="@color/black_color"
-                    android:textStyle="normal"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center_vertical"
-                    android:layout_marginLeft="7dp"/>
+                    android:textStyle="normal" />
 
             </LinearLayout>
 
@@ -224,33 +225,43 @@
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textStyle="italic"
-                android:visibility="gone"
-                 />
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/llDiscard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="40dp"
-                android:layout_marginTop="30dp"
-                android:gravity="center"
                 android:layout_marginLeft="@dimen/dp_35"
-                android:layout_marginRight="@dimen/dp_35">
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="@dimen/dp_35"
+                android:layout_marginBottom="40dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="21dp"
                     android:layout_height="21dp"
-                    android:src="@drawable/cross"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="17dp"
-                    android:layout_gravity="center_vertical"/>
+                    android:src="@drawable/cross" />
 
                 <ImageView
+                    android:id="@+id/ivDiscard"
                     android:layout_width="150dp"
                     android:layout_height="32dp"
-                    android:src="@drawable/discard_submission"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="17dp"
-                    android:layout_gravity="center_vertical"/>
+                    android:src="@drawable/discard_submission"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tvFindYourBmi"
+                    android:layout_width="150dp"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="17dp"
+                    android:text="Find your BMI"
+                    android:gravity="center"
+                    android:textColor="@color/white"/>
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

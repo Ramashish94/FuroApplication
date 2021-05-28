@@ -57,7 +57,7 @@ public class FindYourBmiActivity extends AppCompatActivity {
 
                 llFindForOthers.setBackgroundResource(R.drawable.btn_next_shape);
                 llFindUrs.setBackgroundResource(R.drawable.find_yours_others);
-                Intent intent = new Intent(getApplicationContext(), SelectGenderAndAgeActivity.class);
+                Intent intent = new Intent(getApplicationContext(), CalculateBMIActivity.class);
                 startActivity(intent);
             }
         });

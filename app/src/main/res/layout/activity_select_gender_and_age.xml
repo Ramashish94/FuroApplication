@@ -34,12 +34,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/ivMaleIcon"
@@ -47,49 +48,53 @@
                         android:layout_height="114dp"
                         android:layout_marginLeft="@dimen/dp_60"
                         android:layout_marginTop="33dp"
-                        android:layout_marginRight="42dp"
                         android:background="@drawable/male_sunselected_icon_______" />
+
+                    <TextView
+                        android:id="@+id/tvMale"
+                        android:layout_width="114dp"
+                        android:layout_height="24dp"
+                        android:gravity="center"
+                        android:inputType="textCapWords"
+                        android:text="Male"
+                        android:layout_weight="1"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_60"
+                        android:textColor="#C4C4C4" />
+
+                    <!-- -->  </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/dp_50"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/ivFemaleIcon"
                         android:layout_width="114dp"
                         android:layout_height="114dp"
                         android:layout_marginTop="33dp"
-                        android:layout_marginRight="42dp"
+                        android:layout_marginLeft="@dimen/dp_10"
                         android:background="@drawable/unselected_female_icon" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:layout_marginLeft="42dp"
-                    android:layout_marginRight="42dp">
-
-                    <TextView
-                        android:id="@+id/tvMale"
-                        android:layout_width="match_parent"
-                        android:layout_height="24dp"
-                        android:gravity="center"
-                        android:inputType="textCapWords"
-                        android:text="Male"
-                        android:layout_weight="1"
-                        android:layout_marginStart="@dimen/dp_5"
-                        android:textColor="#C4C4C4" />
 
                     <TextView
                         android:id="@+id/tvFemale"
-                        android:layout_width="match_parent"
+                        android:layout_width="114dp"
                         android:layout_height="24dp"
                         android:layout_weight="1"
                         android:text="Female"
                         android:gravity="center"
                         android:textAlignment="center"
-                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginTop="@dimen/dp_10"
                         android:textColor="#C4C4C4" />
 
                 </LinearLayout>
+
+
 
             </LinearLayout>
 

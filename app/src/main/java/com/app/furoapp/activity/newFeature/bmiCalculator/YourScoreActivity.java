@@ -29,7 +29,7 @@ public class YourScoreActivity extends AppCompatActivity {
     public LinearLayout llDiscard;
     public Button btnSaveData;
     public ImageView ivBackArrow, ivDiscard;
-    public TextView tvYouRBmiScore, tvFindYourBmi;
+    public TextView tvYourBmiScore, tvShowBmiTxt, tvBtnFindYourBmi;
     public String genderVal, userAge, userHeightInCm, userWeight;
     public double bmiScore;
     public String getAccessToken;
@@ -38,6 +38,7 @@ public class YourScoreActivity extends AppCompatActivity {
     private String findForOthersBmi;
     public String bmiType = "Find yours";
     private String findBmiType;
+    private int getBmi;
 
 
     @Override
@@ -45,30 +46,29 @@ public class YourScoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_your_score);
 
-        llDiscard = findViewById(R.id.llDiscard);
         btnSaveData = findViewById(R.id.btnSaveData);
         ivBackArrow = findViewById(R.id.ivBackArrow);
-        tvYouRBmiScore = findViewById(R.id.tvYouRBmiScore);
-        tvFindYourBmi = findViewById(R.id.tvFindYourBmi);
+        tvYourBmiScore = findViewById(R.id.tvYourBmiScore);
+        tvBtnFindYourBmi = findViewById(R.id.tvBtnFindYourBmi);
+        llDiscard = findViewById(R.id.llDiscard);
         ivDiscard = findViewById(R.id.ivDiscard);
+        tvShowBmiTxt = findViewById(R.id.tvShowBmiTxt);
 
         findBmiType = getIntent().getStringExtra("getFindBmiType");
 
         if (bmiType.equalsIgnoreCase(findBmiType)) {
             btnSaveData.setVisibility(View.VISIBLE);
             ivDiscard.setVisibility(View.VISIBLE);
-            tvFindYourBmi.setVisibility(View.GONE);
-        }else {
+            tvBtnFindYourBmi.setVisibility(View.GONE);
+        } else {
             btnSaveData.setVisibility(View.GONE);
             ivDiscard.setVisibility(View.GONE);
-            tvFindYourBmi.setVisibility(View.VISIBLE);
+            tvBtnFindYourBmi.setVisibility(View.VISIBLE);
         }
-
 
         getManipulateData();
         bmiScoreCalculation();
         clickEvent();
-
 
     }
 
@@ -87,15 +87,30 @@ public class YourScoreActivity extends AppCompatActivity {
         userWeightValInKg = Double.parseDouble(userWeight);
         //[weight (kg) / height (cm) / height (cm)] x 10,000
         bmiScore = ((userWeightValInKg / userHeightValInCm / userHeightValInCm) * 10000);
-        tvYouRBmiScore.setText(new DecimalFormat("##.##").format(bmiScore));
+        tvYourBmiScore.setText(new DecimalFormat("##.##").format(bmiScore));
+
+        getBmi = (int) bmiScore;
+        if (getBmi < 19) {
+            tvShowBmiTxt.setText("Under eight BMI");
+        } else if (getBmi >= 19 && getBmi <= 24) {
+            tvShowBmiTxt.setText("Healthy BMI");
+        } else if (getBmi >= 25 && getBmi <= 29) {
+            tvShowBmiTxt.setText("Over Weight BMI");
+        } else if (getBmi >= 30 && getBmi <= 39) {
+            tvShowBmiTxt.setText("Obese BMI");
+        } else if (getBmi >= 40) {
+            tvShowBmiTxt.setText("Extremely Obese BMI");
+        }
+
+
     }
 
     private void clickEvent() {
         llDiscard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Intent intent = new Intent(getApplicationContext(),FindYourBmiActivity.class);
-               startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), FindYourBmiActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -108,7 +123,7 @@ public class YourScoreActivity extends AppCompatActivity {
         ivBackArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),FindYourBmiActivity.class);
+                Intent intent = new Intent(getApplicationContext(), FindYourBmiActivity.class);
                 startActivity(intent);
             }
         });

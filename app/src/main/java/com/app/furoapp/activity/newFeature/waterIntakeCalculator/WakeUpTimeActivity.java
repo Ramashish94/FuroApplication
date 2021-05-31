@@ -1,6 +1,7 @@
 package com.app.furoapp.activity.newFeature.waterIntakeCalculator;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -19,13 +21,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WakeUpTimeActivity extends AppCompatActivity {
-    public ImageView ivContinue;
-    TimePicker timePicker;
-    RecyclerView rvBedTime;
+    public ImageView ivContinue, ivSave;
+    TimePicker tpWakUpTime;
+    RecyclerView rvBedTime, rvGlassWater;
     List<AgeModelTest> ageModelTest = new ArrayList<>();
     WakeUpTimeAdapter wakeUpTimeAdapter;
     private String getHours;
     public float time = (int) 12.01;
+    public LinearLayout llClosedIcon, llSecondWaterGlassBg, llGlassTakebg;
+    public View includeSecondLayerBgOfGlass;
+    public GlassWaterAdapter glassWaterAdapter;
+    public ConstraintLayout clWakeAndBedTime;
 
 
     @Override
@@ -40,15 +46,25 @@ public class WakeUpTimeActivity extends AppCompatActivity {
     }
 
     private void findViews() {
+        clWakeAndBedTime = findViewById(R.id.clWakeAndBedTime);
         ivContinue = findViewById(R.id.ivContinue);
-        timePicker = findViewById(R.id.timePicker);
+        tpWakUpTime = findViewById(R.id.tpWakUpTime);
         rvBedTime = findViewById(R.id.rvBedTime);
+
+        includeSecondLayerBgOfGlass = findViewById(R.id.includeSecondLayerBgOfGlass);
+        llSecondWaterGlassBg = findViewById(R.id.llSecondWaterGlassBg);
+        rvGlassWater = findViewById(R.id.rvGlassWater);
+        rvBedTime = findViewById(R.id.rvBedTime);
+        ivSave = findViewById(R.id.ivSave);
+        llClosedIcon = findViewById(R.id.llClosedIcon);
+        llGlassTakebg = findViewById(R.id.llGlassTakebg);
+        ivContinue = findViewById(R.id.ivContinue);
     }
 
     private void timePickerEvent() {
-        timePicker.setIs24HourView(true); // used to display AM/PM mode
+        tpWakUpTime.setIs24HourView(true); // used to display AM/PM mode
         // perform set on time changed listener event
-        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+        tpWakUpTime.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
                 // display a toast with changed values of time picker
@@ -66,7 +82,7 @@ public class WakeUpTimeActivity extends AppCompatActivity {
         rvBedTime.setItemAnimator(new DefaultItemAnimator());
         rvBedTime.setAdapter(wakeUpTimeAdapter);
         List<AgeModelTest> ageModelTestArrayList = new ArrayList<>();
-        for (float i = (float) 01.01; i <=24.01; i++) {
+        for (float i = (float) 01.01; i <= 24.01; i++) {
             AgeModelTest ageModelTest = new AgeModelTest();
             ageModelTest.setAge(String.valueOf(i));
             ageModelTestArrayList.add(ageModelTest);
@@ -79,9 +95,30 @@ public class WakeUpTimeActivity extends AppCompatActivity {
         ivContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), WhatsYourBedTimeActivity.class);
-                startActivity(intent);
+                includeSecondLayerBgOfGlass.setVisibility(View.VISIBLE);
+
+                /*Intent intent = new Intent(getApplicationContext(), WhatsYourBedTimeActivity.class);
+                startActivity(intent);*/
             }
         });
+
+        ivSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                includeSecondLayerBgOfGlass.setVisibility(View.GONE);
+
+                Toast.makeText(WakeUpTimeActivity.this, "Success", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        llClosedIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                includeSecondLayerBgOfGlass.setVisibility(View.GONE);
+
+            }
+        });
+
+
     }
 }

@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgound33"
-    tools:context=".activity.newFeature.waterIntakeCalculator.WhatsYourBedTimeActivity">
+    android:background="@drawable/backgound33">
 
-    <FrameLayout
+<!--    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -85,8 +84,8 @@
 
         <include
             android:id="@+id/includeSecondLayerBgOfGlass"
-            layout="@layout/bed_time_second_layout"
+            layout="@layout/water_intake_pop_glass_menu.xml"
             />
-    </FrameLayout>
+    </FrameLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

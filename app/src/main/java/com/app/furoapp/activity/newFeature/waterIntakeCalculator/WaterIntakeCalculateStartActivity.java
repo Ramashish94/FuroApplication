@@ -21,7 +21,7 @@ public class WaterIntakeCalculateStartActivity extends AppCompatActivity {
         ivGetStarted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), YourGenderWICActivity.class);
+                Intent intent = new Intent(getApplicationContext(), TellUsMoreActivity.class);
                 startActivity(intent);
             }
         });

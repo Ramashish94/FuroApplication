@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llSecondWaterGlassBg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bedtime2bg"
+    android:gravity="center">
+
+    <LinearLayout
+        android:id="@+id/llGlassTakebg"
+        android:layout_width="312dp"
+        android:layout_height="520dp"
+        android:background="@drawable/closingbg2"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/llClosedIcon"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="162dp"
+                    android:layout_height="@dimen/dp_24"
+                    android:layout_marginRight="18dp"
+                    android:src="@drawable/water_intake_amount" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/llClosedIcon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="80"
+                android:gravity="center"
+                tools:ignore="DuplicateIds">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_24"
+                    android:layout_height="@dimen/dp_24"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="18dp"
+                    android:src="@drawable/closediconwhite" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_60"
+                android:layout_margin="18dp"
+                android:src="@drawable/intake_amount_title" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="272dp"
+            android:layout_height="146dp"
+            android:layout_gravity="center"
+            android:background="@drawable/intake_amount_bg"
+            android:orientation="horizontal">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCreatePlan"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/dp_30"
+                android:layout_marginRight="@dimen/dp_30" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="135dp"
+            android:layout_height="@dimen/dp_20"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@drawable/based_your_plan" />
+
+
+        <ImageView
+            android:layout_width="275dp"
+            android:layout_height="@dimen/dp_40"
+            android:layout_gravity="center"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/dont_try_to_go_overhead" />
+
+        <TextView
+            android:id="@+id/tvFeelAweSome"
+            android:layout_width="272dp"
+            android:layout_height="@dimen/dp_30"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="The feel awesome"
+            android:textColor="#43A714"
+            android:textSize="@dimen/sp_16"
+            android:visibility="gone"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_25"
+            android:layout_marginRight="@dimen/dp_30"
+            android:background="@drawable/viewline" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                android:id="@+id/ivSave"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="28dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="@dimen/dp_30"
+                android:background="@drawable/saveicon" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

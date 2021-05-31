@@ -27,6 +27,7 @@
                 android:layout_height="@dimen/dp_24"
                 android:layout_marginRight="18dp"
                 android:src="@drawable/closediconwhite" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -60,7 +61,7 @@
                 android:layout_marginLeft="28dp"
                 android:layout_marginRight="28dp"
                 android:layout_marginBottom="40dp"
-                android:background="@drawable/continue1" />
+                android:background="@drawable/saveicon" />
         </LinearLayout>
 
     </LinearLayout>

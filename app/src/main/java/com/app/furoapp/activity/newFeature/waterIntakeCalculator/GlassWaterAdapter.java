@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
 import com.app.furoapp.activity.newFeature.bmiCalculator.AgeModelTest;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -40,6 +41,9 @@ public class GlassWaterAdapter extends RecyclerView.Adapter<GlassWaterAdapter.My
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         AgeModelTest ageModelTest = ageModelTestList.get(position);
         holder.tvWaterMlSize.setText("" + ageModelTest.getAge());
+       // Picasso.with(context).load(datum.getImage()).into(holder.ivImageCategoryall);
+
+
        /* Picasso.with(context)
                 .load(String.valueOf(ageModelTest.getImage()))
                 //.resize(50, 50) // here you resize your image to whatever width and height you like

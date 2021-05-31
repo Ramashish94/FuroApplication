@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/llSecondWaterGlassBg"
+    android:id="@+id/llCreatePlanPopUpMenu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bedtime2bg"
@@ -45,6 +45,7 @@
                 tools:ignore="DuplicateIds">
 
                 <ImageView
+                    android:id="@+id/ivCancel"
                     android:layout_width="@dimen/dp_24"
                     android:layout_height="@dimen/dp_24"
                     android:layout_marginLeft="@dimen/dp_10"

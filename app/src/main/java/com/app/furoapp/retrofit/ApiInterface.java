@@ -16,6 +16,7 @@ import com.app.furoapp.activity.newFeature.ContentEngagementModule.saveBookmark.
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsRequest;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchGlass.GlassFetchResponse;
 import com.app.furoapp.model.Bannersecond.BannerSecondResponse;
 import com.app.furoapp.model.FriendModel.AddFriend;
 import com.app.furoapp.model.FriendModel.FriendInviteModel;
@@ -428,4 +429,9 @@ public interface ApiInterface {
     /*fetch-user-wise-data*/
     @POST("fetch-user-wise-data")
     Call<FetchUserWiseDataResponse>fetchuserWiseData (@Header(TOKEN_KEY) String token);
+
+    /*fetch glass */
+    @GET("user/glass/fetch")
+    Call<GlassFetchResponse>userFetchGlass (@Header(TOKEN_KEY) String token);
+
 }

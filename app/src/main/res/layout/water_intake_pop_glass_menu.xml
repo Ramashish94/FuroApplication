@@ -37,8 +37,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvGlassWater"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_height="400dp"
+                android:layout_gravity="center"/>
         </LinearLayout>
 
         <View
@@ -60,7 +60,7 @@
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="28dp"
                 android:layout_marginRight="28dp"
-                android:layout_marginBottom="40dp"
+                android:layout_marginBottom="15dp"
                 android:background="@drawable/saveicon" />
         </LinearLayout>
 

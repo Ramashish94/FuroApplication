@@ -221,17 +221,27 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
                 tvLikeCounts.setTextColor(Color.parseColor("#19CFE6"));
                 tvLiksTxt.setTextColor(Color.parseColor("#19CFE6"));
             }
-            String totalCounts;
+//            String totalCounts;
+//            if (dataUserLike == 0) {
+//                totalCounts = String.valueOf(detailsItem.getTotalLikes()-1);
+//            } else {
+//                totalCounts = String.valueOf(detailsItem.getTotalLikes());
+//            }
+//            tvLikeCounts.setText(totalCounts);
+
+
+            /*added new method */
             if (dataUserLike == 0) {
-                totalCounts = String.valueOf(detailsItem.getTotalLikes());
+                if (detailsItem.getTotalLikes() == 0) {
+                    detailsItem.setTotalLikes(detailsItem.getTotalLikes());
+                } else {
+                    detailsItem.setTotalLikes(detailsItem.getTotalLikes() - 1);
+                }
             } else {
-                totalCounts = String.valueOf(detailsItem.getTotalLikes());
+                detailsItem.setTotalLikes(detailsItem.getTotalLikes() + 1);
             }
-            tvLikeCounts.setText(totalCounts);
-
-
-
-
+            tvLikeCounts.setText("" + detailsItem.getTotalLikes());
+            /*added new method*/
 
             callLikeApi(getLikeApiParams(Integer.parseInt(activityId), dataUserLike));
 
@@ -254,7 +264,7 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<LikeResponse> call, Response<LikeResponse> response) {
                 if (response.body() != null) {
-                    contentFeedApi();
+                    // contentFeedApi();
                    /* LikeResponse likeResponse = response.body();
                     showToast(likeResponse.getStatus());*/
                 }

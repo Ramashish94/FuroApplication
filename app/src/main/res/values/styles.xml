@@ -90,4 +90,12 @@
         <item name="android:textColor">#F9FAFB</item>
     </style>
 
+
+    <style name="TimePicker" >
+        <!-- Text color -->
+        <item name="android:textColorPrimary">@color/white</item>
+        <!-- Divider color -->
+        <item name="colorControlNormal">@color/white</item>
+    </style>
+
 </resources>

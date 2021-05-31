@@ -15,6 +15,7 @@ import com.app.furoapp.activity.newFeature.ContentEngagementModule.saveBookmark.
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsRequest;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchGlass.GlassFetchResponse;
 import com.app.furoapp.model.Bannersecond.BannerSecondResponse;
 import com.app.furoapp.model.FriendModel.AddFriend;
 import com.app.furoapp.model.FriendModel.FriendInviteModel;
@@ -379,6 +380,10 @@ public class RestClient {
 
     public static void getFetchUserWiseData(String token, Callback<FetchUserWiseDataResponse> callback) {
         RetrofitClient.getClient().fetchuserWiseData(token).enqueue(callback);
+    }
+
+    public static void getUserGlassFetch(String token, Callback<GlassFetchResponse> callback) {
+        RetrofitClient.getClient().userFetchGlass(token).enqueue(callback);
     }
 
 }

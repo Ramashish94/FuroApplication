@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -19,6 +20,8 @@ public class TellUsMoreActivity extends AppCompatActivity {
 
     public TextView tvRecordedScores, tvHeightRulerValueInCms, tvHeightRulerValueInFeet, tvHeightRulerValueInInch, tvWeightRulerValueInKgs;
     public ImageView ivContinue;
+    public TextView tvExerciseTime,tvhHalfHrs, tvOneHrs, tvOneAndHalfHrs, tvTwoHrs, tvTwoAndHalfHrs, tvThreeHrs, tvThreeHalfHrs, tvFourHrs, tvFourHalfHrs, tvFiveHrs;
+    public String getExerciseTime;
 
 
     @Override
@@ -37,6 +40,18 @@ public class TellUsMoreActivity extends AppCompatActivity {
         tvHeightRulerValueInInch = findViewById(R.id.tvHeightRulerValueInInch);
         tvWeightRulerValueInKgs = findViewById(R.id.tvWeightRulerValueInKgs);
         ivContinue = findViewById(R.id.ivContinue);
+
+        tvhHalfHrs = findViewById(R.id.tvhHalfHrs);
+        tvOneHrs = findViewById(R.id.tvOneHrs);
+        tvOneAndHalfHrs = findViewById(R.id.tvOneAndHalfHrs);
+        tvTwoHrs = findViewById(R.id.tvTwoHrs);
+        tvTwoAndHalfHrs = findViewById(R.id.tvTwoAndHalfHrs);
+        tvThreeHrs = findViewById(R.id.tvThreeHrs);
+        tvThreeHalfHrs = findViewById(R.id.tvThreeHalfHrs);
+        tvFourHrs = findViewById(R.id.tvFourHrs);
+        tvFourHalfHrs = findViewById(R.id.tvFourHalfHrs);
+        tvFiveHrs = findViewById(R.id.tvFiveHrs);
+        tvExerciseTime = findViewById(R.id.tvExerciseTime);
 
     }
 
@@ -92,6 +107,177 @@ public class TellUsMoreActivity extends AppCompatActivity {
     }
 
     private void clickEvent() {
+        tvhHalfHrs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getExerciseTime = tvhHalfHrs.getText().toString();
+                tvExerciseTime.setText(getExerciseTime +" ");
+                tvhHalfHrs.setTextColor(Color.parseColor("#19CFE6"));
+                tvOneHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvOneAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvTwoHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvTwoAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvThreeHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvThreeHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFourHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFourHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFiveHrs.setTextColor(Color.parseColor("#6B6B6B"));
+            }
+        });
+        tvOneHrs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getExerciseTime = tvOneHrs.getText().toString();
+                tvExerciseTime.setText(getExerciseTime +" ");
+                tvOneHrs.setTextColor(Color.parseColor("#19CFE6"));
+                tvhHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvOneAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvTwoHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvTwoAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvThreeHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvThreeHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFourHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFourHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFiveHrs.setTextColor(Color.parseColor("#6B6B6B"));
+            }
+        });
+        tvOneAndHalfHrs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getExerciseTime = tvOneAndHalfHrs.getText().toString();
+                tvOneAndHalfHrs.setTextColor(Color.parseColor("#19CFE6"));
+                tvExerciseTime.setText(getExerciseTime +" ");
+                tvhHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvOneHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvTwoHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvTwoAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvThreeHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvThreeHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFourHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFourHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFiveHrs.setTextColor(Color.parseColor("#6B6B6B"));
+
+            }
+        });
+        tvTwoHrs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getExerciseTime = tvTwoHrs.getText().toString();
+                tvTwoHrs.setTextColor(Color.parseColor("#19CFE6"));
+                tvExerciseTime.setText(getExerciseTime +" ");
+                tvhHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvOneHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvOneAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvTwoAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvThreeHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvThreeHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFourHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFourHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFiveHrs.setTextColor(Color.parseColor("#6B6B6B"));
+            }
+        });
+        tvTwoAndHalfHrs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getExerciseTime = tvTwoAndHalfHrs.getText().toString();
+                tvTwoAndHalfHrs.setTextColor(Color.parseColor("#19CFE6"));
+                tvExerciseTime.setText(getExerciseTime +" ");
+                tvhHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvOneHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvOneAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvTwoHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvThreeHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvThreeHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFourHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFourHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFiveHrs.setTextColor(Color.parseColor("#6B6B6B"));
+            }
+        });
+        tvThreeHrs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getExerciseTime = tvThreeHrs.getText().toString();
+                tvThreeHrs.setTextColor(Color.parseColor("#19CFE6"));
+                tvExerciseTime.setText(getExerciseTime +" ");
+                tvhHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvOneHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvOneAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvTwoHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvTwoAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvThreeHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFourHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFourHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFiveHrs.setTextColor(Color.parseColor("#6B6B6B"));
+            }
+        });
+        tvThreeHalfHrs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getExerciseTime = tvThreeHalfHrs.getText().toString();
+                tvThreeHalfHrs.setTextColor(Color.parseColor("#19CFE6"));
+                tvExerciseTime.setText(getExerciseTime +" ");
+                tvhHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvOneHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvOneAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvTwoHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvTwoAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvThreeHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFourHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFourHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFiveHrs.setTextColor(Color.parseColor("#6B6B6B"));
+            }
+        });
+        tvFourHrs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getExerciseTime = tvFourHrs.getText().toString();
+                tvFourHrs.setTextColor(Color.parseColor("#19CFE6"));
+                tvExerciseTime.setText(getExerciseTime +" ");
+                tvhHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvOneHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvOneAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvTwoHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvTwoAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvThreeHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvThreeHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFourHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFiveHrs.setTextColor(Color.parseColor("#6B6B6B"));
+            }
+        });
+        tvFourHalfHrs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getExerciseTime = tvFourHalfHrs.getText().toString();
+                tvFourHalfHrs.setTextColor(Color.parseColor("#19CFE6"));
+                tvExerciseTime.setText(getExerciseTime +" ");
+                tvhHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvOneHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvOneAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvTwoHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvTwoAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvThreeHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvThreeHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFourHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFiveHrs.setTextColor(Color.parseColor("#6B6B6B"));
+            }
+        });
+        tvFiveHrs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getExerciseTime = tvFiveHrs.getText().toString();
+                tvFiveHrs.setTextColor(Color.parseColor("#19CFE6"));
+                tvExerciseTime.setText(getExerciseTime +" ");
+                tvhHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvOneHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvOneAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvTwoHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvTwoAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvThreeHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvThreeHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFourHrs.setTextColor(Color.parseColor("#6B6B6B"));
+                tvFourHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
+            }
+        });
 
 
         ivContinue.setOnClickListener(new View.OnClickListener() {

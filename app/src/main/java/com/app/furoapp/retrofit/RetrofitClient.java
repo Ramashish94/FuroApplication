@@ -44,7 +44,7 @@ public class RetrofitClient {
 // set your desired log level
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.NONE);
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         if (BuildConfig.DEBUG) {
             return new OkHttpClient().newBuilder()

@@ -24,84 +24,160 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="72dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="25dp"
                 android:layout_marginRight="30dp"
                 android:src="@drawable/intro2" />
 
+            <!--Height ui-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_30"
                 android:layout_marginTop="@dimen/dp_40"
-                android:orientation="horizontal">
+                android:layout_marginRight="48dp"
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="320dp"
                     android:layout_height="22dp"
                     android:layout_marginEnd="@dimen/dp_30"
-                    android:text=" Select your Weight / Enter Manually"
+                    android:text=" Select your Height / Enter Manually"
+                    android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="#6B6B6B"
                     android:textSize="@dimen/sp_10"
                     android:textStyle="italic"
-                    android:textAllCaps="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/height_ruler_picker" />
 
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvHeightRulerValueInCms"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/bebase_neue"
+                            android:text="133 cm "
+                            android:textAllCaps="true"
+                            android:textColor="@color/light_blue"
+                            android:textSize="30sp"
+                            android:textStyle="italic" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="s  "
+                            android:textColor="@color/light_blue"
+                            android:textSize="14sp"
+                            android:textStyle="italic" />
+
+                        <TextView
+                            android:id="@+id/tvHeightRulerValueInFeet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/bebase_neue"
+                            android:text="(4 "
+                            android:textAllCaps="true"
+                            android:textColor="@color/light_blue"
+                            android:textSize="30sp"
+                            android:textStyle="italic" />
+
+                        <TextView
+                            android:id="@+id/tvHeightRulerValueInInch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/bebase_neue"
+                            android:text="5'')"
+                            android:textAllCaps="true"
+                            android:textColor="@color/light_blue"
+                            android:textSize="30sp"
+                            android:textStyle="italic" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="6dp"
+                        android:background="@drawable/viewline" />
+
+                    <com.kevalpatel2106.rulerpicker.RulerValuePicker
+                        android:id="@+id/heightRulerPicker"
+                        android:layout_width="match_parent"
+                        android:layout_height="72dp"
+                        android:layout_marginTop="18dp"
+                        android:background="@drawable/bg_rullar3"
+                        app:indicator_color="#B4B4B4"
+                        app:indicator_interval="6dp"
+                        app:indicator_width="2dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:max_value="350"
+                        app:min_value="100"
+                        app:notch_color="#B4B4B4"
+                        app:ruler_text_color="#B4B4B4"
+                        app:ruler_text_size="4sp" />
+                </LinearLayout>
             </LinearLayout>
+
+            <!--Exercise column-->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_30"
-                android:layout_marginTop="13dp"
+                android:layout_margin="@dimen/dp_30"
                 android:orientation="vertical">
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="320dp"
+                    android:layout_height="22dp"
+                    android:layout_marginEnd="@dimen/dp_30"
+                    android:text=" How Long You Exercise Every Day "
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="#6B6B6B"
+                    android:textSize="@dimen/sp_10"
+                    android:textStyle="italic"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/height_ruler_picker" />
+
+
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tvHeightRulerValueInCms"
+                        android:id="@+id/tvExerciseTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_3"
                         android:fontFamily="@font/bebase_neue"
-                        android:text="133 cm "
-                        android:textAllCaps="true"
+                        android:text="00:00 "
                         android:textColor="@color/light_blue"
-                        android:textSize="30sp"
+                        android:textSize="35sp"
                         android:textStyle="italic" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="s  "
-                        android:textColor="@color/light_blue"
-                        android:textSize="14sp"
-                        android:textStyle="italic" />
-
-                    <TextView
-                        android:id="@+id/tvHeightRulerValueInFeet"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/bebase_neue"
-                        android:text="(4 "
-                        android:textAllCaps="true"
-                        android:textColor="@color/light_blue"
-                        android:textSize="30sp"
-                        android:textStyle="italic" />
-
-                    <TextView
-                        android:id="@+id/tvHeightRulerValueInInch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/bebase_neue"
-                        android:text="5'')"
-                        android:textAllCaps="true"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:layout_marginTop="@dimen/dp_3"
+                        android:text="hrs"
                         android:textColor="@color/light_blue"
                         android:textSize="30sp"
                         android:textStyle="italic" />
@@ -111,34 +187,191 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="6dp"
-                    android:layout_marginRight="@dimen/dp_30"
                     android:background="@drawable/viewline" />
 
-                <com.kevalpatel2106.rulerpicker.RulerValuePicker
-                    android:id="@+id/heightRulerPicker"
+                <!--<androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvExerciseTime"
                     android:layout_width="match_parent"
-                    android:layout_height="72dp"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginRight="30dp"
-                    android:background="@drawable/bg_rullar3"
-                    app:indicator_color="#B4B4B4"
-                    app:indicator_interval="6dp"
-                    app:indicator_width="2dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:max_value="350"
-                    app:min_value="100"
-                    app:notch_color="#B4B4B4"
-                    app:ruler_text_color="#B4B4B4"
-                    app:ruler_text_size="4sp" />
+                    android:layout_height="@dimen/dp_140"
+                    android:layout_marginTop="@dimen/dp_10"/>-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/dp_10">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tvhHalfHrs"
+                            android:layout_width="54dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/exercisebg2"
+                            android:gravity="center"
+                            android:text="00:30"
+                            android:textColor="#6B6B6B" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tvOneHrs"
+                            android:layout_width="54dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/exercisebg2"
+                            android:gravity="center"
+                            android:text="01:00"
+                            android:textColor="#6B6B6B" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tvOneAndHalfHrs"
+                            android:layout_width="54dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/exercisebg2"
+                            android:gravity="center"
+                            android:text="01:30"
+                            android:textColor="#6B6B6B" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tvTwoHrs"
+                            android:layout_width="54dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/exercisebg2"
+                            android:gravity="center"
+                            android:text="02:00"
+                            android:textColor="#6B6B6B" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tvTwoAndHalfHrs"
+                            android:layout_width="54dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/exercisebg2"
+                            android:gravity="center"
+                            android:text="02:30"
+                            android:textColor="#6B6B6B" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/dp_10">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tvThreeHrs"
+                            android:layout_width="54dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/exercisebg2"
+                            android:gravity="center"
+                            android:text="03:00"
+                            android:textColor="#6B6B6B" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tvThreeHalfHrs"
+                            android:layout_width="54dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/exercisebg2"
+                            android:gravity="center"
+                            android:text="03:30"
+                            android:textColor="#6B6B6B" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tvFourHrs"
+                            android:layout_width="54dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/exercisebg2"
+                            android:gravity="center"
+                            android:text="04:00"
+                            android:textColor="#6B6B6B" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+                        <TextView
+                            android:id="@+id/tvFourHalfHrs"
+                            android:layout_width="54dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/exercisebg2"
+                            android:gravity="center"
+                            android:text="04:30"
+                            android:textColor="#6B6B6B"
+                            android:visibility="gone"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tvFiveHrs"
+                            android:layout_width="54dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/exercisebg2"
+                            android:gravity="center"
+                            android:text="05:00"
+                            android:textColor="#6B6B6B"
+                            android:visibility="gone"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
             </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_30"
-                android:layout_marginTop="@dimen/dp_40"
-                android:orientation="horizontal">
+                android:layout_marginRight="@dimen/dp_30"
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/weight_picker_heading"
@@ -146,78 +379,78 @@
                     android:layout_height="22dp"
                     android:layout_marginEnd="@dimen/dp_30"
                     android:text=" Select your Weight / Enter Manually"
+                    android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="#6B6B6B"
                     android:textSize="@dimen/sp_10"
-                    android:textAllCaps="true"
                     android:textStyle="italic"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/height_ruler_picker" />
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_30"
-                android:layout_marginTop="13dp"
-                android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tvWeightRulerValueInKgs"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/bebase_neue"
-                        android:text="78 kg "
-                        android:textColor="@color/light_blue"
-                        android:textSize="30sp"
-                        android:textStyle="italic" />
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="13dp"
-                        android:text="s"
-                        android:textColor="@color/light_blue"
-                        android:textSize="14sp"
-                        android:textStyle="italic"
-                        android:visibility="invisible"/>
+                        <TextView
+                            android:id="@+id/tvWeightRulerValueInKgs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/bebase_neue"
+                            android:text="78 kg "
+                            android:textColor="@color/light_blue"
+                            android:textSize="35sp"
+                            android:textStyle="italic" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="13dp"
+                            android:text="s"
+                            android:textColor="@color/light_blue"
+                            android:textSize="14sp"
+                            android:textStyle="italic"
+                            android:visibility="invisible" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="6dp"
+                        android:background="@drawable/viewline" />
+
+                    <com.kevalpatel2106.rulerpicker.RulerValuePicker
+                        android:id="@+id/weightRulerPicker"
+                        android:layout_width="match_parent"
+                        android:layout_height="72dp"
+                        android:layout_marginTop="18dp"
+                        android:background="@drawable/bg_rullar3"
+                        android:elevation="4dp"
+                        app:indicator_color="#B4B4B4"
+                        app:indicator_interval="9dp"
+                        app:indicator_width="2dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/weight_value_tv"
+                        app:max_value="200"
+                        app:min_value="25"
+                        app:notch_color="#B4B4B4"
+                        app:ruler_text_color="#B4B4B4"
+                        app:ruler_text_size="6sp"
+                        tools:targetApi="lollipop" />
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="6dp"
-                    android:background="@drawable/viewline"
-                    android:layout_marginRight="@dimen/dp_30"/>
-
-                <com.kevalpatel2106.rulerpicker.RulerValuePicker
-                    android:id="@+id/weightRulerPicker"
-                    android:layout_width="match_parent"
-                    android:layout_height="72dp"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginRight="@dimen/dp_30"
-                    android:background="@drawable/bg_rullar3"
-                    android:elevation="4dp"
-                    app:indicator_color="#B4B4B4"
-                    app:indicator_interval="9dp"
-                    app:indicator_width="2dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/weight_value_tv"
-                    app:max_value="200"
-                    app:min_value="25"
-                    app:notch_color="#B4B4B4"
-                    app:ruler_text_color="#B4B4B4"
-                    app:ruler_text_size="6sp"
-                    tools:targetApi="lollipop" />
 
             </LinearLayout>
 
@@ -227,13 +460,11 @@
                 android:layout_height="@dimen/dp_40"
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="@dimen/dp_40"
+                android:layout_marginTop="@dimen/dp_120"
                 android:layout_marginRight="@dimen/dp_40"
                 android:layout_marginBottom="@dimen/dp_45"
-                android:layout_marginTop="@dimen/dp_120"
-                android:background="@drawable/continue1"/>
-
+                android:background="@drawable/continue1" />
         </LinearLayout>
-
 
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>

@@ -58,12 +58,14 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
     TextView tvLikeCounts, tvLiksTxt, tvCmntsCount, tvCmntsTxt, tvViewsCounts, tvViewsTxt, tvTotNosOfComments;
     EditText etAddComments;
     public String activityId;
-    public Boolean clicked = true;
+    //public Boolean clicked = true;
+    public Boolean clicked;
     public String accessToken;
     private ActivityDetail detailsItem;
     //ActivityDetail activityDetail;
     CommentsAdapter commentsAdapter;
     List<Comment> commentArrayList = new ArrayList<>();
+    private boolean isUserLike;
 
 
     @Override
@@ -187,18 +189,18 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
         tvCmntsCount.setText("" + data.getTotalComments().toString());
         tvTotNosOfComments.setText("" + data.getTotalComments().toString());
         tvViewsCounts.setText("" + data.getTotalViews().toString());
-        getLikeShareData(data.getTotalLikes().toString());
+        getLikeShareData(data.getUserLike());
         // getViewsData(data.getTotalViews().toString()); /*for views*/
     }
 
     private void getLikeShareData(String userLike) {
         if (userLike.equals("0")) {
-            clicked = false;
+            isUserLike = false;
             ivlikeAndUnlike.setImageResource(R.drawable.thumb_unlike);
             tvLikeCounts.setTextColor(Color.BLACK);
             tvLiksTxt.setTextColor(Color.BLACK);
         } else {
-            clicked = true;
+            isUserLike = true;
             ivlikeAndUnlike.setImageResource(R.drawable.thumb_like);
             tvLikeCounts.setTextColor(Color.parseColor("#19CFE6"));
             tvLiksTxt.setTextColor(Color.parseColor("#19CFE6"));
@@ -206,26 +208,31 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
 
         llLikeAndDislike.setOnClickListener(v -> {
             int dataUserLike;
-            if (clicked) {
-                clicked = false;
+            if (isUserLike) {
+                isUserLike = false;
                 dataUserLike = 0;
                 ivlikeAndUnlike.setImageResource(R.drawable.thumb_unlike);
                 tvLikeCounts.setTextColor(Color.BLACK);
                 tvLiksTxt.setTextColor(Color.BLACK);
             } else {
-                clicked = true;
+                isUserLike = true;
                 dataUserLike = 1;
                 ivlikeAndUnlike.setImageResource(R.drawable.thumb_like);
                 tvLikeCounts.setTextColor(Color.parseColor("#19CFE6"));
                 tvLiksTxt.setTextColor(Color.parseColor("#19CFE6"));
             }
+            String totalCounts;
             if (dataUserLike == 0) {
-                String totalCounts = String.valueOf(detailsItem.getTotalLikes() - 1);
-                tvLikeCounts.setText(totalCounts);
+                totalCounts = String.valueOf(detailsItem.getTotalLikes());
             } else {
-                String totalCounts = String.valueOf(detailsItem.getTotalLikes());
-                tvLikeCounts.setText(totalCounts);
+                totalCounts = String.valueOf(detailsItem.getTotalLikes());
             }
+            tvLikeCounts.setText(totalCounts);
+
+
+
+
+
             callLikeApi(getLikeApiParams(Integer.parseInt(activityId), dataUserLike));
 
         });
@@ -247,6 +254,7 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<LikeResponse> call, Response<LikeResponse> response) {
                 if (response.body() != null) {
+                    contentFeedApi();
                    /* LikeResponse likeResponse = response.body();
                     showToast(likeResponse.getStatus());*/
                 }
@@ -269,10 +277,7 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
             tvViewsTxt.setTextColor(Color.BLACK);
         } else {
             clicked = true;
-           /* ivViews.setImageResource(R.drawable.selectviews);
-            tvViewsCounts.setTextColor(Color.parseColor("#19CFE6"));
-            tvViewsTxt.setTextColor(Color.parseColor("#19CFE6"));*/
-            ivViews.setImageResource(R.drawable.view_image);
+            ivViews.setImageResource(R.drawable.selectviews);
             tvViewsCounts.setTextColor(Color.BLACK);
             tvViewsTxt.setTextColor(Color.BLACK);
         }

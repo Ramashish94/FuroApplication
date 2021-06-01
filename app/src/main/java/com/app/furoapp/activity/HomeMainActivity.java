@@ -28,7 +28,7 @@ import android.widget.Toast;
 import com.app.furoapp.R;
 import com.app.furoapp.activity.newFeature.healthCare.HealthCenterDashboardActivity;
 import com.app.furoapp.activity.newFeature.bmiCalculator.FindYourBmiActivity;
-import com.app.furoapp.activity.newFeature.waterIntakeCalculator.WaterIntakeCalculateStartActivity;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.WaterIntakeStartActivity;
 import com.app.furoapp.databinding.ActivityMainFramelayoutBinding;
 import com.app.furoapp.enums.EnumConstants;
 import com.app.furoapp.fragment.YoutubePlayerFragment;
@@ -749,7 +749,7 @@ public class HomeMainActivity extends AppCompatActivity {
         llWaterIntakeCalculator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), WaterIntakeCalculateStartActivity.class);
+                Intent intent = new Intent(getApplicationContext(), WaterIntakeStartActivity.class);
                 startActivity(intent);
 
             }

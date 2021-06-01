@@ -121,7 +121,6 @@ public class SelectGenderAndAgeActivity extends AppCompatActivity implements Age
                     startActivity(intent);
                 } else {
                     Toast.makeText(SelectGenderAndAgeActivity.this, "Please select gender and age ! ", Toast.LENGTH_SHORT).show();
-
                 }
             }
         });

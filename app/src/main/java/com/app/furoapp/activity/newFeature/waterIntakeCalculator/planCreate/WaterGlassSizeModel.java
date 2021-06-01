@@ -1,10 +1,9 @@
-package com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreateModel;
+package com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate;
 
 import com.google.gson.annotations.SerializedName;
 
-public class PlaneCreateRequest {
-
-    @SerializedName("glass_size_in_ml")
+public class WaterGlassSizeModel {
+    //@SerializedName("glass_size_in_ml")
     private String glass_size_in_ml;
 
     public String getGlass_size_in_ml() {
@@ -14,10 +13,4 @@ public class PlaneCreateRequest {
     public void setGlass_size_in_ml(String glass_size_in_ml) {
         this.glass_size_in_ml = glass_size_in_ml;
     }
-
-
-
-
-
-
 }

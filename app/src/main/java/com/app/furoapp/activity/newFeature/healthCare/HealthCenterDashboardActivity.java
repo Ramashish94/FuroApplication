@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.app.furoapp.R;
 import com.app.furoapp.activity.newFeature.bmiCalculator.FindYourBmiActivity;
-import com.app.furoapp.activity.newFeature.waterIntakeCalculator.WaterIntakeCalculateStartActivity;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.WaterIntakeStartActivity;
 
 public class HealthCenterDashboardActivity extends AppCompatActivity {
     public LinearLayout llDailyStepsTracker,llWaterIntakeMonitor,llBMICalculator,llCaloriesCalculator;
@@ -47,7 +47,7 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent =new Intent(getApplicationContext(), WaterIntakeCalculateStartActivity.class);
+                Intent intent =new Intent(getApplicationContext(), WaterIntakeStartActivity.class);
                 startActivity(intent);
 
             }

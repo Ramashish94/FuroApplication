@@ -1,4 +1,4 @@
-package com.app.furoapp.activity.newFeature.notification;
+package com.app.furoapp.activity.newFeature.notification.notificationModel;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,15 +14,14 @@ import com.app.furoapp.R;
 
 import java.util.List;
 
-public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.MyViewHolder> {
+public class DailyFeedNotificationAdapter extends RecyclerView.Adapter<DailyFeedNotificationAdapter.MyViewHolder> {
     Context context;
-    List<NotificationModelTests> notificationModelTestsList;
+    List<DailyFeedNotification> dailyFeedNotificationList;
 
-    public NotificationAdapter(Context applicationContext, List<NotificationModelTests> notificationModelTestsList) {
+    public DailyFeedNotificationAdapter(Context applicationContext, List<DailyFeedNotification> dailyFeedNotificationList) {
         this.context = applicationContext;
-        this.notificationModelTestsList = notificationModelTestsList;
+        this.dailyFeedNotificationList = dailyFeedNotificationList;
     }
-
 
     @NonNull
     @Override
@@ -35,16 +34,15 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        NotificationModelTests notificationModelTests = notificationModelTestsList.get(position);
-        holder.tvNtifictionTxt.setText("" + notificationModelTests.getNotification());
-        holder.tvTimeReadingTxt.setText("" + notificationModelTests.getNotificationReadTime());
-
+        DailyFeedNotification dailyFeedNotification = dailyFeedNotificationList.get(position);
+        holder.tvNtifictionTxt.setText("" + dailyFeedNotification.getNotificationType());
+        holder.tvTimeReadingTxt.setText("" + dailyFeedNotification.getMsgType());
     }
 
     @Override
     public int getItemCount() {
-        if (notificationModelTestsList != null && notificationModelTestsList.size() > 0) {
-            return notificationModelTestsList.size();
+        if (dailyFeedNotificationList != null && dailyFeedNotificationList.size() > 0) {
+            return dailyFeedNotificationList.size();
         } else {
             return 0;
         }

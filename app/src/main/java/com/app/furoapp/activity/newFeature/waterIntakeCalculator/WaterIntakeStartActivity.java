@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 import com.app.furoapp.R;
 
-public class WaterIntakeCalculateStartActivity extends AppCompatActivity {
+public class WaterIntakeStartActivity extends AppCompatActivity {
     public ImageView ivGetStarted;
 
     @Override

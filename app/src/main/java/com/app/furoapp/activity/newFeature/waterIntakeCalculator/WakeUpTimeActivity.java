@@ -52,6 +52,7 @@ public class WakeUpTimeActivity extends AppCompatActivity implements FetchGlassA
     public int exerciseTimeInMin;
     private int getExerciseTimeInMin;
     // public int ConvTime = 60;
+    private boolean isWakeUpTimeSelected, isBedTimeSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +73,6 @@ public class WakeUpTimeActivity extends AppCompatActivity implements FetchGlassA
 
     private void findViews() {
         clWakeAndBedTime = findViewById(R.id.clWakeAndBedTime);
-        ivContinue = findViewById(R.id.ivContinue);
         tpWakUpTime = findViewById(R.id.tpWakUpTime);
         tpBedTime = findViewById(R.id.tpBedTime);
 
@@ -96,6 +96,7 @@ public class WakeUpTimeActivity extends AppCompatActivity implements FetchGlassA
                 //  time.setText("Time is :: " + hourOfDay + " : " + minute); // set the current time in text view
                 getMrngHours = hourOfDay + ":" + minute;
                 Log.d("Morning Time", getMrngHours);
+                isWakeUpTimeSelected = true;
             }
         });
 
@@ -108,6 +109,7 @@ public class WakeUpTimeActivity extends AppCompatActivity implements FetchGlassA
                 //  time.setText("Time is :: " + hourOfDay + " : " + minute); // set the current time in text view
                 getEveningBedHours = hourOfDay + ":" + minute;
                 Log.d("Bed Time", getEveningBedHours);
+                isBedTimeSelected = true;
             }
         });
 
@@ -117,8 +119,12 @@ public class WakeUpTimeActivity extends AppCompatActivity implements FetchGlassA
         ivContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                includeSecondLayerBgOfGlass.setVisibility(View.VISIBLE);
-                callFetchGlassApi();
+                if (isWakeUpTimeSelected && isBedTimeSelected) {
+                    includeSecondLayerBgOfGlass.setVisibility(View.VISIBLE);
+                    callFetchGlassApi();
+                } else {
+                    Toast.makeText(WakeUpTimeActivity.this, "Please select wake up time and bed time!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -155,7 +161,6 @@ public class WakeUpTimeActivity extends AppCompatActivity implements FetchGlassA
                         notifyGlassAdapter(response.body().getUserGlassSizes());
                     }
                 }
-
             }
 
             @Override

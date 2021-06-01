@@ -42,12 +42,10 @@ public class FetchRecordAdapter extends RecyclerView.Adapter<FetchRecordAdapter.
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Bmi bmi = bmiList.get(position);
-        String bmiScore = bmi.getBmi();
-        holder.tvBmiScore.setText("" + bmi.getBmi());
         holder.tvBmiScore.setText("" + bmi.getBmi());
         holder.tvGender.setText("" + bmi.getGender());
-        holder.tvWaight.setText("" + bmi.getWeight());
-        holder.tvHeight.setText("" + bmi.getHeight());
+        holder.tvWaight.setText("" + bmi.getWeight()+" kg");
+        holder.tvHeight.setText("" + bmi.getHeight()+" cm");
 
         DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
         try {

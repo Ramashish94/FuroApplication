@@ -16,12 +16,13 @@ import com.app.furoapp.activity.newFeature.ContentEngagementModule.saveBookmark.
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsRequest;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
+import com.app.furoapp.activity.newFeature.notification.notificationModel.NotificationResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.dailyWaterIntake.DailyWaterIntakeRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.dailyWaterIntake.DailyWaterIntakeResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchAllPlan.FetchAllPlanResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchGlass.GlassFetchResponse;
-import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreateModel.PlaneCreateRequest;
-import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreateModel.PlaneCreateResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.PlaneCreateRequest;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.PlaneCreateResponse;
 import com.app.furoapp.model.Bannersecond.BannerSecondResponse;
 import com.app.furoapp.model.FriendModel.AddFriend;
 import com.app.furoapp.model.FriendModel.FriendInviteModel;
@@ -395,6 +396,10 @@ public interface ApiInterface {
     Call<UserImageResponse> user_image(@Body UserImageRequest userImageRequest);
 
     /*added new feature in Fq*/
+
+    @GET("notification")
+    Call<NotificationResponse> getNotification(@Header(TOKEN_KEY) String token);
+
     // New api calling for AllActivity Content feed  Content feed home fragment landing page
     @POST("all-activity-listings-new")
     Call<ActivitiesListing> ActivitiesListing(@Header(TOKEN_KEY) String token);
@@ -427,6 +432,7 @@ public interface ApiInterface {
     @POST("like-list")
     Call<LikeListResponse>likeList (@Header(TOKEN_KEY) String token);
 
+    /* Bmi calculation started */
     /*store-user-wise-data*/
     @POST("store-user-wise-data")
     Call<BmiStoreDataResponse>bmiStoreData (@Header(TOKEN_KEY) String token, @Body BmiStoreDataRequest bmiStoreDataRequest);
@@ -435,6 +441,7 @@ public interface ApiInterface {
     @POST("fetch-user-wise-data")
     Call<FetchUserWiseDataResponse>fetchuserWiseData (@Header(TOKEN_KEY) String token);
 
+    /*Water intake monitor started */
     /*fetch glass */
     @GET("user/glass/fetch")
     Call<GlassFetchResponse>userFetchGlass (@Header(TOKEN_KEY) String token);

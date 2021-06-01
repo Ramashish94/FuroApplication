@@ -59,7 +59,7 @@ public class CalculateBMIActivity extends AppCompatActivity {
             @Override
             public void onIntermediateValueChange(final int selectedValue) {
                 userHeightInCm = String.valueOf(selectedValue);
-                tvHeightRulerValueInCms.setText(userHeightInCm + " cm ");
+                tvHeightRulerValueInCms.setText(userHeightInCm + " cms ");
             }
         });
 
@@ -70,7 +70,7 @@ public class CalculateBMIActivity extends AppCompatActivity {
             @Override
             public void onValueChange(final int selectedValue) {
                 userWeightInKg= String.valueOf(selectedValue);
-                tvWeightRulerValueInKgs.setText(userWeightInKg + " kg ");
+                tvWeightRulerValueInKgs.setText(userWeightInKg + " kgs ");
             }
 
             @Override

@@ -31,7 +31,7 @@
                 android:gravity="center_vertical"
                 android:text="2219 ml"
                 android:textColor="@color/light_blue"
-                android:textSize="@dimen/sp_16"
+                android:textSize="@dimen/sp_14"
                 android:textStyle="normal" />
         </LinearLayout>
 
@@ -71,7 +71,7 @@
                         android:gravity="center_vertical"
                         android:text="Every"
                         android:textColor="@color/black_color"
-                        android:textSize="@dimen/sp_16"
+                        android:textSize="@dimen/sp_14"
                         android:textStyle="normal" />
                     <TextView
                         android:id="@+id/tvDurationTime"
@@ -81,7 +81,7 @@
                         android:gravity="center_vertical"
                         android:text="90 "
                         android:textColor="@color/black_color"
-                        android:textSize="@dimen/sp_16"
+                        android:textSize="@dimen/sp_14"
                         android:maxLength="2"
                         android:textStyle="normal" />
                     <TextView
@@ -91,7 +91,7 @@
                         android:gravity="center_vertical"
                         android:text="minutes"
                         android:textColor="@color/black_color"
-                        android:textSize="@dimen/sp_16"
+                        android:textSize="@dimen/sp_14"
                         android:textStyle="normal" />
 
                 </LinearLayout>

@@ -144,7 +144,8 @@ public class YourScoreActivity extends AppCompatActivity {
                 if (response.code() == 200 && response.body() != null) {
                     if (response.body().getStatus() != null) {
                         Toast.makeText(YourScoreActivity.this, "Bmi data saved successfully", Toast.LENGTH_SHORT).show();
-                        finish();
+                        Intent intent = new Intent(getApplicationContext(), FindYourBmiActivity.class);
+                        startActivity(intent);
                     }
                 }
             }

@@ -1,5 +1,5 @@
 
-package com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreateModel;
+package com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

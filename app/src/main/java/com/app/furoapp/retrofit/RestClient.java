@@ -15,12 +15,13 @@ import com.app.furoapp.activity.newFeature.ContentEngagementModule.saveBookmark.
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsRequest;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
+import com.app.furoapp.activity.newFeature.notification.notificationModel.NotificationResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.dailyWaterIntake.DailyWaterIntakeRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.dailyWaterIntake.DailyWaterIntakeResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchAllPlan.FetchAllPlanResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchGlass.GlassFetchResponse;
-import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreateModel.PlaneCreateRequest;
-import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreateModel.PlaneCreateResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.PlaneCreateRequest;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.PlaneCreateResponse;
 import com.app.furoapp.model.Bannersecond.BannerSecondResponse;
 import com.app.furoapp.model.FriendModel.AddFriend;
 import com.app.furoapp.model.FriendModel.FriendInviteModel;
@@ -347,6 +348,11 @@ public class RestClient {
     }
 
     /*added new feature in FQ*/
+    /*notification*/
+    public static void getNotificationData(String token, Callback<NotificationResponse> callback) {
+        RetrofitClient.getClient().getNotification(token).enqueue(callback);
+    }
+
     /*modify*/
     public static void myContentfeedAllActivity(String token, Callback<ActivitiesListing> callback) {
         RetrofitClient.getClient().ActivitiesListing(token).enqueue(callback);
@@ -379,8 +385,9 @@ public class RestClient {
     public static void likeList(String token, Callback<LikeListResponse> callback) {
         RetrofitClient.getClient().likeList(token).enqueue(callback);
     }
+
     public static void getBmiStoreData(String token, BmiStoreDataRequest bmiStoreDataRequest, Callback<BmiStoreDataResponse> callback) {
-        RetrofitClient.getClient().bmiStoreData(token,bmiStoreDataRequest).enqueue(callback);
+        RetrofitClient.getClient().bmiStoreData(token, bmiStoreDataRequest).enqueue(callback);
     }
 
     public static void getFetchUserWiseData(String token, Callback<FetchUserWiseDataResponse> callback) {
@@ -392,7 +399,7 @@ public class RestClient {
     }
 
     public static void getDailyWaterIntake(String token, DailyWaterIntakeRequest dailyWaterIntakeRequest, Callback<DailyWaterIntakeResponse> callback) {
-        RetrofitClient.getClient().dailyWaterIntake(token,dailyWaterIntakeRequest).enqueue(callback);
+        RetrofitClient.getClient().dailyWaterIntake(token, dailyWaterIntakeRequest).enqueue(callback);
     }
 
     public static void getFetchAllPlan(String token, Callback<FetchAllPlanResponse> callback) {
@@ -400,9 +407,8 @@ public class RestClient {
     }
 
     public static void getPlaneCreate(String token, PlaneCreateRequest planeCreateRequest, Callback<PlaneCreateResponse> callback) {
-        RetrofitClient.getClient().planeCreate(token,planeCreateRequest).enqueue(callback);
+        RetrofitClient.getClient().planeCreate(token, planeCreateRequest).enqueue(callback);
     }
-
 
 
 }

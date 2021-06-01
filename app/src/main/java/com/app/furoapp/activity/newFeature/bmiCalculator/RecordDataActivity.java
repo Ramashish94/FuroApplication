@@ -54,7 +54,7 @@ public class RecordDataActivity extends AppCompatActivity {
                 if (response.code() == 200 && response.body() != null && response.body().getStatus() != null) {
                     notifyFetchUserWiseData(response.body().getBmi());
                 } else {
-                    Toast.makeText(RecordDataActivity.this, response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RecordDataActivity.this, +response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
 

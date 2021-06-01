@@ -154,12 +154,13 @@
                     android:orientation="vertical">
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvCreatePlan"
+                        android:id="@+id/rvAllPlan"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_140"
                         android:layout_gravity="center" />
 
                     <LinearLayout
+                        android:id="@+id/llOthersPlan"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginTop="17dp"
@@ -186,10 +187,9 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="@dimen/dp_10"
                                 android:gravity="center_vertical"
-                                android:text="2219 ml"
-                                android:textColor="@color/light_blue"
+                                android:text="Others"
                                 android:textSize="28sp"
-                                android:textStyle="bold" />
+                                android:textStyle="normal" />
                         </LinearLayout>
 
                         <LinearLayout

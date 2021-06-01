@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_60"
+    android:layout_height="@dimen/dp_50"
     android:background="@drawable/white_bg_create_bg"
+    android:layout_marginBottom="@dimen/dp_8"
     android:gravity="center_vertical">
 
     <LinearLayout
@@ -12,7 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="60">
 
             <ImageView
                 android:layout_width="@dimen/dp_20"
@@ -23,21 +24,22 @@
                 android:src="@drawable/ellipse_20" />
 
             <TextView
+                android:id="@+id/tvWaterTake"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/dp_10"
                 android:gravity="center_vertical"
                 android:text="2219 ml"
                 android:textColor="@color/light_blue"
-                android:textSize="28sp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/sp_16"
+                android:textStyle="normal" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dp_10"
-            android:layout_weight="1">
+            android:layout_weight="40">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -47,11 +49,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/dp_10"
-                    android:layout_weight="1">
+                    >
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="27dp"
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/clock_image" />
                 </LinearLayout>
@@ -59,18 +61,39 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/dp_10"
+                    android:orientation="horizontal"
                     android:layout_weight="1">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="@dimen/dp_35"
                         android:layout_marginStart="@dimen/dp_10"
                         android:gravity="center_vertical"
-                        android:text="Every 45 minutes"
+                        android:text="Every"
                         android:textColor="@color/black_color"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_16"
                         android:textStyle="normal" />
+                    <TextView
+                        android:id="@+id/tvDurationTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_35"
+                        android:layout_marginStart="@dimen/dp_5"
+                        android:gravity="center_vertical"
+                        android:text="90 "
+                        android:textColor="@color/black_color"
+                        android:textSize="@dimen/sp_16"
+                        android:maxLength="2"
+                        android:textStyle="normal" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_35"
+                        android:layout_marginStart="@dimen/dp_5"
+                        android:gravity="center_vertical"
+                        android:text="minutes"
+                        android:textColor="@color/black_color"
+                        android:textSize="@dimen/sp_16"
+                        android:textStyle="normal" />
+
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

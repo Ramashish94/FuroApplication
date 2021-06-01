@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,8 +21,10 @@ public class TellUsMoreActivity extends AppCompatActivity {
 
     public TextView tvRecordedScores, tvHeightRulerValueInCms, tvHeightRulerValueInFeet, tvHeightRulerValueInInch, tvWeightRulerValueInKgs;
     public ImageView ivContinue;
-    public TextView tvExerciseTime,tvhHalfHrs, tvOneHrs, tvOneAndHalfHrs, tvTwoHrs, tvTwoAndHalfHrs, tvThreeHrs, tvThreeHalfHrs, tvFourHrs, tvFourHalfHrs, tvFiveHrs;
+    public TextView tvExerciseTime, tvhHalfHrs, tvOneHrs, tvOneAndHalfHrs, tvTwoHrs, tvTwoAndHalfHrs, tvThreeHrs, tvThreeHalfHrs, tvFourHrs, tvFourHalfHrs, tvFiveHrs;
     public String getExerciseTime;
+    public String getUserWeightInKg;
+    public String totExerciseTimeInMin;
 
 
     @Override
@@ -79,12 +82,14 @@ public class TellUsMoreActivity extends AppCompatActivity {
         weightPicker.setValuePickerListener(new RulerValuePickerListener() {
             @Override
             public void onValueChange(final int selectedValue) {
-                tvWeightRulerValueInKgs.setText(selectedValue + " kg ");
+                getUserWeightInKg = String.valueOf(selectedValue);
+                tvWeightRulerValueInKgs.setText(getUserWeightInKg + " kg ");
             }
 
             @Override
             public void onIntermediateValueChange(final int selectedValue) {
-                tvWeightRulerValueInKgs.setText(selectedValue + " kg ");
+                getUserWeightInKg = String.valueOf(selectedValue);
+                tvWeightRulerValueInKgs.setText(getUserWeightInKg + " kg ");
             }
         });
     }
@@ -111,7 +116,9 @@ public class TellUsMoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getExerciseTime = tvhHalfHrs.getText().toString();
-                tvExerciseTime.setText(getExerciseTime +" ");
+                tvExerciseTime.setText(getExerciseTime + " ");
+                totExerciseTimeInMin = "30";
+                Log.d("totExerciseTimeInMin",totExerciseTimeInMin);
                 tvhHalfHrs.setTextColor(Color.parseColor("#19CFE6"));
                 tvOneHrs.setTextColor(Color.parseColor("#6B6B6B"));
                 tvOneAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
@@ -128,7 +135,9 @@ public class TellUsMoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getExerciseTime = tvOneHrs.getText().toString();
-                tvExerciseTime.setText(getExerciseTime +" ");
+                tvExerciseTime.setText(getExerciseTime + " ");
+                totExerciseTimeInMin = "60";
+                Log.d("totExerciseTimeInMin",totExerciseTimeInMin);
                 tvOneHrs.setTextColor(Color.parseColor("#19CFE6"));
                 tvhHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
                 tvOneAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
@@ -146,7 +155,9 @@ public class TellUsMoreActivity extends AppCompatActivity {
             public void onClick(View v) {
                 getExerciseTime = tvOneAndHalfHrs.getText().toString();
                 tvOneAndHalfHrs.setTextColor(Color.parseColor("#19CFE6"));
-                tvExerciseTime.setText(getExerciseTime +" ");
+                tvExerciseTime.setText(getExerciseTime + " ");
+                totExerciseTimeInMin = "90";
+                Log.d("totExerciseTimeInMin",totExerciseTimeInMin);
                 tvhHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
                 tvOneHrs.setTextColor(Color.parseColor("#6B6B6B"));
                 tvTwoHrs.setTextColor(Color.parseColor("#6B6B6B"));
@@ -164,7 +175,9 @@ public class TellUsMoreActivity extends AppCompatActivity {
             public void onClick(View v) {
                 getExerciseTime = tvTwoHrs.getText().toString();
                 tvTwoHrs.setTextColor(Color.parseColor("#19CFE6"));
-                tvExerciseTime.setText(getExerciseTime +" ");
+                tvExerciseTime.setText(getExerciseTime + " ");
+                totExerciseTimeInMin = "120";
+                Log.d("totExerciseTimeInMin",totExerciseTimeInMin);
                 tvhHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
                 tvOneHrs.setTextColor(Color.parseColor("#6B6B6B"));
                 tvOneAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
@@ -181,7 +194,9 @@ public class TellUsMoreActivity extends AppCompatActivity {
             public void onClick(View v) {
                 getExerciseTime = tvTwoAndHalfHrs.getText().toString();
                 tvTwoAndHalfHrs.setTextColor(Color.parseColor("#19CFE6"));
-                tvExerciseTime.setText(getExerciseTime +" ");
+                tvExerciseTime.setText(getExerciseTime + " ");
+                totExerciseTimeInMin = "150";
+                Log.d("totExerciseTimeInMin",totExerciseTimeInMin);
                 tvhHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
                 tvOneHrs.setTextColor(Color.parseColor("#6B6B6B"));
                 tvOneAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
@@ -198,7 +213,9 @@ public class TellUsMoreActivity extends AppCompatActivity {
             public void onClick(View v) {
                 getExerciseTime = tvThreeHrs.getText().toString();
                 tvThreeHrs.setTextColor(Color.parseColor("#19CFE6"));
-                tvExerciseTime.setText(getExerciseTime +" ");
+                tvExerciseTime.setText(getExerciseTime + " ");
+                totExerciseTimeInMin = "180";
+                Log.d("totExerciseTimeInMin",totExerciseTimeInMin);
                 tvhHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
                 tvOneHrs.setTextColor(Color.parseColor("#6B6B6B"));
                 tvOneAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
@@ -215,7 +232,9 @@ public class TellUsMoreActivity extends AppCompatActivity {
             public void onClick(View v) {
                 getExerciseTime = tvThreeHalfHrs.getText().toString();
                 tvThreeHalfHrs.setTextColor(Color.parseColor("#19CFE6"));
-                tvExerciseTime.setText(getExerciseTime +" ");
+                tvExerciseTime.setText(getExerciseTime + " ");
+                totExerciseTimeInMin = "210";
+                Log.d("totExerciseTimeInMin",totExerciseTimeInMin);
                 tvhHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
                 tvOneHrs.setTextColor(Color.parseColor("#6B6B6B"));
                 tvOneAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
@@ -232,7 +251,9 @@ public class TellUsMoreActivity extends AppCompatActivity {
             public void onClick(View v) {
                 getExerciseTime = tvFourHrs.getText().toString();
                 tvFourHrs.setTextColor(Color.parseColor("#19CFE6"));
-                tvExerciseTime.setText(getExerciseTime +" ");
+                tvExerciseTime.setText(getExerciseTime + " ");
+                totExerciseTimeInMin = "240";
+                Log.d("totExerciseTimeInMin",totExerciseTimeInMin);
                 tvhHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
                 tvOneHrs.setTextColor(Color.parseColor("#6B6B6B"));
                 tvOneAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
@@ -244,46 +265,14 @@ public class TellUsMoreActivity extends AppCompatActivity {
                 tvFiveHrs.setTextColor(Color.parseColor("#6B6B6B"));
             }
         });
-        tvFourHalfHrs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getExerciseTime = tvFourHalfHrs.getText().toString();
-                tvFourHalfHrs.setTextColor(Color.parseColor("#19CFE6"));
-                tvExerciseTime.setText(getExerciseTime +" ");
-                tvhHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
-                tvOneHrs.setTextColor(Color.parseColor("#6B6B6B"));
-                tvOneAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
-                tvTwoHrs.setTextColor(Color.parseColor("#6B6B6B"));
-                tvTwoAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
-                tvThreeHrs.setTextColor(Color.parseColor("#6B6B6B"));
-                tvThreeHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
-                tvFourHrs.setTextColor(Color.parseColor("#6B6B6B"));
-                tvFiveHrs.setTextColor(Color.parseColor("#6B6B6B"));
-            }
-        });
-        tvFiveHrs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getExerciseTime = tvFiveHrs.getText().toString();
-                tvFiveHrs.setTextColor(Color.parseColor("#19CFE6"));
-                tvExerciseTime.setText(getExerciseTime +" ");
-                tvhHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
-                tvOneHrs.setTextColor(Color.parseColor("#6B6B6B"));
-                tvOneAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
-                tvTwoHrs.setTextColor(Color.parseColor("#6B6B6B"));
-                tvTwoAndHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
-                tvThreeHrs.setTextColor(Color.parseColor("#6B6B6B"));
-                tvThreeHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
-                tvFourHrs.setTextColor(Color.parseColor("#6B6B6B"));
-                tvFourHalfHrs.setTextColor(Color.parseColor("#6B6B6B"));
-            }
-        });
-
 
         ivContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), WakeUpTimeActivity.class);
+                intent.putExtra("totExerciseTimeInMin", totExerciseTimeInMin);
+                intent.putExtra("getUserWeightInKg", getUserWeightInKg);
+
                 startActivity(intent);
             }
         });

@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -17,11 +16,12 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.bmiCalculator.AgeModelTest;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.adapter.FetchGlassAdapter;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.dailyWaterIntake.DailyWaterIntakeRequest;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.dailyWaterIntake.DailyWaterIntakeResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchGlass.GlassFetchResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchGlass.UserGlassSize;
 import com.app.furoapp.retrofit.RestClient;
-import com.app.furoapp.retrofit.RetrofitClient;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
@@ -46,6 +46,12 @@ public class WakeUpTimeActivity extends AppCompatActivity implements FetchGlassA
     public ConstraintLayout clWakeAndBedTime;
     private String getAccessToken;
     private boolean isGlassSelected;
+    private String exerciseTime;
+    private String userWeightInKg;
+    private String glassSize;
+    public int exerciseTimeInMin;
+    private int getExerciseTimeInMin;
+    // public int ConvTime = 60;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +59,8 @@ public class WakeUpTimeActivity extends AppCompatActivity implements FetchGlassA
         setContentView(R.layout.activity_wake_up_time);
 
         getAccessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
+        exerciseTime = getIntent().getStringExtra("totExerciseTimeInMin");
+        userWeightInKg = getIntent().getStringExtra("getUserWeightInKg");
 
         findViews();
         timePickerEvent();
@@ -86,7 +94,8 @@ public class WakeUpTimeActivity extends AppCompatActivity implements FetchGlassA
                 // display a toast with changed values of time picker
                 // Toast.makeText(getApplicationContext(), hourOfDay + "  " + minute, Toast.LENGTH_SHORT).show();
                 //  time.setText("Time is :: " + hourOfDay + " : " + minute); // set the current time in text view
-                getMrngHours = hourOfDay + "" + minute;
+                getMrngHours = hourOfDay + ":" + minute;
+                Log.d("Morning Time", getMrngHours);
             }
         });
 
@@ -97,7 +106,8 @@ public class WakeUpTimeActivity extends AppCompatActivity implements FetchGlassA
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
                 // display a toast with changed values of time picker
                 //  time.setText("Time is :: " + hourOfDay + " : " + minute); // set the current time in text view
-                getEveningBedHours = hourOfDay + "" + minute;
+                getEveningBedHours = hourOfDay + ":" + minute;
+                Log.d("Bed Time", getEveningBedHours);
             }
         });
 
@@ -117,9 +127,8 @@ public class WakeUpTimeActivity extends AppCompatActivity implements FetchGlassA
             public void onClick(View v) {
                 if (isGlassSelected) {
                     includeSecondLayerBgOfGlass.setVisibility(View.GONE);
-                    Intent intent = new Intent(getApplicationContext(), CreatePlaneActivity.class);
-                    startActivity(intent);
-                }else {
+                    dailyWaterIntakeApi();   //calling api .....user/glass/daily-water-intake
+                } else {
                     Toast.makeText(WakeUpTimeActivity.this, "Please select glass size ! ", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -177,9 +186,37 @@ public class WakeUpTimeActivity extends AppCompatActivity implements FetchGlassA
 
     @Override
     public void glassSelectItem(int glassSizeInMl) {
-        String glassSize = String.valueOf(glassSizeInMl);
+        glassSize = String.valueOf(glassSizeInMl);
         isGlassSelected = true;
         Log.d(" glassSize", glassSize);
+    }
+
+
+    private void dailyWaterIntakeApi() {
+        DailyWaterIntakeRequest dailyWaterIntakeRequest = new DailyWaterIntakeRequest();
+        dailyWaterIntakeRequest.setWeight(userWeightInKg);
+        dailyWaterIntakeRequest.setExcercise_time(exerciseTime);
+        dailyWaterIntakeRequest.setBed_time(getEveningBedHours);
+        dailyWaterIntakeRequest.setWake_up_time(getMrngHours);
+        dailyWaterIntakeRequest.setGlass_size_in_ml(glassSize);
+        Util.isInternetConnected(getApplicationContext());
+        Util.showProgressDialog(getApplicationContext());
+        RestClient.getDailyWaterIntake(getAccessToken, dailyWaterIntakeRequest, new Callback<DailyWaterIntakeResponse>() {
+            @Override
+            public void onResponse(Call<DailyWaterIntakeResponse> call, Response<DailyWaterIntakeResponse> response) {
+                Util.dismissProgressDialog();
+                if (response.code() == 200 && response.body() != null && response.body().getStatus() != null) {
+                    Toast.makeText(WakeUpTimeActivity.this, "Data Saved SuccessFully !", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), CreatePlaneActivity.class);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DailyWaterIntakeResponse> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Something went wrong !", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

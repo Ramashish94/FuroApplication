@@ -16,7 +16,12 @@ import com.app.furoapp.activity.newFeature.ContentEngagementModule.saveBookmark.
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsRequest;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.dailyWaterIntake.DailyWaterIntakeRequest;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.dailyWaterIntake.DailyWaterIntakeResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchAllPlan.FetchAllPlanResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchGlass.GlassFetchResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreateModel.PlaneCreateRequest;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreateModel.PlaneCreateResponse;
 import com.app.furoapp.model.Bannersecond.BannerSecondResponse;
 import com.app.furoapp.model.FriendModel.AddFriend;
 import com.app.furoapp.model.FriendModel.FriendInviteModel;
@@ -434,4 +439,15 @@ public interface ApiInterface {
     @GET("user/glass/fetch")
     Call<GlassFetchResponse>userFetchGlass (@Header(TOKEN_KEY) String token);
 
+    /*daily water intake monitor */
+    @POST("user/glass/daily-water-intake")
+    Call<DailyWaterIntakeResponse>dailyWaterIntake (@Header(TOKEN_KEY) String token, @Body DailyWaterIntakeRequest dailyWaterIntakeRequest);
+
+    /*user/fetch-all-plan*/
+    @GET("user/fetch-all-plan")
+    Call<FetchAllPlanResponse>fetchAllPlan (@Header(TOKEN_KEY) String token);
+
+    /*user/plan/create*/
+    @POST("user/plan/create")
+    Call<PlaneCreateResponse>planeCreate (@Header(TOKEN_KEY) String token, @Body PlaneCreateRequest planeCreateRequest);
 }

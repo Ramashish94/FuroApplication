@@ -160,9 +160,8 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterGlass
         ivStartJourney.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(CreatePlaneActivity.this, "New activity", Toast.LENGTH_SHORT).show();
-               /* Intent intent = new Intent(getApplicationContext(), WaterIntakeCounterActivity.class);
-                startActivity(intent);*/
+                Intent intent = new Intent(getApplicationContext(), WaterIntakeCounterActivity.class);
+                startActivity(intent);
             }
         });
     }

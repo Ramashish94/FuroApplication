@@ -68,6 +68,6 @@
         <item>@color/dot_light_screen2</item>
         <item>@color/dot_light_screen2</item>
     </array>
-
+    <color name="secondaryAccentColor">#3caed6</color>
 
 </resources>

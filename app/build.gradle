@@ -10,7 +10,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 50/*48*/
-        versionName "2.1.31"/*2.1.27*/
+        versionName "2.1.32"/*2.1.27*/
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
@@ -149,7 +149,11 @@ android {
 
         implementation 'com.github.dimorinny:floating-text-button:0.0.4'
 
+        implementation ("com.shimaami.android:progressview:1.0") {
+            exclude module: "appcompat-v7"
+        }
 
+        implementation 'com.shimaami.android:progressview:1.0.1'
     }
 
 

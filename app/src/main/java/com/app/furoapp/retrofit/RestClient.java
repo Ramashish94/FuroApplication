@@ -16,6 +16,9 @@ import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.View
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
 import com.app.furoapp.activity.newFeature.notification.notificationModel.NotificationResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.cupCreate.CupCreateResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.customeSizeGlass.CustomGlassSizeRequest;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.customeSizeGlass.CustomGlassSizeResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.dailyWaterIntake.DailyWaterIntakeRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.dailyWaterIntake.DailyWaterIntakeResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchAllPlan.FetchAllPlanResponse;
@@ -409,6 +412,15 @@ public class RestClient {
     public static void getPlaneCreate(String token, PlaneCreateRequest planeCreateRequest, Callback<PlaneCreateResponse> callback) {
         RetrofitClient.getClient().planeCreate(token, planeCreateRequest).enqueue(callback);
     }
+
+    public static void getCupCreate(String token,  Callback<CupCreateResponse> callback) {
+        RetrofitClient.getClient().cupCreate(token).enqueue(callback);
+    }
+
+    public static void getCustomSizeGlass(String token, CustomGlassSizeRequest customGlassSizeRequest, Callback<CustomGlassSizeResponse> callback) {
+        RetrofitClient.getClient().customGlassSize(token,customGlassSizeRequest).enqueue(callback);
+    }
+
 
 
 }

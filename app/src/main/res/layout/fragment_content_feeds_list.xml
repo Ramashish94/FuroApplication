@@ -37,7 +37,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="12dp"
-
                     android:text="Videos"
                     android:textColor="@color/black_btn"
                     android:textSize="@dimen/sp_12"

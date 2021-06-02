@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/llCreatePlanPopUpMenu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bedtime2bg"
@@ -12,10 +10,11 @@
         android:id="@+id/llGlassTakebg"
         android:layout_width="312dp"
         android:layout_height="match_parent"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="@dimen/dp_90"
         android:layout_marginBottom="@dimen/dp_90"
         android:background="@drawable/closingbg2"
         android:orientation="vertical">
+
 
         <LinearLayout
             android:id="@+id/llClosedIcon"
@@ -33,8 +32,8 @@
                 <ImageView
                     android:layout_width="162dp"
                     android:layout_height="@dimen/dp_24"
-                    android:layout_marginRight="18dp"
-                    android:src="@drawable/water_intake_amount" />
+                    android:layout_marginRight="@dimen/dp_30"
+                    android:src="@drawable/edit_cup_size" />
             </LinearLayout>
 
 
@@ -57,61 +56,17 @@
 
         </LinearLayout>
 
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_20">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_60"
-                android:layout_margin="18dp"
-                android:src="@drawable/intake_amount_title" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="272dp"
-            android:layout_height="146dp"
-            android:layout_gravity="center"
-            android:background="@drawable/intake_amount_bg"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvCreatePlan"
+                android:id="@+id/rvSelectCupSize"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/dp_30"
-                android:layout_marginRight="@dimen/dp_30" />
+                android:layout_height="400dp"
+                android:layout_gravity="center" />
         </LinearLayout>
-
-        <ImageView
-            android:layout_width="135dp"
-            android:layout_height="@dimen/dp_20"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/dp_10"
-            android:background="@drawable/based_your_plan" />
-
-
-        <ImageView
-            android:id="@+id/ivOverloadIndicatorMsg"
-            android:layout_width="275dp"
-            android:layout_height="@dimen/dp_40"
-            android:layout_gravity="center"
-            android:layout_marginTop="18dp"
-            android:background="@drawable/dont_try_to_go_overhead" />
-
-        <TextView
-            android:id="@+id/tvFeelAweSome"
-            android:layout_width="272dp"
-            android:layout_height="@dimen/dp_30"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="The feel awesome"
-            android:textColor="#43A714"
-            android:textSize="@dimen/sp_16"
-            android:visibility="gone" />
 
 
         <LinearLayout
@@ -124,12 +79,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"
                 android:layout_marginLeft="@dimen/dp_30"
-                android:layout_marginTop="@dimen/dp_35"
                 android:layout_marginRight="@dimen/dp_30"
                 android:background="@drawable/viewline" />
 
+           <!-- <ImageView
+                android:id="@+id/ivSave"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/saveicon" />-->
+
             <TextView
-                android:id="@+id/tvCreatePlan"
+                android:id="@+id/tvAddCustomSize"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_40"
                 android:layout_marginLeft="28dp"
@@ -138,11 +103,12 @@
                 android:background="@drawable/btn_next_shape"
                 android:fontFamily="@font/bebase_neue"
                 android:gravity="center"
-                android:text="Create plan"
+                android:text="Add Custom Size"
                 android:textColor="@color/white"
                 android:textStyle="italic" />
-
         </LinearLayout>
 
     </LinearLayout>
+
+
 </LinearLayout>

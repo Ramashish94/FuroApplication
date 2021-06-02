@@ -2,19 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llSecondWaterGlassBg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bedtime2bg"
     android:gravity="center"
-    android:id="@+id/llSecondWaterGlassBg">
+    tools:context=".activity.newFeature.waterIntakeCalculator.WakeUpTimeActivity">
 
     <LinearLayout
         android:id="@+id/llGlassTakebg"
         android:layout_width="312dp"
         android:layout_height="match_parent"
-        android:background="@drawable/closingbg2"
         android:layout_marginTop="@dimen/dp_90"
         android:layout_marginBottom="@dimen/dp_90"
+        android:background="@drawable/closingbg2"
         android:orientation="vertical">
 
         <LinearLayout
@@ -40,20 +41,24 @@
                 android:id="@+id/rvGlassWater"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center" />
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            android:background="@drawable/viewline"
-            android:layout_marginLeft="@dimen/dp_30"
-            android:layout_marginRight="@dimen/dp_30"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:orientation="vertical"
             tools:ignore="MissingConstraints">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginLeft="@dimen/dp_30"
+                android:layout_marginRight="@dimen/dp_30"
+                android:background="@drawable/viewline" />
 
             <ImageView
                 android:id="@+id/ivSave"
@@ -62,7 +67,7 @@
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="28dp"
                 android:layout_marginRight="28dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/saveicon" />
         </LinearLayout>
 

@@ -152,7 +152,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/tvGlassCount"
+                            android:id="@+id/tvNosGlassCount"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"

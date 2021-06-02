@@ -31,13 +31,13 @@
         android:roundIcon="@mipmap/app_icon_new_round"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.newFeature.waterIntakeCalculator.WaterIntakeCounterActivity"></activity>
+        <activity
+            android:name=".activity.newFeature.waterIntakeCalculator.WaterIntakeCounterActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activity.newFeature.waterIntakeCalculator.CreatePlaneActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activity.newFeature.waterIntakeCalculator.WhatsYourBedTimeActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activity.newFeature.waterIntakeCalculator.WakeUpTimeActivity"
             android:theme="@style/AppTheme.NoActionBar" />

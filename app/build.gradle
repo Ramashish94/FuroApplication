@@ -149,11 +149,7 @@ android {
 
         implementation 'com.github.dimorinny:floating-text-button:0.0.4'
 
-        implementation ("com.shimaami.android:progressview:1.0") {
-            exclude module: "appcompat-v7"
-        }
 
-        implementation 'com.shimaami.android:progressview:1.0.1'
     }
 
 

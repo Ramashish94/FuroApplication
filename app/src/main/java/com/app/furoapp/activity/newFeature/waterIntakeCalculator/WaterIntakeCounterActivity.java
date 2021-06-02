@@ -36,7 +36,7 @@ import retrofit2.Response;
 public class WaterIntakeCounterActivity extends AppCompatActivity implements SelectCupSizeAdapter.GlassClickCallBack {
     public ImageView ivAddCup, ivAddCustomSizeCup, ivCancel;
     private String getAccessToken;
-    public TextView tvGlassCount, tvTakingWater, tvAddCustomSize, tvRecommendedReamingWater, tvGlassSize;
+    public TextView tvNosGlassCount, tvTakingWater, tvAddCustomSize, tvRecommendedReamingWater, tvGlassSize;
     public View includePopMenuOfSelectCupSize;
     public RecyclerView rvSelectCupSize;
     public SelectCupSizeAdapter selectCupSizeAdapter;
@@ -57,9 +57,9 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
     }
 
     private void initViews() {
-        ivAddCup = findViewById(R.id.ivAddCustomSizeCup);
+        ivAddCup = findViewById(R.id.ivAddCup);
         ivAddCustomSizeCup = findViewById(R.id.ivAddCustomSizeCup);
-        tvGlassCount = findViewById(R.id.tvGlassCount);
+        tvNosGlassCount = findViewById(R.id.tvNosGlassCount);
         tvTakingWater = findViewById(R.id.tvTakingWater);
         includePopMenuOfSelectCupSize = findViewById(R.id.includePopMenuOfSelectCupSize);
         ivCancel = findViewById(R.id.ivCancel);
@@ -128,7 +128,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
     private void setData(AddUserCup addUserCup) {
         tvTakingWater.setText("" + addUserCup.getTakenWaterInMl().toString());
         tvRecommendedReamingWater.setText("of " + addUserCup.getRecommendedGlassOfWater() + " ml");
-        tvGlassCount.setText(addUserCup.getTakenGlassOfWater());
+        tvNosGlassCount.setText(Integer.toString(addUserCup.getTakenGlassOfWater()));
         tvGlassSize.setText("( " + addUserCup.getGlassSizeInMl() + "ml )");
     }
 

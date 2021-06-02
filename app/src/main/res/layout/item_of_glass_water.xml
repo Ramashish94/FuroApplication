@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="110dp"
     android:gravity="center"
     android:layout_marginTop="@dimen/dp_20"
     android:layout_marginLeft="@dimen/dp_8"
@@ -10,7 +10,8 @@
     <LinearLayout
         android:id="@+id/llGlassMeasuring"
         android:layout_width="56dp"
-        android:layout_height="108dp"
+        android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content"
         android:background="@drawable/glassbg1"
         android:gravity="center_horizontal"
         android:orientation="vertical">
@@ -19,8 +20,8 @@
             android:id="@+id/ivGlass"
             android:layout_width="@dimen/dp_40"
             android:layout_height="@dimen/dp_24"
-            android:layout_marginTop="@dimen/dp_6"
-            android:src="@drawable/glassicon" />
+            android:layout_marginTop="@dimen/dp_7"
+            android:src="@drawable/glassicon"/>
 
         <TextView
             android:id="@+id/tvWaterMlSize"

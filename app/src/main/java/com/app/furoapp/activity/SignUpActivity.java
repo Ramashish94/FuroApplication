@@ -764,38 +764,38 @@ public class SignUpActivity extends AppCompatActivity {
         String userDob = signDateOfBirth.getText().toString().trim();
         String userUniName = uniqueUserName.getText().toString().trim();
 
-        if (TextUtils.isEmpty(userName.trim()) || signName.length() == 0) {
+        if (TextUtils.isEmpty(userName.trim()) || signName.getText().length() == 0) {
             Util.displayToast(this, "Please enter Name");
             check = false;
         }
-        if (TextUtils.isEmpty(mobilenumber.trim()) || signName.length() == 0) {
+        if (TextUtils.isEmpty(mobilenumber.trim()) || signName.getText().length() == 0) {
             Util.displayToast(this, "Please enter Mobile number");
             check = false;
         }
-        if (TextUtils.isEmpty(userEmail.trim()) || signEmail.length() == 0) {
+        if (TextUtils.isEmpty(userEmail.trim()) || signEmail.getText().length() == 0) {
             Util.displayToast(this, "Please enter valid email");
             check = false;
         }
-        if (TextUtils.isEmpty(userDob.trim()) || signDateOfBirth.length() == 0) {
+        if (TextUtils.isEmpty(userDob.trim()) || signDateOfBirth.getText().length() == 0) {
             Util.displayToast(this, "Please enter Date Of Birth");
             check = false;
         }
 
         if (googleId.equals("") && fbId.equals("")) {
-            if (TextUtils.isEmpty(userPassword.trim()) || signPassword.length() == 0) {
+            if (TextUtils.isEmpty(userPassword.trim()) || signPassword.getText().length() == 0) {
                 Util.displayToast(this, "Please enter valid password");
                 check = false;
             }
         }
-        if (TextUtils.isEmpty(mCountry) || signCountry.length() == 0) {
+        if (TextUtils.isEmpty(mCountry) || signCountry.getText().length() == 0) {
             Util.displayToast(this, "Please enter valid country");
             check = false;
         }
-        if (TextUtils.isEmpty(city) || signCity.length() == 0) {
+        if (TextUtils.isEmpty(city) || signCity.getText().length() == 0) {
             Util.displayToast(this, "Please enter city");
             check = false;
         }
-        if (TextUtils.isEmpty(state) || signCountry.length() == 0) {
+        if (TextUtils.isEmpty(state) || signState.getText().length() == 0) {
             Util.displayToast(this, "Please enter state");
             check = false;
         }
@@ -835,22 +835,22 @@ public class SignUpActivity extends AppCompatActivity {
         if (check) {
 
             if (mCountry == null) {
-                mCountry = "";
+                mCountry = signCountry.getText().toString();
             }
             if (state == null) {
-                state = "";
+                state = signState.getText().toString();
             }
             if (city == null) {
-                city = "";
+                city = signCity.getText().toString();
             }
             RequestBody name = RequestBody.create(MediaType.parse("text/plain"), userName);
             RequestBody emailUser = RequestBody.create(MediaType.parse("text/plain"), userEmail);
             RequestBody user_Password = RequestBody.create(MediaType.parse("text/plain"), userPassword);
             RequestBody user_Dob = RequestBody.create(MediaType.parse("text/plain"), userDob);
             RequestBody Gender = RequestBody.create(MediaType.parse("text/plain"), userGender);
-            RequestBody userCountry = RequestBody.create(MediaType.parse("text/plain"), mCountry);
-            RequestBody userState = RequestBody.create(MediaType.parse("text/plain"), state);
-            RequestBody userCity = RequestBody.create(MediaType.parse("text/plain"), city);
+            RequestBody userCountry = RequestBody.create(MediaType.parse("text/plain"), signCountry.getText().toString());
+            RequestBody userState = RequestBody.create(MediaType.parse("text/plain"), signState.getText().toString());
+            RequestBody userCity = RequestBody.create(MediaType.parse("text/plain"), signCity.getText().toString());
             RequestBody userPlatForm = RequestBody.create(MediaType.parse("text/plain"), userPlatform);
             RequestBody userFbid = RequestBody.create(MediaType.parse("text/plain"), fbId);
             RequestBody usergoogleid = RequestBody.create(MediaType.parse("text/plain"), googleId);

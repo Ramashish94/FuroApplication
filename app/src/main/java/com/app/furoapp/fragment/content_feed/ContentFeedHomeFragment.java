@@ -25,6 +25,8 @@ import com.app.furoapp.R;
 import com.app.furoapp.activity.ContentFeedDetailActivity;
 import com.app.furoapp.activity.HomeMainActivity;
 import com.app.furoapp.activity.YoutubePlayerActivity;
+import com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragment_ListingNew.ActivitiesListing;
+import com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragment_ListingNew.Datum;
 import com.app.furoapp.activity.newFeature.healthCare.Days21FitnessChallangeActivity;
 import com.app.furoapp.activity.newFeature.likeAndSaved.LikedAndSavedActivity;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.like.LikeRequest;
@@ -35,9 +37,7 @@ import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.View
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsResponse;
 import com.app.furoapp.adapter.ContentFeedHomeAdapter;
 import com.app.furoapp.databinding.FragmentContentFeedsListBinding;
-import com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragment_ListingNew.ActivitiesListing;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragment_ListingNew.ActivityFilterData;
-import com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragment_ListingNew.Datum;
 import com.app.furoapp.model.updateToken.UdateTokenResponse;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
@@ -165,79 +165,79 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
     }
 
     private void getDataAll(String type) {
-        Util.isInternetConnected(getContext());
-        Util.showProgressDialog(getContext());
-        RestClient.myContentfeedAllActivity(getAccessToken, new Callback<ActivitiesListing>() {
-            @Override
-            public void onResponse(Call<ActivitiesListing> call, Response<ActivitiesListing> response) {
-                Util.dismissProgressDialog();
+        if (Util.isInternetConnected(getActivity())) {
+            Util.showProgressDialog(getActivity());
+            RestClient.myContentfeedAllActivity(getAccessToken, new Callback<ActivitiesListing>() {
+                @Override
+                public void onResponse(Call<ActivitiesListing> call, Response<ActivitiesListing> response) {
+                    Util.dismissProgressDialog();
 
-                if (response.body() != null) {
-                    ActivitiesListing activitiesListing = response.body();
-                    if (activitiesListing != null && activitiesListing.getData() != null) {
-                        List<Datum> datumList = activitiesListing.getData();
-                        if (datumList != null && datumList.size() > 0) {
-                            Log.d(TAG, "" + datumList.size());
-                            data.clear();
-                            if (type.equalsIgnoreCase("video")) {
-                                for (int i = 0; i < datumList.size(); i++) {
-                                    if (datumList.get(i).getVideo() != null) {
-                                        ActivityFilterData filterData = new ActivityFilterData();
-                                        filterData.setDatum(datumList.get(i));
-                                        datum = filterData.getDatum();
-                                        datum.setVideo("" + datumList.get(i).getVideo());
-                                        datum.setId(datumList.get(i).getId());
-                                        datum.setIcon(datumList.get(i).getIcon());
-                                        datum.setType("" + datumList.get(i).getType());
-//                                        datum.setType("" + datumList.get(i).getType());
-                                        datum.setDescription("" + datumList.get(i).getDescription());
-
-                                        Log.d(TAG, "Add DatumList");
-                                        data.addAll(Collections.singleton(datum));
-                                    }
-                                }
-                                setContentFeedHomeAdapter(data);
-                            }
-                            if (type.equalsIgnoreCase("Article")) {
-                                for (int i = 0; i < datumList.size(); i++) {
-                                    if (datumList.get(i).getVideo() == null) {
-                                        ActivityFilterData filterData = new ActivityFilterData();
-                                        filterData.setDatum(datumList.get(i));
-                                        datum = filterData.getDatum();
-                                        datum.setImage("" + datumList.get(i).getImage());
-                                        datum.setId(datumList.get(i).getId());
-                                        datum.setIcon(datumList.get(i).getIcon());
-                                        datum.setType("" + datumList.get(i).getType());
-//                                        datum.setType("" + datumList.get(i).getType());
-                                        datum.setDescription("" + datumList.get(i).getDescription());
-                                        data.addAll(Collections.singleton(datum));
-                                    }
-
-                                }
-                                setContentFeedHomeAdapter(data);
-                            }
-                        }
-
-                        if (type.equalsIgnoreCase("")) {
+                    if (response.body() != null) {
+                        ActivitiesListing activitiesListing = response.body();
+                        if (activitiesListing != null && activitiesListing.getData() != null) {
+                            List<Datum> datumList = activitiesListing.getData();
                             if (datumList != null && datumList.size() > 0) {
-                                id = datumList.get(0).getId();
-                                FuroPrefs.putString(getContext(), "activity_id", String.valueOf(id));
-                                FuroPrefs.putString(getApplicationContext(), Constants.ACTIVITY_Id, String.valueOf(id));
-                                setContentFeedHomeAdapter(datumList);
-                                //recyclerView.setAdapter(contentFeedHomeAdapter);
+                                Log.d(TAG, "" + datumList.size());
+                                data.clear();
+                                if (type.equalsIgnoreCase("video")) {
+                                    for (int i = 0; i < datumList.size(); i++) {
+                                        if (datumList.get(i).getVideo() != null) {
+                                            ActivityFilterData filterData = new ActivityFilterData();
+                                            filterData.setDatum(datumList.get(i));
+                                            datum = filterData.getDatum();
+                                            datum.setVideo("" + datumList.get(i).getVideo());
+                                            datum.setId(datumList.get(i).getId());
+                                            datum.setIcon(datumList.get(i).getIcon());
+                                            datum.setType("" + datumList.get(i).getType());
+//                                        datum.setType("" + datumList.get(i).getType());
+                                            datum.setDescription("" + datumList.get(i).getDescription());
+
+                                            Log.d(TAG, "Add DatumList");
+                                            data.addAll(Collections.singleton(datum));
+                                        }
+                                    }
+                                    setContentFeedHomeAdapter(data);
+                                }
+                                if (type.equalsIgnoreCase("Article")) {
+                                    for (int i = 0; i < datumList.size(); i++) {
+                                        if (datumList.get(i).getVideo() == null) {
+                                            ActivityFilterData filterData = new ActivityFilterData();
+                                            filterData.setDatum(datumList.get(i));
+                                            datum = filterData.getDatum();
+                                            datum.setImage("" + datumList.get(i).getImage());
+                                            datum.setId(datumList.get(i).getId());
+                                            datum.setIcon(datumList.get(i).getIcon());
+                                            datum.setType("" + datumList.get(i).getType());
+//                                        datum.setType("" + datumList.get(i).getType());
+                                            datum.setDescription("" + datumList.get(i).getDescription());
+                                            data.addAll(Collections.singleton(datum));
+                                        }
+
+                                    }
+                                    setContentFeedHomeAdapter(data);
+                                }
+                            }
+
+                            if (type.equalsIgnoreCase("")) {
+                                if (datumList != null && datumList.size() > 0) {
+                                    id = datumList.get(0).getId();
+                                    FuroPrefs.putString(getContext(), "activity_id", String.valueOf(id));
+                                    FuroPrefs.putString(getApplicationContext(), Constants.ACTIVITY_Id, String.valueOf(id));
+                                    setContentFeedHomeAdapter(datumList);
+                                    //recyclerView.setAdapter(contentFeedHomeAdapter);
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<ActivitiesListing> call, Throwable t) {
-                Toast.makeText(homeMainActivity, "No internet connection!", Toast.LENGTH_SHORT).show();
+                @Override
+                public void onFailure(Call<ActivitiesListing> call, Throwable t) {
+                    Toast.makeText(homeMainActivity, "Something went wrong !", Toast.LENGTH_SHORT).show();
 
-            }
-        });
-
+                }
+            });
+        }
     }
 
     private void setContentFeedHomeAdapter(List<Datum> list) {
@@ -301,7 +301,7 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
         });
     }
 
-       /*com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.Like event */
+    /*com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.Like event */
     private void callLikeApi(LikeRequest data) {
         RestClient.userPostLike(getAccessToken, data, new Callback<LikeResponse>() {
             @Override
@@ -439,15 +439,15 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
     }
 
     @Override
-    public void contentFeedItem(int pos,int videoId) {
-        adapterCurrentPos=pos;
+    public void contentFeedItem(int pos, int videoId) {
+        adapterCurrentPos = pos;
         Intent intent = new Intent(getContext(), YoutubePlayerActivity.class);
         startActivity(intent);
     }
 
     @Override
-    public void contentFeedItem2(int pos,int id) {
-        adapterCurrentPos=pos;
+    public void contentFeedItem2(int pos, int id) {
+        adapterCurrentPos = pos;
         Intent intent = new Intent(getContext(), ContentFeedDetailActivity.class);
         startActivity(intent);
         FuroPrefs.putString(getActivity(), "id", String.valueOf(id));

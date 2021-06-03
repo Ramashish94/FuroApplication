@@ -21,6 +21,7 @@ import com.app.furoapp.activity.newFeature.waterIntakeCalculator.dailyWaterIntak
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.dailyWaterIntake.DailyWaterIntakeResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchGlass.GlassFetchResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchGlass.UserGlassSize;
+import com.app.furoapp.activity.tutorialScreens.LoginWithEmailActivity;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
@@ -121,6 +122,7 @@ public class WakeUpTimeActivity extends AppCompatActivity implements FetchGlassA
             public void onClick(View v) {
                 if (isWakeUpTimeSelected && isBedTimeSelected) {
                     includeSecondLayerBgOfGlass.setVisibility(View.VISIBLE);
+                    clWakeAndBedTime.setClickable(false);
                     callFetchGlassApi();
                 } else {
                     Toast.makeText(WakeUpTimeActivity.this, "Please select wake up time and bed time!", Toast.LENGTH_SHORT).show();
@@ -155,11 +157,18 @@ public class WakeUpTimeActivity extends AppCompatActivity implements FetchGlassA
         RestClient.getUserGlassFetch(getAccessToken, new Callback<GlassFetchResponse>() {
             @Override
             public void onResponse(Call<GlassFetchResponse> call, Response<GlassFetchResponse> response) {
-                if (response.code() == 200 && response.body() != null && response.body().getStatus() != null) {
-
-                    if (response.body().getUserGlassSizes() != null) {
-                        notifyGlassAdapter(response.body().getUserGlassSizes());
+                if (response.code() == 200) {
+                    if (response.body() != null && response.body().getStatus() != null) {
+                        if (response.body().getUserGlassSizes() != null) {
+                            notifyGlassAdapter(response.body().getUserGlassSizes());
+                        }
                     }
+                } else if (response.code() == 500) {
+                    Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
+                } else if (response.code() == 403) {
+                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
+                } else if (response.code() == 404) {
+                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -210,10 +219,18 @@ public class WakeUpTimeActivity extends AppCompatActivity implements FetchGlassA
             @Override
             public void onResponse(Call<DailyWaterIntakeResponse> call, Response<DailyWaterIntakeResponse> response) {
                 Util.dismissProgressDialog();
-                if (response.code() == 200 && response.body() != null && response.body().getStatus() != null) {
-                    Toast.makeText(WakeUpTimeActivity.this, "Data Saved SuccessFully !", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(), CreatePlaneActivity.class);
-                    startActivity(intent);
+                if (response.code() == 200) {
+                    if (response.body() != null && response.body().getStatus() != null) {
+                        Toast.makeText(WakeUpTimeActivity.this, "Data Saved SuccessFully !", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), CreatePlaneActivity.class);
+                        startActivity(intent);
+                    }
+                } else if (response.code() == 500) {
+                    Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
+                } else if (response.code() == 403) {
+                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
+                } else if (response.code() == 404) {
+                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
 

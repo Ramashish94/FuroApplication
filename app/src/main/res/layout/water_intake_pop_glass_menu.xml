@@ -4,54 +4,87 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/llSecondWaterGlassBg"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/bedtime2bg"
     android:gravity="center"
     tools:context=".activity.newFeature.waterIntakeCalculator.WakeUpTimeActivity">
 
     <LinearLayout
         android:id="@+id/llGlassTakebg"
-        android:layout_width="312dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/dp_90"
-        android:layout_marginBottom="@dimen/dp_90"
+        android:layout_margin="@dimen/dp_30"
         android:background="@drawable/closingbg2"
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/llClosedIcon"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_45"
-            android:layout_gravity="end|center_horizontal"
-            android:gravity="end|center_vertical">
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="@dimen/dp_24"
-                android:layout_height="@dimen/dp_24"
-                android:layout_marginRight="18dp"
-                android:src="@drawable/closediconwhite" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvGlassWater"
+            <LinearLayout
+                android:id="@+id/llClosedIcon"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_gravity="center" />
-        </LinearLayout>
+                android:layout_height="?actionBarSize"
+                android:layout_gravity="end|center_horizontal"
+                android:gravity="end|center_vertical">
 
+                <ImageView
+                    android:layout_width="@dimen/dp_24"
+                    android:layout_height="@dimen/dp_24"
+                    android:layout_marginRight="18dp"
+                    android:src="@drawable/closediconwhite" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/rectbg_white"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="What is general glass size/quantity that you consume every time you ?"
+                    android:textColor="@color/black_color"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginRight="@dimen/dp_16"
+                    android:layout_marginLeft="@dimen/dp_16"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvGlassWater"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:gravity="bottom"
+            android:layout_height="match_parent"
+            android:layout_weight="80"
+            android:gravity="center"
             android:orientation="vertical"
             tools:ignore="MissingConstraints">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dont worry you will als have an option to add custom quantities in the daily dashboard."
+                android:textColor="@color/vertical_line_color"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginRight="@dimen/dp_16"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_marginBottom="@dimen/dp_16"/>
+
 
             <View
                 android:layout_width="match_parent"
@@ -66,8 +99,9 @@
                 android:layout_height="@dimen/dp_40"
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="28dp"
+                android:layout_marginTop="@dimen/dp_16"
                 android:layout_marginRight="28dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/dp_20"
                 android:background="@drawable/saveicon" />
         </LinearLayout>
 

@@ -1,8 +1,8 @@
 package com.app.furoapp.activity.newFeature.waterIntakeCalculator;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,13 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.bmiCalculator.AgeAdapter;
-import com.app.furoapp.activity.newFeature.bmiCalculator.AgeModelTest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.adapter.AllPlanAdapter;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.adapter.WaterGlassSizeAdapter;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchAllPlan.AllPlan;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchAllPlan.FetchAllPlanResponse;
-import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchAllPlan.RecommendedPlans;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchAllPlan.GlassSize;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.PlaneCreateRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.PlaneCreateResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.WaterGlassSizeModel;
@@ -38,7 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CreatePlaneActivity extends AppCompatActivity implements WaterGlassSizeAdapter.WaterGlassSizeClickCallBack {
+public class CreatePlaneActivity extends AppCompatActivity implements WaterGlassSizeAdapter.WaterGlassSizeClickCallBack, AllPlanAdapter.AllPlanClickCallBack {
     public LinearLayout llMorePlan, llRecommended, llOthersPlan;
     public TextView tvShowsMl, tvShowMl2, tvRecommended, tvEveryTime, tvCreatePlan, tvFeelAweSome;
     public ImageView ivClockImg, ivStartJourney, ivCancel, ivOverloadIndicatorMsg;
@@ -53,6 +51,7 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterGlass
     List<WaterGlassSizeModel> waterGlassSizeModelList = new ArrayList<>();
     public int waterGlassSize;
     private boolean isGlassSizeSelected;
+    ConstraintLayout clCreatePlanLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +81,7 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterGlass
         tvCreatePlan = findViewById(R.id.tvCreatePlan);
         ivOverloadIndicatorMsg = findViewById(R.id.ivOverloadIndicatorMsg);
         tvFeelAweSome = findViewById(R.id.tvFeelAweSome);
+        clCreatePlanLayout = findViewById(R.id.clCreatePlanLayout);
     }
 
     private void callFetchAllPlanApi() {
@@ -93,7 +93,9 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterGlass
                 Util.dismissProgressDialog();
                 if (response.code() == 200 && response.body() != null && response.body().getStatus() != null) {
                     //recommended plan
-                    setRecommendedData(response.body().getRecommendedPlans());
+                    setRecommendedData(response.body());
+                    //set time for recommended plan
+                    setTimeForRecommendedPlan(response.body().getAllPlans().get(0));
                     //for all plan
                     notifyAllPlanAdapter(response.body().getAllPlans());
                 } else {
@@ -108,13 +110,20 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterGlass
         });
     }
 
-    private void setRecommendedData(RecommendedPlans recommendedPlans) {
-        tvShowsMl.setText(recommendedPlans.getRecommendedWater()+" ml");
-        tvEveryTime.setText("Every " + recommendedPlans.getTimeDuration() + " minutes");
+    private void setRecommendedData(FetchAllPlanResponse body) {
+        tvShowsMl.setText(body.getGlassSize().getGlassSizeInMl() + " ml");
+        if (body.getAllPlans().get(0).getId() == 1) {
+            tvEveryTime.setText("Every " + body.getAllPlans().get(0).getRecommendedDurationInMins() + " minutes");
+        }
+    }
+
+    private void setTimeForRecommendedPlan(AllPlan allPlan) {
+        if (allPlan.getId() == 1) {
+        }
     }
 
     private void setAllPlanAdapter() {
-        allPlanAdapter = new AllPlanAdapter(getApplicationContext(), allPlanList);
+        allPlanAdapter = new AllPlanAdapter(getApplicationContext(), allPlanList, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         rvAllPlan.setLayoutManager(layoutManager);
         rvAllPlan.setItemAnimator(new DefaultItemAnimator());
@@ -134,6 +143,7 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterGlass
             @Override
             public void onClick(View v) {
                 includeCreatePlanPopUp.setVisibility(View.VISIBLE);
+                clCreatePlanLayout.setClickable(false);
                 setCreatePlanAdapter();
             }
         });
@@ -217,5 +227,12 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterGlass
             tvFeelAweSome.setVisibility(View.VISIBLE);
             ivOverloadIndicatorMsg.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void getPlanClickCallBack(Integer id, String waterTakeInMl, String recommendedDurationInMins) {
+        String planId = String.valueOf(id);
+        String waterTakeMl =waterTakeInMl;
+        String recDurationTime= recommendedDurationInMins;
     }
 }

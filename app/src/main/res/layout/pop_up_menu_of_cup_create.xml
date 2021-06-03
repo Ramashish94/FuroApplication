@@ -4,9 +4,138 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bedtime2bg"
-    android:gravity="center">
+    android:gravity="center"
+    tools:context=".activity.newFeature.waterIntakeCalculator.WaterIntakeCounterActivity">
+
 
     <LinearLayout
+        android:id="@+id/llGlassTakebg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/dp_30"
+        android:background="@drawable/closingbg2"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/llClosedIcon"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:layout_gravity="end|center_horizontal"
+                android:gravity="end|center_vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="162dp"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_marginRight="@dimen/dp_30"
+                        android:src="@drawable/edit_cup_size" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/llClosedIcon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="80"
+                    android:gravity="center"
+                    tools:ignore="DuplicateIds">
+
+                    <ImageView
+                        android:id="@+id/ivCancel"
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginRight="18dp"
+                        android:src="@drawable/closediconwhite" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:background="@drawable/rectbg_white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginRight="@dimen/dp_16"
+                    android:gravity="center"
+                    android:text="What is general glass size/quantity that you consume every time you ?"
+                    android:textColor="@color/black_color" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvSelectCupSize"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="80"
+            android:gravity="center"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_marginRight="@dimen/dp_16"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:gravity="center"
+                android:text="Dont worry you will als have an option to add custom quantities in the daily dashboard."
+                android:textColor="@color/vertical_line_color" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginLeft="@dimen/dp_30"
+                android:layout_marginRight="@dimen/dp_30"
+                android:background="@drawable/viewline" />
+
+            <TextView
+                android:id="@+id/tvAddCustomSize"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_35"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginRight="28dp"
+                android:background="@drawable/btn_next_shape"
+                android:fontFamily="@font/bebase_neue"
+                android:gravity="center"
+                android:text="Add Custom Size"
+                android:textColor="@color/white"
+                android:textStyle="italic" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <!--<LinearLayout
         android:id="@+id/llGlassTakebg"
         android:layout_width="312dp"
         android:layout_height="match_parent"
@@ -82,7 +211,7 @@
                 android:layout_marginRight="@dimen/dp_30"
                 android:background="@drawable/viewline" />
 
-           <!-- <ImageView
+           &lt;!&ndash; <ImageView
                 android:id="@+id/ivSave"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_40"
@@ -91,7 +220,7 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_marginRight="28dp"
                 android:layout_marginBottom="15dp"
-                android:background="@drawable/saveicon" />-->
+                android:background="@drawable/saveicon" />&ndash;&gt;
 
             <TextView
                 android:id="@+id/tvAddCustomSize"
@@ -108,7 +237,7 @@
                 android:textStyle="italic" />
         </LinearLayout>
 
-    </LinearLayout>
+    </LinearLayout>-->
 
 
 </LinearLayout>

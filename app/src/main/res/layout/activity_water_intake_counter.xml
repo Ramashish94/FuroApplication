@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/create_plan_bg"
     android:orientation="vertical"
+    android:id="@+id/clWaterIntakeCounter"
     tools:context=".activity.newFeature.waterIntakeCalculator.WaterIntakeCounterActivity">
 
     <FrameLayout
@@ -29,6 +30,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/ivBackIcon"
                         android:layout_width="@dimen/dp_25"
                         android:layout_height="@dimen/dp_25"
                         android:layout_weight="25"
@@ -46,6 +48,7 @@
                         android:textStyle="italic" />
 
                     <ImageView
+                        android:id="@+id/ivSetting"
                         android:layout_width="@dimen/dp_25"
                         android:layout_height="@dimen/dp_25"
                         android:layout_weight="25"

@@ -2,6 +2,7 @@ package com.app.furoapp.retrofit;
 
 
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.ActivityDetailsResponse;
+import com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragment_ListingNew.ActivitiesListing;
 import com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel.BmiStoreDataRequest;
 import com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel.BmiStoreDataResponse;
 import com.app.furoapp.activity.newFeature.bmiCalculator.fetchBmiDataModel.FetchUserWiseDataResponse;
@@ -71,7 +72,6 @@ import com.app.furoapp.model.communitymembers.CommunityMembersResponse;
 import com.app.furoapp.model.contentFeedDetail.ContentFeedDetailRequest;
 import com.app.furoapp.model.contentFeedDetail.ContentFeedDetailResponse;
 import com.app.furoapp.model.content_feed.ContentFeedModel;
-import com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragment_ListingNew.ActivitiesListing;
 import com.app.furoapp.model.createVideoChallenge.CreateVideoChallangeResponse;
 import com.app.furoapp.model.draft.DraftRequest;
 import com.app.furoapp.model.draft.DraftResponse;

@@ -48,9 +48,9 @@ public class RetrofitClient {
 
         if (BuildConfig.DEBUG) {
             return new OkHttpClient().newBuilder()
-                    .connectTimeout(2, TimeUnit.HOURS)
-                    .readTimeout(2, TimeUnit.HOURS)
-                    .writeTimeout(2 , TimeUnit.HOURS)
+                    .connectTimeout(120, TimeUnit.SECONDS)
+                    .readTimeout(120, TimeUnit.SECONDS)
+                    .writeTimeout(120 , TimeUnit.SECONDS)
                    /* .addInterceptor(new Interceptor() {
                         @Override
                         public Response intercept(Chain chain) throws IOException {
@@ -66,16 +66,36 @@ public class RetrofitClient {
                         }
                     })*/
                     .addInterceptor(logging)
+                    .retryOnConnectionFailure(true) /*added by me*/
                     .build();
 
 
         } else {
             return new OkHttpClient().newBuilder()
-                    .connectTimeout(2, TimeUnit.HOURS)
-                    .readTimeout(2, TimeUnit.HOURS)
-                    .writeTimeout(2, TimeUnit.HOURS)
+                    .connectTimeout(120, TimeUnit.SECONDS)
+                    .readTimeout(120, TimeUnit.SECONDS)
+                    .writeTimeout(120, TimeUnit.SECONDS)
+                    .retryOnConnectionFailure(true)
                     .build();
         }
+
+
+       /* if (BuildConfig.DEBUG) {
+            return new OkHttpClient().newBuilder()
+                    .connectTimeout(120, TimeUnit.SECONDS)
+                    .readTimeout(120, TimeUnit.SECONDS)
+                    .writeTimeout(120, TimeUnit.SECONDS)
+                    .addInterceptor(logging)
+                    .retryOnConnectionFailure(true)
+                    .build();
+        } else {
+            return new OkHttpClient().newBuilder()
+                    .connectTimeout(60, TimeUnit.SECONDS)
+                    .readTimeout(60, TimeUnit.SECONDS)
+                    .writeTimeout(60, TimeUnit.SECONDS)
+                    .retryOnConnectionFailure(true)
+                    .build();
+        }*/
 
     }
 

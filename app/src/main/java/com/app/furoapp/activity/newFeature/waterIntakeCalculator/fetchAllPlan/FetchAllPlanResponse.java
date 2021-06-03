@@ -7,9 +7,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class FetchAllPlanResponse {
 
-    @SerializedName("recommendedPlans")
+    @SerializedName("glassSize")
     @Expose
-    private RecommendedPlans recommendedPlans;
+    private GlassSize glassSize;
     @SerializedName("allPlans")
     @Expose
     private List<AllPlan> allPlans = null;
@@ -17,12 +17,12 @@ public class FetchAllPlanResponse {
     @Expose
     private String status;
 
-    public RecommendedPlans getRecommendedPlans() {
-        return recommendedPlans;
+    public GlassSize getGlassSize() {
+        return glassSize;
     }
 
-    public void setRecommendedPlans(RecommendedPlans recommendedPlans) {
-        this.recommendedPlans = recommendedPlans;
+    public void setGlassSize(GlassSize glassSize) {
+        this.glassSize = glassSize;
     }
 
     public List<AllPlan> getAllPlans() {

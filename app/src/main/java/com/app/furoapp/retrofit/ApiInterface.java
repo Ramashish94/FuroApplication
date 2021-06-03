@@ -2,13 +2,13 @@ package com.app.furoapp.retrofit;
 
 
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.ActivityDetailsResponse;
+import com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragment_ListingNew.ActivitiesListing;
 import com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel.BmiStoreDataRequest;
 import com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel.BmiStoreDataResponse;
 import com.app.furoapp.activity.newFeature.bmiCalculator.fetchBmiDataModel.FetchUserWiseDataResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListResponse;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.addComments.AddCommentRequest;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.addComments.AddCommentResponse;
-import com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragment_ListingNew.ActivitiesListing;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.like.LikeRequest;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.like.LikeResponse;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.saveBookmark.SavedRequest;
@@ -239,7 +239,6 @@ public interface ApiInterface {
 
                                                    @Part("user_id") RequestBody user_id);
 
-
     //updatefcm token
     @POST("update-fcm-token")
     Call<UpdateFcmTokenResponse> updateFcmToken(@Body UpdateFcmTokenRequest updateFcmTokenRequest);
@@ -429,44 +428,44 @@ public interface ApiInterface {
 
     /*Saved list*/
     @POST("saved-list")
-    Call<SavedListResponse>saveOnPost (@Header(TOKEN_KEY) String token);
+    Call<SavedListResponse> saveOnPost(@Header(TOKEN_KEY) String token);
 
     /*Liked list*/
     @POST("like-list")
-    Call<LikeListResponse>likeList (@Header(TOKEN_KEY) String token);
+    Call<LikeListResponse> likeList(@Header(TOKEN_KEY) String token);
 
     /* Bmi calculation started */
     /*store-user-wise-data*/
     @POST("store-user-wise-data")
-    Call<BmiStoreDataResponse>bmiStoreData (@Header(TOKEN_KEY) String token, @Body BmiStoreDataRequest bmiStoreDataRequest);
+    Call<BmiStoreDataResponse> bmiStoreData(@Header(TOKEN_KEY) String token, @Body BmiStoreDataRequest bmiStoreDataRequest);
 
     /*fetch-user-wise-data*/
     @POST("fetch-user-wise-data")
-    Call<FetchUserWiseDataResponse>fetchuserWiseData (@Header(TOKEN_KEY) String token);
+    Call<FetchUserWiseDataResponse> fetchuserWiseData(@Header(TOKEN_KEY) String token);
 
     /*Water intake monitor started */
     /*fetch glass */
     @GET("user/glass/fetch")
-    Call<GlassFetchResponse>userFetchGlass (@Header(TOKEN_KEY) String token);
+    Call<GlassFetchResponse> userFetchGlass(@Header(TOKEN_KEY) String token);
 
     /*daily water intake monitor */
     @POST("user/glass/daily-water-intake")
-    Call<DailyWaterIntakeResponse>dailyWaterIntake (@Header(TOKEN_KEY) String token, @Body DailyWaterIntakeRequest dailyWaterIntakeRequest);
+    Call<DailyWaterIntakeResponse> dailyWaterIntake(@Header(TOKEN_KEY) String token, @Body DailyWaterIntakeRequest dailyWaterIntakeRequest);
 
     /*user/fetch-all-plan*/
     @GET("user/fetch-all-plan")
-    Call<FetchAllPlanResponse>fetchAllPlan (@Header(TOKEN_KEY) String token);
+    Call<FetchAllPlanResponse> fetchAllPlan(@Header(TOKEN_KEY) String token);
 
     /*user/plan/create*/
     @POST("user/plan/create")
-    Call<PlaneCreateResponse>planeCreate (@Header(TOKEN_KEY) String token, @Body PlaneCreateRequest planeCreateRequest);
+    Call<PlaneCreateResponse> planeCreate(@Header(TOKEN_KEY) String token, @Body PlaneCreateRequest planeCreateRequest);
 
     /*user/cup/create*/
     @POST("user/cup/create")
-    Call<CupCreateResponse>cupCreate (@Header(TOKEN_KEY) String token);
+    Call<CupCreateResponse> cupCreate(@Header(TOKEN_KEY) String token);
 
     /*user/cup/select-custom-glass-size*/
     @POST("user/cup/select-custom-glass-size")
-    Call<CustomGlassSizeResponse>customGlassSize (@Header(TOKEN_KEY) String token, @Body CustomGlassSizeRequest customGlassSizeRequest);
+    Call<CustomGlassSizeResponse> customGlassSize(@Header(TOKEN_KEY) String token, @Body CustomGlassSizeRequest customGlassSizeRequest);
 
 }

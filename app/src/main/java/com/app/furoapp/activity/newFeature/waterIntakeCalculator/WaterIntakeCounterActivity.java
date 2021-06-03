@@ -1,10 +1,12 @@
 package com.app.furoapp.activity.newFeature.waterIntakeCalculator;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.furoapp.R;
+import com.app.furoapp.activity.SettingsActivity;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.adapter.FetchGlassAdapter;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.adapter.SelectCupSizeAdapter;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.cupCreate.AddUserCup;
@@ -34,7 +37,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class WaterIntakeCounterActivity extends AppCompatActivity implements SelectCupSizeAdapter.GlassClickCallBack {
-    public ImageView ivAddCup, ivAddCustomSizeCup, ivCancel;
+    public ImageView ivAddCup, ivAddCustomSizeCup, ivCancel, ivSetting, ivBackIcon;
     private String getAccessToken;
     public TextView tvNosGlassCount, tvTakingWater, tvAddCustomSize, tvRecommendedReamingWater, tvGlassSize;
     public View includePopMenuOfSelectCupSize;
@@ -43,6 +46,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
     List<UserGlassSize> userGlassSizeList = new ArrayList<>();
     private boolean isGlassSelected;
     private String glassSize;
+    public ConstraintLayout clWaterIntakeCounter;
 
 
     @Override
@@ -67,6 +71,9 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         rvSelectCupSize = findViewById(R.id.rvSelectCupSize);
         tvRecommendedReamingWater = findViewById(R.id.tvRecommendedReamingWater);
         tvGlassSize = findViewById(R.id.tvGlassSize);
+        ivSetting = findViewById(R.id.ivSetting);
+        clWaterIntakeCounter = findViewById(R.id.clWaterIntakeCounter);
+        ivBackIcon = findViewById(R.id.ivBackIcon);
     }
 
     private void clickEvent() {
@@ -101,7 +108,23 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             @Override
             public void onClick(View v) {
                 includePopMenuOfSelectCupSize.setVisibility(View.VISIBLE);
+                clWaterIntakeCounter.setClickable(false);
                 callFetchGlassApi();
+            }
+        });
+
+        ivSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SettingWaterIntakeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ivBackIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
@@ -189,6 +212,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                     callCupCreateApi();
                 }
             }
+
             @Override
             public void onFailure(Call<CustomGlassSizeResponse> call, Throwable t) {
                 Toast.makeText(WaterIntakeCounterActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();

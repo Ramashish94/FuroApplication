@@ -67,6 +67,7 @@ import com.app.furoapp.fragment.socialFragment.Social;
 import com.app.furoapp.model.updatefcmtoken.UpdateFcmTokenRequest;
 import com.app.furoapp.model.updatefcmtoken.UpdateFcmTokenResponse;
 import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -258,7 +259,7 @@ public class HomeMainActivity extends AppCompatActivity {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         /*getToken....added*/
-      //  getAccessToke = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
+       // getAccessToke = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
 
         Intent intent = getIntent();
         contest = intent.getStringExtra("contestpage");
@@ -268,7 +269,7 @@ public class HomeMainActivity extends AppCompatActivity {
         bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
-        isNetworkConnectionAvailable();
+        //isNetworkConnectionAvailable();
 
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); // add on 20-11-2019 by pankaj
@@ -698,7 +699,7 @@ public class HomeMainActivity extends AppCompatActivity {
     }
 
     public void checkNetworkConnection() {
-        Toast.makeText(this, "No Internet connection", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "No Internet connection !", Toast.LENGTH_SHORT).show();
 
     }
 

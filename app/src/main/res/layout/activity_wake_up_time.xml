@@ -40,8 +40,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:timePickerMode="spinner"
-                       android:theme="@style/TimePicker"/>
+                        android:theme="@style/TimePicker"
+                        android:timePickerMode="spinner" />
 
                     <!-- <androidx.recyclerview.widget.RecyclerView
                          android:id="@+id/rvWakeupTime"
@@ -77,8 +77,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:timePickerMode="spinner"
-                        android:theme="@style/TimePicker"/>
+                        android:theme="@style/TimePicker"
+                        android:timePickerMode="spinner" />
 
                     <!--<androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvBedTime"

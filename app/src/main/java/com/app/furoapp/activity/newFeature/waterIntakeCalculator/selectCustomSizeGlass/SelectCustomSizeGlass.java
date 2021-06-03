@@ -1,5 +1,5 @@
 
-package com.app.furoapp.activity.newFeature.waterIntakeCalculator.customeSizeGlass;
+package com.app.furoapp.activity.newFeature.waterIntakeCalculator.selectCustomSizeGlass;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -26,22 +26,25 @@ public class SelectCustomSizeGlass {
     private Integer recommendedWaterInMl;
     @SerializedName("recommended_glass_of_water")
     @Expose
-    private Integer recommendedGlassOfWater;
+    private Double recommendedGlassOfWater;
+    @SerializedName("selected_water_in_ml")
+    @Expose
+    private Integer selectedWaterInMl;
     @SerializedName("taken_glass_of_water")
     @Expose
     private Integer takenGlassOfWater;
     @SerializedName("recommended_duration_in_mins")
     @Expose
-    private String recommendedDurationInMins;
+    private Double recommendedDurationInMins;
     @SerializedName("taken_water_in_ml")
     @Expose
-    private Double takenWaterInMl;
+    private Integer takenWaterInMl;
     @SerializedName("remaining_water_in_ml")
     @Expose
-    private Double remainingWaterInMl;
+    private Integer remainingWaterInMl;
     @SerializedName("duration_for_taken_glass_of_water")
     @Expose
-    private String durationForTakenGlassOfWater;
+    private Double durationForTakenGlassOfWater;
     @SerializedName("remaining_time_for_glass_of_water")
     @Expose
     private String remainingTimeForGlassOfWater;
@@ -109,12 +112,20 @@ public class SelectCustomSizeGlass {
         this.recommendedWaterInMl = recommendedWaterInMl;
     }
 
-    public Integer getRecommendedGlassOfWater() {
+    public Double getRecommendedGlassOfWater() {
         return recommendedGlassOfWater;
     }
 
-    public void setRecommendedGlassOfWater(Integer recommendedGlassOfWater) {
+    public void setRecommendedGlassOfWater(Double recommendedGlassOfWater) {
         this.recommendedGlassOfWater = recommendedGlassOfWater;
+    }
+
+    public Integer getSelectedWaterInMl() {
+        return selectedWaterInMl;
+    }
+
+    public void setSelectedWaterInMl(Integer selectedWaterInMl) {
+        this.selectedWaterInMl = selectedWaterInMl;
     }
 
     public Integer getTakenGlassOfWater() {
@@ -125,35 +136,35 @@ public class SelectCustomSizeGlass {
         this.takenGlassOfWater = takenGlassOfWater;
     }
 
-    public String getRecommendedDurationInMins() {
+    public Double getRecommendedDurationInMins() {
         return recommendedDurationInMins;
     }
 
-    public void setRecommendedDurationInMins(String recommendedDurationInMins) {
+    public void setRecommendedDurationInMins(Double recommendedDurationInMins) {
         this.recommendedDurationInMins = recommendedDurationInMins;
     }
 
-    public Double getTakenWaterInMl() {
+    public Integer getTakenWaterInMl() {
         return takenWaterInMl;
     }
 
-    public void setTakenWaterInMl(Double takenWaterInMl) {
+    public void setTakenWaterInMl(Integer takenWaterInMl) {
         this.takenWaterInMl = takenWaterInMl;
     }
 
-    public Double getRemainingWaterInMl() {
+    public Integer getRemainingWaterInMl() {
         return remainingWaterInMl;
     }
 
-    public void setRemainingWaterInMl(Double remainingWaterInMl) {
+    public void setRemainingWaterInMl(Integer remainingWaterInMl) {
         this.remainingWaterInMl = remainingWaterInMl;
     }
 
-    public String getDurationForTakenGlassOfWater() {
+    public Double getDurationForTakenGlassOfWater() {
         return durationForTakenGlassOfWater;
     }
 
-    public void setDurationForTakenGlassOfWater(String durationForTakenGlassOfWater) {
+    public void setDurationForTakenGlassOfWater(Double durationForTakenGlassOfWater) {
         this.durationForTakenGlassOfWater = durationForTakenGlassOfWater;
     }
 

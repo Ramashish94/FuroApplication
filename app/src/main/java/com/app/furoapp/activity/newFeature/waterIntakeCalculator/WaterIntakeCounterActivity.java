@@ -1,6 +1,7 @@
 package com.app.furoapp.activity.newFeature.waterIntakeCalculator;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -10,24 +11,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.SettingsActivity;
-import com.app.furoapp.activity.newFeature.waterIntakeCalculator.adapter.FetchGlassAdapter;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.adapter.SelectCupSizeAdapter;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.cupCreate.AddUserCup;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.cupCreate.CupCreateResponse;
-import com.app.furoapp.activity.newFeature.waterIntakeCalculator.customeSizeGlass.CustomGlassSizeRequest;
-import com.app.furoapp.activity.newFeature.waterIntakeCalculator.customeSizeGlass.CustomGlassSizeResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.selectCustomSizeGlass.SelectCustomGlassSizeRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchGlass.GlassFetchResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchGlass.UserGlassSize;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.selectCustomSizeGlass.SelectCustomSizeGlassResponse;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
+import com.app.furoapp.widget.SwitchButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class WaterIntakeCounterActivity extends AppCompatActivity implements SelectCupSizeAdapter.GlassClickCallBack {
-    public ImageView ivAddCup, ivAddCustomSizeCup, ivCancel, ivSetting, ivBackIcon;
+    public ImageView ivAddCup, ivAddCustomSizeQuntity, ivCancel, ivSetting, ivBackIcon;
     private String getAccessToken;
     public TextView tvNosGlassCount, tvTakingWater, tvAddCustomSize, tvRecommendedReamingWater, tvGlassSize;
     public View includePopMenuOfSelectCupSize;
@@ -45,8 +46,10 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
     public SelectCupSizeAdapter selectCupSizeAdapter;
     List<UserGlassSize> userGlassSizeList = new ArrayList<>();
     private boolean isGlassSelected;
-    private String glassSize;
+    public String glassSize;
     public ConstraintLayout clWaterIntakeCounter;
+    public SwitchCompat switchBtnDaily, switchBtnWeekly, switchBtnAllType;
+    private String type;
 
 
     @Override
@@ -56,13 +59,11 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         getAccessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
         initViews();
         clickEvent();
-        callFetchGlassApi();
-        operateRacyData();
     }
 
     private void initViews() {
         ivAddCup = findViewById(R.id.ivAddCup);
-        ivAddCustomSizeCup = findViewById(R.id.ivAddCustomSizeCup);
+        ivAddCustomSizeQuntity = findViewById(R.id.ivAddCustomSizeQuntity);
         tvNosGlassCount = findViewById(R.id.tvNosGlassCount);
         tvTakingWater = findViewById(R.id.tvTakingWater);
         includePopMenuOfSelectCupSize = findViewById(R.id.includePopMenuOfSelectCupSize);
@@ -74,6 +75,9 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         ivSetting = findViewById(R.id.ivSetting);
         clWaterIntakeCounter = findViewById(R.id.clWaterIntakeCounter);
         ivBackIcon = findViewById(R.id.ivBackIcon);
+        switchBtnDaily = findViewById(R.id.switchBtnDaily);
+        switchBtnWeekly = findViewById(R.id.switchBtnWeekly);
+        switchBtnAllType = findViewById(R.id.switchBtnAlType);
     }
 
     private void clickEvent() {
@@ -96,19 +100,18 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             public void onClick(View v) {
                 if (isGlassSelected) {
                     includePopMenuOfSelectCupSize.setVisibility(View.GONE);
-                    callCustomGlassSizeApi();   //calling api .....cup/select-custom-glass-size
+                    callSelectCustomGlassSizeApi();   //calling api .....cup/select-custom-glass-size
                 } else {
                     Toast.makeText(getApplicationContext(), "Please select glass size ! ", Toast.LENGTH_SHORT).show();
                 }
-
-
             }
         });
-        ivAddCustomSizeCup.setOnClickListener(new View.OnClickListener() {
+        ivAddCustomSizeQuntity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 includePopMenuOfSelectCupSize.setVisibility(View.VISIBLE);
                 clWaterIntakeCounter.setClickable(false);
+                operateRacyData();
                 callFetchGlassApi();
             }
         });
@@ -127,7 +130,44 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 finish();
             }
         });
+
+        switchBtnDaily.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    type = "Daily";
+                    switchBtnAllType.setChecked(false);
+                    switchBtnWeekly.setChecked(false);
+                    getDailyData(type);
+                }
+            }
+        });
+
+        switchBtnWeekly.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    type = "Weekly";
+                    switchBtnDaily.setChecked(false);
+                    switchBtnAllType.setChecked(false);
+                    getWeeklyData(type);
+                }
+            }
+        });
+
+        switchBtnAllType.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    type = "All Time";
+                    switchBtnDaily.setChecked(false);
+                    switchBtnWeekly.setChecked(false);
+                    getAllTimeData(type);
+                }
+            }
+        });
     }
+
 
     private void callCupCreateApi() {
         Util.showProgressDialog(getApplicationContext());
@@ -200,24 +240,39 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         Log.d(" glassSize", glassSize);
     }
 
-    private void callCustomGlassSizeApi() {
-        CustomGlassSizeRequest customGlassSizeRequest = new CustomGlassSizeRequest();
-        customGlassSizeRequest.setGlass_size_in_ml(glassSize);
+    private void callSelectCustomGlassSizeApi() {
+        SelectCustomGlassSizeRequest selectCustomGlassSizeRequest = new SelectCustomGlassSizeRequest();
+        selectCustomGlassSizeRequest.setGlass_size_in_ml(glassSize);
         Util.showProgressDialog(getApplicationContext());
-        RestClient.getCustomSizeGlass(getAccessToken, customGlassSizeRequest, new Callback<CustomGlassSizeResponse>() {
+        RestClient.getCustomSizeGlass(getAccessToken, selectCustomGlassSizeRequest, new Callback<SelectCustomSizeGlassResponse>() {
             @Override
-            public void onResponse(Call<CustomGlassSizeResponse> call, Response<CustomGlassSizeResponse> response) {
+            public void onResponse(Call<SelectCustomSizeGlassResponse> call, Response<SelectCustomSizeGlassResponse> response) {
                 Util.dismissProgressDialog();
                 if (response.code() == 200 && response.body() != null) {
+                    Toast.makeText(WaterIntakeCounterActivity.this, "Custom cup size created successfully", Toast.LENGTH_SHORT).show();
                     callCupCreateApi();
                 }
             }
 
             @Override
-            public void onFailure(Call<CustomGlassSizeResponse> call, Throwable t) {
+            public void onFailure(Call<SelectCustomSizeGlassResponse> call, Throwable t) {
                 Toast.makeText(WaterIntakeCounterActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+
+    private void getDailyData(String type) {
 
     }
+
+    private void getWeeklyData(String type) {
+
+    }
+
+
+    private void getAllTimeData(String type) {
+
+    }
+
 }

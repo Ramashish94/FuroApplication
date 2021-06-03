@@ -457,7 +457,7 @@
             <ImageView
                 android:id="@+id/ivContinue"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_40"
+                android:layout_height="@dimen/dp_35"
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="@dimen/dp_40"
                 android:layout_marginTop="@dimen/dp_120"

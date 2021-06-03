@@ -39,7 +39,7 @@ public class RetrofitClient {
     }
 
     private static OkHttpClient okHttp() {
-        Context context ;
+        Context context;
 
 // set your desired log level
 
@@ -48,21 +48,21 @@ public class RetrofitClient {
 
         if (BuildConfig.DEBUG) {
             return new OkHttpClient().newBuilder()
-                    .connectTimeout(120, TimeUnit.SECONDS)
-                    .readTimeout(120, TimeUnit.SECONDS)
-                    .writeTimeout(120 , TimeUnit.SECONDS)
-                   /* .addInterceptor(new Interceptor() {
-                        @Override
-                        public Response intercept(Chain chain) throws IOException {
-                            Request original = chain.request();
-                           *//* String accessTok = FuroPrefs.getString(context, "accessToken");
+                    .connectTimeout(2, TimeUnit.HOURS)
+                    .readTimeout(2, TimeUnit.HOURS)
+                    .writeTimeout(2, TimeUnit.HOURS)
+                    /* .addInterceptor(new Interceptor() {
+                         @Override
+                         public Response intercept(Chain chain) throws IOException {
+                             Request original = chain.request();
+                            *//* String accessTok = FuroPrefs.getString(context, "accessToken");
                             Log.i("accesstoken",accessTok);
                             Request newRequest = original.newBuilder()
                                     .header("Authentication", accessTok)
                                     .build();*//*
 
 
-                          *//*  return chain.proceed(newRequest);*//*
+             *//*  return chain.proceed(newRequest);*//*
                         }
                     })*/
                     .addInterceptor(logging)
@@ -72,9 +72,9 @@ public class RetrofitClient {
 
         } else {
             return new OkHttpClient().newBuilder()
-                    .connectTimeout(120, TimeUnit.SECONDS)
-                    .readTimeout(120, TimeUnit.SECONDS)
-                    .writeTimeout(120, TimeUnit.SECONDS)
+                    .connectTimeout(2, TimeUnit.HOURS)
+                    .readTimeout(2, TimeUnit.HOURS)
+                    .writeTimeout(2, TimeUnit.HOURS)
                     .retryOnConnectionFailure(true)
                     .build();
         }

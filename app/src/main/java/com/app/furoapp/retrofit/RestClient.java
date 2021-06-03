@@ -18,14 +18,14 @@ import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.View
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
 import com.app.furoapp.activity.newFeature.notification.notificationModel.NotificationResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.cupCreate.CupCreateResponse;
-import com.app.furoapp.activity.newFeature.waterIntakeCalculator.customeSizeGlass.CustomGlassSizeRequest;
-import com.app.furoapp.activity.newFeature.waterIntakeCalculator.customeSizeGlass.CustomGlassSizeResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.selectCustomSizeGlass.SelectCustomGlassSizeRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.dailyWaterIntake.DailyWaterIntakeRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.dailyWaterIntake.DailyWaterIntakeResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchAllPlan.FetchAllPlanResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchGlass.GlassFetchResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.PlaneCreateRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.PlaneCreateResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.selectCustomSizeGlass.SelectCustomSizeGlassResponse;
 import com.app.furoapp.model.Bannersecond.BannerSecondResponse;
 import com.app.furoapp.model.FriendModel.AddFriend;
 import com.app.furoapp.model.FriendModel.FriendInviteModel;
@@ -417,8 +417,8 @@ public class RestClient {
         RetrofitClient.getClient().cupCreate(token).enqueue(callback);
     }
 
-    public static void getCustomSizeGlass(String token, CustomGlassSizeRequest customGlassSizeRequest, Callback<CustomGlassSizeResponse> callback) {
-        RetrofitClient.getClient().customGlassSize(token,customGlassSizeRequest).enqueue(callback);
+    public static void getCustomSizeGlass(String token, SelectCustomGlassSizeRequest selectCustomGlassSizeRequest, Callback<SelectCustomSizeGlassResponse> callback) {
+        RetrofitClient.getClient().customGlassSize(token, selectCustomGlassSizeRequest).enqueue(callback);
     }
 
 

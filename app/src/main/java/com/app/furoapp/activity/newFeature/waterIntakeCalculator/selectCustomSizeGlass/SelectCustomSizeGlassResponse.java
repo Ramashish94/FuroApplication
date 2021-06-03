@@ -1,11 +1,10 @@
 
-package com.app.furoapp.activity.newFeature.waterIntakeCalculator.customeSizeGlass;
-
+package com.app.furoapp.activity.newFeature.waterIntakeCalculator.selectCustomSizeGlass;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class CustomGlassSizeResponse {
+public class SelectCustomSizeGlassResponse {
 
     @SerializedName("selectCustomSizeGlass")
     @Expose

@@ -91,15 +91,23 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterGlass
             @Override
             public void onResponse(Call<FetchAllPlanResponse> call, Response<FetchAllPlanResponse> response) {
                 Util.dismissProgressDialog();
-                if (response.code() == 200 && response.body() != null && response.body().getStatus() != null) {
-                    //recommended plan
-                    setRecommendedData(response.body());
-                    //set time for recommended plan
-                    setTimeForRecommendedPlan(response.body().getAllPlans().get(0));
-                    //for all plan
-                    notifyAllPlanAdapter(response.body().getAllPlans());
-                } else {
-                    Toast.makeText(CreatePlaneActivity.this, response.code(), Toast.LENGTH_SHORT).show();
+                if (response.code() == 200) {
+                    if (response.body() != null && response.body().getStatus() != null) {
+                        //recommended plan
+                        setRecommendedData(response.body());
+                        //set time for recommended plan
+                        setTimeForRecommendedPlan(response.body().getAllPlans().get(0));
+                        //for all plan
+                        notifyAllPlanAdapter(response.body().getAllPlans());
+                    } else {
+                        Toast.makeText(CreatePlaneActivity.this, response.code(), Toast.LENGTH_SHORT).show();
+                    }
+                } else if (response.code() == 500) {
+                    Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
+                } else if (response.code() == 403) {
+                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
+                } else if (response.code() == 404) {
+                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -184,9 +192,17 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterGlass
             @Override
             public void onResponse(Call<PlaneCreateResponse> call, Response<PlaneCreateResponse> response) {
                 Util.dismissProgressDialog();
-                if (response.code() == 200 && response.body() != null && response.body().getStatus() != null) {
-                    Toast.makeText(CreatePlaneActivity.this, "new plan created!", Toast.LENGTH_SHORT).show();
-                    callFetchAllPlanApi();
+                if (response.code() == 200) {
+                    if (response.body() != null && response.body().getStatus() != null) {
+                        Toast.makeText(CreatePlaneActivity.this, "new plan created!", Toast.LENGTH_SHORT).show();
+                        callFetchAllPlanApi();
+                    }
+                } else if (response.code() == 500) {
+                    Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
+                } else if (response.code() == 403) {
+                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
+                } else if (response.code() == 404) {
+                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -230,9 +246,14 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterGlass
     }
 
     @Override
-    public void getPlanClickCallBack(Integer id, String waterTakeInMl, String recommendedDurationInMins) {
+    public void getPlanClickCallBack(Integer id, String waterTakeInMl, String
+            recommendedDurationInMins) {
         String planId = String.valueOf(id);
-        String waterTakeMl =waterTakeInMl;
-        String recDurationTime= recommendedDurationInMins;
+        Log.d("planId", planId);
+        String waterTakeMl = waterTakeInMl;
+        Log.d("waterTakeMl", waterTakeMl);
+        String recDurationTime = recommendedDurationInMins;
+        Log.d("recDurationTime", recDurationTime);
+
     }
 }

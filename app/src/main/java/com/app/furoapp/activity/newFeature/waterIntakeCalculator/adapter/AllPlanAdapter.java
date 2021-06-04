@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -53,10 +54,10 @@ public class AllPlanAdapter extends RecyclerView.Adapter<AllPlanAdapter.MyViewHo
 
         if (row_index == position) {
 //            clicked=true;
-            //holder.tvWaterGlassSize.setTextColor(Color.parseColor("#FFFFFF"));/*19CFE6*/
+            holder.ivCircle.setBackgroundResource(R.drawable.bluecircle);
         } else {
 //           clicked=false;
-            //holder.tvWaterGlassSize.setTextColor(Color.parseColor("#8C8888"));
+            holder.ivCircle.setBackgroundResource(R.drawable.ellipse_20);
         }
 
     }
@@ -73,12 +74,14 @@ public class AllPlanAdapter extends RecyclerView.Adapter<AllPlanAdapter.MyViewHo
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tvDurationTime, tvWaterTake;
         public LinearLayout llAllPlan;
+        public ImageView ivCircle;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tvDurationTime = itemView.findViewById(R.id.tvDurationTime);
             tvWaterTake = itemView.findViewById(R.id.tvWaterTake);
             llAllPlan = itemView.findViewById(R.id.llAllPlan);
+            ivCircle = itemView.findViewById(R.id.ivCircle);
         }
     }
 

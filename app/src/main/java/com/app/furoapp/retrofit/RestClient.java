@@ -26,6 +26,8 @@ import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchGlass.Glas
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.PlaneCreateRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.PlaneCreateResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.selectCustomSizeGlass.SelectCustomSizeGlassResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.waterIntakeCounter.WaterIntakeUpdatePlanRequest;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.waterIntakeCounter.WaterIntakeUpdatePlanResponse;
 import com.app.furoapp.model.Bannersecond.BannerSecondResponse;
 import com.app.furoapp.model.FriendModel.AddFriend;
 import com.app.furoapp.model.FriendModel.FriendInviteModel;
@@ -413,7 +415,7 @@ public class RestClient {
         RetrofitClient.getClient().planeCreate(token, planeCreateRequest).enqueue(callback);
     }
 
-    public static void getCupCreate(String token,  Callback<CupCreateResponse> callback) {
+    public static void getCupCreate(String token, Callback<CupCreateResponse> callback) {
         RetrofitClient.getClient().cupCreate(token).enqueue(callback);
     }
 
@@ -421,6 +423,9 @@ public class RestClient {
         RetrofitClient.getClient().customGlassSize(token, selectCustomGlassSizeRequest).enqueue(callback);
     }
 
+    public static void getWaterIntakeUpdatePlan(String token, WaterIntakeUpdatePlanRequest waterIntakeUpdatePlanRequest, Callback<WaterIntakeUpdatePlanResponse> callback) {
+        RetrofitClient.getClient().WATER_INTAKE_UPDATE_PLAN_RESPONSE_CALL(token, waterIntakeUpdatePlanRequest).enqueue(callback);
+    }
 
 
 }

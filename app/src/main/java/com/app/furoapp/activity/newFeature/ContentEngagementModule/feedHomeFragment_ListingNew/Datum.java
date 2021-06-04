@@ -65,6 +65,9 @@ public class Datum {
     @SerializedName("user_save")
     @Expose
     private String userSave;
+    @SerializedName("only")
+    @Expose
+    private String only;
 
     public Integer getId() {
         return id;
@@ -217,6 +220,12 @@ public class Datum {
     public void setUserSave(String userSave) {
         this.userSave = userSave;
     }
+    public String getOnly() {
+        return only;
+    }
 
+    public void setOnly(String only) {
+        this.only = only;
+    }
 
 }

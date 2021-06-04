@@ -17,6 +17,7 @@
             android:layout_weight="60">
 
             <ImageView
+                android:id="@+id/ivCircle"
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20"
                 android:layout_gravity="center"

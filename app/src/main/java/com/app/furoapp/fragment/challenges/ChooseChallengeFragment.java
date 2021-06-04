@@ -58,7 +58,6 @@ public class ChooseChallengeFragment extends Fragment {
 
     FragmentHomeChooseChallengeBinding binding;
 
-
     ExpandableListView expandableListView;
     SelectChallangeResponse challengeResponse;
     ExpandableAdapter expandableListAdapter;
@@ -66,10 +65,6 @@ public class ChooseChallengeFragment extends Fragment {
     List<Subcategory> childModelsList;
     List<Challenge> headerList = new ArrayList<>();
     HashMap<Challenge, List<Subcategory>> childList = new HashMap<>();
-
-
-
-
 
     private String TAG = ChooseChallengeFragment.class.getSimpleName();
 
@@ -183,9 +178,6 @@ public class ChooseChallengeFragment extends Fragment {
                         }
                     }
                 }
-
-
-
 
                 @Override
                 public void onFailure(Call<SelectChallangeResponse> call, Throwable t) {

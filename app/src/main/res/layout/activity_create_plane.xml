@@ -59,19 +59,32 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
                             android:layout_weight="1">
+
+                            <ImageView
+                                android:layout_width="@dimen/dp_20"
+                                android:layout_height="@dimen/dp_20"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="@dimen/dp_10"
+                                android:gravity="center"
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:src="@drawable/ellipse_20" />
 
                             <TextView
                                 android:id="@+id/tvShowsMl"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="@dimen/dp_10"
-                                android:layout_marginTop="@dimen/dp_10"
                                 android:text="2219 ml"
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="center_vertical"
                                 android:textColor="@color/light_blue"
                                 android:textSize="28sp"
                                 android:textStyle="bold" />
+
                         </LinearLayout>
 
                         <LinearLayout
@@ -161,7 +174,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvAllPlan"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_170"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center" />
 
                     <LinearLayout

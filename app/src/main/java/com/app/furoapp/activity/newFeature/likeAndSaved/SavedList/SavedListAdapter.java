@@ -46,7 +46,7 @@ public class SavedListAdapter extends RecyclerView.Adapter<SavedListAdapter.MyVi
     @Override
     public void onBindViewHolder(@NonNull SavedListAdapter.MyViewHolder holder, int position) {
         SavedOnPost savedOnPost = savedOnPostList.get(holder.getAdapterPosition());
-        holder.tvTopTitel.setText("" + savedOnPost);
+        holder.tvTopTitel.setText("" + savedOnPost.getActivityDetail().getType());
         Picasso.with(context).load(savedOnPost.getActivityDetail().getIcon()).error(R.drawable.fq_bannnerrrrrr).into(holder.ivTopIcon);
         // Picasso.with(context).load(savedOnPost.getActivityDetail().getImageUrl()).error(R.drawable.fq_bannnerrrrrr).into(holder.ivAllImage);
         holder.tvBottomTittal.setText("" + savedOnPost.getActivityDetail().getDescription());

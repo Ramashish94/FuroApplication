@@ -97,8 +97,6 @@
                 android:layout_height="wrap_content"
                 android:groupIndicator="@null"
                 android:divider="#00000000"
-
-
                 android:dividerHeight="@dimen/dp_10"
                 android:childDivider="#00000000">
 

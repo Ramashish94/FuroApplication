@@ -26,6 +26,8 @@ import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchGlass.Glas
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.PlaneCreateRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.PlaneCreateResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.selectCustomSizeGlass.SelectCustomSizeGlassResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.waterIntakeCounter.WaterIntakeUpdatePlanRequest;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.waterIntakeCounter.WaterIntakeUpdatePlanResponse;
 import com.app.furoapp.model.Bannersecond.BannerSecondResponse;
 import com.app.furoapp.model.FriendModel.AddFriend;
 import com.app.furoapp.model.FriendModel.FriendInviteModel;
@@ -467,5 +469,10 @@ public interface ApiInterface {
     /*user/cup/select-custom-glass-size*/
     @POST("user/cup/select-custom-glass-size")
     Call<SelectCustomSizeGlassResponse> customGlassSize(@Header(TOKEN_KEY) String token, @Body SelectCustomGlassSizeRequest selectCustomGlassSizeRequest);
+
+    /*user/water-intake-update-plan*/
+    @POST("user/water-intake-update-plan")
+    Call<WaterIntakeUpdatePlanResponse> WATER_INTAKE_UPDATE_PLAN_RESPONSE_CALL(@Header(TOKEN_KEY) String token, @Body WaterIntakeUpdatePlanRequest waterIntakeUpdatePlanRequest);
+
 
 }

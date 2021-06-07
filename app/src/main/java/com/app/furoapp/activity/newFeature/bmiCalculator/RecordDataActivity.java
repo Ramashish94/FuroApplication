@@ -79,7 +79,7 @@ public class RecordDataActivity extends AppCompatActivity {
         if (bmiArrayList != null && bmiArrayList.size() > 0) {
             rvRecordedBmi.setVisibility(View.VISIBLE);
             fetchRecordAdapter.notifyDataSetChanged();
-        }else {
+        } else {
             Toast.makeText(this, "No record found !", Toast.LENGTH_SHORT).show();
         }
     }
@@ -92,5 +92,11 @@ public class RecordDataActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

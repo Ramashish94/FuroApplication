@@ -18,6 +18,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/tvCurrentDate"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_20"
                 android:layout_gravity="bottom"
@@ -27,6 +28,7 @@
                 android:textStyle="normal" />
 
             <TextView
+                android:id="@+id/tvDateWithDay"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_20"
                 android:layout_gravity="bottom"
@@ -54,6 +56,7 @@
                 android:textColor="@color/black_color" />
 
             <TextView
+              android:id="@+id/tvTotWaterAmountDrunk"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_20"
                 android:layout_gravity="bottom"
@@ -108,6 +111,7 @@
 
 
                 <TextView
+                    android:id="@+id/tvCountNosOfGlass"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dp_20"
                     android:layout_gravity="bottom"
@@ -117,6 +121,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tvRecommendedNosOfWaterGlasses"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dp_20"
                     android:layout_gravity="bottom"

@@ -1,8 +1,16 @@
 package com.app.furoapp.fragment.content_feed;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
@@ -15,6 +23,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -47,7 +57,12 @@ import com.app.furoapp.widget.SwitchButton;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -60,6 +75,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.bluetooth.BluetoothGattCharacteristic.PERMISSION_WRITE;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class ContentFeedHomeFragment extends Fragment implements ContentFeedHomeAdapter.ContentFeedCallback {
@@ -418,6 +434,7 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
     public void onClickShare(int pos, Datum data) {
         String title = data.getDescription();
         String url;
+        boolean isArticle = false;
         String videoId = null;
         try {
             videoId = Util.extractYoutubeId(data.getVideo());
@@ -427,15 +444,24 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
         }
         if (!TextUtils.isEmpty(videoId)) {
             url = "http://www.youtube.com/watch?v=" + videoId;
+            //isArticle = false;
         } else {
             url = data.getImage();
+            // isArticle = true;
         }
+      /*  if (isArticle) {
+            if (checkPermission()) {
+                shareImage(url);
+            }
+        } else {*/
         String fullMessage = title + "\n" + url;
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Furo FQ");
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, fullMessage);
         startActivity(Intent.createChooser(sharingIntent, "Share via"));
+        //}
+
     }
 
     @Override
@@ -482,6 +508,63 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
     public void onResume() {
         super.onResume();
         getDataAll(type);
+    }
+
+    public void shareImage(String url) {
+        Picasso.with(getApplicationContext()).load(url).into(new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                String fileUri = "";
+                try {
+                    File mydir = new File(Environment.getExternalStorageDirectory() + "/11zon");
+                    if (!mydir.exists()) {
+                        mydir.mkdirs();
+                    }
+
+                    fileUri = mydir.getAbsolutePath() + File.separator + System.currentTimeMillis() + ".png";
+                    FileOutputStream outputStream = new FileOutputStream(fileUri);
+
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+                    outputStream.flush();
+                    outputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), BitmapFactory.decodeFile(fileUri), null, null));
+                // use intent to share image
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("image/*");
+                share.putExtra(Intent.EXTRA_STREAM, uri);
+                startActivity(Intent.createChooser(share, "Share Image"));
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+            }
+        });
+    }
+
+
+    //runtime storage permission
+    public boolean checkPermission() {
+        int READ_EXTERNAL_PERMISSION = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE);
+        if ((READ_EXTERNAL_PERMISSION != PackageManager.PERMISSION_GRANTED)) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_WRITE);
+            return false;
+        }
+        return true;
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_WRITE && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            //do somethings
+        }
     }
 }
 

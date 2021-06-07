@@ -1,38 +1,36 @@
 
-package com.app.furoapp.activity.newFeature.waterIntakeCalculator.waterIntakeCounter;
+package com.app.furoapp.activity.newFeature.waterIntakeCalculator.restorePlanModel;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class WaterIntakeUpdatePlanResponse {
+public class RestorePlanResponse {
 
-    @SerializedName("planUpdated")
+    @SerializedName("CurrentPlan")
     @Expose
-    private String planUpdated;
-    @SerializedName("glass_size")
+    private CurrentPlan currentPlan;
+    @SerializedName("restoredPlan")
     @Expose
-    private String glassSize;
-    @SerializedName("selectedPlan")
-    @Expose
-    private SelectedPlan selectedPlan;
+    private List<RestoredPlan> restoredPlan = null;
     @SerializedName("weeklyTakenWaterInMl")
     @Expose
     private Integer weeklyTakenWaterInMl;
     @SerializedName("weeklyTakenGlassOfWater")
     @Expose
-    private String weeklyTakenGlassOfWater;
+    private Integer weeklyTakenGlassOfWater;
     @SerializedName("weeklyRecommendedGlassOfWater")
     @Expose
-    private String weeklyRecommendedGlassOfWater;
+    private Integer weeklyRecommendedGlassOfWater;
     @SerializedName("monthlyTakenWaterInMl")
     @Expose
     private Integer monthlyTakenWaterInMl;
     @SerializedName("monthlyTakenGlassOfWater")
     @Expose
-    private String monthlyTakenGlassOfWater;
+    private Integer monthlyTakenGlassOfWater;
     @SerializedName("monthlyRecommendedGlassOfWater")
     @Expose
-    private String monthlyRecommendedGlassOfWater;
+    private Integer monthlyRecommendedGlassOfWater;
     @SerializedName("allTimeTakenWaterInMl")
     @Expose
     private Integer allTimeTakenWaterInMl;
@@ -46,28 +44,20 @@ public class WaterIntakeUpdatePlanResponse {
     @Expose
     private String status;
 
-    public String getPlanUpdated() {
-        return planUpdated;
+    public CurrentPlan getCurrentPlan() {
+        return currentPlan;
     }
 
-    public void setPlanUpdated(String planUpdated) {
-        this.planUpdated = planUpdated;
+    public void setCurrentPlan(CurrentPlan currentPlan) {
+        this.currentPlan = currentPlan;
     }
 
-    public String getGlassSize() {
-        return glassSize;
+    public List<RestoredPlan> getRestoredPlan() {
+        return restoredPlan;
     }
 
-    public void setGlassSize(String glassSize) {
-        this.glassSize = glassSize;
-    }
-
-    public SelectedPlan getSelectedPlan() {
-        return selectedPlan;
-    }
-
-    public void setSelectedPlan(SelectedPlan selectedPlan) {
-        this.selectedPlan = selectedPlan;
+    public void setRestoredPlan(List<RestoredPlan> restoredPlan) {
+        this.restoredPlan = restoredPlan;
     }
 
     public Integer getWeeklyTakenWaterInMl() {
@@ -78,19 +68,19 @@ public class WaterIntakeUpdatePlanResponse {
         this.weeklyTakenWaterInMl = weeklyTakenWaterInMl;
     }
 
-    public String getWeeklyTakenGlassOfWater() {
+    public Integer getWeeklyTakenGlassOfWater() {
         return weeklyTakenGlassOfWater;
     }
 
-    public void setWeeklyTakenGlassOfWater(String weeklyTakenGlassOfWater) {
+    public void setWeeklyTakenGlassOfWater(Integer weeklyTakenGlassOfWater) {
         this.weeklyTakenGlassOfWater = weeklyTakenGlassOfWater;
     }
 
-    public String getWeeklyRecommendedGlassOfWater() {
+    public Integer getWeeklyRecommendedGlassOfWater() {
         return weeklyRecommendedGlassOfWater;
     }
 
-    public void setWeeklyRecommendedGlassOfWater(String weeklyRecommendedGlassOfWater) {
+    public void setWeeklyRecommendedGlassOfWater(Integer weeklyRecommendedGlassOfWater) {
         this.weeklyRecommendedGlassOfWater = weeklyRecommendedGlassOfWater;
     }
 
@@ -102,19 +92,19 @@ public class WaterIntakeUpdatePlanResponse {
         this.monthlyTakenWaterInMl = monthlyTakenWaterInMl;
     }
 
-    public String getMonthlyTakenGlassOfWater() {
+    public Integer getMonthlyTakenGlassOfWater() {
         return monthlyTakenGlassOfWater;
     }
 
-    public void setMonthlyTakenGlassOfWater(String monthlyTakenGlassOfWater) {
+    public void setMonthlyTakenGlassOfWater(Integer monthlyTakenGlassOfWater) {
         this.monthlyTakenGlassOfWater = monthlyTakenGlassOfWater;
     }
 
-    public String getMonthlyRecommendedGlassOfWater() {
+    public Integer getMonthlyRecommendedGlassOfWater() {
         return monthlyRecommendedGlassOfWater;
     }
 
-    public void setMonthlyRecommendedGlassOfWater(String monthlyRecommendedGlassOfWater) {
+    public void setMonthlyRecommendedGlassOfWater(Integer monthlyRecommendedGlassOfWater) {
         this.monthlyRecommendedGlassOfWater = monthlyRecommendedGlassOfWater;
     }
 

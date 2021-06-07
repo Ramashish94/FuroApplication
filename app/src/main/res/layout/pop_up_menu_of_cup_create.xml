@@ -130,6 +130,21 @@
                 android:textColor="@color/white"
                 android:textStyle="italic" />
 
+            <TextView
+                android:id="@+id/tvChangeCupSize"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_35"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginRight="28dp"
+                android:background="@drawable/btn_next_shape"
+                android:fontFamily="@font/bebase_neue"
+                android:gravity="center"
+                android:text="Add Custom Size"
+                android:textColor="@color/white"
+                android:textStyle="italic"
+                android:visibility="gone" />
+
         </LinearLayout>
 
     </LinearLayout>

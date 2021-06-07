@@ -24,7 +24,6 @@ import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.Plan
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.PlaneCreateResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.WaterGlassSizeModel;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.waterIntakeCounter.WaterIntakeUpdatePlanRequest;
-import com.app.furoapp.activity.newFeature.waterIntakeCalculator.waterIntakeCounter.WaterIntakeUpdatePlanResponse;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
@@ -55,6 +54,8 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
     ConstraintLayout clCreatePlanLayout;
     private int glassSizeInMl;
     private String planId, waterTakeMl, recDurationTime;
+    public String selectPlanId;
+    public String onGoingPlanId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,8 +100,6 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
                     if (response.body() != null && response.body().getStatus() != null) {
                         //recommended plan
                         setRecommendedData(response.body());
-                        //set time for recommended plan
-                        setTimeForRecommendedPlan(response.body().getAllPlans().get(0));
                         //for all plan
                         notifyAllPlanAdapter(response.body().getAllPlans());
                     } else {
@@ -123,18 +122,15 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
     }
 
     private void setRecommendedData(FetchAllPlanResponse body) {
+        planId = String.valueOf(body.getAllPlans().get(0).getId());
         tvShowsMl.setText(body.getGlassSize().getGlassSizeInMl() + " ml");
-        if (body.getAllPlans().get(0).getId() == 1) {
+        tvEveryTime.setText("Every " + body.getAllPlans().get(0).getRecommendedDurationInMins() + " minutes");
+        /*if (body.getAllPlans().get(0).getIsRecomended() == 1) {
             tvEveryTime.setText("Every " + body.getAllPlans().get(0).getRecommendedDurationInMins() + " minutes");
-        }
+        }*/
         glassSizeInMl = Integer.parseInt(body.getGlassSize().getGlassSizeInMl());
-
     }
 
-    private void setTimeForRecommendedPlan(AllPlan allPlan) {
-        if (allPlan.getId() == 1) {
-        }
-    }
 
     private void setAllPlanAdapter() {
         allPlanAdapter = new AllPlanAdapter(getApplicationContext(), allPlanList, this);
@@ -184,14 +180,16 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
         ivStartJourney.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callWaterIntakeUpdatePlanApi();
-
+                Intent intent = new Intent(getApplicationContext(), WaterIntakeCounterActivity.class);
+                intent.putExtra("planId", planId);
+                startActivity(intent);
+                finish();
             }
         });
     }
 
     private void setCreatePlanAdapter() {
-        this.waterInMlAdapter = new WaterInMlAdapter(getApplicationContext(), waterGlassSizeModelList, this);
+        waterInMlAdapter = new WaterInMlAdapter(getApplicationContext(), waterGlassSizeModelList, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         rvCreatePlan.setLayoutManager(layoutManager);
         rvCreatePlan.setItemAnimator(new DefaultItemAnimator());
@@ -266,34 +264,9 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
         Log.d("recDurationTime", recDurationTime);
     }
 
-    private void callWaterIntakeUpdatePlanApi() {
-        WaterIntakeUpdatePlanRequest waterIntakeUpdatePlanRequest = new WaterIntakeUpdatePlanRequest();
-        waterIntakeUpdatePlanRequest.setPlan_id(planId);
-        Util.showProgressDialog(getApplicationContext());
-        RestClient.getWaterIntakeUpdatePlan(getAccessessToken, waterIntakeUpdatePlanRequest, new Callback<WaterIntakeUpdatePlanResponse>() {
-            @Override
-            public void onResponse(Call<WaterIntakeUpdatePlanResponse> call, Response<WaterIntakeUpdatePlanResponse> response) {
-                Util.dismissProgressDialog();
-                if (response.code() == 200) {
-                    if (response.body() != null && response.body().getStatus() != null) {
-                        Intent intent = new Intent(getApplicationContext(), WaterIntakeCounterActivity.class);
-                        startActivity(intent);
-                    }
-                } else if (response.code() == 500) {
-                    Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
-                } else if (response.code() == 403) {
-                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
-                } else if (response.code() == 404) {
-                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<WaterIntakeUpdatePlanResponse> call, Throwable t) {
-                Toast.makeText(CreatePlaneActivity.this, "Something  went wrong !", Toast.LENGTH_SHORT).show();
-            }
-        });
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
-
-
 }

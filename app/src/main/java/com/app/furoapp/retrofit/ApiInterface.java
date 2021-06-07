@@ -17,11 +17,14 @@ import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.View
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
 import com.app.furoapp.activity.newFeature.notification.notificationModel.NotificationResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.ChangeGlassSizeRequest;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.UserChangeGlassSizeResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.cupCreate.CupCreateResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchAllPlan.FetchAllPlanResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.restorePlanModel.RestorePlanResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.selectCustomSizeGlass.SelectCustomGlassSizeRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.dailyWaterIntake.DailyWaterIntakeRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.dailyWaterIntake.DailyWaterIntakeResponse;
-import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchAllPlan.FetchAllPlanResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchGlass.GlassFetchResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.PlaneCreateRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.PlaneCreateResponse;
@@ -473,6 +476,14 @@ public interface ApiInterface {
     /*user/water-intake-update-plan*/
     @POST("user/water-intake-update-plan")
     Call<WaterIntakeUpdatePlanResponse> WATER_INTAKE_UPDATE_PLAN_RESPONSE_CALL(@Header(TOKEN_KEY) String token, @Body WaterIntakeUpdatePlanRequest waterIntakeUpdatePlanRequest);
+
+    /*user/cup/user-change-glass-size*/
+    @POST("user/cup/user-change-glass-size")
+    Call<UserChangeGlassSizeResponse> CHANGE_GLASS_SIZE_RESPONSE_CALL(@Header(TOKEN_KEY) String token, @Body ChangeGlassSizeRequest changeGlassSizeRequest);
+
+    /*user/restore-plan*/
+    @GET("user/restore-plan")
+    Call<RestorePlanResponse> RESTORE_PLAN_RESPONSE_CALL(@Header(TOKEN_KEY) String token);
 
 
 }

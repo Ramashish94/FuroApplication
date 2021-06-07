@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -33,36 +34,46 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".activity.newFeature.waterIntakeCalculator.SettingWaterIntakeActivity"
+            android:clearTaskOnLaunch="true"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activity.newFeature.waterIntakeCalculator.WaterIntakeCounterActivity"
+            android:clearTaskOnLaunch="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.newFeature.waterIntakeCalculator.CreatePlaneActivity"
+            android:clearTaskOnLaunch="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.newFeature.waterIntakeCalculator.WakeUpTimeActivity"
+            android:clearTaskOnLaunch="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.newFeature.waterIntakeCalculator.TellUsMoreActivity"
+            android:clearTaskOnLaunch="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.newFeature.waterIntakeCalculator.YourGenderWICActivity"
+            android:clearTaskOnLaunch="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.newFeature.bmiCalculator.YourScoreActivity"
+            android:clearTaskOnLaunch="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.newFeature.notification.NotificationSectionActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.newFeature.bmiCalculator.CalculateBMIActivity"
+            android:clearTaskOnLaunch="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.newFeature.bmiCalculator.RecordDataActivity"
+            android:clearTaskOnLaunch="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.newFeature.bmiCalculator.SelectGenderAndAgeActivity"
+            android:clearTaskOnLaunch="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.newFeature.healthCare.Days21FitnessChallangeActivity"
@@ -72,9 +83,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.newFeature.waterIntakeCalculator.WaterIntakeStartActivity"
+            android:clearTaskOnLaunch="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.newFeature.bmiCalculator.FindYourBmiActivity"
+            android:clearTaskOnLaunch="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.newFeature.dailyStepsCounter.DailyStepsTrackerActivity"

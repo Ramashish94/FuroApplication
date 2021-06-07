@@ -18,7 +18,7 @@ import com.kevalpatel2106.rulerpicker.RulerValuePickerListener;
 public class CalculateBMIActivity extends AppCompatActivity {
     public TextView tvRecordedScores, tvHeightRulerValueInCms, tvHeightRulerValueInFeet, tvHeightRulerValueInInch, tvWeightRulerValueInKgs;
     public Button btnStartJanury;
-    public String userHeightInCm,userWeightInKg;
+    public String userHeightInCm, userWeightInKg;
     public String getFindBmiType;
 
 
@@ -40,7 +40,7 @@ public class CalculateBMIActivity extends AppCompatActivity {
         tvHeightRulerValueInInch = findViewById(R.id.tvHeightRulerValueInInch);
         tvWeightRulerValueInKgs = findViewById(R.id.tvWeightRulerValueInKgs);
 
-        getFindBmiType =getIntent().getStringExtra("getFindBmiType");
+        getFindBmiType = getIntent().getStringExtra("getFindBmiType");
     }
 
     private void rulerPickerValue() {
@@ -69,13 +69,13 @@ public class CalculateBMIActivity extends AppCompatActivity {
         weightPicker.setValuePickerListener(new RulerValuePickerListener() {
             @Override
             public void onValueChange(final int selectedValue) {
-                userWeightInKg= String.valueOf(selectedValue);
+                userWeightInKg = String.valueOf(selectedValue);
                 tvWeightRulerValueInKgs.setText(userWeightInKg + " kgs ");
             }
 
             @Override
             public void onIntermediateValueChange(final int selectedValue) {
-                userWeightInKg= String.valueOf(selectedValue);
+                userWeightInKg = String.valueOf(selectedValue);
                 tvWeightRulerValueInKgs.setText(userWeightInKg + " kg ");
             }
         });
@@ -105,6 +105,7 @@ public class CalculateBMIActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), RecordDataActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -112,14 +113,20 @@ public class CalculateBMIActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), YourScoreActivity.class);
-                intent.putExtra("userHeightInCm",userHeightInCm);
-                intent.putExtra("userWeightInKg",userWeightInKg);
-                intent.putExtra("getFindBmiType",getFindBmiType);
+                intent.putExtra("userHeightInCm", userHeightInCm);
+                intent.putExtra("userWeightInKg", userWeightInKg);
+                intent.putExtra("getFindBmiType", getFindBmiType);
                 /*FuroPrefs.putString(getApplicationContext(), Constants.USER_HEIGHT_IN_CM, String.valueOf(userHeightInCm));
                 FuroPrefs.putString(getApplicationContext(), Constants.USER_WEIGHT, String.valueOf(userWeightInKg));*/
                 startActivity(intent);
+                finish();
             }
         });
+    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

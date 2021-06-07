@@ -77,7 +77,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="@dimen/dp_10"
-                                android:text="2219 ml"
+                                android:text="0000 ml"
                                 android:layout_marginTop="@dimen/dp_5"
                                 android:layout_gravity="center_vertical"
                                 android:gravity="center_vertical"
@@ -145,7 +145,7 @@
                                 android:layout_height="@dimen/dp_35"
                                 android:layout_marginStart="@dimen/dp_10"
                                 android:gravity="center_vertical"
-                                android:text="Every 45 minutes"
+                                android:text="Every 00 minutes"
                                 android:textColor="@color/black_color"
                                 android:textSize="@dimen/sp_14"
                                 android:textStyle="normal" />

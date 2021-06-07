@@ -1,10 +1,10 @@
 
-package com.app.furoapp.activity.newFeature.waterIntakeCalculator.waterIntakeCounter;
+package com.app.furoapp.activity.newFeature.waterIntakeCalculator.restorePlanModel;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class SelectedPlan {
+public class CurrentPlan {
 
     @SerializedName("id")
     @Expose
@@ -35,7 +35,7 @@ public class SelectedPlan {
     private String remainingTimeForGlassOfWater;
     @SerializedName("recommended_glass_of_water")
     @Expose
-    private Object recommendedGlassOfWater;
+    private Integer recommendedGlassOfWater;
     @SerializedName("reminder_duration_in_mins")
     @Expose
     private String reminderDurationInMins;
@@ -50,7 +50,7 @@ public class SelectedPlan {
     private Integer isRecomended;
     @SerializedName("added_glass_time")
     @Expose
-    private Object addedGlassTime;
+    private String addedGlassTime;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
@@ -130,11 +130,11 @@ public class SelectedPlan {
         this.remainingTimeForGlassOfWater = remainingTimeForGlassOfWater;
     }
 
-    public Object getRecommendedGlassOfWater() {
+    public Integer getRecommendedGlassOfWater() {
         return recommendedGlassOfWater;
     }
 
-    public void setRecommendedGlassOfWater(Object recommendedGlassOfWater) {
+    public void setRecommendedGlassOfWater(Integer recommendedGlassOfWater) {
         this.recommendedGlassOfWater = recommendedGlassOfWater;
     }
 
@@ -170,11 +170,11 @@ public class SelectedPlan {
         this.isRecomended = isRecomended;
     }
 
-    public Object getAddedGlassTime() {
+    public String getAddedGlassTime() {
         return addedGlassTime;
     }
 
-    public void setAddedGlassTime(Object addedGlassTime) {
+    public void setAddedGlassTime(String addedGlassTime) {
         this.addedGlassTime = addedGlassTime;
     }
 

@@ -1,7 +1,6 @@
 package com.app.furoapp.activity.newFeature.waterIntakeCalculator.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +46,7 @@ public class AllPlanAdapter extends RecyclerView.Adapter<AllPlanAdapter.MyViewHo
 
         holder.llAllPlan.setOnClickListener(v -> {
             allPlanClickCallBack.getPlanClickCallBack(allPlan.getId(),
-                    allPlan.getWaterTakeInMl(), allPlan.getRecommendedDurationInMins());
+                    String.valueOf(allPlan.getWaterTakeInMl()), allPlan.getRecommendedDurationInMins());
             row_index = position;
             notifyDataSetChanged();
         });

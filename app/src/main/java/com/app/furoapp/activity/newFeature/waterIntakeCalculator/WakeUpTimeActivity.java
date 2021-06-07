@@ -224,6 +224,7 @@ public class WakeUpTimeActivity extends AppCompatActivity implements FetchGlassA
                         Toast.makeText(WakeUpTimeActivity.this, "Data Saved SuccessFully !", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), CreatePlaneActivity.class);
                         startActivity(intent);
+                        finish();
                     }
                 } else if (response.code() == 500) {
                     Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
@@ -241,5 +242,9 @@ public class WakeUpTimeActivity extends AppCompatActivity implements FetchGlassA
         });
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

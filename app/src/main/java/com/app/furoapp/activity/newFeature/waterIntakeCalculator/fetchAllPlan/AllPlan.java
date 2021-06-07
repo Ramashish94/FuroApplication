@@ -14,10 +14,43 @@ public class AllPlan {
     private String userId;
     @SerializedName("water_take_in_ml")
     @Expose
-    private String waterTakeInMl;
+    private Integer waterTakeInMl;
+    @SerializedName("taken_water_in_ml")
+    @Expose
+    private Integer takenWaterInMl;
+    @SerializedName("remaining_water_in_ml")
+    @Expose
+    private Object remainingWaterInMl;
+    @SerializedName("taken_glass_of_water")
+    @Expose
+    private Integer takenGlassOfWater;
+    @SerializedName("remaining_glass_of_water")
+    @Expose
+    private Object remainingGlassOfWater;
+    @SerializedName("duration_for_taken_glass_of_water")
+    @Expose
+    private Object durationForTakenGlassOfWater;
+    @SerializedName("remaining_time_for_glass_of_water")
+    @Expose
+    private Object remainingTimeForGlassOfWater;
+    @SerializedName("recommended_glass_of_water")
+    @Expose
+    private Object recommendedGlassOfWater;
+    @SerializedName("reminder_duration_in_mins")
+    @Expose
+    private Object reminderDurationInMins;
     @SerializedName("recommended_duration_in_mins")
     @Expose
     private String recommendedDurationInMins;
+    @SerializedName("is_selected")
+    @Expose
+    private Integer isSelected;
+    @SerializedName("is_recomended")
+    @Expose
+    private Integer isRecomended;
+    @SerializedName("added_glass_time")
+    @Expose
+    private Object addedGlassTime;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
@@ -41,12 +74,76 @@ public class AllPlan {
         this.userId = userId;
     }
 
-    public String getWaterTakeInMl() {
+    public Integer getWaterTakeInMl() {
         return waterTakeInMl;
     }
 
-    public void setWaterTakeInMl(String waterTakeInMl) {
+    public void setWaterTakeInMl(Integer waterTakeInMl) {
         this.waterTakeInMl = waterTakeInMl;
+    }
+
+    public Integer getTakenWaterInMl() {
+        return takenWaterInMl;
+    }
+
+    public void setTakenWaterInMl(Integer takenWaterInMl) {
+        this.takenWaterInMl = takenWaterInMl;
+    }
+
+    public Object getRemainingWaterInMl() {
+        return remainingWaterInMl;
+    }
+
+    public void setRemainingWaterInMl(Object remainingWaterInMl) {
+        this.remainingWaterInMl = remainingWaterInMl;
+    }
+
+    public Integer getTakenGlassOfWater() {
+        return takenGlassOfWater;
+    }
+
+    public void setTakenGlassOfWater(Integer takenGlassOfWater) {
+        this.takenGlassOfWater = takenGlassOfWater;
+    }
+
+    public Object getRemainingGlassOfWater() {
+        return remainingGlassOfWater;
+    }
+
+    public void setRemainingGlassOfWater(Object remainingGlassOfWater) {
+        this.remainingGlassOfWater = remainingGlassOfWater;
+    }
+
+    public Object getDurationForTakenGlassOfWater() {
+        return durationForTakenGlassOfWater;
+    }
+
+    public void setDurationForTakenGlassOfWater(Object durationForTakenGlassOfWater) {
+        this.durationForTakenGlassOfWater = durationForTakenGlassOfWater;
+    }
+
+    public Object getRemainingTimeForGlassOfWater() {
+        return remainingTimeForGlassOfWater;
+    }
+
+    public void setRemainingTimeForGlassOfWater(Object remainingTimeForGlassOfWater) {
+        this.remainingTimeForGlassOfWater = remainingTimeForGlassOfWater;
+    }
+
+    public Object getRecommendedGlassOfWater() {
+        return recommendedGlassOfWater;
+    }
+
+    public void setRecommendedGlassOfWater(Object recommendedGlassOfWater) {
+        this.recommendedGlassOfWater = recommendedGlassOfWater;
+    }
+
+    public Object getReminderDurationInMins() {
+        return reminderDurationInMins;
+    }
+
+    public void setReminderDurationInMins(Object reminderDurationInMins) {
+        this.reminderDurationInMins = reminderDurationInMins;
     }
 
     public String getRecommendedDurationInMins() {
@@ -55,6 +152,30 @@ public class AllPlan {
 
     public void setRecommendedDurationInMins(String recommendedDurationInMins) {
         this.recommendedDurationInMins = recommendedDurationInMins;
+    }
+
+    public Integer getIsSelected() {
+        return isSelected;
+    }
+
+    public void setIsSelected(Integer isSelected) {
+        this.isSelected = isSelected;
+    }
+
+    public Integer getIsRecomended() {
+        return isRecomended;
+    }
+
+    public void setIsRecomended(Integer isRecomended) {
+        this.isRecomended = isRecomended;
+    }
+
+    public Object getAddedGlassTime() {
+        return addedGlassTime;
+    }
+
+    public void setAddedGlassTime(Object addedGlassTime) {
+        this.addedGlassTime = addedGlassTime;
     }
 
     public String getCreatedAt() {

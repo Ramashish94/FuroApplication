@@ -119,6 +119,7 @@ public class SelectGenderAndAgeActivity extends AppCompatActivity implements Age
                     FuroPrefs.putString(getApplicationContext(), Constants.USER_AGE_SELECT, userAge);
                     intent.putExtra("getFindBmiType", getFindBmiType);
                     startActivity(intent);
+                    finish();
                 } else {
                     Toast.makeText(SelectGenderAndAgeActivity.this, "Please select gender and age ! ", Toast.LENGTH_SHORT).show();
                 }

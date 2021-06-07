@@ -2,11 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clWaterIntakeCounter"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/create_plan_bg"
     android:orientation="vertical"
-    android:id="@+id/clWaterIntakeCounter"
     tools:context=".activity.newFeature.waterIntakeCalculator.WaterIntakeCounterActivity">
 
     <FrameLayout
@@ -65,20 +65,44 @@
 
                     <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center">
+
+                        <me.bastanfar.semicirclearcprogressbar.SemiCircleArcProgressBar
+                            android:id="@+id/progressBar"
+                            android:layout_width="246dp"
+                            android:layout_height="@dimen/dp_160"
+                            android:layout_gravity="center_horizontal"
+                            app:percent="50"
+                            app:progressBarColor="#5BD0F8"
+                            app:progressBarWidth="30"
+                            app:progressPlaceHolderColor="#BDD6F3"
+                            app:progressPlaceHolderWidth="30"
+                            android:visibility="gone"/>
 
                         <ImageView
                             android:layout_width="246dp"
                             android:layout_height="@dimen/dp_180"
-                            android:layout_gravity="center"
+                            android:layout_gravity="center_horizontal"
                             android:src="@drawable/progress_circle_bg" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/dp_40"
+                            android:fontFamily="@font/bebase_neue"
+                            android:text="todays progress   "
+                            android:textColor="#4CCFF9"
+                            android:textSize="@dimen/sp_16"
+                            android:textStyle="italic" />
+
 
                         <LinearLayout
                             android:layout_width="105dp"
                             android:layout_height="136dp"
-                            android:layout_gravity="center|bottom"
-                            android:layout_marginBottom="@dimen/dp_10"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/dp_75"
                             android:background="@drawable/water_intake_drop_icon"
                             android:orientation="vertical">
 
@@ -213,6 +237,7 @@
                         android:background="@drawable/viewline" />
 
                     <ImageView
+                        android:id="@+id/ivChangeCupSize"
                         android:layout_width="wrap_content"
                         android:layout_height="11dp"
                         android:layout_gravity="center_horizontal"
@@ -247,185 +272,112 @@
                         android:background="@drawable/add_custom_size" />
                 </LinearLayout>
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="270dp"
                     android:layout_marginTop="@dimen/dp_20"
-                    android:background="@drawable/white_bg_create_bg"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/ivDownArrow"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_35"
-                        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
-                        android:visibility="gone" />
-
-                    <ImageView
-                        android:id="@+id/ivUpArrow"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_35"
-                        android:src="@drawable/ic_baseline_keyboard_arrow_up_24" />
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="bottom"
-                            android:layout_marginLeft="@dimen/dp_35"
-                            android:layout_marginTop="@dimen/dp_5"
-                            android:fontFamily="@font/bebase_neue"
-                            android:gravity="center_vertical"
-                            android:text="Daily history"
-                            android:textColor="@color/light_blue"
-                            android:textSize="@dimen/dp_20" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="bottom"
-                            android:layout_marginLeft="@dimen/dp_15"
-                            android:layout_marginTop="@dimen/dp_5"
-                            android:fontFamily="@font/bebase_neue"
-                            android:gravity="center"
-                            android:text="Static overview"
-                            android:textColor="@color/vertical_line_color"
-                            android:textSize="@dimen/dp_20" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1.5dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/dp_10"
-                        android:background="@drawable/viewline" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_marginTop="@dimen/dp_5"
-                        android:layout_marginRight="@dimen/dp_15"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/switchBtnDaily"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="@dimen/dp_5"
-                            android:layout_weight="1"
-                            android:checked="true"
-                            android:gravity="center"
-                            android:text="Daily" />
-
-                        <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/switchBtnWeekly"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="@dimen/dp_5"
-                            android:layout_weight="1"
-                            android:checked="false"
-                            android:gravity="center"
-                            android:text="Weekly" />
-
-                        <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/switchBtnAlType"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="@dimen/sp_10"
-                            android:layout_weight="1"
-                            android:checked="false"
-                            android:gravity="center"
-                            android:text="All time" />
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1.5dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/dp_6"
-                        android:background="@drawable/viewline" />
-
-                    <!--item of daily history-->
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_35"
-                        android:layout_marginRight="@dimen/dp_35"
-                        android:visibility="gone" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_20"
+                        android:background="@drawable/white_bg_create_bg"
                         android:orientation="vertical">
 
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_35"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:id="@+id/ivUpArrow"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_35"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_up_24" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_35"
-                            android:layout_marginTop="@dimen/dp_16"
-                            android:layout_marginRight="@dimen/dp_35"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:visibility="gone">
 
                             <TextView
                                 android:layout_width="wrap_content"
-                                android:layout_height="@dimen/dp_20"
+                                android:layout_height="match_parent"
                                 android:layout_gravity="bottom"
-                                android:text="Today,   "
-                                android:textAllCaps="true"
-                                android:textColor="@color/vertical_line_color"
-                                android:textStyle="normal" />
+                                android:layout_marginLeft="@dimen/dp_35"
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:fontFamily="@font/bebase_neue"
+                                android:gravity="center_vertical"
+                                android:text="Daily history"
+                                android:textColor="@color/light_blue"
+                                android:textSize="@dimen/dp_20" />
 
                             <TextView
                                 android:layout_width="wrap_content"
-                                android:layout_height="@dimen/dp_20"
+                                android:layout_height="match_parent"
                                 android:layout_gravity="bottom"
-                                android:text="17 jun, sunday"
-                                android:textAllCaps="true"
+                                android:layout_marginLeft="@dimen/dp_15"
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:fontFamily="@font/bebase_neue"
+                                android:gravity="center"
+                                android:text="Static overview"
                                 android:textColor="@color/vertical_line_color"
-                                android:textStyle="normal" />
-
+                                android:textSize="@dimen/dp_20" />
                         </LinearLayout>
 
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1.5dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:background="@drawable/viewline" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_35"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/dp_10"
                             android:layout_marginTop="@dimen/dp_5"
-                            android:layout_marginRight="@dimen/dp_35"
-                            android:orientation="horizontal">
+                            android:layout_marginRight="@dimen/dp_15"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
 
-                            <TextView
+                            <androidx.appcompat.widget.SwitchCompat
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/dp_20"
-                                android:layout_gravity="bottom"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="@dimen/dp_5"
                                 android:layout_weight="1"
-                                android:text="Total amount drunk "
-                                android:textColor="@color/black_color" />
+                                android:checked="true"
+                                android:gravity="center"
+                                android:text="Daily" />
 
-                            <TextView
+                            <androidx.appcompat.widget.SwitchCompat
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/dp_20"
-                                android:layout_gravity="bottom"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="@dimen/dp_5"
                                 android:layout_weight="1"
-                                android:gravity="center|end"
-                                android:text="220 ml "
-                                android:textColor="@color/black_color"
-                                android:textStyle="bold" />
+                                android:checked="false"
+                                android:gravity="center"
+                                android:text="Weekly" />
+
+                            <androidx.appcompat.widget.SwitchCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="@dimen/sp_10"
+                                android:layout_weight="1"
+                                android:checked="false"
+                                android:gravity="center"
+                                android:text="All time" />
 
                         </LinearLayout>
 
@@ -433,142 +385,230 @@
                             android:layout_width="match_parent"
                             android:layout_height="1.5dp"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="@dimen/dp_35"
                             android:layout_marginTop="@dimen/dp_6"
+                            android:background="@drawable/viewline"
+                            android:visibility="gone" />
+
+                        <!--item of daily history-->
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_35"
                             android:layout_marginRight="@dimen/dp_35"
-                            android:background="@drawable/viewline" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_10"
-                        android:orientation="vertical">
-
+                            android:visibility="gone" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_35"
-                            android:layout_marginTop="@dimen/dp_5"
-                            android:layout_marginRight="@dimen/dp_35"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/dp_20"
-                                android:layout_gravity="bottom"
-                                android:layout_weight="1"
-                                android:text="No of glasses"
-                                android:textColor="@color/black_color" />
+                            android:orientation="vertical">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center|end"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_35"
+                                android:layout_marginTop="@dimen/dp_16"
+                                android:layout_marginRight="@dimen/dp_35"
                                 android:orientation="horizontal">
 
-
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="@dimen/dp_20"
                                     android:layout_gravity="bottom"
-                                    android:gravity="center|end"
-                                    android:text="5"
-                                    android:textColor="@color/black_color"
-                                    android:textStyle="bold" />
+                                    android:text="Today,   "
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/vertical_line_color"
+                                    android:textStyle="normal" />
 
                                 <TextView
+                                    android:id="@+id/tvDateWithDay"
                                     android:layout_width="wrap_content"
                                     android:layout_height="@dimen/dp_20"
                                     android:layout_gravity="bottom"
+                                    android:text="17 jun, sunday"
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/vertical_line_color"
+                                    android:textStyle="normal" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_35"
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:layout_marginRight="@dimen/dp_35"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/dp_20"
+                                    android:layout_gravity="bottom"
+                                    android:layout_weight="1"
+                                    android:text="Total amount drunk "
+                                    android:textColor="@color/black_color" />
+
+                                <TextView
+                                    android:id="@+id/tvTotAmountDrunk"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/dp_20"
+                                    android:layout_gravity="bottom"
+                                    android:layout_weight="1"
                                     android:gravity="center|end"
-                                    android:text="/9 Glasses "
+                                    android:text="220 ml "
                                     android:textColor="@color/black_color"
                                     android:textStyle="bold" />
 
                             </LinearLayout>
 
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1.5dp"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/dp_35"
+                                android:layout_marginTop="@dimen/dp_6"
+                                android:layout_marginRight="@dimen/dp_35"
+                                android:background="@drawable/viewline" />
 
                         </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1.5dp"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="@dimen/dp_35"
-                            android:layout_marginTop="@dimen/dp_10"
-                            android:layout_marginRight="@dimen/dp_35"
-                            android:background="@drawable/viewline" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_10"
-                        android:orientation="vertical">
-
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_35"
-                            android:layout_marginTop="@dimen/dp_5"
-                            android:layout_marginRight="@dimen/dp_35"
-                            android:orientation="horizontal">
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:orientation="vertical">
 
-                            <TextView
+
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/dp_20"
-                                android:layout_gravity="bottom"
-                                android:layout_weight="1"
-                                android:text="On time response"
-                                android:textColor="@color/black_color" />
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_35"
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:layout_marginRight="@dimen/dp_35"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/dp_20"
+                                    android:layout_gravity="bottom"
+                                    android:layout_weight="1"
+                                    android:text="No of glasses"
+                                    android:textColor="@color/black_color" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:gravity="center|end"
+                                    android:orientation="horizontal">
 
 
-                            <TextView
+                                    <TextView
+                                        android:id="@+id/tvNosOfGlasses"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="@dimen/dp_20"
+                                        android:layout_gravity="bottom"
+                                        android:gravity="center|end"
+                                        android:text="0"
+                                        android:textColor="@color/black_color"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/tvRecommendedNosOfGlasses"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="@dimen/dp_20"
+                                        android:layout_gravity="bottom"
+                                        android:gravity="center|end"
+                                        android:text="/0 Glasses "
+                                        android:textColor="@color/black_color"
+                                        android:textStyle="bold" />
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+                            <View
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/dp_20"
-                                android:layout_gravity="bottom"
-                                android:layout_weight="1"
-                                android:gravity="center|end"
-                                android:text="68 %  "
-                                android:textColor="@color/black_color"
-                                android:textStyle="bold" />
+                                android:layout_height="1.5dp"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/dp_35"
+                                android:layout_marginTop="@dimen/dp_10"
+                                android:layout_marginRight="@dimen/dp_35"
+                                android:background="@drawable/viewline" />
 
                         </LinearLayout>
 
-                        <View
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="1.5dp"
-                            android:layout_gravity="center"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dp_10"
-                            android:background="@drawable/viewline" />
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_35"
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:layout_marginRight="@dimen/dp_35"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/dp_20"
+                                    android:layout_gravity="bottom"
+                                    android:layout_weight="1"
+                                    android:text="On time response"
+                                    android:textColor="@color/black_color" />
+
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/dp_20"
+                                    android:layout_gravity="bottom"
+                                    android:layout_weight="1"
+                                    android:gravity="center|end"
+                                    android:text="68 %  "
+                                    android:textColor="@color/black_color"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1.5dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/dp_10"
+                                android:background="@drawable/viewline" />
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_60"
+                            android:layout_marginLeft="@dimen/dp_16"
+                            android:layout_marginTop="@dimen/dp_35"
+                            android:layout_marginRight="@dimen/dp_16"
+                            android:src="@drawable/water_is_healthy_for_crutial"
+                            android:visibility="gone" />
                     </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_60"
-                        android:layout_marginLeft="@dimen/dp_16"
-                        android:layout_marginTop="@dimen/dp_35"
-                        android:layout_marginRight="@dimen/dp_16"
-                        android:src="@drawable/water_is_healthy_for_crutial" />
+
                 </LinearLayout>
-
-
             </LinearLayout>
-
 
         </androidx.core.widget.NestedScrollView>
 
         <include
             android:id="@+id/includePopMenuOfSelectCupSize"
             layout="@layout/pop_up_menu_of_cup_create"
-            android:visibility="gone"/>
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/includePopMenuOfWaterIntakeCounter"
+            layout="@layout/pop_up_menu_of_water_intake_counter"
+            android:visibility="gone" />
 
 
     </FrameLayout>

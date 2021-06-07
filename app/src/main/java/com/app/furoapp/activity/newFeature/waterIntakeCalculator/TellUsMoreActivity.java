@@ -274,10 +274,14 @@ public class TellUsMoreActivity extends AppCompatActivity {
                 intent.putExtra("totExerciseTimeInMin", totExerciseTimeInMin);
                 intent.putExtra("getUserWeightInKg", getUserWeightInKg);
                 startActivity(intent);
+                finish();
             }
         });
-
-
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

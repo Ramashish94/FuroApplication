@@ -111,6 +111,7 @@ public class YourScoreActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), FindYourBmiActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -125,6 +126,7 @@ public class YourScoreActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), FindYourBmiActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -146,6 +148,7 @@ public class YourScoreActivity extends AppCompatActivity {
                         Toast.makeText(YourScoreActivity.this, "Bmi data saved successfully", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), FindYourBmiActivity.class);
                         startActivity(intent);
+                        finish();
                     }
                 }
             }
@@ -155,5 +158,11 @@ public class YourScoreActivity extends AppCompatActivity {
                 Toast.makeText(YourScoreActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

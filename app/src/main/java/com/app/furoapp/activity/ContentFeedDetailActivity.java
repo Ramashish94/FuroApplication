@@ -1,9 +1,18 @@
 package com.app.furoapp.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,6 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,13 +41,20 @@ import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.View
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsResponse;
 import com.app.furoapp.adapter.ActivityDetailAdapter;
 import com.app.furoapp.adapter.CommentsAdapter;
+import com.app.furoapp.fragment.content_feed.ContentFeedHomeFragment;
 import com.app.furoapp.model.contentFeedDetail.ContentFeedDetailRequest;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +62,9 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.bluetooth.BluetoothGattCharacteristic.PERMISSION_WRITE;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class ContentFeedDetailActivity extends AppCompatActivity {
 
@@ -66,6 +87,7 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
     CommentsAdapter commentsAdapter;
     List<Comment> commentArrayList = new ArrayList<>();
     private boolean isUserLike;
+    public static String TAG = ContentFeedDetailActivity.class.getSimpleName();
 
 
     @Override
@@ -352,6 +374,8 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
         String title = detailsItem.getDescription();
         String url;
         String videoId = null;
+        boolean isArticle = false;
+
         if (detailsItem.getVideo() != null)
             try {
                 videoId = Util.extractYoutubeId(detailsItem.getVideo());
@@ -361,15 +385,24 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
             }
         if (!TextUtils.isEmpty(videoId)) {
             url = "http://www.youtube.com/watch?v=" + videoId;
+            isArticle = false;
         } else {
             url = detailsItem.getImageUrl();
+            isArticle = true;
         }
-        String fullMessage = title + "\n" + url;
-        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-        sharingIntent.setType("text/plain");
-        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Furo FQ");
-        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, fullMessage);
-        startActivity(Intent.createChooser(sharingIntent, "Share via"));
+        if (isArticle) {
+            if (checkPermission()) {
+                shareImage(url, title);
+            }
+        } else {
+            Log.d(TAG, "() calleonClickShared with: pos = [" + url + "], data = [" + url + "]");
+            String fullMessage = title + "\n" + url;
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Furo FQ");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, fullMessage);
+            startActivity(Intent.createChooser(sharingIntent, "Share via"));
+        }
     }
 
     private void setCommentsAdapter() {
@@ -389,4 +422,83 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
         }
 
     }
+
+    public void shareImage(String url, String title) {
+        Picasso.with(getApplicationContext()).load(url).into(new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                String fileUri = "";
+
+                String filename = System.currentTimeMillis() + ".png";
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, bytes);
+                File ExternalStorageDirectory = Environment.getExternalStorageDirectory();
+                File file = new File(ExternalStorageDirectory + File.separator + filename);
+                FileOutputStream fileOutputStream = null;
+                try {
+                    file.createNewFile();
+                    fileOutputStream = new FileOutputStream(file);
+                    fileOutputStream.write(bytes.toByteArray());
+                    fileUri = file.getAbsolutePath();
+
+//                    File sd = Environment.getExternalStorageDirectory();
+//                    File dest = new File(sd, filename);
+//
+//                    FileOutputStream outputStream = new FileOutputStream(dest);
+//                    fileUri = dest.getAbsolutePath();
+//                    Log.d(TAG, "onBitmapLoaded() called with: bitmap = [" + fileUri + "], from = [" + fileUri + "]");
+//                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+//                    outputStream.flush();
+//                    outputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    if (fileOutputStream != null) {
+                        try {
+                            fileOutputStream.close();
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), BitmapFactory.decodeFile(fileUri), null, null));
+                // use intent to share image
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("image/*");
+                share.putExtra(Intent.EXTRA_STREAM, uri);
+                share.putExtra(Intent.EXTRA_TEXT, title);
+
+                startActivity(Intent.createChooser(share, "Share Image"));
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+            }
+        });
+    }
+
+    //runtime storage permission
+    public boolean checkPermission() {
+        int READ_EXTERNAL_PERMISSION = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE);
+        if ((READ_EXTERNAL_PERMISSION != PackageManager.PERMISSION_GRANTED)) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_MEDIA_LOCATION}, PERMISSION_WRITE);
+            return false;
+        }
+        return true;
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_WRITE && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            //do somethings
+        }
+    }
+
 }

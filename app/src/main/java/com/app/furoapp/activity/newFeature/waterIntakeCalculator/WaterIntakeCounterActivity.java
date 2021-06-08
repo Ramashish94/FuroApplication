@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +24,11 @@ import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.UserChangeGlassSizeResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.cupCreate.AddUserCup;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.cupCreate.CupCreateResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.restorePlanModel.AllTimeData;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.restorePlanModel.CurrentPlan;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.restorePlanModel.MonthlyData;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.restorePlanModel.RestorePlanResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.restorePlanModel.WeeklyData;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.selectCustomSizeGlass.SelectCustomGlassSizeRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchGlass.GlassFetchResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchGlass.UserGlassSize;
@@ -56,7 +61,9 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
     private String getAccessToken;
     public TextView tvNosGlassCount, tvTakingWater, tvAddCustomSize, tvRecommendedReamingWater, tvGlassSize, tvChangeCupSize,
             tvTotAmountDrunk, tvNosOfGlasses, tvRecommendedNosOfGlasses, tvDateWithDay;
-    public View includePopMenuOfSelectCupSize;
+    public TextView tvRecommendedNosOfWaterGlasses, tvTotWaterAmountDrunk, tvCountNosOfGlass, tvDateWithDays;
+    public LinearLayout llCongratsClosedIcon;
+    public View includePopMenuOfSelectCupSize, includeCongratsPopMenu;
     public RecyclerView rvSelectCupSize;
     public SelectCupSizeAdapter selectCupSizeAdapter;
     List<UserGlassSize> userGlassSizeList = new ArrayList<>();
@@ -75,7 +82,9 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
     public MonthlyDataAdapter monthlyDataAdapter;
     public AllTimeDataAdapter allTimeDataAdapter;
     List<RestorePlanResponse> restorePlanResponseList = new ArrayList<>();
-    private RestorePlanResponse weeklyDataList;
+    List<WeeklyData> weeklyDataList = new ArrayList<>();
+    List<MonthlyData> monthlyDataList = new ArrayList<>();
+    List<AllTimeData> allTimeDataList = new ArrayList<>();
     private int takingWater;
     private int totRecommendedWater;
     private int takenWaterInPercent;
@@ -122,6 +131,12 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         rvOfDailyWeeklyAllTime = findViewById(R.id.rvOfDailyWeeklyAllTime);
         includePopMenuOfWaterIntakeCounter = findViewById(R.id.includePopMenuOfWaterIntakeCounter);
 
+        tvRecommendedNosOfWaterGlasses = findViewById(R.id.tvRecommendedNosOfWaterGlasses);
+        tvTotWaterAmountDrunk = findViewById(R.id.tvTotWaterAmountDrunk);
+        tvCountNosOfGlass = findViewById(R.id.tvCountNosOfGlass);
+        tvDateWithDays = findViewById(R.id.tvDateWithDays);
+        includeCongratsPopMenu = findViewById(R.id.includeCongratsPopMenu);
+        llCongratsClosedIcon = findViewById(R.id.llCongratsClosedIcon);
     }
 
     private void callDailyWaterIntakeUpdatePlanApi() {
@@ -165,7 +180,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             tvNosGlassCount.setText("" + Integer.toString(selectedPlan.getTakenGlassOfWater()).toString());
         }
         if (selectedPlan.getTakenWaterInMl() != null) {
-            tvTakingWater.setText("" + selectedPlan.getTakenWaterInMl().toString());
+            tvTakingWater.setText("" + selectedPlan.getTakenWaterInMl().toString());///////////////
         }
         if (selectedPlan.getWaterTakeInMl() != null) {
             tvRecommendedReamingWater.setText("of " + selectedPlan.getWaterTakeInMl().toString() + " ml");
@@ -173,8 +188,11 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         if (selectedPlan.getTakenWaterInMl() != null) {
             tvTotAmountDrunk.setText("" + selectedPlan.getTakenWaterInMl().toString() + " ml");
         }
+        if (selectedPlan.getTakenWaterInMl() != null) {
+            tvNosOfGlasses.setText("" + selectedPlan.getTakenWaterInMl().toString());
+        }
         if (selectedPlan.getRecommendedGlassOfWater() != null) {
-            tvRecommendedNosOfGlasses.setText("/" + selectedPlan.getRecommendedGlassOfWater().toString() + "Glasses");
+            tvRecommendedNosOfGlasses.setText("/" + selectedPlan.getRecommendedGlassOfWater().toString());
         }
 
         DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
@@ -200,6 +218,11 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         progressBar.setProgressBarWidth(10);
         progressBar.setProgressPlaceHolderWidth(10);
 
+       /* if (selectedPlan.getTakenWaterInMl().equals(selectedPlan.getWaterTakeInMl())) {
+            includeCongratsPopMenu.setVisibility(View.VISIBLE);
+            clWaterIntakeCounter.setClickable(false);
+        }
+*/
     }
 
 
@@ -287,8 +310,15 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                     type = "Weekly";
                     switchBtnAllType.setChecked(false);
                     switchBtnMontly.setChecked(false);
+                    callRestorePlanApi();
 
-                }
+                    // callRestorePlanApi(type);
+                    // getWeeklyData();
+                } /*else {
+                    callRestorePlanApi("");*/
+
+                //  getWeeklyData();
+                // }
             }
         });
 
@@ -299,7 +329,11 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                     type = "Monthly";
                     switchBtnWeekly.setChecked(false);
                     switchBtnAllType.setChecked(false);
+                    callRestorePlanApi();
 
+                    //callRestorePlanApi(type);
+
+                    // getMonthlyData();
                 }
             }
         });
@@ -311,7 +345,10 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                     type = "All Time";
                     switchBtnWeekly.setChecked(false);
                     switchBtnMontly.setChecked(false);
+                    callRestorePlanApi();
 
+                    //callRestorePlanApi(type);
+                    // getAlltimeData();
                 }
             }
         });
@@ -321,7 +358,6 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             public void onClick(View v) {
                 includePopMenuOfWaterIntakeCounter.setVisibility(View.VISIBLE);
                 clWaterIntakeCounter.setClickable(false);
-                setweeklyRecyAdapter();
                 callRestorePlanApi();
             }
         });
@@ -332,8 +368,14 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 includePopMenuOfWaterIntakeCounter.setVisibility(View.GONE);
             }
         });
-    }
 
+        llCongratsClosedIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
 
     private void CallChangeGlassSizeApi() {
         ChangeGlassSizeRequest changeGlassSizeRequest = new ChangeGlassSizeRequest();
@@ -342,11 +384,11 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             @Override
             public void onResponse(Call<UserChangeGlassSizeResponse> call, Response<UserChangeGlassSizeResponse> response) {
                 if (response.code() == 200) {
-                    if (response.body() != null && response.body().getStatus() != null) {
+                    if (response.body() != null) {
                         Toast.makeText(WaterIntakeCounterActivity.this, "Cup size change successfully", Toast.LENGTH_SHORT).show();
                         callDailyWaterIntakeUpdatePlanApi();
                     }
-                }else if (response.code() == 500) {
+                } else if (response.code() == 500) {
                     Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 403) {
                     Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
@@ -406,7 +448,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             @Override
             public void onResponse(Call<GlassFetchResponse> call, Response<GlassFetchResponse> response) {
                 if (response.code() == 200) {
-                    if (response.body() != null && response.body().getStatus() != null) {
+                    if (response.body() != null) {
 
                         if (response.body().getUserGlassSizes() != null) {
                             notifyGlassAdapter(response.body().getUserGlassSizes());
@@ -482,57 +524,175 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
     }
 
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        callDailyWaterIntakeUpdatePlanApi();
-//    }
-
-    private void callRestorePlanApi() {
+    public void callRestorePlanApi() {
         Util.showProgressDialog(getApplicationContext());
         RestClient.getRestorePlan(getAccessToken, new Callback<RestorePlanResponse>() {
             @Override
             public void onResponse(Call<RestorePlanResponse> call, Response<RestorePlanResponse> response) {
                 Util.dismissProgressDialog();
                 if (response.code() == 200) {
-                    if (response.body() != null && response.body().getStatus() != null) {
-                        // List<RestorePlanResponse>restorePlanResponseList=response.body();
-
-                        /*//notify Weekly data
-                        notifyWeeklyData(response.body());
-                        //notify monthly data
-                        notifyMonthlyData(response.body());
-                        //notify allTime data
-                        notifyAllTimeData(response.body());*/
-
+                    if (response.body() != null) {
+                        setDate(response.body().getCurrentPlan());
+                        setWeeklyData(response.body().getWeeklyData());
+                        setAllTimeData(response.body().getAllTimeData());
+                        setWeeklyData(response.body().getWeeklyData());
+                       /* if (type.equalsIgnoreCase("Weekly")) {
+                        } else if (type.equalsIgnoreCase("Monthly")) {
+                            setMonthlyData(response.body().getMonthlyData());
+                        } else if (type.equalsIgnoreCase("All Time")) {
+                        } else {
+                        }*/
                     }
+                } else if (response.code() == 500) {
+                    Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
+                } else if (response.code() == 403) {
+                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
+                } else if (response.code() == 404) {
+                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
                 }
+
             }
 
             @Override
             public void onFailure(Call<RestorePlanResponse> call, Throwable t) {
+                Toast.makeText(WaterIntakeCounterActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private void setDate(CurrentPlan currentPlan) {
+        DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
+        try {
+            date = dateFormat.parse(currentPlan.getCreatedAt());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        DateFormat dateFormat1 = new SimpleDateFormat("dd MMM, EEE");
+        String getDate = dateFormat1.format(date);
+        tvDateWithDays.setText(getDate);
+    }
+
+    private void setAllTimeData(AllTimeData allTimeData) {
+        Util.showProgressDialog(getApplicationContext());
+        tvTotWaterAmountDrunk.setText("" + allTimeData.getAllTimeTakenWaterInMl().toString() + " ml");
+        tvCountNosOfGlass.setText("" + allTimeData.getAllTimeTakenGlassOfWater().toString());
+        tvRecommendedNosOfWaterGlasses.setText("/" + allTimeData.getAllTimeRecommendedGlassOfWater().toString() + " Glasses");
+        Util.dismissProgressDialog();
+    }
+
+    private void setMonthlyData(MonthlyData monthlyData) {
+        Util.showProgressDialog(getApplicationContext());
+        tvTotWaterAmountDrunk.setText("" + monthlyData.getMonthlyTakenWaterInMl().toString() + " ml");
+        tvCountNosOfGlass.setText("" + monthlyData.getMonthlyTakenGlassOfWater().toString());
+        tvRecommendedNosOfWaterGlasses.setText("/" + monthlyData.getMonthlyRecommendedGlassOfWater().toString() + " Glasses");
+        Util.dismissProgressDialog();
+
+    }
+
+    private void setWeeklyData(WeeklyData weeklyData) {
+        Util.showProgressDialog(getApplicationContext());
+        tvTotWaterAmountDrunk.setText("" + weeklyData.getWeeklyTakenWaterInMl().toString() + " ml");
+        tvCountNosOfGlass.setText("" + weeklyData.getWeeklyTakenGlassOfWater().toString());
+        tvRecommendedNosOfWaterGlasses.setText("/" + weeklyData.getWeeklyRecommendedGlassOfWater().toString() + " Glasses");
+        Util.dismissProgressDialog();
+
+    }
+
+
+    private void getWeeklyData() {
+        Util.showProgressDialog(getApplicationContext());
+        RestClient.getRestorePlan(getAccessToken, new Callback<RestorePlanResponse>() {
+            @Override
+            public void onResponse(Call<RestorePlanResponse> call, Response<RestorePlanResponse> response) {
+                Util.dismissProgressDialog();
+                if (response.code() == 200) {
+                    if (response.body() != null) {
+                        setDate(response.body().getCurrentPlan());
+                        setWeeklyData(response.body().getWeeklyData());
+//                        setAllTimeData(response.body().getAllTimeData());
+//                        setWeeklyData(response.body().getWeeklyData());
+//                        setMonthlyData(response.body().getMonthlyData());
+
+                    }
+                } else if (response.code() == 500) {
+                    Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
+                } else if (response.code() == 403) {
+                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
+                } else if (response.code() == 404) {
+                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<RestorePlanResponse> call, Throwable t) {
+                Toast.makeText(WaterIntakeCounterActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
 
             }
         });
 
     }
 
-    private void setweeklyRecyAdapter() {
-        weeklyDataAdapter = new WeeklyDataAdapter(getApplicationContext(), restorePlanResponseList);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        rvOfDailyWeeklyAllTime.setLayoutManager(layoutManager);
-        rvOfDailyWeeklyAllTime.setItemAnimator(new DefaultItemAnimator());
-        rvOfDailyWeeklyAllTime.setAdapter(weeklyDataAdapter);
+    private void getMonthlyData() {
+        Util.showProgressDialog(getApplicationContext());
+        RestClient.getRestorePlan(getAccessToken, new Callback<RestorePlanResponse>() {
+            @Override
+            public void onResponse(Call<RestorePlanResponse> call, Response<RestorePlanResponse> response) {
+                Util.dismissProgressDialog();
+                if (response.code() == 200) {
+                    if (response.body() != null) {
+                        setDate(response.body().getCurrentPlan());
+                        //                       setWeeklyData(response.body().getWeeklyData());
+//                        setAllTimeData(response.body().getAllTimeData());
+//                        setWeeklyData(response.body().getWeeklyData());
+                        setMonthlyData(response.body().getMonthlyData());
+                    }
+                } else if (response.code() == 500) {
+                    Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
+                } else if (response.code() == 403) {
+                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
+                } else if (response.code() == 404) {
+                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RestorePlanResponse> call, Throwable t) {
+                Toast.makeText(WaterIntakeCounterActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
-    private void notifyWeeklyData(RestorePlanResponse body) {
-//        restorePlanResponseList.clear();
-//        restorePlanResponseList.addAll(weeklyDataList);
-        if (body != null) {
-            if (restorePlanResponseList != null && restorePlanResponseList.size() > 0) {
-                weeklyDataAdapter.notifyDataSetChanged();
+    private void getAlltimeData() {
+        Util.showProgressDialog(getApplicationContext());
+        RestClient.getRestorePlan(getAccessToken, new Callback<RestorePlanResponse>() {
+            @Override
+            public void onResponse(Call<RestorePlanResponse> call, Response<RestorePlanResponse> response) {
+                Util.dismissProgressDialog();
+                if (response.code() == 200) {
+                    if (response.body() != null) {
+                        setDate(response.body().getCurrentPlan());
+//                        setWeeklyData(response.body().getWeeklyData());
+                        setAllTimeData(response.body().getAllTimeData());
+//                        setWeeklyData(response.body().getWeeklyData());
+//                        setMonthlyData(response.body().getMonthlyData());
+                    }
+                } else if (response.code() == 500) {
+                    Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
+                } else if (response.code() == 403) {
+                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
+                } else if (response.code() == 404) {
+                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
+                }
             }
-        }
+
+            @Override
+            public void onFailure(Call<RestorePlanResponse> call, Throwable t) {
+                Toast.makeText(WaterIntakeCounterActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

@@ -2,6 +2,7 @@
 package com.app.furoapp.activity.newFeature.waterIntakeCalculator.restorePlanModel;
 
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -13,33 +14,15 @@ public class RestorePlanResponse {
     @SerializedName("restoredPlan")
     @Expose
     private List<RestoredPlan> restoredPlan = null;
-    @SerializedName("weeklyTakenWaterInMl")
+    @SerializedName("weeklyData")
     @Expose
-    private Integer weeklyTakenWaterInMl;
-    @SerializedName("weeklyTakenGlassOfWater")
+    private WeeklyData weeklyData;
+    @SerializedName("monthlyData")
     @Expose
-    private Integer weeklyTakenGlassOfWater;
-    @SerializedName("weeklyRecommendedGlassOfWater")
+    private MonthlyData monthlyData;
+    @SerializedName("allTimeData")
     @Expose
-    private Integer weeklyRecommendedGlassOfWater;
-    @SerializedName("monthlyTakenWaterInMl")
-    @Expose
-    private Integer monthlyTakenWaterInMl;
-    @SerializedName("monthlyTakenGlassOfWater")
-    @Expose
-    private Integer monthlyTakenGlassOfWater;
-    @SerializedName("monthlyRecommendedGlassOfWater")
-    @Expose
-    private Integer monthlyRecommendedGlassOfWater;
-    @SerializedName("allTimeTakenWaterInMl")
-    @Expose
-    private Integer allTimeTakenWaterInMl;
-    @SerializedName("allTimeTakenGlassOfWater")
-    @Expose
-    private String allTimeTakenGlassOfWater;
-    @SerializedName("allTimeRecommendedGlassOfWater")
-    @Expose
-    private String allTimeRecommendedGlassOfWater;
+    private AllTimeData allTimeData;
     @SerializedName("status")
     @Expose
     private String status;
@@ -60,76 +43,28 @@ public class RestorePlanResponse {
         this.restoredPlan = restoredPlan;
     }
 
-    public Integer getWeeklyTakenWaterInMl() {
-        return weeklyTakenWaterInMl;
+    public WeeklyData getWeeklyData() {
+        return weeklyData;
     }
 
-    public void setWeeklyTakenWaterInMl(Integer weeklyTakenWaterInMl) {
-        this.weeklyTakenWaterInMl = weeklyTakenWaterInMl;
+    public void setWeeklyData(WeeklyData weeklyData) {
+        this.weeklyData = weeklyData;
     }
 
-    public Integer getWeeklyTakenGlassOfWater() {
-        return weeklyTakenGlassOfWater;
+    public MonthlyData getMonthlyData() {
+        return monthlyData;
     }
 
-    public void setWeeklyTakenGlassOfWater(Integer weeklyTakenGlassOfWater) {
-        this.weeklyTakenGlassOfWater = weeklyTakenGlassOfWater;
+    public void setMonthlyData(MonthlyData monthlyData) {
+        this.monthlyData = monthlyData;
     }
 
-    public Integer getWeeklyRecommendedGlassOfWater() {
-        return weeklyRecommendedGlassOfWater;
+    public AllTimeData getAllTimeData() {
+        return allTimeData;
     }
 
-    public void setWeeklyRecommendedGlassOfWater(Integer weeklyRecommendedGlassOfWater) {
-        this.weeklyRecommendedGlassOfWater = weeklyRecommendedGlassOfWater;
-    }
-
-    public Integer getMonthlyTakenWaterInMl() {
-        return monthlyTakenWaterInMl;
-    }
-
-    public void setMonthlyTakenWaterInMl(Integer monthlyTakenWaterInMl) {
-        this.monthlyTakenWaterInMl = monthlyTakenWaterInMl;
-    }
-
-    public Integer getMonthlyTakenGlassOfWater() {
-        return monthlyTakenGlassOfWater;
-    }
-
-    public void setMonthlyTakenGlassOfWater(Integer monthlyTakenGlassOfWater) {
-        this.monthlyTakenGlassOfWater = monthlyTakenGlassOfWater;
-    }
-
-    public Integer getMonthlyRecommendedGlassOfWater() {
-        return monthlyRecommendedGlassOfWater;
-    }
-
-    public void setMonthlyRecommendedGlassOfWater(Integer monthlyRecommendedGlassOfWater) {
-        this.monthlyRecommendedGlassOfWater = monthlyRecommendedGlassOfWater;
-    }
-
-    public Integer getAllTimeTakenWaterInMl() {
-        return allTimeTakenWaterInMl;
-    }
-
-    public void setAllTimeTakenWaterInMl(Integer allTimeTakenWaterInMl) {
-        this.allTimeTakenWaterInMl = allTimeTakenWaterInMl;
-    }
-
-    public String getAllTimeTakenGlassOfWater() {
-        return allTimeTakenGlassOfWater;
-    }
-
-    public void setAllTimeTakenGlassOfWater(String allTimeTakenGlassOfWater) {
-        this.allTimeTakenGlassOfWater = allTimeTakenGlassOfWater;
-    }
-
-    public String getAllTimeRecommendedGlassOfWater() {
-        return allTimeRecommendedGlassOfWater;
-    }
-
-    public void setAllTimeRecommendedGlassOfWater(String allTimeRecommendedGlassOfWater) {
-        this.allTimeRecommendedGlassOfWater = allTimeRecommendedGlassOfWater;
+    public void setAllTimeData(AllTimeData allTimeData) {
+        this.allTimeData = allTimeData;
     }
 
     public String getStatus() {

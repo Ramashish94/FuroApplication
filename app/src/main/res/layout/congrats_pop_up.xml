@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bedtime2bg"
+    android:gravity="center"
+    tools:context=".activity.newFeature.waterIntakeCalculator.WaterIntakeCounterActivity">
+
+
+    <LinearLayout
+        android:id="@+id/llGlassTakebg"
+        android:layout_width="312dp"
+        android:layout_height="450dp"
+        android:background="@drawable/congrats_pop_pup"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/llClosedIcon"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_marginTop="@dimen/dp_7"
+            android:layout_gravity="end|center_horizontal"
+            android:gravity="end|center_vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="162dp"
+                    android:layout_height="@dimen/dp_24"
+                    android:layout_marginRight="@dimen/dp_30"
+                    />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/llCongratsClosedIcon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="80"
+                android:gravity="center"
+                tools:ignore="DuplicateIds">
+
+                <ImageView
+                    android:id="@+id/ivCongratsCancel"
+                    android:layout_width="@dimen/dp_24"
+                    android:layout_height="@dimen/dp_24"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="18dp"
+                    android:src="@drawable/closediconwhite" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

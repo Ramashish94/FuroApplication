@@ -4,8 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -45,9 +43,9 @@ public class WeeklyDataAdapter extends RecyclerView.Adapter<WeeklyDataAdapter.My
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         RestorePlanResponse restorePlanResponse = restorePlanResponseList.get(position);
-        holder.tvTotWaterAmountDrunk.setText("" + restorePlanResponse.getWeeklyTakenWaterInMl().toString() + " ml");
-        holder.tvCountNosOfGlass.setText("" + restorePlanResponse.getWeeklyTakenGlassOfWater().toString());
-        holder.tvRecommendedNosOfWaterGlasses.setText("" + restorePlanResponse.getWeeklyRecommendedGlassOfWater().toString() + " Glasses");
+        holder.tvTotWaterAmountDrunk.setText("" + restorePlanResponse.getWeeklyData().getWeeklyTakenWaterInMl().toString() + " ml");
+        holder.tvCountNosOfGlass.setText("" + restorePlanResponse.getWeeklyData().getWeeklyTakenGlassOfWater().toString());
+        holder.tvRecommendedNosOfWaterGlasses.setText("" + restorePlanResponse.getWeeklyData().getWeeklyRecommendedGlassOfWater().toString() + " Glasses");
         DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
         try {
             date = dateFormat.parse(restorePlanResponse.getCurrentPlan().getCreatedAt());

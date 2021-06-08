@@ -70,15 +70,15 @@
 
                         <me.bastanfar.semicirclearcprogressbar.SemiCircleArcProgressBar
                             android:id="@+id/progressBar"
-                            android:layout_width="246dp"
-                            android:layout_height="@dimen/dp_160"
+                            android:layout_width="260dp"
+                            android:layout_height="@dimen/dp_170"
                             android:layout_gravity="center_horizontal"
+                            android:visibility="gone"
                             app:percent="50"
                             app:progressBarColor="#5BD0F8"
                             app:progressBarWidth="30"
                             app:progressPlaceHolderColor="#BDD6F3"
-                            app:progressPlaceHolderWidth="30"
-                            android:visibility="gone"/>
+                            app:progressPlaceHolderWidth="30" />
 
                         <ImageView
                             android:layout_width="246dp"
@@ -94,7 +94,7 @@
                             android:fontFamily="@font/bebase_neue"
                             android:text="todays progress   "
                             android:textColor="#4CCFF9"
-                            android:textSize="@dimen/sp_16"
+                            android:textSize="@dimen/sp_14"
                             android:textStyle="italic" />
 
 
@@ -518,9 +518,19 @@
                                         android:layout_height="@dimen/dp_20"
                                         android:layout_gravity="bottom"
                                         android:gravity="center|end"
-                                        android:text="/0 Glasses "
+                                        android:maxLength="2"
+                                        android:text="0 "
                                         android:textColor="@color/black_color"
                                         android:textStyle="bold" />
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="@dimen/dp_20"
+                                        android:layout_gravity="bottom"
+                                        android:gravity="center|end"
+                                        android:text="Glasses "
+                                        android:textColor="@color/black_color"
+                                        android:textStyle="bold" />
+
 
                                 </LinearLayout>
 
@@ -609,6 +619,11 @@
             android:id="@+id/includePopMenuOfWaterIntakeCounter"
             layout="@layout/pop_up_menu_of_water_intake_counter"
             android:visibility="gone" />
+
+        <include
+            android:id="@+id/includeCongratsPopMenu"
+            layout="@layout/congrats_pop_up"
+            android:visibility="gone"/>
 
 
     </FrameLayout>

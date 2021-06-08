@@ -43,9 +43,9 @@ public class MonthlyDataAdapter extends RecyclerView.Adapter<MonthlyDataAdapter.
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         RestorePlanResponse restorePlanResponse = restorePlanResponseList.get(position);
-        holder.tvTotWaterAmountDrunk.setText("" + restorePlanResponse.getMonthlyTakenWaterInMl().toString() + " ml");
-        holder.tvCountNosOfGlass.setText("" + restorePlanResponse.getWeeklyTakenGlassOfWater().toString());
-        holder.tvRecommendedNosOfWaterGlasses.setText("" + restorePlanResponse.getMonthlyRecommendedGlassOfWater().toString() + " Glasses");
+        holder.tvTotWaterAmountDrunk.setText("" + restorePlanResponse.getMonthlyData().getMonthlyTakenWaterInMl().toString() + " ml");
+        holder.tvCountNosOfGlass.setText("" + restorePlanResponse.getMonthlyData().getMonthlyTakenGlassOfWater().toString());
+        holder.tvRecommendedNosOfWaterGlasses.setText("" + restorePlanResponse.getMonthlyData().getMonthlyRecommendedGlassOfWater().toString() + " Glasses");
         DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
         try {
             date = dateFormat.parse(restorePlanResponse.getCurrentPlan().getCreatedAt());

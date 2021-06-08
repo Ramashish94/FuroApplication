@@ -16,7 +16,8 @@ import com.app.furoapp.activity.newFeature.ContentEngagementModule.saveBookmark.
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsRequest;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
-import com.app.furoapp.activity.newFeature.notification.notificationModel.NotificationResponse;
+import com.app.furoapp.activity.newFeature.notification.challangeNotification.ChallengeNotificationResp;
+import com.app.furoapp.activity.newFeature.notification.dailyNotification.DailyFeedNotificationResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.ChangeGlassSizeRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.UserChangeGlassSizeResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.cupCreate.CupCreateResponse;
@@ -404,8 +405,16 @@ public interface ApiInterface {
 
     /*added new feature in Fq*/
 
-    @GET("notification")
-    Call<NotificationResponse> getNotification(@Header(TOKEN_KEY) String token);
+//    @GET("notification")
+//    Call<NotificationResponse> getNotification(@Header(TOKEN_KEY) String token);
+
+    @GET("all_challanges_notification")
+    Call<ChallengeNotificationResp>CHALLANGE_NOTIFICATION_RESPONSE_CALL(@Header(TOKEN_KEY) String token);
+
+
+    @GET("all_dailyfeed_notification")
+    Call<DailyFeedNotificationResponse>DAILY_NOTIFICATION_RESPONSE_CALL(@Header(TOKEN_KEY) String token);
+
 
     // New api calling for AllActivity Content feed  Content feed home fragment landing page
     @POST("all-activity-listings-new")

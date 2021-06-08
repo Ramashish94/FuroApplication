@@ -43,9 +43,9 @@ public class AllTimeDataAdapter extends RecyclerView.Adapter<AllTimeDataAdapter.
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         RestorePlanResponse restorePlanResponse = restorePlanResponseList.get(position);
-        holder.tvTotWaterAmountDrunk.setText("" + restorePlanResponse.getAllTimeTakenWaterInMl().toString() + " ml");
-        holder.tvCountNosOfGlass.setText("" + restorePlanResponse.getAllTimeTakenGlassOfWater().toString());
-        holder.tvRecommendedNosOfWaterGlasses.setText("" + restorePlanResponse.getAllTimeRecommendedGlassOfWater().toString() + " Glasses");
+        holder.tvTotWaterAmountDrunk.setText("" + restorePlanResponse.getAllTimeData().getAllTimeTakenWaterInMl().toString() + " ml");
+        holder.tvCountNosOfGlass.setText("" + restorePlanResponse.getAllTimeData().getAllTimeTakenGlassOfWater().toString());
+        holder.tvRecommendedNosOfWaterGlasses.setText("" + restorePlanResponse.getAllTimeData().getAllTimeRecommendedGlassOfWater().toString() + " Glasses");
         DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
         try {
             date = dateFormat.parse(restorePlanResponse.getCurrentPlan().getCreatedAt());

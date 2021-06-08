@@ -4,191 +4,191 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical">-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_35"
-            android:layout_marginTop="@dimen/dp_16"
-            android:layout_marginRight="@dimen/dp_35"
-            android:orientation="horizontal">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="@dimen/dp_35"-->
+<!--            android:layout_marginTop="@dimen/dp_16"-->
+<!--            android:layout_marginRight="@dimen/dp_35"-->
+<!--            android:orientation="horizontal">-->
 
-            <TextView
-                android:id="@+id/tvCurrentDate"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_20"
-                android:layout_gravity="bottom"
-                android:text="Today,   "
-                android:textAllCaps="true"
-                android:textColor="@color/vertical_line_color"
-                android:textStyle="normal" />
+<!--            <TextView-->
+<!--                android:id="@+id/tvCurrentDate"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="@dimen/dp_20"-->
+<!--                android:layout_gravity="bottom"-->
+<!--                android:text="Today,   "-->
+<!--                android:textAllCaps="true"-->
+<!--                android:textColor="@color/vertical_line_color"-->
+<!--                android:textStyle="normal" />-->
 
-            <TextView
-                android:id="@+id/tvDateWithDay"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_20"
-                android:layout_gravity="bottom"
-                android:text="17 jun, sunday"
-                android:textAllCaps="true"
-                android:textColor="@color/vertical_line_color"
-                android:textStyle="normal" />
+<!--            <TextView-->
+<!--                android:id="@+id/tvDateWithDay"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="@dimen/dp_20"-->
+<!--                android:layout_gravity="bottom"-->
+<!--                android:text="17 jun, sunday"-->
+<!--                android:textAllCaps="true"-->
+<!--                android:textColor="@color/vertical_line_color"-->
+<!--                android:textStyle="normal" />-->
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_35"
-            android:layout_marginTop="@dimen/dp_5"
-            android:layout_marginRight="@dimen/dp_35"
-            android:orientation="horizontal">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="@dimen/dp_35"-->
+<!--            android:layout_marginTop="@dimen/dp_5"-->
+<!--            android:layout_marginRight="@dimen/dp_35"-->
+<!--            android:orientation="horizontal">-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_20"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:text="Total amount drunk "
-                android:textColor="@color/black_color" />
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/dp_20"-->
+<!--                android:layout_gravity="bottom"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="Total amount drunk "-->
+<!--                android:textColor="@color/black_color" />-->
 
-            <TextView
-              android:id="@+id/tvTotWaterAmountDrunk"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_20"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:gravity="center|end"
-                android:text="220 ml "
-                android:textColor="@color/black_color"
-                android:textStyle="bold" />
+<!--            <TextView-->
+<!--              android:id="@+id/tvTotWaterAmountDrunk"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/dp_20"-->
+<!--                android:layout_gravity="bottom"-->
+<!--                android:layout_weight="1"-->
+<!--                android:gravity="center|end"-->
+<!--                android:text="220 ml "-->
+<!--                android:textColor="@color/black_color"-->
+<!--                android:textStyle="bold" />-->
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1.5dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/dp_35"
-            android:layout_marginTop="@dimen/dp_6"
-            android:layout_marginRight="@dimen/dp_35"
-            android:background="@drawable/viewline" />
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1.5dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginLeft="@dimen/dp_35"-->
+<!--            android:layout_marginTop="@dimen/dp_6"-->
+<!--            android:layout_marginRight="@dimen/dp_35"-->
+<!--            android:background="@drawable/viewline" />-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
-        android:orientation="vertical">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_35"
-            android:layout_marginTop="@dimen/dp_5"
-            android:layout_marginRight="@dimen/dp_35"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_20"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:text="No of glasses"
-                android:textColor="@color/black_color" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center|end"
-                android:orientation="horizontal">
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="@dimen/dp_10"-->
+<!--        android:orientation="vertical">-->
 
 
-                <TextView
-                    android:id="@+id/tvCountNosOfGlass"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_20"
-                    android:layout_gravity="bottom"
-                    android:gravity="center|end"
-                    android:text="5"
-                    android:textColor="@color/black_color"
-                    android:textStyle="bold" />
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="@dimen/dp_35"-->
+<!--            android:layout_marginTop="@dimen/dp_5"-->
+<!--            android:layout_marginRight="@dimen/dp_35"-->
+<!--            android:orientation="horizontal">-->
 
-                <TextView
-                    android:id="@+id/tvRecommendedNosOfWaterGlasses"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_20"
-                    android:layout_gravity="bottom"
-                    android:gravity="center|end"
-                    android:text="/9 Glasses "
-                    android:textColor="@color/black_color"
-                    android:textStyle="bold" />
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/dp_20"-->
+<!--                android:layout_gravity="bottom"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="No of glasses"-->
+<!--                android:textColor="@color/black_color" />-->
 
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1.5dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/dp_35"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_35"
-            android:background="@drawable/viewline" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
-        android:orientation="vertical">
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="1"-->
+<!--                android:gravity="center|end"-->
+<!--                android:orientation="horizontal">-->
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_35"
-            android:layout_marginTop="@dimen/dp_5"
-            android:layout_marginRight="@dimen/dp_35"
-            android:orientation="horizontal">
+<!--                <TextView-->
+<!--                    android:id="@+id/tvCountNosOfGlass"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="@dimen/dp_20"-->
+<!--                    android:layout_gravity="bottom"-->
+<!--                    android:gravity="center|end"-->
+<!--                    android:text="5"-->
+<!--                    android:textColor="@color/black_color"-->
+<!--                    android:textStyle="bold" />-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_20"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:text="On time response"
-                android:textColor="@color/black_color" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tvRecommendedNosOfWaterGlasses"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="@dimen/dp_20"-->
+<!--                    android:layout_gravity="bottom"-->
+<!--                    android:gravity="center|end"-->
+<!--                    android:text="/9 Glasses "-->
+<!--                    android:textColor="@color/black_color"-->
+<!--                    android:textStyle="bold" />-->
+
+<!--            </LinearLayout>-->
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_20"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:gravity="center|end"
-                android:text="68 %  "
-                android:textColor="@color/black_color"
-                android:textStyle="bold" />
+<!--        </LinearLayout>-->
 
-        </LinearLayout>
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1.5dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginLeft="@dimen/dp_35"-->
+<!--            android:layout_marginTop="@dimen/dp_10"-->
+<!--            android:layout_marginRight="@dimen/dp_35"-->
+<!--            android:background="@drawable/viewline" />-->
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1.5dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/dp_10"
-            android:background="@drawable/viewline" />
+<!--    </LinearLayout>-->
 
-    </LinearLayout>
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="@dimen/dp_10"-->
+<!--        android:orientation="vertical">-->
+
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="@dimen/dp_35"-->
+<!--            android:layout_marginTop="@dimen/dp_5"-->
+<!--            android:layout_marginRight="@dimen/dp_35"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/dp_20"-->
+<!--                android:layout_gravity="bottom"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="On time response"-->
+<!--                android:textColor="@color/black_color" />-->
+
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/dp_20"-->
+<!--                android:layout_gravity="bottom"-->
+<!--                android:layout_weight="1"-->
+<!--                android:gravity="center|end"-->
+<!--                android:text="68 %  "-->
+<!--                android:textColor="@color/black_color"-->
+<!--                android:textStyle="bold" />-->
+
+<!--        </LinearLayout>-->
+
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1.5dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginTop="@dimen/dp_10"-->
+<!--            android:background="@drawable/viewline" />-->
+
+<!--    </LinearLayout>-->
 </LinearLayout>
 

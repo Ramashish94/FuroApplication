@@ -11,8 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.notification.notificationModel.ChallengeNotification;
-import com.app.furoapp.activity.newFeature.notification.notificationModel.NotificationResponse;
+import com.app.furoapp.activity.newFeature.notification.challangeNotification.ChallengeNotification;
 
 import java.util.List;
 
@@ -51,8 +50,9 @@ public class ChallangeNotificationAdapter extends RecyclerView.Adapter<Challange
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvNtifictionTxt,tvTimeReadingTxt;
+        public TextView tvNtifictionTxt, tvTimeReadingTxt;
         public ImageView ivNotificatonIcnImg;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tvNtifictionTxt = itemView.findViewById(R.id.tvNtifictionTxt);

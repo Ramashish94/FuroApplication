@@ -60,6 +60,7 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -444,23 +445,24 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
         }
         if (!TextUtils.isEmpty(videoId)) {
             url = "http://www.youtube.com/watch?v=" + videoId;
-            //isArticle = false;
+            isArticle = false;
         } else {
             url = data.getImage();
-            // isArticle = true;
+            isArticle = true;
         }
-      /*  if (isArticle) {
+        if (isArticle) {
             if (checkPermission()) {
-                shareImage(url);
+                shareImage(url,title);
             }
-        } else {*/
-        String fullMessage = title + "\n" + url;
-        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-        sharingIntent.setType("text/plain");
-        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Furo FQ");
-        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, fullMessage);
-        startActivity(Intent.createChooser(sharingIntent, "Share via"));
-        //}
+        } else {
+            Log.d(TAG, "() calleonClickShared with: pos = [" + url + "], data = [" + url + "]");
+            String fullMessage = title + "\n" + url;
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Furo FQ");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, fullMessage);
+            startActivity(Intent.createChooser(sharingIntent, "Share via"));
+        }
 
     }
 
@@ -510,25 +512,44 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
         getDataAll(type);
     }
 
-    public void shareImage(String url) {
+    public void shareImage(String url,String title) {
         Picasso.with(getApplicationContext()).load(url).into(new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                 String fileUri = "";
+
+                String filename = System.currentTimeMillis() + ".png";
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, bytes);
+                File ExternalStorageDirectory = Environment.getExternalStorageDirectory();
+                File file = new File(ExternalStorageDirectory + File.separator + filename);
+                FileOutputStream fileOutputStream = null;
                 try {
-                    File mydir = new File(Environment.getExternalStorageDirectory() + "/11zon");
-                    if (!mydir.exists()) {
-                        mydir.mkdirs();
-                    }
+                    file.createNewFile();
+                    fileOutputStream = new FileOutputStream(file);
+                    fileOutputStream.write(bytes.toByteArray());
+                    fileUri = file.getAbsolutePath();
 
-                    fileUri = mydir.getAbsolutePath() + File.separator + System.currentTimeMillis() + ".png";
-                    FileOutputStream outputStream = new FileOutputStream(fileUri);
-
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-                    outputStream.flush();
-                    outputStream.close();
+//                    File sd = Environment.getExternalStorageDirectory();
+//                    File dest = new File(sd, filename);
+//
+//                    FileOutputStream outputStream = new FileOutputStream(dest);
+//                    fileUri = dest.getAbsolutePath();
+//                    Log.d(TAG, "onBitmapLoaded() called with: bitmap = [" + fileUri + "], from = [" + fileUri + "]");
+//                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+//                    outputStream.flush();
+//                    outputStream.close();
                 } catch (IOException e) {
                     e.printStackTrace();
+                } finally {
+                    if (fileOutputStream != null) {
+                        try {
+                            fileOutputStream.close();
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
                 }
 
                 Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), BitmapFactory.decodeFile(fileUri), null, null));
@@ -536,6 +557,8 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
                 Intent share = new Intent(Intent.ACTION_SEND);
                 share.setType("image/*");
                 share.putExtra(Intent.EXTRA_STREAM, uri);
+                share.putExtra(Intent.EXTRA_TEXT, title);
+
                 startActivity(Intent.createChooser(share, "Share Image"));
             }
 
@@ -554,7 +577,9 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
     public boolean checkPermission() {
         int READ_EXTERNAL_PERMISSION = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE);
         if ((READ_EXTERNAL_PERMISSION != PackageManager.PERMISSION_GRANTED)) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_WRITE);
+
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_MEDIA_LOCATION}, PERMISSION_WRITE);
             return false;
         }
         return true;

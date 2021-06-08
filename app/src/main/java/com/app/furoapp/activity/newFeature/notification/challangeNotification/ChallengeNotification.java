@@ -1,5 +1,5 @@
 
-package com.app.furoapp.activity.newFeature.notification.notificationModel;
+package com.app.furoapp.activity.newFeature.notification.challangeNotification;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

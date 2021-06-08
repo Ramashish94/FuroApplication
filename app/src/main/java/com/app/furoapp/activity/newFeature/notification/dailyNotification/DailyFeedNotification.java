@@ -1,5 +1,5 @@
 
-package com.app.furoapp.activity.newFeature.notification.notificationModel;
+package com.app.furoapp.activity.newFeature.notification.dailyNotification;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -14,34 +14,34 @@ public class DailyFeedNotification {
     private String notificationType;
     @SerializedName("category")
     @Expose
-    private Object category;
+    private String category;
     @SerializedName("msg_type")
     @Expose
-    private Object msgType;
+    private String msgType;
     @SerializedName("who_gets_notified")
     @Expose
-    private Object whoGetsNotified;
+    private String whoGetsNotified;
     @SerializedName("how_notified")
     @Expose
-    private Object howNotified;
+    private String howNotified;
     @SerializedName("content_type")
     @Expose
-    private String contentType;
+    private Object contentType;
     @SerializedName("content_repeat_auto")
     @Expose
     private Object contentRepeatAuto;
     @SerializedName("content_title")
     @Expose
-    private String contentTitle;
+    private Object contentTitle;
     @SerializedName("content_description")
     @Expose
     private Object contentDescription;
     @SerializedName("blog_id")
     @Expose
-    private Integer blogId;
+    private Object blogId;
     @SerializedName("deep_link")
     @Expose
-    private String deepLink;
+    private Object deepLink;
     @SerializedName("content_datetime")
     @Expose
     private String contentDatetime;
@@ -71,43 +71,43 @@ public class DailyFeedNotification {
         this.notificationType = notificationType;
     }
 
-    public Object getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Object category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
-    public Object getMsgType() {
+    public String getMsgType() {
         return msgType;
     }
 
-    public void setMsgType(Object msgType) {
+    public void setMsgType(String msgType) {
         this.msgType = msgType;
     }
 
-    public Object getWhoGetsNotified() {
+    public String getWhoGetsNotified() {
         return whoGetsNotified;
     }
 
-    public void setWhoGetsNotified(Object whoGetsNotified) {
+    public void setWhoGetsNotified(String whoGetsNotified) {
         this.whoGetsNotified = whoGetsNotified;
     }
 
-    public Object getHowNotified() {
+    public String getHowNotified() {
         return howNotified;
     }
 
-    public void setHowNotified(Object howNotified) {
+    public void setHowNotified(String howNotified) {
         this.howNotified = howNotified;
     }
 
-    public String getContentType() {
+    public Object getContentType() {
         return contentType;
     }
 
-    public void setContentType(String contentType) {
+    public void setContentType(Object contentType) {
         this.contentType = contentType;
     }
 
@@ -119,11 +119,11 @@ public class DailyFeedNotification {
         this.contentRepeatAuto = contentRepeatAuto;
     }
 
-    public String getContentTitle() {
+    public Object getContentTitle() {
         return contentTitle;
     }
 
-    public void setContentTitle(String contentTitle) {
+    public void setContentTitle(Object contentTitle) {
         this.contentTitle = contentTitle;
     }
 
@@ -135,19 +135,19 @@ public class DailyFeedNotification {
         this.contentDescription = contentDescription;
     }
 
-    public Integer getBlogId() {
+    public Object getBlogId() {
         return blogId;
     }
 
-    public void setBlogId(Integer blogId) {
+    public void setBlogId(Object blogId) {
         this.blogId = blogId;
     }
 
-    public String getDeepLink() {
+    public Object getDeepLink() {
         return deepLink;
     }
 
-    public void setDeepLink(String deepLink) {
+    public void setDeepLink(Object deepLink) {
         this.deepLink = deepLink;
     }
 

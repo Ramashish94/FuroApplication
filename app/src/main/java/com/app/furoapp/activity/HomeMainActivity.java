@@ -740,7 +740,7 @@ public class HomeMainActivity extends AppCompatActivity {
         llDailyStepTracker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(HomeMainActivity.this, "Click Success on daily steps counter", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeMainActivity.this, "Success", Toast.LENGTH_SHORT).show();
                /* Intent intent = new Intent(getApplicationContext(), DailyStepsTrackerActivity.class);
                 startActivity(intent);*/
 

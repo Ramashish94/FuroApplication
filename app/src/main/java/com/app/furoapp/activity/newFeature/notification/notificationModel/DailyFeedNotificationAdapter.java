@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
+import com.app.furoapp.activity.newFeature.notification.challangeNotification.ChallengeNotification;
+import com.app.furoapp.activity.newFeature.notification.dailyNotification.DailyFeedNotification;
 
 import java.util.List;
 
@@ -36,7 +38,7 @@ public class DailyFeedNotificationAdapter extends RecyclerView.Adapter<DailyFeed
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         DailyFeedNotification dailyFeedNotification = dailyFeedNotificationList.get(position);
         holder.tvNtifictionTxt.setText("" + dailyFeedNotification.getNotificationType());
-        holder.tvTimeReadingTxt.setText("" + dailyFeedNotification.getMsgType());
+        holder.tvTimeReadingTxt.setText("" + dailyFeedNotification.getContentTitle());
     }
 
     @Override
@@ -49,8 +51,9 @@ public class DailyFeedNotificationAdapter extends RecyclerView.Adapter<DailyFeed
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvNtifictionTxt,tvTimeReadingTxt;
+        public TextView tvNtifictionTxt, tvTimeReadingTxt;
         public ImageView ivNotificatonIcnImg;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tvNtifictionTxt = itemView.findViewById(R.id.tvNtifictionTxt);

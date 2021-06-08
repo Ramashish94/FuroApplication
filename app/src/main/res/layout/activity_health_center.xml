@@ -354,6 +354,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="1dp"
                     android:layout_weight="1"
+                    android:visibility="invisible"
                     android:background="@drawable/bg_view_clip"
                     android:orientation="vertical">
 

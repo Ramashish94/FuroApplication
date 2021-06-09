@@ -34,8 +34,10 @@ public class TellUsAboutYouActivity extends AppCompatActivity {
 
     ActivityTellUsAboutYouBinding binding;
 
-    TextView weightPickerValueTv, heightPickerValueTv, getStarted,tvFeet,tvInches;
+    TextView weightPickerValueTv, heightPickerValueTv, getStarted, tvFeet, tvInches;
     private String whatBringsToYouFuro, userId;
+    public String userHeightInCm, userWeightInKg;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class TellUsAboutYouActivity extends AppCompatActivity {
         userId = FuroPrefs.getString(getApplicationContext(), "loginUserId");
 
         tvFeet = binding.feet;
-        tvInches= binding.inches;
+        tvInches = binding.inches;
         setOnClickListnerBack();
         setOntvGetStartedClickListner();
 
@@ -58,14 +60,16 @@ public class TellUsAboutYouActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onValueChange(final int selectedValue) {
-                heightPickerValueTv.setText(selectedValue + " cms");
+                userHeightInCm = String.valueOf(selectedValue);
+                heightPickerValueTv.setText(userHeightInCm + " cms");
                 centimeterToFeet(String.valueOf(selectedValue));
 
             }
 
             @Override
             public void onIntermediateValueChange(final int selectedValue) {
-                heightPickerValueTv.setText(selectedValue + " cms");
+                userHeightInCm = String.valueOf(selectedValue);
+                heightPickerValueTv.setText(userHeightInCm + " cms");
             }
         });
 
@@ -75,13 +79,15 @@ public class TellUsAboutYouActivity extends AppCompatActivity {
         weightPicker.setValuePickerListener(new RulerValuePickerListener() {
             @Override
             public void onValueChange(final int selectedValue) {
-                weightPickerValueTv.setText(selectedValue + " kgs");
+                userWeightInKg = String.valueOf(selectedValue);
+                weightPickerValueTv.setText(userWeightInKg + " kgs");
 
             }
 
             @Override
             public void onIntermediateValueChange(final int selectedValue) {
-                weightPickerValueTv.setText(selectedValue + " kgs");
+                userWeightInKg = String.valueOf(selectedValue);
+                weightPickerValueTv.setText(userWeightInKg + " kgs");
 
             }
         });
@@ -118,16 +124,14 @@ public class TellUsAboutYouActivity extends AppCompatActivity {
 
     public void whatBringYouToFuroValidation() {
         boolean check = true;
-
-
-        String height = weightPickerValueTv.getText().toString().trim();
-        String weight = heightPickerValueTv.getText().toString().trim();
-        if (TextUtils.isEmpty(height.trim()) || weightPickerValueTv.length() == 0) {
+//        String height = weightPickerValueTv.getText().toString().trim();
+//        String weight = heightPickerValueTv.getText().toString().trim();
+        if (TextUtils.isEmpty(userHeightInCm.trim()) || weightPickerValueTv.length() == 0) {
             Util.displayToast(getApplicationContext(), "Please select height");
             check = false;
         }
 
-        if (TextUtils.isEmpty(weight.trim()) || heightPickerValueTv.length() == 0) {
+        if (TextUtils.isEmpty(userWeightInKg.trim()) || heightPickerValueTv.length() == 0) {
             Util.displayToast(getApplicationContext(), "Please select Weight");
             check = false;
         }
@@ -139,8 +143,8 @@ public class TellUsAboutYouActivity extends AppCompatActivity {
         if (check) {
 
             WhatBringsYouToFuroRequest whatBringsYouToFuroRequest = new WhatBringsYouToFuroRequest();
-            whatBringsYouToFuroRequest.setHeight(height);
-            whatBringsYouToFuroRequest.setWeight(weight);
+            whatBringsYouToFuroRequest.setHeight(userHeightInCm);
+            whatBringsYouToFuroRequest.setWeight(userWeightInKg);
             whatBringsYouToFuroRequest.setReasons(whatBringsToYouFuro);
             whatBringsYouToFuroRequest.setUserId(userId);
             Util.isInternetConnected(getApplicationContext());
@@ -149,31 +153,34 @@ public class TellUsAboutYouActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<WhatBringsYouToFuroResponse> call, Response<WhatBringsYouToFuroResponse> response) {
                     Util.dismissProgressDialog();
-                    if (response != null) {
-                        if (response.body() != null) {
-                            if (response.body().getStatus().equalsIgnoreCase("200")) {
+                    if (response.code() == 200) {
+                        if (response != null) {
+                            if (response.body() != null) {
+                                if (response.body().getStatus().equalsIgnoreCase("200")) {
 
-                                Intent intent = new Intent(TellUsAboutYouActivity.this, HomeMainActivity.class);
-                                intent.putExtra("contestpage","");
-                                startActivity(intent);
-                                finish();
+                                    Intent intent = new Intent(TellUsAboutYouActivity.this, HomeMainActivity.class);
+                                    intent.putExtra("contestpage", "");
+                                    startActivity(intent);
+                                    finish();
 
-                            } else {
-                                Toast.makeText(TellUsAboutYouActivity.this, "failure", Toast.LENGTH_SHORT).show();
-
+                                } else {
+                                    Toast.makeText(TellUsAboutYouActivity.this, "failure", Toast.LENGTH_SHORT).show();
+                                }
                             }
-
-
                         }
 
-
+                    }else if (response.code() == 500) {
+                        Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
+                    } else if (response.code() == 403) {
+                        Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
+                    } else if (response.code() == 404) {
+                        Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
                     }
-
                 }
 
                 @Override
                 public void onFailure(Call<WhatBringsYouToFuroResponse> call, Throwable t) {
-                    Toast.makeText(TellUsAboutYouActivity.this, "check your Network", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TellUsAboutYouActivity.this, "Some thing went wrong!", Toast.LENGTH_SHORT).show();
 
                 }
             });
@@ -184,11 +191,10 @@ public class TellUsAboutYouActivity extends AppCompatActivity {
     }
 
 
-
-    public  String centimeterToFeet(String centemeter) {
+    public String centimeterToFeet(String centemeter) {
         int feetPart = 0;
         int inchesPart = 0;
-        if(!TextUtils.isEmpty(centemeter)) {
+        if (!TextUtils.isEmpty(centemeter)) {
             double dCentimeter = Double.valueOf(centemeter);
             feetPart = (int) Math.floor((dCentimeter / 2.54) / 12);
             System.out.println((dCentimeter / 2.54) - (feetPart * 12));

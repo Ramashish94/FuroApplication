@@ -23,7 +23,7 @@ public class SelectedPlan {
     private Integer remainingWaterInMl;
     @SerializedName("taken_glass_of_water")
     @Expose
-    private Integer takenGlassOfWater;
+    private String takenGlassOfWater;
     @SerializedName("remaining_glass_of_water")
     @Expose
     private Integer remainingGlassOfWater;
@@ -98,11 +98,11 @@ public class SelectedPlan {
         this.remainingWaterInMl = remainingWaterInMl;
     }
 
-    public Integer getTakenGlassOfWater() {
+    public String getTakenGlassOfWater() {
         return takenGlassOfWater;
     }
 
-    public void setTakenGlassOfWater(Integer takenGlassOfWater) {
+    public void setTakenGlassOfWater(String takenGlassOfWater) {
         this.takenGlassOfWater = takenGlassOfWater;
     }
 

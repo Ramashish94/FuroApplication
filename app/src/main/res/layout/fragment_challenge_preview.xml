@@ -149,8 +149,8 @@
 
 
             </LinearLayout>
-
-            <com.google.android.material.card.MaterialCardView
+<!--com.google.android.material.card.MaterialCardView-->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="@dimen/dp_4">
@@ -765,7 +765,7 @@
                     </LinearLayout>
                 </ScrollView>
 
-            </com.google.android.material.card.MaterialCardView>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 

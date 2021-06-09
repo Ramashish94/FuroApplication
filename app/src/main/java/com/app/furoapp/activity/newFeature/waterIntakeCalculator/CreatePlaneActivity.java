@@ -183,7 +183,7 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
                 Intent intent = new Intent(getApplicationContext(), WaterIntakeCounterActivity.class);
                 intent.putExtra("planId", planId);
                 startActivity(intent);
-                finish();
+
             }
         });
     }
@@ -264,9 +264,9 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
         Log.d("recDurationTime", recDurationTime);
     }
 
-    @Override
+   /* @Override
     public void onBackPressed() {
         super.onBackPressed();
         finish();
-    }
+    }*/
 }

@@ -171,7 +171,7 @@ public class VideoOverViewActivity extends AppCompatActivity {
                 Intent intent = new Intent(VideoOverViewActivity.this, PreviewActivity.class);
                 intent.putExtra("imagestoragepath", imageStoragePath);
                 startActivity(intent);
-                finish();
+                //finish();
 
             } else if (resultCode == RESULT_CANCELED) {
                 // user cancelled recording
@@ -190,25 +190,19 @@ public class VideoOverViewActivity extends AppCompatActivity {
 
     public void onProfileImageClickNew() {
         Dexter.withActivity(this)
-                .withPermissions(Manifest.permission.CAMERA
-                )
+                .withPermissions(Manifest.permission.CAMERA)
                 .withListener(new MultiplePermissionsListener() {
                     @Override
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
                         if (report.areAllPermissionsGranted()) {
                             if (VideoQualityLow.equalsIgnoreCase("")) {
                                 captureVideo();
-
                             }
-
                             if (VideoQualityLow.equalsIgnoreCase("VideoLow")) {
                                 captureVideoLOW();
-
                             }
                             if (VideoQualityLow.equalsIgnoreCase("Videohigh")) {
-
                                 captureVideo();
-
                             }
 
                         }

@@ -59,107 +59,87 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:gravity="center">
+                    android:orientation="vertical">
 
-                    <FrameLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_gravity="center">
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:gravity="center">
 
-                        <me.bastanfar.semicirclearcprogressbar.SemiCircleArcProgressBar
-                            android:id="@+id/progressBar"
-                            android:layout_width="260dp"
-                            android:layout_height="@dimen/dp_170"
-                            android:layout_gravity="center_horizontal"
-                            android:visibility="gone"
-                            app:percent="50"
-                            app:progressBarColor="#5BD0F8"
-                            app:progressBarWidth="30"
-                            app:progressPlaceHolderColor="#BDD6F3"
-                            app:progressPlaceHolderWidth="30" />
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center">
 
-                        <ImageView
-                            android:layout_width="246dp"
-                            android:layout_height="@dimen/dp_180"
-                            android:layout_gravity="center_horizontal"
-                            android:src="@drawable/progress_circle_bg" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="@dimen/dp_40"
-                            android:fontFamily="@font/bebase_neue"
-                            android:text="todays progress   "
-                            android:textColor="#4CCFF9"
-                            android:textSize="@dimen/sp_14"
-                            android:textStyle="italic" />
-
-
-                        <LinearLayout
-                            android:layout_width="105dp"
-                            android:layout_height="136dp"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="@dimen/dp_75"
-                            android:background="@drawable/water_intake_drop_icon"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/tvTakingWater"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/dp_20"
-                                android:layout_weight="1"
-                                android:gravity="center|bottom"
-                                android:text="0000/"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/sp_16"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/tvRecommendedReamingWater"
-                                android:layout_width="wrap_content"
-                                android:layout_height="@dimen/dp_15"
+                            <me.bastanfar.semicirclearcprogressbar.SemiCircleArcProgressBar
+                                android:id="@+id/progressBar"
+                                android:layout_width="260dp"
+                                android:layout_height="@dimen/dp_170"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_weight="1"
-                                android:gravity="center_horizontal"
-                                android:text="of 0000 ml"
-                                android:textColor="@color/white"
+                                app:percent="50"
+                                app:progressBarColor="#5BD0F8"
+                                app:progressBarWidth="20"
+                                app:progressPlaceHolderColor="#BDD6F3"
+                                app:progressPlaceHolderWidth="20" />
+
+                            <!--                        <ImageView-->
+                            <!--                            android:layout_width="246dp"-->
+                            <!--                            android:layout_height="@dimen/dp_180"-->
+                            <!--                            android:layout_gravity="center_horizontal"-->
+                            <!--                            android:src="@drawable/progress_circle_bg" />-->
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="42dp"
+                                android:fontFamily="@font/bebase_neue"
+                                android:text="todays progress   "
+                                android:textColor="#4CCFF9"
                                 android:textSize="@dimen/sp_14"
                                 android:textStyle="italic" />
 
-                        </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="105dp"
+                                android:layout_height="136dp"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="@dimen/dp_75"
+                                android:background="@drawable/water_intake_drop_icon"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tvTakingWater"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/dp_20"
+                                    android:layout_weight="1"
+                                    android:gravity="center|bottom"
+                                    android:text="0000/"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/sp_16"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvRecommendedReamingWater"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="@dimen/dp_15"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_weight="1"
+                                    android:gravity="center_horizontal"
+                                    android:text="of 0000 ml"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/sp_14"
+                                    android:textStyle="italic" />
+
+                            </LinearLayout>
 
 
-                    </FrameLayout>
-                    <!--<ProgressBar
-                        android:id="@+id/progress_circular"
-                        style="?android:progressBarStyleHorizontal"
-                        android:layout_width="200dp"
-                        android:layout_height="200dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/dp_8"
-                        android:layout_marginBottom="@dimen/dp_8"
-                        android:progress="10"
-                        android:progressDrawable="@drawable/progress_circle"
-                        android:rotation="10" />-->
+                        </FrameLayout>
 
-                    <!-- <ProgressBar
-                         android:id="@+id/progress_bar"
-                         style="@style/CircularDeterminateProgressBar"
-                         android:layout_width="246dp"
-                         android:layout_height="200dp"
-                         app:layout_constraintBottom_toBottomOf="parent"
-                         app:layout_constraintLeft_toLeftOf="parent"
-                         app:layout_constraintRight_toRightOf="parent"
-                         app:layout_constraintTop_toTopOf="parent"
-                         tools:progress="70"
-                         android:rotation="-100"/>-->
-
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -522,6 +502,7 @@
                                         android:text="0 "
                                         android:textColor="@color/black_color"
                                         android:textStyle="bold" />
+
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="@dimen/dp_20"
@@ -623,7 +604,7 @@
         <include
             android:id="@+id/includeCongratsPopMenu"
             layout="@layout/congrats_pop_up"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
 
     </FrameLayout>

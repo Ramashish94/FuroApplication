@@ -70,7 +70,8 @@ public class CreateChallengeActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
-                else if (challanges.equalsIgnoreCase("ENDURANCE") && (SubCategory.equalsIgnoreCase("WALKING")) || (SubCategory.equalsIgnoreCase("RUNNING")) || (SubCategory.equalsIgnoreCase("CYCLING"))) {
+                else if (challanges.equalsIgnoreCase("ENDURANCE") && (SubCategory.equalsIgnoreCase("WALKING"))
+                        || (SubCategory.equalsIgnoreCase("RUNNING")) || (SubCategory.equalsIgnoreCase("CYCLING"))) {
 
                     Intent intent = new Intent(getApplicationContext(), MapOverViewActivity.class);
                     startActivity(intent);
@@ -79,10 +80,11 @@ public class CreateChallengeActivity extends AppCompatActivity {
 
 
                 }
-                else if (challanges.equalsIgnoreCase("ENDURANCE") && (SubCategory.equalsIgnoreCase("SPOT JOGGING")) || (SubCategory.equalsIgnoreCase("SKIPPING"))) {
+                else if (challanges.equalsIgnoreCase("ENDURANCE") && (SubCategory.equalsIgnoreCase("SPOT JOGGING"))
+                        || (SubCategory.equalsIgnoreCase("SKIPPING"))) {
                     Intent intent = new Intent(getApplicationContext(), VideoOverViewActivity.class);
                     startActivity(intent);
-                    finish();
+                    //finish();
                 }
             }
         });

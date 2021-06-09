@@ -177,7 +177,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
 
     private void setTodayProgressData(SelectedPlan selectedPlan) {
         if (selectedPlan.getTakenGlassOfWater() != null) {
-            tvNosGlassCount.setText("" + Integer.toString(selectedPlan.getTakenGlassOfWater()).toString());
+            tvNosGlassCount.setText("" + selectedPlan.getTakenGlassOfWater().toString());
         }
         if (selectedPlan.getTakenWaterInMl() != null) {
             tvTakingWater.setText("" + selectedPlan.getTakenWaterInMl().toString());///////////////
@@ -189,7 +189,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             tvTotAmountDrunk.setText("" + selectedPlan.getTakenWaterInMl().toString() + " ml");
         }
         if (selectedPlan.getTakenWaterInMl() != null) {
-            tvNosOfGlasses.setText("" + selectedPlan.getTakenWaterInMl().toString());
+            tvNosOfGlasses.setText("" + selectedPlan.getTakenGlassOfWater().toString());
         }
         if (selectedPlan.getRecommendedGlassOfWater() != null) {
             tvRecommendedNosOfGlasses.setText("/" + selectedPlan.getRecommendedGlassOfWater().toString());
@@ -206,17 +206,12 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         tvDateWithDay.setText(getDate);
 
         /*Update progress percent*/
-        if (selectedPlan.getTakenWaterInMl() != null && selectedPlan.getWaterTakeInMl() != null) {
+        /*if (selectedPlan.getTakenWaterInMl() != null && selectedPlan.getWaterTakeInMl() != null) {
             takingWater = Integer.parseInt(selectedPlan.getTakenWaterInMl().toString());
             totRecommendedWater = Integer.parseInt(selectedPlan.getWaterTakeInMl().toString());
         }
-        takenWaterInPercent = (takingWater / totRecommendedWater) * 100;
+        takenWaterInPercent = ((takingWater / totRecommendedWater) * 100);*/
         progressBar.setPercent(takenWaterInPercent);
-        progressBar.setPercentWithAnimation(10);
-        progressBar.setProgressBarColor(0x5BD0F8);
-        progressBar.setProgressPlaceHolderColor(0xBDD6F3);
-        progressBar.setProgressBarWidth(10);
-        progressBar.setProgressPlaceHolderWidth(10);
 
        /* if (selectedPlan.getTakenWaterInMl().equals(selectedPlan.getWaterTakeInMl())) {
             includeCongratsPopMenu.setVisibility(View.VISIBLE);
@@ -696,9 +691,4 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
     }
 
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
 }

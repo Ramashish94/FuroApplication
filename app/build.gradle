@@ -54,9 +54,12 @@ android {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
-/*[
+    allprojects {
+        repositories {
+            maven { url 'https://jitpack.io' }
+        }
+    }
 
-]*/
     dependencies {
         implementation fileTree(dir: 'libs', include: ['*.jar'])
         implementation 'com.karumi:dexter:4.2.0'

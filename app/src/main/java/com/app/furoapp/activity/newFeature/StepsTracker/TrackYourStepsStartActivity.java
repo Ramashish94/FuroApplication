@@ -43,8 +43,8 @@ public class TrackYourStepsStartActivity extends AppCompatActivity {
         });
 
         ivProceedWithSavedData.setOnClickListener(v -> {
-            intent = new Intent(getApplicationContext(), TellUsMoreOnTrackStepsActivity.class);
-            startActivity(intent);
+           /* intent = new Intent(getApplicationContext(), TellUsMoreOnTrackStepsActivity.class);
+            startActivity(intent);*/
         });
 
         ivModifiedSavedData.setOnClickListener(v -> {
@@ -54,7 +54,6 @@ public class TrackYourStepsStartActivity extends AppCompatActivity {
 
         ivCancel.setOnClickListener(v -> {
             includePopUpMenuOfTrackSteps.setVisibility(View.GONE);
-
         });
     }
 

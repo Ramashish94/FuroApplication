@@ -1,5 +1,6 @@
 package com.app.furoapp.activity.newFeature.waterIntakeCalculator;
 
+import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -12,6 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +42,7 @@ import retrofit2.Response;
 public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlAdapter.WaterSizeInMLClickCallBack, AllPlanAdapter.AllPlanClickCallBack {
     public LinearLayout llMorePlan, llRecommended, llOthersPlan;
     public TextView tvShowsMl, tvShowMl2, tvRecommended, tvEveryTime, tvCreatePlan, tvFeelAweSome, tvNosGlass;
-    public ImageView ivClockImg, ivStartJourney, ivCancel, ivOverloadIndicatorMsg;
+    public ImageView ivClockImg, ivStartJourney, ivCancel, ivOverloadIndicatorMsg, ivRecommendedPlan, ivSelRecommendedPlan;
     public RecyclerView rvCreatePlan;
     public View includeCreatePlanPopUp;
     private String getAccessessToken;
@@ -56,6 +59,8 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
     private String planId, waterTakeMl, recDurationTime;
     public String selectPlanId;
     public String onGoingPlanId;
+    public RadioGroup rdbt_group;
+    public RadioButton rdBtnRecommendedPlan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +92,11 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
         tvFeelAweSome = findViewById(R.id.tvFeelAweSome);
         clCreatePlanLayout = findViewById(R.id.clCreatePlanLayout);
         tvNosGlass = findViewById(R.id.tvNosGlass);
+        ivRecommendedPlan = findViewById(R.id.ivRecommendedPlan);
+        ivSelRecommendedPlan = findViewById(R.id.ivSelRecommendedPlan);
+        rdbt_group = findViewById(R.id.rdbt_group);
+        rdBtnRecommendedPlan = findViewById(R.id.rdBtnRecommendedPlan);
+
     }
 
     private void callFetchAllPlanApi() {
@@ -122,13 +132,17 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
     }
 
     private void setRecommendedData(FetchAllPlanResponse body) {
-        planId = String.valueOf(body.getAllPlans().get(0).getId());
-        tvShowsMl.setText(body.getGlassSize().getGlassSizeInMl() + " ml");
-        tvEveryTime.setText("Every " + body.getAllPlans().get(0).getRecommendedDurationInMins() + " minutes");
-        /*if (body.getAllPlans().get(0).getIsRecomended() == 1) {
+        if (body != null && body.getAllPlans() != null && body.getAllPlans().size() > 0) {
+            if (planId != null) {
+                planId = String.valueOf(body.getAllPlans().get(0).getId());
+            }
             tvEveryTime.setText("Every " + body.getAllPlans().get(0).getRecommendedDurationInMins() + " minutes");
-        }*/
+        }
         glassSizeInMl = Integer.parseInt(body.getGlassSize().getGlassSizeInMl());
+        tvShowsMl.setText("" + glassSizeInMl + " ml");
+
+//        tvShowsMl.setText(Integer.parseInt(body.getGlassSize().getGlassSizeInMl()) + " ml");
+
     }
 
 
@@ -180,12 +194,45 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
         ivStartJourney.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), WaterIntakeCounterActivity.class);
-                intent.putExtra("planId", planId);
-                startActivity(intent);
-
+                if (planId != null) {
+                    Intent intent = new Intent(getApplicationContext(), WaterIntakeCounterActivity.class);
+                    intent.putExtra("planId", planId);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(CreatePlaneActivity.this, "Please provided plan id !", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
+        ivRecommendedPlan.setOnClickListener(v -> {
+            ivRecommendedPlan.setVisibility(View.GONE);
+            ivSelRecommendedPlan.setVisibility(View.VISIBLE);
+        });
+        ivSelRecommendedPlan.setOnClickListener(v -> {
+            ivRecommendedPlan.setVisibility(View.VISIBLE);
+            ivSelRecommendedPlan.setVisibility(View.GONE);
+        });
+
+
+
+        /*rdbt_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                boolean isChecked = rdBtnRecommendedPlan.isChecked();
+                if (isChecked) {
+                    rdBtnRecommendedPlan.setChecked(false);
+                    rdBtnRecommendedPlan.setBackgroundResource(R.drawable.ellipse_20);
+
+                } else {
+                    rdBtnRecommendedPlan.setChecked(true);
+                    rdBtnRecommendedPlan.setBackgroundResource(R.drawable.bluecircle);
+
+                }
+            }
+
+        });*/
+
+
     }
 
     private void setCreatePlanAdapter() {

@@ -78,7 +78,7 @@
                                 android:layout_width="260dp"
                                 android:layout_height="@dimen/dp_170"
                                 android:layout_gravity="center_horizontal"
-                                app:percent="50"
+                                app:percent="5"
                                 app:progressBarColor="#5BD0F8"
                                 app:progressBarWidth="20"
                                 app:progressPlaceHolderColor="#BDD6F3"

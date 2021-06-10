@@ -3,6 +3,8 @@ package com.app.furoapp.retrofit;
 
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.ActivityDetailsResponse;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragment_ListingNew.ActivitiesListing;
+import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataRequest;
+import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataResponse;
 import com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel.BmiStoreDataRequest;
 import com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel.BmiStoreDataResponse;
 import com.app.furoapp.activity.newFeature.bmiCalculator.fetchBmiDataModel.FetchUserWiseDataResponse;
@@ -409,11 +411,11 @@ public interface ApiInterface {
 //    Call<NotificationResponse> getNotification(@Header(TOKEN_KEY) String token);
 
     @GET("all_challanges_notification")
-    Call<ChallengeNotificationResp>CHALLANGE_NOTIFICATION_RESPONSE_CALL(@Header(TOKEN_KEY) String token);
+    Call<ChallengeNotificationResp> CHALLANGE_NOTIFICATION_RESPONSE_CALL(@Header(TOKEN_KEY) String token);
 
 
     @GET("all_dailyfeed_notification")
-    Call<DailyFeedNotificationResponse>DAILY_NOTIFICATION_RESPONSE_CALL(@Header(TOKEN_KEY) String token);
+    Call<DailyFeedNotificationResponse> DAILY_NOTIFICATION_RESPONSE_CALL(@Header(TOKEN_KEY) String token);
 
 
     // New api calling for AllActivity Content feed  Content feed home fragment landing page
@@ -494,5 +496,9 @@ public interface ApiInterface {
     @GET("user/restore-plan")
     Call<RestorePlanResponse> RESTORE_PLAN_RESPONSE_CALL(@Header(TOKEN_KEY) String token);
 
+    /*track Steps counter */
 
+    /*user/modify-save-data*/
+    @POST("user/modify-save-data")
+    Call<ModifiedSavedDataResponse> MODIFIED_SAVED_DATA_RESPONSE_CALL(@Header(TOKEN_KEY) String token, @Body ModifiedSavedDataRequest modifiedSavedDataRequest);
 }

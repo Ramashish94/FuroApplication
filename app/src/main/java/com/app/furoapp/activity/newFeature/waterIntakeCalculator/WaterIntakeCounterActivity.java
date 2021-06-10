@@ -139,6 +139,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
     }
 
     private void callDailyWaterIntakeUpdatePlanApi() {
+
         WaterIntakeUpdatePlanRequest waterIntakeUpdatePlanRequest = new WaterIntakeUpdatePlanRequest();
         waterIntakeUpdatePlanRequest.setPlan_id(planId);
         Util.showProgressDialog(getApplicationContext());
@@ -168,6 +169,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 Toast.makeText(getApplicationContext(), "Something  went wrong !", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     private void setGlassSize(WaterIntakeUpdatePlanResponse body) {
@@ -211,7 +213,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         }
 
         takenWaterInPercent = ((takingWater / totRecommendedWater) * 100);
-        scProgressBar.setPercent(50);
+        scProgressBar.setPercent(takenWaterInPercent);
 
         if (selectedPlan.getTakenWaterInMl().equals(selectedPlan.getWaterTakeInMl())) {
             includeCongratsPopMenu.setVisibility(View.VISIBLE);

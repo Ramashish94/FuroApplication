@@ -3,6 +3,8 @@ package com.app.furoapp.retrofit;
 
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.ActivityDetailsResponse;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragment_ListingNew.ActivitiesListing;
+import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataRequest;
+import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataResponse;
 import com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel.BmiStoreDataRequest;
 import com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel.BmiStoreDataResponse;
 import com.app.furoapp.activity.newFeature.bmiCalculator.fetchBmiDataModel.FetchUserWiseDataResponse;
@@ -442,8 +444,12 @@ public class RestClient {
         RetrofitClient.getClient().CHANGE_GLASS_SIZE_RESPONSE_CALL(token, changeGlassSizeRequest).enqueue(callback);
     }
 
-    public static void getRestorePlan(String token,  Callback<RestorePlanResponse> callback) {
+    public static void getRestorePlan(String token, Callback<RestorePlanResponse> callback) {
         RetrofitClient.getClient().RESTORE_PLAN_RESPONSE_CALL(token).enqueue(callback);
+    }
+
+    public static void getModifiedSavedData(String token, ModifiedSavedDataRequest modifiedSavedDataRequest, Callback<ModifiedSavedDataResponse> callback) {
+        RetrofitClient.getClient().MODIFIED_SAVED_DATA_RESPONSE_CALL(token, modifiedSavedDataRequest).enqueue(callback);
     }
 
 

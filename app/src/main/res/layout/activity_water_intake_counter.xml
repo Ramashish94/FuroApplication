@@ -74,7 +74,7 @@
                             android:layout_gravity="center">
 
                             <me.bastanfar.semicirclearcprogressbar.SemiCircleArcProgressBar
-                                android:id="@+id/progressBar"
+                                android:id="@+id/scProgressBar"
                                 android:layout_width="260dp"
                                 android:layout_height="@dimen/dp_170"
                                 android:layout_gravity="center_horizontal"
@@ -96,7 +96,7 @@
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="42dp"
                                 android:fontFamily="@font/bebase_neue"
-                                android:text="todays progress   "
+                                android:text="todays  progress   "
                                 android:textColor="#4CCFF9"
                                 android:textSize="@dimen/sp_14"
                                 android:textStyle="italic" />
@@ -104,7 +104,7 @@
 
                             <LinearLayout
                                 android:layout_width="105dp"
-                                android:layout_height="136dp"
+                                android:layout_height="130dp"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="@dimen/dp_75"
                                 android:background="@drawable/water_intake_drop_icon"

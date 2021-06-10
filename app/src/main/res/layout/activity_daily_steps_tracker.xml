@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.newFeature.dailyStepsCounter.DailyStepsTrackerActivity">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Daily teps tracker"/>
+    android:background="@drawable/track_your_steps_bg"
+    android:orientation="vertical"
+    android:id="@+id/llTrackYourSteps"
+    tools:context=".activity.newFeature.StepsTracker.TrackYourStepsStartActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivStartJourneyBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_45"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="@dimen/dp_45"
+            android:src="@drawable/startjounary" />
+
+        <include
+            android:id="@+id/includePopUpMenuOfTrackSteps"
+            layout="@layout/pop_up_menu_of_track_your_steps"
+            android:visibility="gone"/>
+
+    </FrameLayout>
+
+
+</LinearLayout>

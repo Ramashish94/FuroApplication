@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.newFeature.StepsTracker.TrackYourStepsStartActivity">
+
+    <LinearLayout
+        android:id="@+id/llCreatePlanPopUpMenu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bedtime2bg"
+        android:gravity="center">
+
+
+        <LinearLayout
+            android:id="@+id/llGlassTakebg"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginLeft="@dimen/dp_35"
+            android:layout_marginRight="@dimen/dp_35"
+            android:background="@drawable/pop_dialog_of_tract_your_steps"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:id="@+id/llClosedIcon"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_50"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_16"
+                        android:layout_marginTop="@dimen/dp_2"
+                        android:layout_weight="20">
+
+                        <ImageView
+                            android:layout_width="162dp"
+                            android:layout_height="@dimen/dp_24"
+                            android:layout_marginRight="18dp"
+                            android:src="@drawable/exixting_user" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llClosedIcon"
+                        tools:ignore="DuplicateIds"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/dp_2"
+                        android:layout_weight="80"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/ivCancel"
+                            android:layout_width="@dimen/dp_24"
+                            android:layout_height="@dimen/dp_24"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:layout_marginRight="18dp"
+                            android:src="@drawable/closediconwhite" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_30"
+                        android:gravity="center_horizontal"
+                        android:text="What would you like to do ?" />
+
+                    <ImageView
+                        android:id="@+id/ivProceedWithSavedData"
+                        android:layout_width="280dp"
+                        android:layout_height="@dimen/dp_40"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/dp_20"
+                        android:gravity="center_horizontal"
+                        android:src="@drawable/proced_data" />
+
+                    <ImageView
+                        android:id="@+id/ivModifiedSavedData"
+                        android:layout_width="280dp"
+                        android:layout_height="@dimen/dp_40"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/dp_7"
+                        android:gravity="center_horizontal"
+                        android:src="@drawable/modified_saved_data" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -34,9 +34,25 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".activity.newFeature.waterIntakeCalculator.SettingWaterIntakeActivity"
+            android:name=".activity.newFeature.StepsTracker.StepGoalActivityActivity"
             android:clearTaskOnLaunch="true"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".activity.newFeature.StepsTracker.WantToAcivedActivity"
+            android:clearTaskOnLaunch="true"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.newFeature.StepsTracker.AddNewSlotPreferActivity"
+            android:clearTaskOnLaunch="true"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.newFeature.StepsTracker.TellUsMoreOnTrackStepsActivity"
+            android:clearTaskOnLaunch="true"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.newFeature.waterIntakeCalculator.SettingWaterIntakeActivity"
+            android:clearTaskOnLaunch="true"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.newFeature.waterIntakeCalculator.WaterIntakeCounterActivity"
             android:clearTaskOnLaunch="true"
@@ -91,7 +107,7 @@
             android:clearTaskOnLaunch="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.newFeature.dailyStepsCounter.DailyStepsTrackerActivity"
+            android:name=".activity.newFeature.StepsTracker.TrackYourStepsStartActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.newFeature.healthCare.HealthCenterDashboardActivity"

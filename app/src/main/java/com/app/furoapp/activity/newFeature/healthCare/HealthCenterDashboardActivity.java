@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.app.furoapp.R;
+import com.app.furoapp.activity.newFeature.StepsTracker.TrackYourStepsStartActivity;
 import com.app.furoapp.activity.newFeature.bmiCalculator.FindYourBmiActivity;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.WaterIntakeStartActivity;
 
@@ -37,9 +38,8 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
         llDailyStepsTracker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(HealthCenterDashboardActivity.this, " Success", Toast.LENGTH_SHORT).show();
-               /* Intent intent =new Intent(getApplicationContext(),DailyStepsTrackerActivity.class);
-                startActivity(intent);*/
+                Intent intent = new Intent(getApplicationContext(), TrackYourStepsStartActivity.class);
+                startActivity(intent);
             }
         });
 

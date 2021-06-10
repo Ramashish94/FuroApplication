@@ -3,6 +3,9 @@ package com.app.furoapp.retrofit;
 
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.ActivityDetailsResponse;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragment_ListingNew.ActivitiesListing;
+import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotResponse;
+import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotTimeRequest;
+import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.FetchAllSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataResponse;
 import com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel.BmiStoreDataRequest;
@@ -450,6 +453,14 @@ public class RestClient {
 
     public static void getModifiedSavedData(String token, ModifiedSavedDataRequest modifiedSavedDataRequest, Callback<ModifiedSavedDataResponse> callback) {
         RetrofitClient.getClient().MODIFIED_SAVED_DATA_RESPONSE_CALL(token, modifiedSavedDataRequest).enqueue(callback);
+    }
+
+    public static void getFetchAllSlot(String token, Callback<FetchAllSlotResponse> callback) {
+        RetrofitClient.getClient().FETCH_ALL_SLOT_RESPONSE_CALL(token).enqueue(callback);
+    }
+
+    public static void getAddNewSlotTime(String token, AddNewSlotTimeRequest addNewSlotTimeRequest, Callback<AddNewSlotResponse> callback) {
+        RetrofitClient.getClient().ADD_NEW_SLOT_RESPONSE_CALL(token, addNewSlotTimeRequest).enqueue(callback);
     }
 
 

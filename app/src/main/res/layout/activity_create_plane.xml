@@ -72,7 +72,7 @@
                                 android:layout_marginTop="@dimen/dp_5"
                                 android:gravity="center"
                                 android:src="@drawable/ellipse_20"
-                                android:visibility="visible"/>
+                                android:visibility="visible" />
 
                             <ImageView
                                 android:id="@+id/ivSelRecommendedPlan"
@@ -83,8 +83,7 @@
                                 android:layout_marginTop="@dimen/dp_5"
                                 android:gravity="center"
                                 android:src="@drawable/select_circle"
-                                android:visibility="gone"
-                                />
+                                android:visibility="gone" />
 
                             <RadioGroup
                                 android:id="@+id/rdbt_group"
@@ -273,29 +272,29 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    tools:ignore="MissingConstraints">
-
-                    <ImageView
-                        android:id="@+id/ivStartJourney"
-                        android:layout_width="312dp"
-                        android:layout_height="@dimen/dp_40"
-                        android:layout_gravity="bottom"
-                        android:layout_marginLeft="28dp"
-                        android:layout_marginTop="@dimen/dp_45"
-                        android:layout_marginRight="28dp"
-                        android:layout_marginBottom="45dp"
-                        android:background="@drawable/startjounary" />
-                </LinearLayout>
-
 
             </LinearLayout>
 
 
         </androidx.core.widget.NestedScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                android:id="@+id/ivStartJourney"
+                android:layout_width="312dp"
+                android:layout_height="@dimen/dp_40"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="@dimen/dp_45"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="45dp"
+                android:background="@drawable/startjounary" />
+        </LinearLayout>
 
         <include
             android:id="@+id/includeCreatePlanPopUp"

@@ -84,9 +84,10 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
     List<WeeklyData> weeklyDataList = new ArrayList<>();
     List<MonthlyData> monthlyDataList = new ArrayList<>();
     List<AllTimeData> allTimeDataList = new ArrayList<>();
-    private int takingWater;
-    private int totRecommendedWater;
-    private int takenWaterInPercent;
+    public int takingWater;
+    public int totRecommendedWater;
+    public int takenWaterInPercent;
+    public int getWaterPercent;
 
 
     @Override
@@ -181,15 +182,17 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             tvNosGlassCount.setText("" + Integer.parseInt(selectedPlan.getTakenGlassOfWater().toString()));
         }
         if (selectedPlan.getTakenWaterInMl() != null) {
-            tvTakingWater.setText("" + selectedPlan.getTakenWaterInMl().toString());///////////////
+            takingWater = Integer.parseInt(selectedPlan.getTakenWaterInMl().toString());   //for percent
+            tvTakingWater.setText("" + takingWater);
         }
         if (selectedPlan.getWaterTakeInMl() != null) {
-            tvRecommendedReamingWater.setText("of " + selectedPlan.getWaterTakeInMl().toString() + " ml");
+            totRecommendedWater = Integer.parseInt(selectedPlan.getWaterTakeInMl().toString());    //for percent
+            tvRecommendedReamingWater.setText("of " + totRecommendedWater + " ml");
         }
         if (selectedPlan.getTakenWaterInMl() != null) {
             tvTotAmountDrunk.setText("" + selectedPlan.getTakenWaterInMl().toString() + " ml");
         }
-        if (selectedPlan.getTakenWaterInMl() != null) {
+        if (selectedPlan.getTakenGlassOfWater() != null) {
             tvNosOfGlasses.setText("" + selectedPlan.getTakenGlassOfWater().toString());
         }
         if (selectedPlan.getRecommendedGlassOfWater() != null) {
@@ -207,15 +210,10 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         tvDateWithDay.setText(getDate);
 
         /*Update progress percent*/
-        if (selectedPlan.getTakenWaterInMl() != null && selectedPlan.getWaterTakeInMl() != null) {
-            takingWater = Integer.parseInt(selectedPlan.getTakenWaterInMl().toString());
-            totRecommendedWater = Integer.parseInt(selectedPlan.getWaterTakeInMl().toString());
-        }
-
-        takenWaterInPercent = ((takingWater / totRecommendedWater) * 100);
-        scProgressBar.setPercent(takenWaterInPercent);
-
-        if (selectedPlan.getTakenWaterInMl().equals(selectedPlan.getWaterTakeInMl())) {
+        takenWaterInPercent = (takingWater * 100/totRecommendedWater);
+        scProgressBar.setPercent(takenWaterInPercent);     // set percent on progress bar
+        Toast.makeText(this, +getWaterPercent + " percent", Toast.LENGTH_SHORT).show();
+        if (takingWater == totRecommendedWater) {
             includeCongratsPopMenu.setVisibility(View.VISIBLE);
             clWaterIntakeCounter.setClickable(false);
         }

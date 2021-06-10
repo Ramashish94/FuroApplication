@@ -34,9 +34,13 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.newFeature.StepsTracker.FqStepsCounterActivity"
+            android:clearTaskOnLaunch="true"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
             android:name=".activity.newFeature.StepsTracker.StepGoalActivityActivity"
             android:clearTaskOnLaunch="true"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.newFeature.StepsTracker.WantToAcivedActivity"
             android:clearTaskOnLaunch="true"
@@ -44,7 +48,7 @@
         <activity
             android:name=".activity.newFeature.StepsTracker.AddNewSlotPreferActivity"
             android:clearTaskOnLaunch="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppFullScreenTheme" />
         <activity
             android:name=".activity.newFeature.StepsTracker.TellUsMoreOnTrackStepsActivity"
             android:clearTaskOnLaunch="true"

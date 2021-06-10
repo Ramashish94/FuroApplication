@@ -173,7 +173,6 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
                                     Toast.makeText(TellUsMoreOnTrackStepsActivity.this, "Data Updated Successfully", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), AddNewSlotPreferActivity.class);
                                     startActivity(intent);
-                                    finish();
                                 }
                             } else if (response.code() == 500) {
                                 Toast.makeText(TellUsMoreOnTrackStepsActivity.this, "Internal server error!", Toast.LENGTH_SHORT).show();

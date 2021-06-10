@@ -5,60 +5,229 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bitmap_img"
+    android:orientation="vertical"
     tools:context=".activity.newFeature.StepsTracker.StepGoalActivityActivity">
 
-    <androidx.core.widget.NestedScrollView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="32dp">
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="32dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="27dp"
+                        android:layout_marginTop="@dimen/dp_25"
+                        android:src="@drawable/step_goal" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_gravity="start"
+                        android:layout_marginTop="@dimen/dp_25"
+                        android:src="@drawable/stepsgoal_containt" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1.5dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/viewline" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginTop="@dimen/dp_6"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/switchBtnWeekly"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="@dimen/dp_5"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:gravity="center"
+                            android:text="Weekly" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/switchBtnMonthly"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="@dimen/dp_5"
+                            android:layout_weight="1"
+                            android:checked="false"
+                            android:gravity="center"
+                            android:text="Weekly" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/switchBtnAlType"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="@dimen/sp_10"
+                            android:layout_weight="1"
+                            android:checked="false"
+                            android:gravity="center"
+                            android:text="All time" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1.5dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/dp_6"
+                        android:background="@drawable/viewline" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="270dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="32dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvStepsCount"
+                            android:layout_width="@dimen/dp_150"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:textAlignment="center" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="2dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/viewline" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="@dimen/dp_6"
+                                    android:layout_marginRight="@dimen/dp_10"
+                                    android:gravity="center"
+                                    android:orientation="horizontal">
+
+
+                                    <TextView
+                                        android:layout_width="95dp"
+                                        android:layout_height="@dimen/dp_20"
+                                        android:layout_gravity="center|start"
+                                        android:layout_marginRight="@dimen/dp_90"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/recomendedbg"
+                                        android:gravity="center"
+                                        android:text="Recommended"
+                                        android:textColor="@color/light_blue"
+                                        android:textSize="@dimen/dp_12"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:layout_width="95dp"
+                                        android:layout_height="@dimen/dp_35"
+                                        android:layout_gravity="center|end"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:text="Steps"
+                                        android:textColor="@color/black_color"
+                                        android:textSize="@dimen/sp_14"
+                                        android:textStyle="bold" />
+
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="2dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="@dimen/dp_6"
+                                    android:background="@drawable/viewline" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+                    </FrameLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="32dp"
+            android:layout_marginBottom="@dimen/dp_40"
+            android:gravity="bottom"
             android:orientation="vertical">
 
 
-            <LinearLayout
+            <ImageView
+                android:id="@+id/ivContinue"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="30"
-                android:orientation="vertical">
+                android:layout_height="@dimen/dp_40"
+                android:layout_gravity="bottom"
+                android:src="@drawable/continue1" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="27dp"
-                    android:layout_marginTop="@dimen/dp_25"
-                    android:src="@drawable/step_goal" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_gravity="start"
-                    android:layout_marginTop="@dimen/dp_25"
-                    android:src="@drawable/stepsgoal_containt" />
-
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
+            <ImageView
+                android:id="@+id/ivSkip"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="70"
-                android:orientation="vertical">
-
-
-
-
-
-            </LinearLayout>
+                android:layout_height="@dimen/dp_40"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="@dimen/dp_10"
+                android:src="@drawable/skip_blu_btn" />
 
         </LinearLayout>
-
-
-    </androidx.core.widget.NestedScrollView>
-
-
-
+    </FrameLayout>
 </LinearLayout>

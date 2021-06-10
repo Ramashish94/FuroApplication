@@ -5,57 +5,83 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_of_tell_us_more_2"
+    android:orientation="vertical"
     tools:context=".activity.newFeature.StepsTracker.WantToAcivedActivity">
 
-    <androidx.core.widget.NestedScrollView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="32dp">
+        android:layout_height="match_parent">
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="32dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="30"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_30"
+                        android:fontFamily="@font/bebas_neue_bold"
+                        android:gravity="center_vertical"
+                        android:text="What do you want to achieved ?"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/dp_20"
+                        android:textStyle="italic" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="70"
+                    android:orientation="vertical">
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_margin="32dp"
+            android:layout_marginBottom="32dp"
+            android:gravity="bottom"
             android:orientation="vertical">
 
 
-            <LinearLayout
+            <ImageView
+                android:id="@+id/ivContinue"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="30"
-                android:orientation="vertical">
+                android:layout_height="?actionBarSize"
+                android:layout_gravity="bottom"
+                android:src="@drawable/conti" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_30"
-                    android:text="What do you want to achieved"
-                    android:textColor="@color/white"
-                    android:gravity="center"
-                    android:fontFamily="@font/bebas_neue_bold"
-                    android:textSize="@dimen/sp_16"
-                    android:textStyle="italic"/>
-
-
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
+            <ImageView
+                android:id="@+id/ivSkip"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="70"
-                android:orientation="vertical">
-
-
-
-
-
-            </LinearLayout>
+                android:layout_height="?actionBarSize"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="@dimen/dp_10"
+                android:src="@drawable/skipbn" />
 
         </LinearLayout>
-
-
-    </androidx.core.widget.NestedScrollView>
-
-
+    </FrameLayout>
 </LinearLayout>

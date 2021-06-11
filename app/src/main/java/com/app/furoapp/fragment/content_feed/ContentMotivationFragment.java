@@ -58,7 +58,6 @@ public class ContentMotivationFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_content_motivation, container, false);
         View view = binding.getRoot();
-        setOnClickListeners();
         progressBarr = view.findViewById(R.id.progressBar);
         textView = view.findViewById(R.id.pbText);
         recyclerView = view.findViewById(R.id.motivationrecycler);
@@ -66,9 +65,31 @@ public class ContentMotivationFragment extends Fragment {
         pGif = view.findViewById(R.id.progressBarJumpingJacks);
         pGif.setImageResource(R.drawable.run);
 
+
+
+        return view;
+    }
+
+    public ContentMotivationFragment() {
+
+    }
+
+    public static ContentMotivationFragment newInstance(String name) {
+        ContentMotivationFragment fragment = new ContentMotivationFragment();
+        Bundle args = new Bundle();
+        args.putString("name", name);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setOnClickListeners();
+    }
+
+    private void setOnClickListeners() {
         pGif.setVisibility(View.VISIBLE);
-
-
         RestClient.myContentfeedActivity(new Callback<ContentFeedModel>() {
             @Override
 
@@ -105,28 +126,10 @@ public class ContentMotivationFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ContentFeedModel> call, Throwable t) {
-                Toast.makeText(homeMainActivity, "No internet connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(homeMainActivity, "Something went wrong !", Toast.LENGTH_SHORT).show();
 
             }
         });
-
-        return view;
-    }
-
-    public ContentMotivationFragment() {
-
-    }
-
-    public static ContentMotivationFragment newInstance(String name) {
-        ContentMotivationFragment fragment = new ContentMotivationFragment();
-        Bundle args = new Bundle();
-        args.putString("name", name);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    private void setOnClickListeners() {
-
     }
 
     /* private List<ContentListModel> getContentListRecord() {

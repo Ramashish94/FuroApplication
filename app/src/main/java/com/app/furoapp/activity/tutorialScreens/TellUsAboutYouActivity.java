@@ -20,6 +20,7 @@ import com.app.furoapp.databinding.ActivityTellUsAboutYouBinding;
 import com.app.furoapp.model.whatBringsYoutoFuro.WhatBringsYouToFuroRequest;
 import com.app.furoapp.model.whatBringsYoutoFuro.WhatBringsYouToFuroResponse;
 import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 import com.kevalpatel2106.rulerpicker.RulerValuePicker;
@@ -159,6 +160,8 @@ public class TellUsAboutYouActivity extends AppCompatActivity {
                                 if (response.body().getStatus().equalsIgnoreCase("200")) {
 
                                     Intent intent = new Intent(TellUsAboutYouActivity.this, HomeMainActivity.class);
+                                    FuroPrefs.putString(getApplicationContext(), Constants.USER_HEIGHT_IN_CM,response.body().getUserReason().getHeight());
+                                    FuroPrefs.putString(getApplicationContext(),Constants.USER_WEIGHT_IN_KG,response.body().getUserReason().getWeight());
                                     intent.putExtra("contestpage", "");
                                     startActivity(intent);
                                     finish();

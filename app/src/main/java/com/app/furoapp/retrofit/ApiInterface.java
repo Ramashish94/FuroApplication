@@ -144,7 +144,7 @@ public interface ApiInterface {
     String TOKEN_KEY = "Authorization";
 
     // api calling for Activity Content feed
-    @GET("all-activities")
+    @GET("all-activities")                       //
     Call<ContentFeedModel> getActivities();
 
     // api calling for AllActivity Content feed  landing page
@@ -196,7 +196,7 @@ public interface ApiInterface {
     Call<SelectChallangeResponse> selectChallange();
 
     //what brings you to furo
-    @POST("user-reasons")
+    @POST("user-reasons")///////////////////////////
     Call<WhatBringsYouToFuroResponse> chooseOneReason(@Body WhatBringsYouToFuroRequest whatBringsYouToFuroRequest);
 
 

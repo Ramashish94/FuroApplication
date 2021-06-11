@@ -1,48 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="@color/bottom_gray"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <androidx.recyclerview.widget.RecyclerView
 
-        android:id="@+id/motivationrecycler"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:background="@color/bottom_gray"
+        android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:gravity="center"
+        <androidx.recyclerview.widget.RecyclerView
 
-        android:layout_height="match_parent">
+            android:id="@+id/motivationrecycler"
+            android:layout_width="match_parent"
 
-        <lal.adhish.gifprogressbar.GifView
-            android:id="@+id/progressBarJumpingJacks"
-            android:layout_width="50dp"
-            android:layout_centerInParent="true"
-            android:layout_margin="@dimen/dp_5"
-            android:backgroundTint="@color/white"
-            android:layout_height="50dp"
-            android:layout_gravity="center" />
-
-        <TextView
-            android:id="@+id/pbText"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:layout_marginLeft="@dimen/dp_10"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-            android:visibility="gone"
-            android:textColor="@color/light_blue"
-            android:text="loading ..."/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+
+            android:orientation="horizontal">
+
+            <lal.adhish.gifprogressbar.GifView
+                android:id="@+id/progressBarJumpingJacks"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/dp_5"
+                android:backgroundTint="@color/white" />
+
+            <TextView
+                android:id="@+id/pbText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:text="loading ..."
+
+                android:textColor="@color/light_blue"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
 </layout>

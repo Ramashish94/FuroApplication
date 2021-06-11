@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bitmap_img"
     android:orientation="vertical"
-    tools:context=".activity.newFeature.StepsTracker.StepGoalActivityActivity">
+    tools:context=".activity.newFeature.StepsTracker.CreateYourStepGoalActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -44,74 +44,6 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1.5dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/viewline" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_marginTop="@dimen/dp_6"
-                        android:layout_marginRight="@dimen/dp_10"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/switchBtnWeekly"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="@dimen/dp_5"
-                            android:layout_weight="1"
-                            android:checked="true"
-                            android:gravity="center"
-                            android:text="Weekly" />
-
-                        <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/switchBtnMonthly"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="@dimen/dp_5"
-                            android:layout_weight="1"
-                            android:checked="false"
-                            android:gravity="center"
-                            android:text="Weekly" />
-
-                        <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/switchBtnAlType"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="@dimen/sp_10"
-                            android:layout_weight="1"
-                            android:checked="false"
-                            android:gravity="center"
-                            android:text="All time" />
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1.5dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/dp_6"
-                        android:background="@drawable/viewline" />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
                     android:layout_height="270dp"
                     android:layout_gravity="center"
                     android:layout_margin="32dp"
@@ -126,7 +58,7 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rvStepsCount"
                             android:layout_width="@dimen/dp_150"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/dp_300"
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:textAlignment="center" />
@@ -220,13 +152,17 @@
                 android:layout_gravity="bottom"
                 android:src="@drawable/continue1" />
 
-            <ImageView
-                android:id="@+id/ivSkip"
+            <TextView
+                android:id="@+id/ivBack"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_40"
                 android:layout_gravity="bottom"
                 android:layout_marginTop="@dimen/dp_10"
-                android:src="@drawable/skip_blu_btn" />
+                android:background="@drawable/back_btn_bg"
+                android:text="Back"
+                android:gravity="center"
+                android:textColor="@color/light_blue"
+                />
 
         </LinearLayout>
     </FrameLayout>

@@ -1,7 +1,6 @@
 package com.app.furoapp.activity.newFeature.StepsTracker.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
 import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.Datum;
-import com.app.furoapp.activity.newFeature.bmiCalculator.AgeAdapter;
 
 import java.util.List;
 
@@ -42,7 +40,7 @@ public class FetchAllPlanAdapter extends RecyclerView.Adapter<FetchAllPlanAdapte
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Datum datum = datumList.get(position);
-        holder.tvSlotCount.setText("" + datum.getId() + " - ");
+        holder.tvSlotCount.setText("" + datum.getId() + " -");
         holder.tvSlotTime.setText("" + datum.getTimeslot());
 
         holder.llTimeSlot.setOnClickListener(v -> {

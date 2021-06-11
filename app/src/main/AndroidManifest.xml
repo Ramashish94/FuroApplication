@@ -33,12 +33,14 @@
         android:roundIcon="@mipmap/app_icon_new_round"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activity.newFeature.StepsTracker.LeadBoardActivity"></activity>
+        <activity android:name=".activity.newFeature.StepsTracker.HistoryDetailsActivity" />
         <activity
             android:name=".activity.newFeature.StepsTracker.FqStepsCounterActivity"
             android:clearTaskOnLaunch="true"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.newFeature.StepsTracker.StepGoalActivityActivity"
+            android:name=".activity.newFeature.StepsTracker.CreateYourStepGoalActivity"
             android:clearTaskOnLaunch="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -48,7 +50,7 @@
         <activity
             android:name=".activity.newFeature.StepsTracker.AddNewSlotPreferActivity"
             android:clearTaskOnLaunch="true"
-            android:theme="@style/AppFullScreenTheme" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.newFeature.StepsTracker.TellUsMoreOnTrackStepsActivity"
             android:clearTaskOnLaunch="true"

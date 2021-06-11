@@ -143,7 +143,7 @@
             android:layout_height="45dp"
             android:layout_marginLeft="@dimen/dp_5"
             android:layout_marginRight="@dimen/dp_8"
-            android:background="@drawable/bg_view_clip"
+            android:background="@drawable/viewdetailbg"
             android:orientation="horizontal">
 
             <LinearLayout

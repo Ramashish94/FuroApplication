@@ -64,11 +64,33 @@ public class ContentActivityFragment extends Fragment {
         pGif.setImageResource(R.drawable.run);
 
 
+        return view;
+    }
+
+    public ContentActivityFragment() {
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setOnClickListeners();
+
+    }
+
+    public static ContentActivityFragment newInstance(String name) {
+        ContentActivityFragment fragment = new ContentActivityFragment();
+        Bundle args = new Bundle();
+        args.putString("name", name);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    private void setOnClickListeners() {
         pGif.setVisibility(View.VISIBLE);
         /*textView.setVisibility(View.VISIBLE);*/
         RestClient.myContentfeedActivity(new Callback<ContentFeedModel>() {
             @Override
-
             public void onResponse(Call<ContentFeedModel> call, Response<ContentFeedModel> response) {
                 pGif.setVisibility(View.GONE);
                 /* textView.setVisibility(View.GONE);*/
@@ -103,32 +125,10 @@ public class ContentActivityFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ContentFeedModel> call, Throwable t) {
-                Toast.makeText(homeMainActivity, "No internet connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(homeMainActivity, "Something went wrong!", Toast.LENGTH_SHORT).show();
 
             }
         });
-
-
-        setOnClickListeners();
-
-
-        return view;
-    }
-
-    public ContentActivityFragment() {
-
-    }
-
-    public static ContentActivityFragment newInstance(String name) {
-        ContentActivityFragment fragment = new ContentActivityFragment();
-        Bundle args = new Bundle();
-        args.putString("name", name);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    private void setOnClickListeners() {
-
     }
 
 }

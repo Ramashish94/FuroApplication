@@ -42,7 +42,6 @@
                 android:id="@+id/tvSlotTime"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_10"
                 android:gravity="center_vertical"
                 android:text="09:00 "
                 android:textColor="@color/black_color"

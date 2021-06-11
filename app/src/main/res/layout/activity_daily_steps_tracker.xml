@@ -2,17 +2,55 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llTrackYourSteps"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/track_your_steps_bg"
+    android:background="@drawable/bg_steps_tracker"
     android:orientation="vertical"
-    android:id="@+id/llTrackYourSteps"
     tools:context=".activity.newFeature.StepsTracker.TrackYourStepsStartActivity">
 
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="80dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="294dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="?actionBarSize"
+                    android:src="@drawable/trck_your_steps" />
+
+                <ImageView
+                    android:layout_width="294dp"
+                    android:layout_height="@dimen/dp_50"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:src="@drawable/track_content" />
+            </LinearLayout>
+
+        </LinearLayout>
+
 
         <ImageView
             android:id="@+id/ivStartJourneyBtn"
@@ -25,7 +63,7 @@
         <include
             android:id="@+id/includePopUpMenuOfTrackSteps"
             layout="@layout/pop_up_menu_of_track_your_steps"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
     </FrameLayout>
 

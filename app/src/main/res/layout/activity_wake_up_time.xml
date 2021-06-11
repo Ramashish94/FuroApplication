@@ -42,6 +42,7 @@
                         android:layout_gravity="center"
                         android:theme="@style/TimePicker"
                         android:timePickerMode="spinner"
+                        android:descendantFocusability="blocksDescendants"
                         />
 
                     <!-- <androidx.recyclerview.widget.RecyclerView
@@ -79,6 +80,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:theme="@style/TimePicker"
+                        android:descendantFocusability="blocksDescendants"
                         android:timePickerMode="spinner"/>
 
                     <!--<androidx.recyclerview.widget.RecyclerView

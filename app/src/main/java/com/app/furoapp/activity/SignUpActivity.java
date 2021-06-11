@@ -881,6 +881,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 String image = response.body().getUser().getImage();
                                 FuroPrefs.putString(getApplicationContext(), "user_name", userName);
                                 FuroPrefs.putString(getApplicationContext(), "my_community_user_id", userId);
+                                FuroPrefs.putString(getApplicationContext(),Constants.GENDER,response.body().getUser().getGender());/*added by me*/
                                 startActivity(intent);
                                 Toast.makeText(SignUpActivity.this, "Successfully Register", Toast.LENGTH_SHORT).show();
 
@@ -927,6 +928,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 Intent intent = new Intent(SignUpActivity.this, LoginTutorialScreen.class);
                                 String userId = String.valueOf(response.body().getUserId());
                                 String image = response.body().getUser().getImage();
+                                FuroPrefs.putString(getApplicationContext(),Constants.GENDER,response.body().getUser().getGender());/*added by me*/
                                 FuroPrefs.putString(getApplicationContext(), "user_name", userName);
                                 FuroPrefs.putString(getApplicationContext(), "my_community_user_id", userId);
                                 startActivity(intent);

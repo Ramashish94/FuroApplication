@@ -105,6 +105,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:theme="@style/TimePicker"
+                        android:descendantFocusability="blocksDescendants"
                         android:timePickerMode="spinner"/>
 
                 </LinearLayout>

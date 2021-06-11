@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.app.furoapp.R;
+import com.app.furoapp.utils.Constants;
+import com.app.furoapp.utils.FuroPrefs;
 
 public class TrackYourStepsStartActivity extends AppCompatActivity {
     public ImageView ivStartJourneyBtn, ivProceedWithSavedData, ivModifiedSavedData, ivCancel;
@@ -43,8 +45,15 @@ public class TrackYourStepsStartActivity extends AppCompatActivity {
         });
 
         ivProceedWithSavedData.setOnClickListener(v -> {
-           /* intent = new Intent(getApplicationContext(), TellUsMoreOnTrackStepsActivity.class);
-            startActivity(intent);*/
+            if (FuroPrefs.getString(getApplicationContext(), Constants.GENDER) != null
+                    && FuroPrefs.getString(getApplicationContext(), Constants.USER_HEIGHT_IN_CM) != null
+                    && FuroPrefs.getString(getApplicationContext(), Constants.USER_WEIGHT_IN_KG) != null) {
+                intent = new Intent(getApplicationContext(), WantToAcivedActivity.class);
+            } else {
+                intent = new Intent(getApplicationContext(), TellUsMoreOnTrackStepsActivity.class);
+            }
+            includePopUpMenuOfTrackSteps.setVisibility(View.GONE);
+            startActivity(intent);
         });
 
         ivModifiedSavedData.setOnClickListener(v -> {
@@ -57,5 +66,6 @@ public class TrackYourStepsStartActivity extends AppCompatActivity {
             includePopUpMenuOfTrackSteps.setVisibility(View.GONE);
         });
     }
+
 
 }

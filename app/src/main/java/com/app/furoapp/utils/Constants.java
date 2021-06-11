@@ -58,6 +58,10 @@ public class Constants {
     public static final String REJECTCHALLENGE = "Rejectchallenge";
     public static final String CONTANT = "Content";
     public static final String SUBMITCHALLENGE = "Submitchallenge";
+    /*added signup and TellUsAboutYouActivity */
+    public static final String GENDER = "gender";
+    public static final String USER_HEIGHT_IN_CM = "userHeightInCm";
+    public static final String USER_WEIGHT_IN_KG = "userWeightInKg";
     /* added*/
     public static String Get_ACCESS_TOKEN = "access_token";
     public static String ACTIVITY_Id = "id";
@@ -65,9 +69,6 @@ public class Constants {
     public static final String FIND_TYPE = "typeBmiVal";
     public static final String GENDER_VAL = "genderVal";
     public static final String USER_AGE_SELECT = "user_age";
-   /* public static final String USER_HEIGHT_IN_CM = "height_in_cm";
-    public static final String USER_WEIGHT = "height_in_cm";*/
-
 
 
 }

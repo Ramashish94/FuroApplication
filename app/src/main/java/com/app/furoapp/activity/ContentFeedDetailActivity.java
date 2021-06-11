@@ -294,7 +294,7 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LikeResponse> call, Throwable t) {
-                showToast("No internet connection!");
+                showToast("Failure!");
             }
         });
 

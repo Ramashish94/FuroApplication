@@ -1,11 +1,5 @@
 package com.app.furoapp.activity.newFeature.StepsTracker;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,17 +12,18 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.app.furoapp.R;
-import com.app.furoapp.activity.HomeMainActivity;
 import com.app.furoapp.activity.LoginTutorialScreen;
-import com.app.furoapp.activity.SignUpActivity;
-import com.app.furoapp.activity.SplashActivity;
 import com.app.furoapp.activity.newFeature.StepsTracker.adapter.FetchAllPlanAdapter;
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotTimeRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.Datum;
 import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.FetchAllSlotResponse;
-import com.app.furoapp.activity.tutorialScreens.LoginWithEmailActivity;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
@@ -45,8 +40,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class AddNewSlotPreferActivity extends Activity implements FetchAllPlanAdapter.TimeSlotClickCallBack {
     public ImageView ivContinue, ivSkip, ivAddNewSlot;
@@ -68,12 +61,14 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllPlanAd
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_slot_prefer);
+
+        getAccessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
+
         findViews();
         clicklistner();
         setFetchAllPlanAdapter();
         callFetchAllPlanApi();
         timePickerEvent();
-        getAccessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -95,7 +90,6 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllPlanAd
         llClosedIcon = findViewById(R.id.llClosedIcon);
     }
 
-
     private void clicklistner() {
         ivAddNewSlot.setOnClickListener(v -> {
             includePopMenuOfAddTimeSlot.setVisibility(View.VISIBLE);
@@ -112,7 +106,7 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllPlanAd
             finish();
         });
         ivSkip.setOnClickListener(v -> {
-            intent = new Intent(getApplicationContext(),StepGoalActivityActivity.class);
+            intent = new Intent(getApplicationContext(), CreateYourStepGoalActivity.class);
             startActivity(intent);
             finish();
         });
@@ -159,7 +153,7 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllPlanAd
                     Toast.makeText(AddNewSlotPreferActivity.this, "Internal server error!", Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 403) {
                     Toast.makeText(AddNewSlotPreferActivity.this, "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
-                  //  getAlertTokenDialog();
+                    //  getAlertTokenDialog();
                 }
             }
 
@@ -171,30 +165,29 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllPlanAd
     }
 
     private void callFetchAllPlanApi() {
-        if (Util.isInternetConnected(getApplicationContext())) {
-            Util.showProgressDialog(getApplicationContext());
-            RestClient.getFetchAllSlot(getAccessToken, new Callback<FetchAllSlotResponse>() {
-                @Override
-                public void onResponse(Call<FetchAllSlotResponse> call, Response<FetchAllSlotResponse> response) {
-                    if (response.code() == 200) {
-                        if (response.body() != null) {
-                            notifyFetchAllSlotTime(response.body().getData());
-                        }
-                    } else if (response.code() == 500) {
-                        Toast.makeText(AddNewSlotPreferActivity.this, "Internal server error!", Toast.LENGTH_SHORT).show();
-                    } else if (response.code() == 403) {
-                        Toast.makeText(AddNewSlotPreferActivity.this, "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
-                     //   getAlertTokenDialog();
-
+        Util.showProgressDialog(getApplicationContext());
+        Util.showProgressDialog(getApplicationContext());
+        RestClient.getFetchAllSlot(getAccessToken, new Callback<FetchAllSlotResponse>() {
+            @Override
+            public void onResponse(Call<FetchAllSlotResponse> call, Response<FetchAllSlotResponse> response) {
+                Util.dismissProgressDialog();
+                if (response.code() == 200) {
+                    if (response.body() != null) {
+                        notifyFetchAllSlotTime(response.body().getData());
                     }
+                } else if (response.code() == 500) {
+                    Toast.makeText(AddNewSlotPreferActivity.this, "Internal server error!", Toast.LENGTH_SHORT).show();
+                } else if (response.code() == 403) {
+                    Toast.makeText(AddNewSlotPreferActivity.this, "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
+                    // getAlertTokenDialog();
                 }
+            }
 
-                @Override
-                public void onFailure(Call<FetchAllSlotResponse> call, Throwable t) {
-                    Toast.makeText(AddNewSlotPreferActivity.this, "Something went wrong !", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+            @Override
+            public void onFailure(Call<FetchAllSlotResponse> call, Throwable t) {
+                Toast.makeText(AddNewSlotPreferActivity.this, "Something went wrong !", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void setFetchAllPlanAdapter() {
@@ -225,79 +218,44 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllPlanAd
 
 
     private void getAlertTokenDialog() {
-        /*final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getApplicationContext());
-        LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.profile_alertdialog_logoutt_new, null);
-        dialogBuilder.setView(dialogView);
-        final AlertDialog dialog = dialogBuilder.create();
-        ImageView btn_Cancel = dialogView.findViewById(R.id.btn_cancel);
-        TextView noiwanttocontinue = dialogView.findViewById(R.id.noiwanttocontinuee);
-        TextView text_logout = dialogView.findViewById(R.id.text_logout);
-        btn_Cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
+        if (getAccessToken != null) {
+            final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getApplicationContext());
+            LayoutInflater inflater = this.getLayoutInflater();
+            View dialogView = inflater.inflate(R.layout.profile_alertdialog_logoutt_new, null);
+            dialogBuilder.setView(dialogView);
+            final AlertDialog dialog = dialogBuilder.create();
+            ImageView btn_Cancel = dialogView.findViewById(R.id.btn_cancel);
+            TextView text_logout = dialogView.findViewById(R.id.text_logout);
+            TextView noiwanttocontinue = dialogView.findViewById(R.id.noiwanttocontinuee);
+            btn_Cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
 
-            }
-        });
-        noiwanttocontinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
+                }
+            });
 
-            }
-        });
-        text_logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FuroPrefs.clear(getApplicationContext());
-                googleSignOut();
-                Intent intent = new Intent(getApplicationContext(), LoginTutorialScreen.class);
-                startActivity(intent);
-                finishAffinity();
+            noiwanttocontinue.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
 
+                }
+            });
 
-            }
-        });
+            text_logout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FuroPrefs.clear(getApplicationContext());
+                    googleSignOut();
+                    Intent intent = new Intent(getApplicationContext(), LoginTutorialScreen.class);
+                    startActivity(intent);
+                    finishAffinity();
+                }
+            });
+            dialog.show();
+        }
 
-        dialog.show();*/
-
-
-       final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getApplicationContext());
-        LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.profile_alertdialog_logoutt_new, null);
-        dialogBuilder.setView(dialogView);
-        final AlertDialog dialog = dialogBuilder.create();
-        ImageView btn_Cancel = dialogView.findViewById(R.id.btn_cancel);
-        TextView text_logout = dialogView.findViewById(R.id.text_logout);
-        TextView noiwanttocontinue = dialogView.findViewById(R.id.noiwanttocontinuee);
-        btn_Cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-
-            }
-        });
-
-        noiwanttocontinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-
-            }
-        });
-
-        text_logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FuroPrefs.clear(getApplicationContext());
-                googleSignOut();
-                Intent intent = new Intent(getApplicationContext(), LoginTutorialScreen.class);
-                startActivity(intent);
-                finishAffinity();
-            }
-        });
-      dialog.show();
     }
 
     public void googleSignOut() {

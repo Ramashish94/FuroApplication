@@ -178,46 +178,51 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
     }
 
     private void setTodayProgressData(SelectedPlan selectedPlan) {
-        if (selectedPlan.getTakenGlassOfWater() != null) {
-            tvNosGlassCount.setText("" + Integer.parseInt(selectedPlan.getTakenGlassOfWater().toString()));
+        if (selectedPlan != null) {
+            if (selectedPlan.getTakenGlassOfWater() != null) {
+                tvNosGlassCount.setText("" + Integer.parseInt(selectedPlan.getTakenGlassOfWater().toString()));
+            }
+            if (selectedPlan.getTakenWaterInMl() != null) {
+                takingWater = Integer.parseInt(selectedPlan.getTakenWaterInMl().toString());   //for percent
+                tvTakingWater.setText("" + takingWater);
+            }
+            if (selectedPlan.getWaterTakeInMl() != null) {
+                totRecommendedWater = Integer.parseInt(selectedPlan.getWaterTakeInMl().toString());    //for percent
+                tvRecommendedReamingWater.setText("of " + totRecommendedWater + " ml");
+            }
+            if (selectedPlan.getTakenWaterInMl() != null) {
+                tvTotAmountDrunk.setText("" + selectedPlan.getTakenWaterInMl().toString() + " ml");
+            }
+            if (selectedPlan.getTakenGlassOfWater() != null) {
+                tvNosOfGlasses.setText("" + selectedPlan.getTakenGlassOfWater().toString());
+            }
+            if (selectedPlan.getRecommendedGlassOfWater() != null) {
+                tvRecommendedNosOfGlasses.setText("/" + selectedPlan.getRecommendedGlassOfWater().toString());
+            }
         }
-        if (selectedPlan.getTakenWaterInMl() != null) {
-            takingWater = Integer.parseInt(selectedPlan.getTakenWaterInMl().toString());   //for percent
-            tvTakingWater.setText("" + takingWater);
-        }
-        if (selectedPlan.getWaterTakeInMl() != null) {
-            totRecommendedWater = Integer.parseInt(selectedPlan.getWaterTakeInMl().toString());    //for percent
-            tvRecommendedReamingWater.setText("of " + totRecommendedWater + " ml");
-        }
-        if (selectedPlan.getTakenWaterInMl() != null) {
-            tvTotAmountDrunk.setText("" + selectedPlan.getTakenWaterInMl().toString() + " ml");
-        }
-        if (selectedPlan.getTakenGlassOfWater() != null) {
-            tvNosOfGlasses.setText("" + selectedPlan.getTakenGlassOfWater().toString());
-        }
-        if (selectedPlan.getRecommendedGlassOfWater() != null) {
-            tvRecommendedNosOfGlasses.setText("/" + selectedPlan.getRecommendedGlassOfWater().toString());
-        }
+        if (selectedPlan.getCreatedAt() != null) {
 
-        DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
-        try {
-            date = dateFormat.parse(selectedPlan.getCreatedAt());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        DateFormat dateFormat1 = new SimpleDateFormat("dd MMM, EEE");
-        String getDate = dateFormat1.format(date);
-        tvDateWithDay.setText(getDate);
 
+            DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
+            try {
+                date = dateFormat.parse(selectedPlan.getCreatedAt());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            DateFormat dateFormat1 = new SimpleDateFormat("dd MMM, EEE");
+            String getDate = dateFormat1.format(date);
+            tvDateWithDay.setText(getDate);
+        }
         /*Update progress percent*/
-        takenWaterInPercent = (takingWater * 100/totRecommendedWater);
+        takenWaterInPercent = (takingWater * 100 / totRecommendedWater);
         scProgressBar.setPercent(takenWaterInPercent);     // set percent on progress bar
-        Toast.makeText(this, +getWaterPercent + " percent", Toast.LENGTH_SHORT).show();
-        if (takingWater == totRecommendedWater) {
+        if (takingWater == totRecommendedWater || takenWaterInPercent >= 98) {
             includeCongratsPopMenu.setVisibility(View.VISIBLE);
             clWaterIntakeCounter.setClickable(false);
-        }
-
+            finish();
+        }/* else {
+            Toast.makeText(this, "Selected plan will be Null", Toast.LENGTH_SHORT).show();
+        }*/
     }
 
 

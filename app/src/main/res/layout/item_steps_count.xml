@@ -20,7 +20,7 @@
             android:paddingBottom="@dimen/dp_5"
             android:text="20000"
             android:textAllCaps="true"
-            android:textColor="@color/bottom_gray"
+            android:textColor="@color/vertical_line_color"
             android:textSize="22dp"
             android:textStyle="bold" />
 

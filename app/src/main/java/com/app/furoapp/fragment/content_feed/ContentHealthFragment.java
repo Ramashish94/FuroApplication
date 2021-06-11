@@ -43,6 +43,7 @@ public class ContentHealthFragment extends Fragment {
     RecyclerView recyclerView;
     HomeMainActivity homeMainActivity;
     GifView pGif;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -54,7 +55,6 @@ public class ContentHealthFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_content_health, container, false);
         View view = binding.getRoot();
-        setOnClickListeners();
         progressBarr = view.findViewById(R.id.progressBar);
         textView = view.findViewById(R.id.pbText);
         recyclerView = view.findViewById(R.id.healthrecycler);
@@ -62,6 +62,29 @@ public class ContentHealthFragment extends Fragment {
         pGif = view.findViewById(R.id.progressBarJumpingJacks);
         pGif.setImageResource(R.drawable.jumpingjacks);
 
+
+        return view;
+    }
+
+    public ContentHealthFragment() {
+
+    }
+
+    public static ContentHealthFragment newInstance(String name) {
+        ContentHealthFragment fragment = new ContentHealthFragment();
+        Bundle args = new Bundle();
+        args.putString("name", name);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setOnClickListeners();
+    }
+
+    private void setOnClickListeners() {
         pGif.setVisibility(View.VISIBLE);
 
         RestClient.myContentfeedActivity(new Callback<ContentFeedModel>() {
@@ -71,7 +94,7 @@ public class ContentHealthFragment extends Fragment {
                 pGif.setVisibility(View.GONE);
                 if (response != null) {
 
-                    if (response.body().getData() != null && response.body().getData().getHealth().size()>0) {
+                    if (response.body().getData() != null && response.body().getData().getHealth().size() > 0) {
                         List<Health> healthList = response.body().getData().getHealth();
 
                         contentFeedHealthAdapter = new ContentFeedHealthAdapter(healthList, getContext());
@@ -90,7 +113,7 @@ public class ContentHealthFragment extends Fragment {
                             }
                         });
 
-                    }else{
+                    } else {
 
                         Toast.makeText(homeMainActivity, "Failure", Toast.LENGTH_SHORT).show();
                     }
@@ -100,28 +123,10 @@ public class ContentHealthFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ContentFeedModel> call, Throwable t) {
-                Toast.makeText(homeMainActivity, "No internet connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(homeMainActivity, "Something went wrong", Toast.LENGTH_SHORT).show();
 
             }
         });
-
-        return view;
-    }
-
-    public ContentHealthFragment() {
-
-    }
-
-    public static ContentHealthFragment newInstance(String name) {
-        ContentHealthFragment fragment = new ContentHealthFragment();
-        Bundle args = new Bundle();
-        args.putString("name", name);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    private void setOnClickListeners() {
-
     }
    /* private List<ContentListModel> getContentListRecord(){
 

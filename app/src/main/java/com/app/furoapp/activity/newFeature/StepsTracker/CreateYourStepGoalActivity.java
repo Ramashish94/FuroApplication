@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.app.furoapp.R;
 import com.app.furoapp.activity.newFeature.StepsTracker.adapter.StepsCountAdapter;
@@ -17,12 +19,14 @@ import com.app.furoapp.activity.newFeature.bmiCalculator.AgeModelTest;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StepGoalActivityActivity extends AppCompatActivity implements StepsCountAdapter.StepsClickCallBack {
+public class CreateYourStepGoalActivity extends AppCompatActivity implements StepsCountAdapter.StepsClickCallBack {
     List<AgeModelTest> ageModelTest = new ArrayList<>();
     public RecyclerView rvStepsCount;
-    public ImageView ivContinue, ivSkip;
+    public ImageView ivContinue;
+    public TextView ivBack;
     AgeAdapter ageAdapter;
     StepsCountAdapter stepsCountAdapter;
+    private String selectNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +41,7 @@ public class StepGoalActivityActivity extends AppCompatActivity implements Steps
     private void findViews() {
         rvStepsCount = findViewById(R.id.rvStepsCount);
         ivContinue = findViewById(R.id.ivContinue);
-        ivSkip = findViewById(R.id.ivSkip);
-
-
+        ivBack = findViewById(R.id.ivBack);
     }
 
     private void setRecyAdapter() {
@@ -61,15 +63,22 @@ public class StepGoalActivityActivity extends AppCompatActivity implements Steps
     private void clickEvent() {
         ivContinue.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), FqStepsCounterActivity.class);
+            intent.putExtra("selectNumber", selectNumber);
             startActivity(intent);
+            finish();
         });
-        ivSkip.setOnClickListener(v -> {
 
+
+        ivBack.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), WantToAcivedActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 
     @Override
     public void stepSelectItem(int number) {
-
+        selectNumber = String.valueOf(number);
+        Log.d("selectNumber", selectNumber);
     }
 }

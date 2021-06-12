@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.furoapp.R;
+import com.app.furoapp.activity.newFeature.StepsTracker.AddNewSlotPreferActivity;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.adapter.SelectCupSizeAdapter;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.ChangeGlassSizeRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.UserChangeGlassSizeResponse;
@@ -159,9 +160,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 } else if (response.code() == 500) {
                     Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 403) {
-                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
-                } else if (response.code() == 404) {
-                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -391,9 +390,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 } else if (response.code() == 500) {
                     Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 403) {
-                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
-                } else if (response.code() == 404) {
-                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -421,9 +418,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 } else if (response.code() == 500) {
                     Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 403) {
-                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
-                } else if (response.code() == 404) {
-                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -457,9 +452,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 } else if (response.code() == 500) {
                     Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 403) {
-                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
-                } else if (response.code() == 404) {
-                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -510,9 +503,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 } else if (response.code() == 500) {
                     Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 403) {
-                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
-                } else if (response.code() == 404) {
-                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -546,11 +537,8 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 } else if (response.code() == 500) {
                     Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 403) {
-                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
-                } else if (response.code() == 404) {
-                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override
@@ -618,9 +606,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 } else if (response.code() == 500) {
                     Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 403) {
-                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
-                } else if (response.code() == 404) {
-                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -651,9 +637,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 } else if (response.code() == 500) {
                     Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 403) {
-                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
-                } else if (response.code() == 404) {
-                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -682,9 +666,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 } else if (response.code() == 500) {
                     Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 403) {
-                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
-                } else if (response.code() == 404) {
-                    Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
                 }
             }
 

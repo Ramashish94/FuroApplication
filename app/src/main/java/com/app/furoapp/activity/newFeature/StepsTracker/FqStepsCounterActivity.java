@@ -3,24 +3,41 @@ package com.app.furoapp.activity.newFeature.StepsTracker;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.furoapp.R;
 
-public class FqStepsCounterActivity extends AppCompatActivity {
+public class FqStepsCounterActivity extends AppCompatActivity implements SensorEventListener {
     public ImageView ivBackIcon, ivSetting, ivLeadBord, ivModified, ivHistory;
     public TextView tvCountsSteps, tvTotNumberOfSteps, tvTimes, tvDistance, tvActivateStepsCounter, tvDiActivate;
     public View incudeCongratsStepsTrack;
+    public double magnitudePrevious = 0;
+    private Integer stepCount = 0;
+    public Sensor mStepCounter;
+    public SensorManager sensorManager;
+    public boolean isCounterSensorIsPresent;
+    public int getStepCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fq_steps_counter);
+
+
         initViews();
         clickEvent();
+        stepCounter();
     }
 
     private void initViews() {
@@ -61,5 +78,103 @@ public class FqStepsCounterActivity extends AppCompatActivity {
             tvActivateStepsCounter.setVisibility(View.GONE);
         });
 
+    }
+
+    public void stepCounter() {
+        SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        SensorEventListener stepDetector = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent event) {
+                if (event != null) {
+                    float x_acceleration = event.values[0];
+                    float y_acceleration = event.values[1];
+                    float z_acceleration = event.values[2];
+
+                    double magnitude = Math.sqrt(x_acceleration * x_acceleration + y_acceleration * y_acceleration + z_acceleration * z_acceleration);
+                    double magnitudeDelta = magnitude - magnitudePrevious;
+                    magnitudePrevious = magnitude;
+                    if (magnitudeDelta > 5) {
+                        stepCount++;
+                    }
+                    tvCountsSteps.setText(stepCount.toString());
+                }
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+            }
+        };
+        sensorManager.registerListener(stepDetector, sensor, sensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.putInt("stepCount", stepCount);
+        editor.apply();
+
+        /* ******************* 2nd method*/
+        if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null) {
+            sensorManager.unregisterListener(this, mStepCounter);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.putInt("stepCount", stepCount);
+        editor.apply();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+        stepCount = sharedPreferences.getInt("stepCount", 0);
+
+        /* ******************* 2nd method*/
+        if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null) {
+            sensorManager.registerListener((SensorEventListener) this, mStepCounter, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+    }
+
+    private void stepCount2ndMethod() {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null) {
+            mStepCounter = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+            isCounterSensorIsPresent = true;
+        } else {
+            Toast.makeText(this, "Counter sensor is not present!", Toast.LENGTH_SHORT).show();
+            isCounterSensorIsPresent = false;
+        }
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor == mStepCounter) {
+            getStepCount = (int) event.values[0];
+            Toast.makeText(this, "getcount", Toast.LENGTH_SHORT).show();
+            tvTotNumberOfSteps.setText("" + getStepCount);
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        tvCountsSteps.setText("");
     }
 }

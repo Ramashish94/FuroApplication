@@ -175,9 +175,7 @@ public class TellUsAboutYouActivity extends AppCompatActivity {
                     }else if (response.code() == 500) {
                         Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
                     } else if (response.code() == 403) {
-                        Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
-                    } else if (response.code() == 404) {
-                        Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
                     }
                 }
 

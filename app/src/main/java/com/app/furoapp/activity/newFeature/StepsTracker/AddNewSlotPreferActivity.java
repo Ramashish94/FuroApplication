@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -53,8 +54,10 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllPlanAd
     private String getTimeHours;
     private boolean isTimeSlotSelected;
     private View includePopMenuOfAddTimeSlot;
-    private LinearLayout llAddNewPreferSlot, llClosedIcon;
+    public LinearLayout llAddNewPreferSlot, llClosedIcon;
     public GoogleSignInClient mGoogleSignInClient;
+    public AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
 
 
     @Override
@@ -120,6 +123,14 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllPlanAd
                 Toast.makeText(getApplicationContext(), "Please select wake up time and bed time!", Toast.LENGTH_SHORT).show();
             }
         });
+
+//        llAddNewPreferSlot.setOnClickListener(v -> {
+//            if (dialog.isShowing()){
+//                dialog.setCancelable(false);
+//            }else {
+//
+//            }
+//        });
     }
 
     private void timePickerEvent() {
@@ -153,6 +164,7 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllPlanAd
                     Toast.makeText(AddNewSlotPreferActivity.this, "Internal server error!", Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 403) {
                     Toast.makeText(AddNewSlotPreferActivity.this, "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
+                    getAlertTokenDialog();
                 }
             }
 
@@ -172,15 +184,13 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllPlanAd
                 Util.dismissProgressDialog();
                 if (response.code() == 200) {
                     if (response.body() != null) {
-                        getAlertTokenDialog();//////////////
-
-                        // notifyFetchAllSlotTime(response.body().getData());
+                        notifyFetchAllSlotTime(response.body().getData());
                     }
                 } else if (response.code() == 500) {
                     Toast.makeText(AddNewSlotPreferActivity.this, "Internal server error!", Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 403) {
                     Toast.makeText(AddNewSlotPreferActivity.this, "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
-                    // getAlertTokenDialog();
+                    getAlertTokenDialog();
                 }
             }
 
@@ -220,19 +230,20 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllPlanAd
 
     private void getAlertTokenDialog() {
         if (getAccessToken != null) {
-            final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+            dialogBuilder = new AlertDialog.Builder(this);
             LayoutInflater inflater = this.getLayoutInflater();
             View dialogView = inflater.inflate(R.layout.profile_alertdialog_logoutt_new, null);
             dialogBuilder.setView(dialogView);
-            final AlertDialog dialog = dialogBuilder.create();
+            dialog = dialogBuilder.create();
             ImageView btn_Cancel = dialogView.findViewById(R.id.btn_cancel);
             TextView text_logout = dialogView.findViewById(R.id.text_logout);
             TextView noiwanttocontinue = dialogView.findViewById(R.id.noiwanttocontinuee);
+            LinearLayout llLogOut = dialogView.findViewById(R.id.llLogOut);
+
             btn_Cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dialog.dismiss();
-
                 }
             });
 
@@ -240,7 +251,6 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllPlanAd
                 @Override
                 public void onClick(View v) {
                     dialog.dismiss();
-
                 }
             });
 
@@ -255,6 +265,8 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllPlanAd
                 }
             });
             dialog.show();
+        } else {
+
         }
 
     }

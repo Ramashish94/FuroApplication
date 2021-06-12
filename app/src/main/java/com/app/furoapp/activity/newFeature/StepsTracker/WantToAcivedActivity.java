@@ -101,6 +101,7 @@ public class WantToAcivedActivity extends AppCompatActivity {
         ivContinue.setOnClickListener(v -> {
             if (isAchievedSelected) {
                 intent = new Intent(getApplicationContext(), FqStepsCounterActivity.class);
+//                intent = new Intent(getApplicationContext(), FqStepsCounterInKotlinActivity.class);
                 intent.putExtra("getAchievedVal", getAchievedVal);
                 startActivity(intent);
             } else {

@@ -66,13 +66,14 @@
                     <ImageView
                         android:id="@+id/ivLeadBord"
                         android:layout_width="@dimen/dp_100"
-                        android:layout_height="@dimen/dp_40"
+                        android:layout_height="@dimen/dp_45"
                         android:src="@drawable/view_lead_board" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/dp_20"
                     android:orientation="vertical">
 
                     <ImageView
@@ -85,16 +86,15 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/dp_10"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tvCountsSteps"
-                        android:layout_width="@dimen/dp_120"
+                        android:layout_width="101dp"
                         android:layout_height="wrap_content"
                         android:text="12000"
                         android:textColor="@color/light_blue"
-                        android:textSize="40sp"
+                        android:textSize="28sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -104,14 +104,14 @@
                         android:fontFamily="@font/din_alter_nate_bold"
                         android:text="Of 38000 Steps"
                         android:textColor="#2F2F2F"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_12"
                         android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_15"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -124,7 +124,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="?actionBarSize"
+                    android:layout_marginTop="@dimen/dp_100"
                     android:orientation="horizontal">
 
                     <LinearLayout

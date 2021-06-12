@@ -153,7 +153,6 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllPlanAd
                     Toast.makeText(AddNewSlotPreferActivity.this, "Internal server error!", Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 403) {
                     Toast.makeText(AddNewSlotPreferActivity.this, "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
-                    //  getAlertTokenDialog();
                 }
             }
 
@@ -173,7 +172,9 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllPlanAd
                 Util.dismissProgressDialog();
                 if (response.code() == 200) {
                     if (response.body() != null) {
-                        notifyFetchAllSlotTime(response.body().getData());
+                        getAlertTokenDialog();//////////////
+
+                        // notifyFetchAllSlotTime(response.body().getData());
                     }
                 } else if (response.code() == 500) {
                     Toast.makeText(AddNewSlotPreferActivity.this, "Internal server error!", Toast.LENGTH_SHORT).show();
@@ -219,7 +220,7 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllPlanAd
 
     private void getAlertTokenDialog() {
         if (getAccessToken != null) {
-            final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getApplicationContext());
+            final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             LayoutInflater inflater = this.getLayoutInflater();
             View dialogView = inflater.inflate(R.layout.profile_alertdialog_logoutt_new, null);
             dialogBuilder.setView(dialogView);

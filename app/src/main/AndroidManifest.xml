@@ -54,7 +54,7 @@
         <activity
             android:name=".activity.newFeature.StepsTracker.TellUsMoreOnTrackStepsActivity"
             android:clearTaskOnLaunch="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".activity.newFeature.waterIntakeCalculator.SettingWaterIntakeActivity"
             android:clearTaskOnLaunch="true"

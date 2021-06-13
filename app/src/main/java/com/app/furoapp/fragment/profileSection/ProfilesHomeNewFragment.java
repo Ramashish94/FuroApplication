@@ -253,7 +253,6 @@ public class ProfilesHomeNewFragment extends BaseFragment {
             ProfileAllTimeAdapter profileAllTimeAdapter = new ProfileAllTimeAdapter(profileModel.getProfile().getAllTime(), getContext());
             recyclerView.setAdapter(profileAllTimeAdapter);
             profileAllTimeAdapter.notifyDataSetChanged();
-
         }
 
         if (type.equals("week")) {
@@ -261,7 +260,6 @@ public class ProfilesHomeNewFragment extends BaseFragment {
             ProfileWeeklyAdapter profileWeeklyAdapter = new ProfileWeeklyAdapter(profileModel.getProfile().getWeekly(), getContext());
             recyclerView.setAdapter(profileWeeklyAdapter);
             profileWeeklyAdapter.notifyDataSetChanged();
-
         }
 
         if (type.equals("monthly")) {
@@ -269,7 +267,6 @@ public class ProfilesHomeNewFragment extends BaseFragment {
             ProfileMonthlyAdapter profileMonthlyAdapter = new ProfileMonthlyAdapter(profileModel.getProfile().getMonthly(), getContext());
             recyclerView.setAdapter(profileMonthlyAdapter);
             profileMonthlyAdapter.notifyDataSetChanged();
-
         }
 
 

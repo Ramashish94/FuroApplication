@@ -92,7 +92,7 @@
                         android:id="@+id/tvCountsSteps"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="12000"
+                        tools:text="12000"
                         android:textColor="@color/light_blue"
                         android:textSize="28sp"
                         android:textStyle="bold" />
@@ -140,10 +140,10 @@
 
                         <TextView
                             android:id="@+id/tvTimes"
-                            android:layout_width="@dimen/dp_120"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dp_7"
-                            android:text="49 Minutes"
+                            tools:text="49 Minutes"
                             android:textColor="@color/black_color"
                             android:textSize="23sp"
                             android:textStyle="normal" />
@@ -162,10 +162,10 @@
 
                         <TextView
                             android:id="@+id/tvDistance"
-                            android:layout_width="@dimen/dp_120"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dp_7"
-                            android:text="128555"
+                            tools:text="128555"
                             android:textColor="@color/black_color"
                             android:textSize="23sp"
                             android:textStyle="normal" />
@@ -190,7 +190,7 @@
                         android:layout_width="@dimen/dp_120"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_7"
-                        android:text="315 Cal"
+                        tools:text="315 Cal"
                         android:textColor="@color/black_color"
                         android:textSize="23sp"
                         android:textStyle="normal" />

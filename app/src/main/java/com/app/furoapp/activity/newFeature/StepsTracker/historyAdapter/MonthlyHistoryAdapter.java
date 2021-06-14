@@ -42,9 +42,9 @@ public class MonthlyHistoryAdapter extends RecyclerView.Adapter<MonthlyHistoryAd
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         MonthlyData monthlyData = monthlyDataList.get(position);
         holder.tvTotSteps.setText("" + monthlyData.getTotalSteps());
-        holder.tvDailyAverage.setText("" + monthlyData.getDailyAverage());
-        holder.tvTime.setText("" + monthlyData.getTime());
-        holder.tvCalories.setText("" + monthlyData.getCalories());
+        holder.tvDailyAverage.setText("" + monthlyData.getDailyAverage() +" m");
+        holder.tvTime.setText("" + monthlyData.getTime()+" Minutes");
+        holder.tvCalories.setText("" + monthlyData.getCalories()+" Cal");
 
     }
 

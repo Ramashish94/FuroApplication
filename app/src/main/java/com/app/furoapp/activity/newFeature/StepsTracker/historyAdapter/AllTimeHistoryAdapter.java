@@ -38,10 +38,10 @@ public class AllTimeHistoryAdapter extends RecyclerView.Adapter<AllTimeHistoryAd
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         AllTimeData allTimeData = allTimeDataList.get(position);
-        holder.tvTotSteps.setText("" + allTimeData.getTotalSteps() + " - ");
-        holder.tvDailyAverage.setText("" + allTimeData.getDailyAverage());
-        holder.tvTime.setText("" + allTimeData.getTime());
-        holder.tvCalories.setText("" + allTimeData.getCalories());
+        holder.tvTotSteps.setText("" + allTimeData.getTotalSteps());
+        holder.tvDailyAverage.setText("" + allTimeData.getDailyAverage() + " m");
+        holder.tvTime.setText("" + allTimeData.getTime() + " Minutes");
+        holder.tvCalories.setText("" + allTimeData.getCalories() + " Cal");
     }
 
     @Override

@@ -41,9 +41,9 @@ public class WeeklyHistoryAdapter extends RecyclerView.Adapter<WeeklyHistoryAdap
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         WeeklyData weeklyData = weeklyDataList.get(position);
         holder.tvTotSteps.setText("" + weeklyData.getTotalSteps());
-        holder.tvDailyAverage.setText("" + weeklyData.getDailyAverage());
-        holder.tvTime.setText("" + weeklyData.getTime());
-        holder.tvCalories.setText("" + weeklyData.getCalories());
+        holder.tvDailyAverage.setText("" + weeklyData.getDailyAverage() + " m");
+        holder.tvTime.setText("" + weeklyData.getTime() + " Minutes");
+        holder.tvCalories.setText("" + weeklyData.getCalories() + " Cal");
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragm
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotTimeRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.FetchAllSlotResponse;
+import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.HistoryResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalRequest;
@@ -467,6 +468,10 @@ public class RestClient {
 
     public static void getUserStepsGoal(String token, UserStepsGoalRequest userStepsGoalRequest, Callback<UserStepsGoalResponse> callback) {
         RetrofitClient.getClient().USER_STEPS_GOAL_RESPONSE_CALL(token, userStepsGoalRequest).enqueue(callback);
+    }
+
+    public static void getHistoryData(String token, Callback<HistoryResponse> callback) {
+        RetrofitClient.getClient().HISTORY_RESPONSE_CALL(token).enqueue(callback);
     }
 
 }

@@ -108,10 +108,14 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
                 Util.dismissProgressDialog();
                 if (response.code() == 200) {
                     if (response.body() != null && response.body().getStatus() != null) {
-                        //recommended plan
-                        setRecommendedData(response.body());
-                        //for all plan
-                        notifyAllPlanAdapter(response.body().getAllPlans());
+                        if (response.body().getAllPlans() != null && response.body().getAllPlans().size() > 0) {
+                            //recommended plan
+                            setRecommendedData(response.body().getAllPlans());
+                            //for all plan
+                            notifyAllPlanAdapter(response.body().getAllPlans());
+                        } else {
+                            Toast.makeText(CreatePlaneActivity.this, "No any plan will be available. Please create a plan !", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         Toast.makeText(CreatePlaneActivity.this, response.code(), Toast.LENGTH_SHORT).show();
                     }
@@ -129,19 +133,30 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
         });
     }
 
-    private void setRecommendedData(FetchAllPlanResponse body) {
+    private void setRecommendedData(List<AllPlan> allPlans) {
+        if (allPlans != null && allPlans.size() > 0) {
+            if (allPlans.get(0).getIsRecomended() == 1) {
+                tvEveryTime.setText("Every " + allPlans.get(0).getRecommendedDurationInMins() + " minutes");
+                glassSizeInMl = Integer.parseInt(String.valueOf(allPlans.get(0).getWaterTakeInMl()));
+                tvShowsMl.setText("" + glassSizeInMl + " ml");
+            }
+        }
+
+    }
+
+   /* private void setRecommendedData(FetchAllPlanResponse allPlans) {
         if (body != null && body.getAllPlans() != null && body.getAllPlans().size() > 0) {
             if (planId != null) {
                 planId = String.valueOf(body.getAllPlans().get(0).getId());
             }
             tvEveryTime.setText("Every " + body.getAllPlans().get(0).getRecommendedDurationInMins() + " minutes");
         }
-        glassSizeInMl = Integer.parseInt(body.getGlassSize().getGlassSizeInMl());
+        glassSizeInMl = Integer.parseInt(body.getAllPlans().get(0).get());
         tvShowsMl.setText("" + glassSizeInMl + " ml");
 
 //        tvShowsMl.setText(Integer.parseInt(body.getGlassSize().getGlassSizeInMl()) + " ml");
 
-    }
+    }*/
 
 
     private void setAllPlanAdapter() {

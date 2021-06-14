@@ -6,6 +6,7 @@ import com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragm
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotTimeRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.FetchAllSlotResponse;
+import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.HistoryResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalRequest;
@@ -518,5 +519,10 @@ public interface ApiInterface {
     /*user/add-new-slot*/
     @POST("user/step-goal")
     Call<UserStepsGoalResponse> USER_STEPS_GOAL_RESPONSE_CALL(@Header(TOKEN_KEY) String token, @Body UserStepsGoalRequest userStepsGoalRequest);
+
+
+    /*user/add-new-slot*/
+    @GET("user/history-step-counter")
+    Call<HistoryResponse> HISTORY_RESPONSE_CALL(@Header(TOKEN_KEY) String token);
 
 }

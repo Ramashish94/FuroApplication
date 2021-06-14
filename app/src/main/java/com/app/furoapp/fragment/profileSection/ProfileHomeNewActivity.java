@@ -214,7 +214,6 @@ public class ProfileHomeNewActivity extends AppCompatActivity {
         if (type.equals("all")) {
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             ProfileAllTimeAdapter profileAllTimeAdapter = new ProfileAllTimeAdapter(profileModel.getProfile().getAllTime(), getApplicationContext());
-
             recyclerView.setAdapter(profileAllTimeAdapter);
             profileAllTimeAdapter.notifyDataSetChanged();
 

@@ -138,6 +138,12 @@ public class FqStepsCounterActivity extends AppCompatActivity {
             customHandler.removeCallbacks(updateTimerThread);
             callUserStepGoalApi();
         });
+
+        ivHistory.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), HistoryDetailsActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
 
     private void setdata() {

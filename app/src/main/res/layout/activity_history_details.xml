@@ -151,18 +151,29 @@
                             android:gravity="center"
                             android:orientation="vertical">
 
-                            <ImageView
-                                android:layout_width="97dp"
-                                android:layout_height="@dimen/sp_18"
-                                android:background="@drawable/tot_steps" />
-
+                            <!-- <ImageView
+                                 android:layout_width="97dp"
+                                 android:layout_height="@dimen/sp_18"
+                                 android:background="@drawable/tot_steps" />
+ -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:fontFamily="@font/bebas_neue_bold"
+                                android:text="Steps "
+                                android:textAllCaps="true"
+                                android:textSize="@dimen/sp_14" />
 
                             <TextView
                                 android:id="@+id/tvTotSteps"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dp_5"
-                                android:text="1253 " />
+                                android:text="1253 "
+                                android:textColor="@color/black_color"
+                                android:textSize="@dimen/sp_18"
+                                tools:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -174,17 +185,29 @@
                             android:gravity="center"
                             android:orientation="vertical">
 
-                            <ImageView
-                                android:layout_width="112dp"
-                                android:layout_height="@dimen/sp_18"
-                                android:background="@drawable/daily_avarage" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:fontFamily="@font/bebas_neue_bold"
+                                android:text="Daily Average "
+                                android:textAllCaps="true"
+                                android:textSize="@dimen/sp_14" />
 
+                            <!--  <ImageView
+                                  android:layout_width="112dp"
+                                  android:layout_height="@dimen/sp_18"
+                                  android:background="@drawable/daily_avarage" />
+  -->
                             <TextView
                                 android:id="@+id/tvDailyAverage"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dp_5"
-                                android:text="1253 " />
+                                android:text="1253 "
+                                android:textColor="@color/black_color"
+                                android:textSize="@dimen/sp_18"
+                                tools:textStyle="bold" />
                         </LinearLayout>
 
 

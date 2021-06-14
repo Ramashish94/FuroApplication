@@ -216,16 +216,12 @@ public class ProfileHomeNewActivity extends AppCompatActivity {
             ProfileAllTimeAdapter profileAllTimeAdapter = new ProfileAllTimeAdapter(profileModel.getProfile().getAllTime(), getApplicationContext());
             recyclerView.setAdapter(profileAllTimeAdapter);
             profileAllTimeAdapter.notifyDataSetChanged();
-
-
-
         }
 
         if (type.equals("week")) {
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             ProfileWeeklyAdapter profileWeeklyAdapter = new ProfileWeeklyAdapter(profileModel.getProfile().getWeekly(), getApplicationContext());
             recyclerView.setAdapter(profileWeeklyAdapter);
-
             profileWeeklyAdapter.notifyDataSetChanged();
 
 
@@ -234,7 +230,6 @@ public class ProfileHomeNewActivity extends AppCompatActivity {
 
         if (type.equals("monthly")) {
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
             ProfileMonthlyAdapter profileMonthlyAdapter = new ProfileMonthlyAdapter(profileModel.getProfile().getMonthly(), getApplicationContext());
             recyclerView.setAdapter(profileMonthlyAdapter);
             profileMonthlyAdapter.notifyDataSetChanged();

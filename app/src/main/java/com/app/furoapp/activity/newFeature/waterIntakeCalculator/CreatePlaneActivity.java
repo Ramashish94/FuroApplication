@@ -196,6 +196,7 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
                     Intent intent = new Intent(getApplicationContext(), WaterIntakeCounterActivity.class);
                     intent.putExtra("planId", planId);
                     startActivity(intent);
+                    finish();
                 } else {
                     Toast.makeText(CreatePlaneActivity.this, "Please provided plan id !", Toast.LENGTH_SHORT).show();
                 }

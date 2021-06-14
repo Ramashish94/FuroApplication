@@ -8,6 +8,8 @@ import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotTim
 import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.FetchAllSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataResponse;
+import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalRequest;
+import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalResponse;
 import com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel.BmiStoreDataRequest;
 import com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel.BmiStoreDataResponse;
 import com.app.furoapp.activity.newFeature.bmiCalculator.fetchBmiDataModel.FetchUserWiseDataResponse;
@@ -512,5 +514,9 @@ public interface ApiInterface {
     /*user/add-new-slot*/
     @POST("user/add-new-slot")
     Call<AddNewSlotResponse> ADD_NEW_SLOT_RESPONSE_CALL(@Header(TOKEN_KEY) String token, @Body AddNewSlotTimeRequest addNewSlotTimeRequest);
+
+    /*user/add-new-slot*/
+    @POST("user/step-goal")
+    Call<UserStepsGoalResponse> USER_STEPS_GOAL_RESPONSE_CALL(@Header(TOKEN_KEY) String token, @Body UserStepsGoalRequest userStepsGoalRequest);
 
 }

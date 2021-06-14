@@ -8,6 +8,8 @@ import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotTim
 import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.FetchAllSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataResponse;
+import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalRequest;
+import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalResponse;
 import com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel.BmiStoreDataRequest;
 import com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel.BmiStoreDataResponse;
 import com.app.furoapp.activity.newFeature.bmiCalculator.fetchBmiDataModel.FetchUserWiseDataResponse;
@@ -463,5 +465,8 @@ public class RestClient {
         RetrofitClient.getClient().ADD_NEW_SLOT_RESPONSE_CALL(token, addNewSlotTimeRequest).enqueue(callback);
     }
 
+    public static void getUserStepsGoal(String token, UserStepsGoalRequest userStepsGoalRequest, Callback<UserStepsGoalResponse> callback) {
+        RetrofitClient.getClient().USER_STEPS_GOAL_RESPONSE_CALL(token, userStepsGoalRequest).enqueue(callback);
+    }
 
 }

@@ -20,7 +20,7 @@ public class WantToAcivedActivity extends AppCompatActivity {
     public LinearLayout llLooseWeight, llStayHealthy, llStayActive;
     public ImageView ivLooseWeightUnselected, ivLooseWeightSelected, ivStayHealthyUnSelected, ivStayHealthySelected, ivStayActiveUnSelected, ivStayActiveSelected;
     public TextView tvLooseWeight, tvStayHealthy, tvStayActive;
-    private int getAchievedVal;
+    private String getAchievedVal;
     private boolean isAchievedSelected;
 
     @Override
@@ -62,7 +62,7 @@ public class WantToAcivedActivity extends AppCompatActivity {
             tvLooseWeight.setTextColor(Color.parseColor("#19CFE6"));
             tvStayHealthy.setTextColor(Color.parseColor("#ffffff"));
             tvStayActive.setTextColor(Color.parseColor("#ffffff"));
-            getAchievedVal = 12000;
+            getAchievedVal = String.valueOf(12000);
             Log.d("getAchievedVal", String.valueOf(getAchievedVal));
 
         });
@@ -78,7 +78,7 @@ public class WantToAcivedActivity extends AppCompatActivity {
             tvLooseWeight.setTextColor(Color.parseColor("#ffffff"));
             tvStayHealthy.setTextColor(Color.parseColor("#19CFE6"));
             tvStayActive.setTextColor(Color.parseColor("#ffffff"));
-            getAchievedVal = 1000;
+            getAchievedVal = String.valueOf(1000);
             Log.d("getAchievedVal", String.valueOf(getAchievedVal));
 
         });
@@ -94,14 +94,13 @@ public class WantToAcivedActivity extends AppCompatActivity {
             tvLooseWeight.setTextColor(Color.parseColor("#ffffff"));
             tvStayHealthy.setTextColor(Color.parseColor("#ffffff"));
             tvStayActive.setTextColor(Color.parseColor("#19CFE6"));
-            getAchievedVal = 5000;
+            getAchievedVal = String.valueOf(5000);
             Log.d("getAchievedVal", String.valueOf(getAchievedVal));
         });
 
         ivContinue.setOnClickListener(v -> {
             if (isAchievedSelected) {
                 intent = new Intent(getApplicationContext(), FqStepsCounterActivity.class);
-//                intent = new Intent(getApplicationContext(), FqStepsCounterInKotlinActivity.class);
                 intent.putExtra("getAchievedVal", getAchievedVal);
                 startActivity(intent);
             } else {
@@ -112,6 +111,7 @@ public class WantToAcivedActivity extends AppCompatActivity {
         ivSkip.setOnClickListener(v -> {
             intent = new Intent(getApplicationContext(), CreateYourStepGoalActivity.class);
             startActivity(intent);
+            finish();
 
         });
 

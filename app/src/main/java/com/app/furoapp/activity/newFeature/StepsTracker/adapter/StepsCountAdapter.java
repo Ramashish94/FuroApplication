@@ -45,7 +45,7 @@ public class StepsCountAdapter extends RecyclerView.Adapter<StepsCountAdapter.My
         holder.tvNumber.setText("" + ageModelTest.getAge());
 
         holder.tvNumber.setOnClickListener(v -> {
-            stepsClickCallBack.stepSelectItem(Integer.parseInt(ageModelTest.getAge()));
+            stepsClickCallBack.stepSelectItem(position, ageModelTest.getAge());
             row_index = position;
             notifyDataSetChanged();
         });
@@ -79,6 +79,6 @@ public class StepsCountAdapter extends RecyclerView.Adapter<StepsCountAdapter.My
     }
 
     public interface StepsClickCallBack {
-        void stepSelectItem(int number);
+       void stepSelectItem(int position, String age);
     }
 }

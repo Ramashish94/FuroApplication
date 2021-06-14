@@ -20,11 +20,14 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <uses-feature android:name="android.hardware.accelerometer"
+    <uses-feature
+        android:name="android.hardware.accelerometer"
         android:required="true" />
-    <uses-feature android:name="android.hardware.sensor.proximity"
+    <uses-feature
+        android:name="android.hardware.sensor.proximity"
         android:required="true" />
-    <uses-feature android:name="android.hardware.sensor.gyroscope"
+    <uses-feature
+        android:name="android.hardware.sensor.gyroscope"
         android:required="true" />
 
     <uses-feature
@@ -41,12 +44,16 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".activity.newFeature.StepsTracker.FqStepsCounterInKotlinActivity"></activity>
-        <activity android:name=".activity.newFeature.StepsTracker.LeadBoardActivity" />
-        <activity android:name=".activity.newFeature.StepsTracker.HistoryDetailsActivity" />
+        <activity
+            android:name=".activity.newFeature.StepsTracker.LeadBoardActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".activity.newFeature.StepsTracker.HistoryDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.newFeature.StepsTracker.FqStepsCounterActivity"
             android:clearTaskOnLaunch="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".activity.newFeature.StepsTracker.CreateYourStepGoalActivity"
             android:clearTaskOnLaunch="true"

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/fq_steps"
     android:orientation="vertical"
+    android:id="@+id/llFqStepCounter"
     tools:context=".activity.newFeature.StepsTracker.FqStepsCounterActivity">
 
     <FrameLayout
@@ -92,7 +93,7 @@
                         android:id="@+id/tvCountsSteps"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="12000"
+                        android:text="000"
                         android:textColor="@color/light_blue"
                         android:textSize="28sp"
                         android:textStyle="bold" />
@@ -102,7 +103,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/din_alter_nate_bold"
-                        android:text="Of 38000 Steps"
+                        tools:text="Of 38000 Steps"
                         android:textColor="#2F2F2F"
                         android:textSize="@dimen/sp_12"
                         android:textStyle="bold" />
@@ -208,6 +209,7 @@
                         android:layout_height="@dimen/dp_40"
                         android:background="@drawable/btn_next_shape"
                         android:fontFamily="@font/bebas_neue_bold"
+                        android:layout_marginTop="?actionBarSize"
                         android:gravity="center"
                         android:text="Activate step counter"
                         android:textColor="@color/white"
@@ -229,8 +231,10 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/learn_prizm" />
+                        android:layout_height="@dimen/dp_45"
+                        android:src="@drawable/learn_prizm"
+                        android:layout_marginTop="?actionBarSize"
+                        android:layout_marginBottom="?actionBarSize"/>
 
 
                 </LinearLayout>

@@ -1,5 +1,6 @@
 package com.app.furoapp.activity.newFeature.StepsTracker;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,12 +13,31 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.furoapp.R;
+import com.app.furoapp.activity.LoginTutorialScreen;
+import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalRequest;
+import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalResponse;
+import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
+import com.app.furoapp.utils.Util;
+import com.app.furoapp.utils.Utils;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FqStepsCounterActivity extends AppCompatActivity {
     public ImageView ivBackIcon, ivSetting, ivLeadBord, ivModified, ivHistory;
@@ -35,16 +55,41 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     private long startTime = 0L;
     long timeSwapBuff = 0L;
     public SensorEventListener stepDetector;
+    public String stepsAchivedVal;
+    private String getAccessToken;
+    private float getCalculateCalories;
+    private int secs;
+    private int mins;
+    private String getTime;
+    public GoogleSignInClient mGoogleSignInClient;
+    public AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
+    LinearLayout llFqStepCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fq_steps_counter);
 
-        //stepCounter();         // step counter functionality implimentation
+
         initViews();
         clickEvent();
+
+        stepsAchivedVal = getIntent().getStringExtra("getAchievedVal");
+        getAccessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
+
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        sensorAcceleroMeter = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
+
+        setdata();
     }
+
 
     private void initViews() {
         ivBackIcon = findViewById(R.id.ivBackIcon);
@@ -60,6 +105,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         tvActivateStepsCounter = findViewById(R.id.tvActivateStepsCounter);
         tvDiActivate = findViewById(R.id.tvDiActivate);
         includeCongratsStepsTrack = findViewById(R.id.incudeCongratsStepsTrack);
+        llFqStepCounter = findViewById(R.id.llFqStepCounter);
     }
 
     private void clickEvent() {
@@ -70,10 +116,12 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         ivSetting.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), HistoryDetailsActivity.class);
             startActivity(intent);
+            finish();
         });
         ivLeadBord.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), LeadBoardActivity.class);
             startActivity(intent);
+            finish();
         });
 
         tvActivateStepsCounter.setOnClickListener(v -> {
@@ -83,13 +131,29 @@ public class FqStepsCounterActivity extends AppCompatActivity {
             startTime = SystemClock.uptimeMillis();
             customHandler.postDelayed(updateTimerThread, 0);
         });
+
         tvDiActivate.setOnClickListener(v -> {
             tvDiActivate.setVisibility(View.VISIBLE);
             tvActivateStepsCounter.setVisibility(View.GONE);
             customHandler.removeCallbacks(updateTimerThread);
+            callUserStepGoalApi();
         });
+    }
+
+    private void setdata() {
+
+        if (stepsAchivedVal != null) {
+            tvTotNumberOfSteps.setText("Of " + stepsAchivedVal + " Steps");
+        }
+
+        if (stepsAchivedVal.equalsIgnoreCase(String.valueOf(stepCount))) {
+            includeCongratsStepsTrack.setVisibility(View.VISIBLE);
+            llFqStepCounter.setClickable(false);
+            finish();
+        }
 
     }
+
 
     public void stepCounter() {
         Log.d(TAG, "OnCreate: Initialization Sensor service ");
@@ -104,9 +168,9 @@ public class FqStepsCounterActivity extends AppCompatActivity {
                     float z_acceleration = event.values[2];
                     //Log.d(TAG, "OnSensorChanged: X: " + event.values[0] + "Y:" + event.values[1] + "Z:" + event.values[2]);
                     double magnitude = Math.sqrt(x_acceleration * x_acceleration + y_acceleration * y_acceleration + z_acceleration * z_acceleration);
-                  //  Log.d("magnitude", String.valueOf(+magnitude));
+                    //  Log.d("magnitude", String.valueOf(+magnitude));
                     double magnitudeDelta = magnitude - magnitudePrevious;
-                   // Log.d("magnitudeDelta", String.valueOf(magnitudeDelta));
+                    // Log.d("magnitudeDelta", String.valueOf(magnitudeDelta));
                     magnitudePrevious = magnitude;
                     if (magnitudeDelta > 6) {
                         stepCount++;
@@ -128,12 +192,9 @@ public class FqStepsCounterActivity extends AppCompatActivity {
                 distanceInMeter = getDistanceRun(stepCount);
                 Log.d(TAG, "onSensorChanged() called with: distanceInMeter = [" + distanceInMeter + "]");
                 tvDistance.setText("" + distanceInMeter + " meter");
-                tvCountsSteps.setText(stepCount + "");
-                Log.d(TAG, "onSensorChanged() called with: event = [" + event + "]");
-                tvCalories.setText("" + getCalculateCalories(stepCount));
-                Log.d(TAG, "onSensorChanged() called with: Calories = [" + getCalculateCalories(stepCount) + "]");
-
-
+                getCalculateCalories = calculateCalories(stepCount);
+                tvCalories.setText("" + getCalculateCalories);
+                Log.d(TAG, "onSensorChanged() called with: Calories = [" + calculateCalories(stepCount) + "]");
             }
 
             @Override
@@ -180,7 +241,9 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        sensorManager.unregisterListener(stepDetector, sensorAcceleroMeter);
+        if ((sensorManager) != null) {
+            sensorManager.unregisterListener(stepDetector, sensorAcceleroMeter);
+        }
     }
 
     @Override
@@ -196,29 +259,127 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         return distance;
     }
 
-    public float getCalculateCalories(long steps) {
+    public float calculateCalories(long steps) {
         float calories = (float) (steps * 0.045);
         return calories;
     }
 
     private Runnable updateTimerThread = new Runnable() {
-
         public void run() {
-
             timeInMilliseconds = SystemClock.uptimeMillis() - startTime;
-
             updatedTime = timeSwapBuff + timeInMilliseconds;
-
-            int secs = (int) (updatedTime / 1000);
-            int mins = secs / 60;
+            secs = (int) (updatedTime / 1000);
+            mins = secs / 60;
             secs = secs % 60;
             int milliseconds = (int) (updatedTime % 1000);
-            tvTimes.setText("" + mins + ":" + String.format("%02d", secs)+" minutes");/*":" + String.format("%02d", secs)*/
+            getTime = mins + ":" + String.format("%02d", secs);
+            tvTimes.setText("" + getTime + " minutes");/*":" + String.format("%02d", secs)*/
             String timerValue = tvTimes.getText().toString().trim();
             FuroPrefs.putString(getApplication(), "time", timerValue);
             customHandler.postDelayed(this, 0);
+        }
+    };
+
+    private void callUserStepGoalApi() {
+        UserStepsGoalRequest userStepsGoalRequest = new UserStepsGoalRequest();
+        userStepsGoalRequest.setTime(getTime);
+        userStepsGoalRequest.setTime(String.valueOf(distanceInMeter));
+        userStepsGoalRequest.setCalories(String.valueOf(getCalculateCalories));
+        userStepsGoalRequest.setCount_steps(String.valueOf(stepCount));
+        userStepsGoalRequest.setTotal_steps(stepsAchivedVal);
+        if (Util.isInternetConnected(getApplicationContext())) {
+            Utils.showProgressDialogBar(getApplicationContext());
+            RestClient.getUserStepsGoal(getAccessToken, userStepsGoalRequest, new Callback<UserStepsGoalResponse>() {
+                @Override
+                public void onResponse(Call<UserStepsGoalResponse> call, Response<UserStepsGoalResponse> response) {
+                    Util.dismissProgressDialog();
+                    if (response.code() == 200) {
+                        Toast.makeText(FqStepsCounterActivity.this, "Steps goal created successfully !", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), HistoryDetailsActivity.class);
+                        startActivity(intent);
+                    } else {
+                        if (response.code() == 500) {
+                            Toast.makeText(FqStepsCounterActivity.this, "Internal server error !", Toast.LENGTH_SHORT).show();
+                        }
+                        if (response.code() == 403) {
+                            Toast.makeText(FqStepsCounterActivity.this, response.code() + "Session expire Please login again", Toast.LENGTH_SHORT).show();
+                            getAlertTokenExpire();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserStepsGoalResponse> call, Throwable t) {
+                    Toast.makeText(FqStepsCounterActivity.this, "Failure", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    private void getAlertTokenExpire() {
+
+        if (getAccessToken != null) {
+            dialogBuilder = new AlertDialog.Builder(this);
+            LayoutInflater inflater = this.getLayoutInflater();
+            View dialogView = inflater.inflate(R.layout.profile_alertdialog_logoutt_new, null);
+            dialogBuilder.setView(dialogView);
+            dialog = dialogBuilder.create();
+            ImageView btn_Cancel = dialogView.findViewById(R.id.btn_cancel);
+            TextView text_logout = dialogView.findViewById(R.id.text_logout);
+            TextView noiwanttocontinue = dialogView.findViewById(R.id.noiwanttocontinuee);
+            LinearLayout llLogOut = dialogView.findViewById(R.id.llLogOut);
+
+            btn_Cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+            noiwanttocontinue.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+            text_logout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FuroPrefs.clear(getApplicationContext());
+                    googleSignOut();
+                    Intent intent = new Intent(getApplicationContext(), LoginTutorialScreen.class);
+                    startActivity(intent);
+                    finishAffinity();
+                }
+            });
+            dialog.show();
+        } else {
 
         }
 
-    };
+    }
+
+    public void googleSignOut() {
+
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(Task<Void> task) {
+                        // Toast.makeText(ActivityMain.this, "Google Sign Out done.", Toast.LENGTH_SHORT).show();
+                        revokeAccess();
+                    }
+                });
+    }
+
+    private void revokeAccess() {
+        mGoogleSignInClient.revokeAccess()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(Task<Void> task) {
+                        // Toast.makeText(ActivityMain.this, "Google access revoked.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
 }

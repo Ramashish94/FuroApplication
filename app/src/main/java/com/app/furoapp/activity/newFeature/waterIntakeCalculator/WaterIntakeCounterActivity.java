@@ -5,7 +5,6 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -19,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.StepsTracker.AddNewSlotPreferActivity;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.adapter.SelectCupSizeAdapter;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.ChangeGlassSizeRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.UserChangeGlassSizeResponse;
@@ -44,6 +42,7 @@ import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
+import com.app.furoapp.utils.Utils;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -201,7 +200,6 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         }
         if (selectedPlan.getCreatedAt() != null) {
 
-
             DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
             try {
                 date = dateFormat.parse(selectedPlan.getCreatedAt());
@@ -302,61 +300,50 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             }
         });
 
-        switchBtnWeekly.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    type = "Weekly";
-                    switchBtnAllType.setChecked(false);
-                    switchBtnMontly.setChecked(false);
-                    callRestorePlanApi();
-
-                    // callRestorePlanApi(type);
-                    // getWeeklyData();
-                } /*else {
-                    callRestorePlanApi("");*/
-
-                //  getWeeklyData();
-                // }
-            }
-        });
-
-        switchBtnMontly.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    type = "Monthly";
-                    switchBtnWeekly.setChecked(false);
-                    switchBtnAllType.setChecked(false);
-                    callRestorePlanApi();
-
-                    //callRestorePlanApi(type);
-
-                    // getMonthlyData();
-                }
-            }
-        });
-
-        switchBtnAllType.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    type = "All Time";
-                    switchBtnWeekly.setChecked(false);
-                    switchBtnMontly.setChecked(false);
-                    callRestorePlanApi();
-
-                    //callRestorePlanApi(type);
-                    // getAlltimeData();
-                }
-            }
-        });
 
         ivUpArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 includePopMenuOfWaterIntakeCounter.setVisibility(View.VISIBLE);
                 clWaterIntakeCounter.setClickable(false);
+
+                switchBtnWeekly.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (isChecked) {
+                            type = "Weekly";
+                            switchBtnAllType.setChecked(false);
+                            switchBtnMontly.setChecked(false);
+                            callWeeklyMonthlyAllTimePlanApi("Weekly");
+                        }
+                    }
+                });
+
+                switchBtnMontly.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (isChecked) {
+                            type = "Monthly";
+                            switchBtnWeekly.setChecked(false);
+                            switchBtnAllType.setChecked(false);
+                            callWeeklyMonthlyAllTimePlanApi("Monthly");
+
+                        }
+                    }
+                });
+
+                switchBtnAllType.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (isChecked) {
+                            type = "All Time";
+                            switchBtnWeekly.setChecked(false);
+                            switchBtnMontly.setChecked(false);
+                            callWeeklyMonthlyAllTimePlanApi("All Time");
+                        }
+                    }
+                });
+
                 callRestorePlanApi();
             }
         });
@@ -524,15 +511,9 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 if (response.code() == 200) {
                     if (response.body() != null) {
                         setDate(response.body().getCurrentPlan());
-                        setWeeklyData(response.body().getWeeklyData());
+                        //setWeeklyData(response.body().getWeeklyData());
                         setAllTimeData(response.body().getAllTimeData());
-                        setWeeklyData(response.body().getWeeklyData());
-                       /* if (type.equalsIgnoreCase("Weekly")) {
-                        } else if (type.equalsIgnoreCase("Monthly")) {
-                            setMonthlyData(response.body().getMonthlyData());
-                        } else if (type.equalsIgnoreCase("All Time")) {
-                        } else {
-                        }*/
+                        //setWeeklyData(response.body().getWeeklyData());
                     }
                 } else if (response.code() == 500) {
                     Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
@@ -562,106 +543,30 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
     }
 
     private void setAllTimeData(AllTimeData allTimeData) {
-        Util.showProgressDialog(getApplicationContext());
+
         tvTotWaterAmountDrunk.setText("" + allTimeData.getAllTimeTakenWaterInMl().toString() + " ml");
         tvCountNosOfGlass.setText("" + allTimeData.getAllTimeTakenGlassOfWater().toString());
         tvRecommendedNosOfWaterGlasses.setText("/" + allTimeData.getAllTimeRecommendedGlassOfWater().toString() + " Glasses");
-        Util.dismissProgressDialog();
     }
 
-    private void setMonthlyData(MonthlyData monthlyData) {
-        Util.showProgressDialog(getApplicationContext());
-        tvTotWaterAmountDrunk.setText("" + monthlyData.getMonthlyTakenWaterInMl().toString() + " ml");
-        tvCountNosOfGlass.setText("" + monthlyData.getMonthlyTakenGlassOfWater().toString());
-        tvRecommendedNosOfWaterGlasses.setText("/" + monthlyData.getMonthlyRecommendedGlassOfWater().toString() + " Glasses");
-        Util.dismissProgressDialog();
-
-    }
-
-    private void setWeeklyData(WeeklyData weeklyData) {
-        Util.showProgressDialog(getApplicationContext());
-        tvTotWaterAmountDrunk.setText("" + weeklyData.getWeeklyTakenWaterInMl().toString() + " ml");
-        tvCountNosOfGlass.setText("" + weeklyData.getWeeklyTakenGlassOfWater().toString());
-        tvRecommendedNosOfWaterGlasses.setText("/" + weeklyData.getWeeklyRecommendedGlassOfWater().toString() + " Glasses");
-        Util.dismissProgressDialog();
-
-    }
-
-
-    private void getWeeklyData() {
-        Util.showProgressDialog(getApplicationContext());
+    private void callWeeklyMonthlyAllTimePlanApi(String type) {
+        Utils.showProgressDialogBar(getApplicationContext());
         RestClient.getRestorePlan(getAccessToken, new Callback<RestorePlanResponse>() {
             @Override
             public void onResponse(Call<RestorePlanResponse> call, Response<RestorePlanResponse> response) {
-                Util.dismissProgressDialog();
+                Utils.dismissProgressDialogBar();
                 if (response.code() == 200) {
                     if (response.body() != null) {
-                        setDate(response.body().getCurrentPlan());
-                        setWeeklyData(response.body().getWeeklyData());
-//                        setAllTimeData(response.body().getAllTimeData());
-//                        setWeeklyData(response.body().getWeeklyData());
-//                        setMonthlyData(response.body().getMonthlyData());
-
-                    }
-                } else if (response.code() == 500) {
-                    Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
-                } else if (response.code() == 403) {
-                    Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<RestorePlanResponse> call, Throwable t) {
-                Toast.makeText(WaterIntakeCounterActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-    }
-
-    private void getMonthlyData() {
-        Util.showProgressDialog(getApplicationContext());
-        RestClient.getRestorePlan(getAccessToken, new Callback<RestorePlanResponse>() {
-            @Override
-            public void onResponse(Call<RestorePlanResponse> call, Response<RestorePlanResponse> response) {
-                Util.dismissProgressDialog();
-                if (response.code() == 200) {
-                    if (response.body() != null) {
-                        setDate(response.body().getCurrentPlan());
-                        //                       setWeeklyData(response.body().getWeeklyData());
-//                        setAllTimeData(response.body().getAllTimeData());
-//                        setWeeklyData(response.body().getWeeklyData());
-                        setMonthlyData(response.body().getMonthlyData());
-                    }
-                } else if (response.code() == 500) {
-                    Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
-                } else if (response.code() == 403) {
-                    Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RestorePlanResponse> call, Throwable t) {
-                Toast.makeText(WaterIntakeCounterActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }
-
-    private void getAlltimeData() {
-        Util.showProgressDialog(getApplicationContext());
-        RestClient.getRestorePlan(getAccessToken, new Callback<RestorePlanResponse>() {
-            @Override
-            public void onResponse(Call<RestorePlanResponse> call, Response<RestorePlanResponse> response) {
-                Util.dismissProgressDialog();
-                if (response.code() == 200) {
-                    if (response.body() != null) {
-                        setDate(response.body().getCurrentPlan());
-//                        setWeeklyData(response.body().getWeeklyData());
-                        setAllTimeData(response.body().getAllTimeData());
-//                        setWeeklyData(response.body().getWeeklyData());
-//                        setMonthlyData(response.body().getMonthlyData());
+                        if (type.equals("Weekly")) {
+                            setDate(response.body().getCurrentPlan());
+                            setWeeklyData("Weekly", response.body().getWeeklyData());
+                        } else if (type.equals("All Time")) {
+                            setDate(response.body().getCurrentPlan());
+                            setAllTime("All Time", response.body().getAllTimeData());
+                        } else if (type.equals("Monthly")) {
+                            setDate(response.body().getCurrentPlan());
+                            setMonthlyData("Monthly", response.body().getMonthlyData());
+                        }
                     }
                 } else if (response.code() == 500) {
                     Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
@@ -675,7 +580,38 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 Toast.makeText(WaterIntakeCounterActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
+    private void setMonthlyData(String monthly, MonthlyData monthlyData) {
+        if (monthlyData != null) {
+            if (type.equalsIgnoreCase("Monthly")) {
+                tvTotWaterAmountDrunk.setText("" + monthlyData.getMonthlyTakenWaterInMl().toString() + " ml");
+                tvCountNosOfGlass.setText("" + monthlyData.getMonthlyTakenGlassOfWater().toString());
+                tvRecommendedNosOfWaterGlasses.setText("/" + monthlyData.getMonthlyRecommendedGlassOfWater().toString() + " Glasses");
+            }
+        }
+    }
 
+    private void setWeeklyData(String weekly, WeeklyData weeklyData) {
+        if (weeklyData != null) {
+            if (type.equalsIgnoreCase("Weekly")) {
+                tvTotWaterAmountDrunk.setText("" + weeklyData.getWeeklyTakenWaterInMl().toString() + " ml");
+                tvCountNosOfGlass.setText("" + weeklyData.getWeeklyTakenGlassOfWater().toString());
+                tvRecommendedNosOfWaterGlasses.setText("/" + weeklyData.getWeeklyRecommendedGlassOfWater().toString() + " Glasses");
+            }
+        }
+    }
+
+    private void setAllTime(String all_time, AllTimeData allTimeData) {
+        if (allTimeData != null) {
+            if (type.equalsIgnoreCase("All Time")) {
+                tvTotWaterAmountDrunk.setText("" + allTimeData.getAllTimeTakenWaterInMl().toString() + " ml");
+                tvCountNosOfGlass.setText("" + allTimeData.getAllTimeTakenGlassOfWater().toString());
+                tvRecommendedNosOfWaterGlasses.setText("/" + allTimeData.getAllTimeRecommendedGlassOfWater().toString() + " Glasses");
+            }
+        }
+
+    }
 }

@@ -14,6 +14,7 @@ import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserS
 import com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel.BmiStoreDataRequest;
 import com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel.BmiStoreDataResponse;
 import com.app.furoapp.activity.newFeature.bmiCalculator.fetchBmiDataModel.FetchUserWiseDataResponse;
+import com.app.furoapp.activity.newFeature.healthCare.healthCentermodel.HealthCenterResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListResponse;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.addComments.AddCommentRequest;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.addComments.AddCommentResponse;
@@ -147,7 +148,8 @@ public interface ApiInterface {
     String TOKEN_KEY = "Authorization";
 
     // api calling for Activity Content feed
-    @GET("all-activities")                       //
+    @GET("all-activities")
+    //
     Call<ContentFeedModel> getActivities();
 
     // api calling for AllActivity Content feed  landing page
@@ -199,7 +201,8 @@ public interface ApiInterface {
     Call<SelectChallangeResponse> selectChallange();
 
     //what brings you to furo
-    @POST("user-reasons")///////////////////////////
+    @POST("user-reasons")
+///////////////////////////
     Call<WhatBringsYouToFuroResponse> chooseOneReason(@Body WhatBringsYouToFuroRequest whatBringsYouToFuroRequest);
 
 
@@ -516,13 +519,15 @@ public interface ApiInterface {
     @POST("user/add-new-slot")
     Call<AddNewSlotResponse> ADD_NEW_SLOT_RESPONSE_CALL(@Header(TOKEN_KEY) String token, @Body AddNewSlotTimeRequest addNewSlotTimeRequest);
 
-    /*user/add-new-slot*/
+    /*user/step-goal*/
     @POST("user/step-goal")
     Call<UserStepsGoalResponse> USER_STEPS_GOAL_RESPONSE_CALL(@Header(TOKEN_KEY) String token, @Body UserStepsGoalRequest userStepsGoalRequest);
 
-
-    /*user/add-new-slot*/
+    /*user/history-step-counter*/
     @GET("user/history-step-counter")
     Call<HistoryResponse> HISTORY_RESPONSE_CALL(@Header(TOKEN_KEY) String token);
 
+    /*user/health-center*/
+    @GET("user/health-center")
+    Call<HealthCenterResponse> HEALTH_CENTER_RESPONSE_CALL(@Header(TOKEN_KEY) String token);
 }

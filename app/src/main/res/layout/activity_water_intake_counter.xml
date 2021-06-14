@@ -498,7 +498,6 @@
                                         android:layout_height="@dimen/dp_20"
                                         android:layout_gravity="bottom"
                                         android:gravity="center|end"
-                                        android:maxLength="2"
                                         android:text="0 "
                                         android:textColor="@color/black_color"
                                         android:textStyle="bold" />
@@ -508,7 +507,7 @@
                                         android:layout_height="@dimen/dp_20"
                                         android:layout_gravity="bottom"
                                         android:gravity="center|end"
-                                        android:text="Glasses "
+                                        android:text=" Glasses "
                                         android:textColor="@color/black_color"
                                         android:textStyle="bold" />
 

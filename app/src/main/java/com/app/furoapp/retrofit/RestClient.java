@@ -14,6 +14,7 @@ import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserS
 import com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel.BmiStoreDataRequest;
 import com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel.BmiStoreDataResponse;
 import com.app.furoapp.activity.newFeature.bmiCalculator.fetchBmiDataModel.FetchUserWiseDataResponse;
+import com.app.furoapp.activity.newFeature.healthCare.healthCentermodel.HealthCenterResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListResponse;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.addComments.AddCommentRequest;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.addComments.AddCommentResponse;
@@ -472,6 +473,9 @@ public class RestClient {
 
     public static void getHistoryData(String token, Callback<HistoryResponse> callback) {
         RetrofitClient.getClient().HISTORY_RESPONSE_CALL(token).enqueue(callback);
+    }
+    public static void getHealthCenter(String token, Callback<HealthCenterResponse> callback) {
+        RetrofitClient.getClient().HEALTH_CENTER_RESPONSE_CALL(token).enqueue(callback);
     }
 
 }

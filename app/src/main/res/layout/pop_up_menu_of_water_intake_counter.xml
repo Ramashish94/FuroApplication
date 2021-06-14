@@ -81,7 +81,7 @@
                     android:layout_gravity="center"
                     android:layout_marginRight="@dimen/dp_5"
                     android:layout_weight="1"
-                    android:checked="true"
+                    android:checked="false"
                     android:gravity="center"
                     android:text="Weekly" />
 

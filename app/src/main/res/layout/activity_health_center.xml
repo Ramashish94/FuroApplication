@@ -21,6 +21,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/ivBack"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/dp_15"
@@ -64,13 +65,13 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/steps"
+                            android:id="@+id/tvSteps"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1200"
                             android:textColor="#FFFFFF"
                             android:textSize="12.5sp"
-                            android:textStyle="italic" />
+                            android:textStyle="italic"
+                            tools:text="1200" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -80,12 +81,13 @@
                             android:textSize="12.5sp" />
 
                         <TextView
+                            android:id="@+id/tvTotalSteps"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="3000"
                             android:textColor="#FFFFFF"
                             android:textSize="12.5sp"
-                            android:textStyle="italic" />
+                            android:textStyle="italic"
+                            tools:text="3000" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -107,22 +109,27 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <FrameLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                        <com.skydoves.progressview.ProgressView
+                            android:id="@+id/stepsProgressView"
+                            android:layout_width="@dimen/dp_160"
+                            android:layout_height="3.12dp"
+                            app:progressView_autoAnimate="true"
+                            app:progressView_colorBackground="#BDD6F3"
+                            app:progressView_colorProgress="@color/light_blue"
+                            app:progressView_labelColorInner="#BDD6F3"
+                            app:progressView_labelColorOuter="#BDD6F3"
+                            app:progressView_labelSize="13sp"
+                            app:progressView_labelSpace="10dp"
+                            app:progressView_labelText="achieve 65%"
+                            app:progressView_labelTypeface="bold"
+                            app:progressView_max="100"
+                            app:progressView_min="00"
+                            app:progressView_padding="1dp"
+                            app:progressView_progress="00"
+                            app:progressView_progressFromPrevious="true"
+                            app:progressView_radius="12dp" />
 
-                            <View
-                                android:layout_width="wrap_content"
-                                android:layout_height="3.12dp"
-                                android:layout_marginRight="@dimen/dp_15"
-                                android:background="@drawable/rectangle6" />
 
-                            <View
-                                android:id="@+id/rectangle_5"
-                                android:layout_width="62.5dp"
-                                android:layout_height="3.12dp"
-                                android:background="@drawable/rectangle5" />
-                        </FrameLayout>
                     </LinearLayout>
 
                     <LinearLayout
@@ -165,12 +172,13 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/tvNoOfGlass"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2"
                             android:textColor="#FFFFFF"
                             android:textSize="12.5sp"
-                            android:textStyle="italic" />
+                            android:textStyle="italic"
+                            tools:text="2" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -180,12 +188,13 @@
                             android:textSize="12.5sp" />
 
                         <TextView
+                            android:id="@+id/tvTotNoOfGlass"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="6"
                             android:textColor="#FFFFFF"
                             android:textSize="12.5sp"
-                            android:textStyle="italic" />
+                            android:textStyle="italic"
+                            tools:text="6" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -207,21 +216,26 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <FrameLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                        <com.skydoves.progressview.ProgressView
+                            android:id="@+id/waterIntakeProgressView"
+                            android:layout_width="@dimen/dp_160"
+                            android:layout_height="3.12dp"
+                            app:progressView_autoAnimate="true"
+                            app:progressView_colorBackground="#BDD6F3"
+                            app:progressView_colorProgress="@color/light_blue"
+                            app:progressView_labelColorInner="#BDD6F3"
+                            app:progressView_labelColorOuter="#BDD6F3"
+                            app:progressView_labelSize="13sp"
+                            app:progressView_labelSpace="10dp"
+                            app:progressView_labelText="achieve 65%"
+                            app:progressView_labelTypeface="bold"
+                            app:progressView_max="100"
+                            app:progressView_min="00"
+                            app:progressView_padding="1dp"
+                            app:progressView_progress="00"
+                            app:progressView_progressFromPrevious="true"
+                            app:progressView_radius="12dp" />
 
-                            <View
-                                android:layout_width="wrap_content"
-                                android:layout_height="3.12dp"
-                                android:layout_marginRight="@dimen/dp_15"
-                                android:background="@drawable/rectangle6" />
-
-                            <View
-                                android:layout_width="62.5dp"
-                                android:layout_height="3.12dp"
-                                android:background="@drawable/rectangle5" />
-                        </FrameLayout>
 
                     </LinearLayout>
 
@@ -274,7 +288,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_weight="60"
                             android:gravity="bottom">
 
                             <TextView
@@ -289,32 +303,45 @@
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/tvBmiIndex"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="84"
                                 android:textAllCaps="true"
                                 android:textAppearance="@style/steps"
                                 android:textSize="12.5sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:maxLength="2"
+                                tools:text="84" />
 
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_weight="40"
                             android:gravity="bottom">
 
                             <ImageView
                                 android:layout_width="15dp"
                                 android:layout_height="15dp"
-                                android:layout_gravity="bottom"
+                                android:layout_gravity="bottom|center"
                                 android:src="@drawable/ovel8" />
 
-                            <ImageView
+                            <TextView
+                                android:id="@+id/tvBmiType"
                                 android:layout_width="match_parent"
-                                android:layout_height="12.5dp"
-                                android:src="@drawable/overweight" />
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_5"
+                                android:layout_marginRight="@dimen/dp_5"
+                                android:textAllCaps="true"
+                                android:textAppearance="@style/steps"
+                                android:textSize="@dimen/dp_10"
+                                android:textStyle="bold"
+                                tools:text="  Overwaight" />
+                            <!-- <ImageView
+                                 android:layout_width="match_parent"
+                                 android:layout_height="12.5dp"
+                                 android:src="@drawable/overweight" />-->
                         </LinearLayout>
 
 
@@ -355,9 +382,9 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="1dp"
                     android:layout_weight="1"
-                    android:visibility="invisible"
                     android:background="@drawable/bg_view_clip"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="invisible">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -580,7 +607,7 @@
                     android:src="@drawable/steps_" />
 
             </LinearLayout>
-<!--steps times distance -->
+            <!--steps times distance -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="104dp"
@@ -742,7 +769,7 @@
                 android:layout_height="1.5dp"
                 android:layout_marginTop="17dp"
                 android:background="@drawable/view_image"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
 
             <LinearLayout
                 android:layout_width="match_parent"

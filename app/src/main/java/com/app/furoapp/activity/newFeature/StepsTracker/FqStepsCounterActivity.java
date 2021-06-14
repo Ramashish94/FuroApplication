@@ -76,6 +76,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         clickEvent();
 
         stepsAchivedVal = getIntent().getStringExtra("getAchievedVal");
+        stepsAchivedVal = getIntent().getStringExtra("selectNumber");
         getAccessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -152,11 +153,11 @@ public class FqStepsCounterActivity extends AppCompatActivity {
             tvTotNumberOfSteps.setText("Of " + stepsAchivedVal + " Steps");
         }
 
-        if (stepsAchivedVal.equalsIgnoreCase(String.valueOf(stepCount))) {
+       /* if (stepsAchivedVal.equalsIgnoreCase(String.valueOf(stepCount))) {
             includeCongratsStepsTrack.setVisibility(View.VISIBLE);
             llFqStepCounter.setClickable(false);
             finish();
-        }
+        }*/
 
     }
 

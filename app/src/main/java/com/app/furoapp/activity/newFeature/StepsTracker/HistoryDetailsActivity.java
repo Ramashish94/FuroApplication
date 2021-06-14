@@ -65,7 +65,7 @@ public class HistoryDetailsActivity extends AppCompatActivity {
     WeeklyHistoryAdapter weeklyHistoryAdapter;
     private String str_act, userImageUpdated;
     private String getAccessToken;
-    TextView tvTotSteps, tvDailyAverage, tvTotStepssss, tvDailyAveragessss, tvTime, tvCalories, tvDateWithDays;
+    TextView tvTotStep, tvDailyAverage, tvTotStepssss, tvDailyAveragessss, tvTime, tvCalories, tvDateWithDays;
     RecyclerView rvHistory;
     public GoogleSignInClient mGoogleSignInClient;
     public AlertDialog.Builder dialogBuilder;
@@ -90,6 +90,7 @@ public class HistoryDetailsActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
+        callHistoryApi();
 
     }
 
@@ -100,7 +101,7 @@ public class HistoryDetailsActivity extends AppCompatActivity {
         switchBtnMontly = findViewById(R.id.switchBtnMonthly);
         switchBtnAllType = findViewById(R.id.switchBtnAlType);
         ivHistoryCross = findViewById(R.id.ivHistoryCross);
-        tvTotSteps = findViewById(R.id.tvTotSteps);
+        tvTotStep = findViewById(R.id.tvTotStep);
         tvDailyAverage = findViewById(R.id.tvDailyAverage);
         rvHistory = findViewById(R.id.rvHistory);
 
@@ -170,7 +171,7 @@ public class HistoryDetailsActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                     if (response.body() != null) {
                         if (response.body().getData().getAllTimeCounterList() != null) {
-                            setData(response.body().getData().getAllTimeCounterList().get(0));
+                            setData(response.body().getData().getAllTimeCounterList());
                             setChartView(response.body().getData().getAllTimeCounterList());
                         }
                     }
@@ -178,8 +179,8 @@ public class HistoryDetailsActivity extends AppCompatActivity {
                 } else if (response.code() == 500) {
                     Toast.makeText(HistoryDetailsActivity.this, "Internal server error", Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 403) {
-                    Toast.makeText(HistoryDetailsActivity.this, response.code() + " Session expire please login again", Toast.LENGTH_SHORT).show();
-                    getTokenExpireDialog();
+                    //  Toast.makeText(HistoryDetailsActivity.this, response.code() + " Session expire please login again", Toast.LENGTH_SHORT).show();
+                    // getTokenExpireDialog();
                 }
             }
 
@@ -190,21 +191,29 @@ public class HistoryDetailsActivity extends AppCompatActivity {
         });
     }
 
-    private void setData(AllTimeCounter allTimeCounter) {
-        if (allTimeCounter != null) {
-            tvTotSteps.setText("" + allTimeCounter.getCountSteps());
-            tvDailyAverage.setText("" + allTimeCounter.getDailyAverage() + " m");
+    private void setData(List<AllTimeCounter> allTimeCounterList) {
+        if (allTimeCounterList != null && allTimeCounterList.size() > 0) {
+            //if (allTimeCounterList.get(0).getId() == 1) {
+            tvTotStep.setText("" + allTimeCounterList.get(0).getCountSteps());
+            tvDailyAverage.setText("" + allTimeCounterList.get(0).getDailyAverage() + " m");
+
+            tvTotStepssss.setText("" + allTimeCounterList.get(0).getCountSteps() + " ");
+            tvDailyAveragessss.setText("" + allTimeCounterList.get(0).getDailyAverage() + " m");
+            tvTime.setText("" + allTimeCounterList.get(0).getTime() + " Minutes");
+            tvCalories.setText("" + allTimeCounterList.get(0).getCalories() + " Cal");
 
             DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
             try {
-                date = dateFormat.parse(allTimeCounter.getCreatedAt());
+                date = dateFormat.parse(allTimeCounterList.get(0).getCreatedAt());
             } catch (ParseException e) {
                 e.printStackTrace();
             }
             DateFormat dateFormat1 = new SimpleDateFormat("dd MMM, EEE");
             String getDate = dateFormat1.format(date);
             tvDateWithDays.setText(getDate);
-
+            //}
+        } else {
+            Toast.makeText(this, "No records found", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -221,6 +230,7 @@ public class HistoryDetailsActivity extends AppCompatActivity {
                             if (type.equals("Weekly")) {
                                 setWeeklyData("Weekly", response.body().getData().getWeeklyData());
                                 setChartView(response.body().getData().getAllTimeCounterList());
+                                setBarData(response.body().getData().getAllTimeCounterList());
                             } else if (type.equals("All Time")) {
                                 setAllTimeData("All Time", response.body().getData().getAllTimeData());
                                 setChartView(response.body().getData().getAllTimeCounterList());
@@ -235,7 +245,7 @@ public class HistoryDetailsActivity extends AppCompatActivity {
                     } else if (response.code() == 500) {
                         Toast.makeText(HistoryDetailsActivity.this, "Internal server error", Toast.LENGTH_SHORT).show();
                     } else if (response.code() == 403) {
-                        Toast.makeText(HistoryDetailsActivity.this, response.code() + " Session expire please login again", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(HistoryDetailsActivity.this, response.code() + " Session expire please login again", Toast.LENGTH_SHORT).show();
                         //  getTokenExpireDialog();
                     }
                 }
@@ -248,33 +258,43 @@ public class HistoryDetailsActivity extends AppCompatActivity {
         }
     }
 
-    private void setMonthlyData(String monthly, MonthlyData monthlyData) {
-        if (type.equalsIgnoreCase("Monthly")) {
-            tvTotStepssss.setText("" + monthlyData.getTotalSteps() + " ");
-            tvDailyAveragessss.setText("" + monthlyData.getDailyAverage() + " m");
-            tvTime.setText("" + monthlyData.getTime() + " Minutes");
-            tvCalories.setText("" + monthlyData.getCalories() + " Cal");
+    private void setBarData(List<AllTimeCounter> allTimeCounterList) {
+        if (allTimeCounterList != null && allTimeCounterList.size() > 0) {
+            tvTotStep.setText("" + allTimeCounterList.get(0).getCountSteps());
+            tvDailyAverage.setText("" + allTimeCounterList.get(0).getDailyAverage());
+        }
+    }
 
+    private void setMonthlyData(String monthly, MonthlyData monthlyData) {
+        if (monthlyData != null) {
+            if (type.equalsIgnoreCase("Monthly")) {
+                tvTotStepssss.setText("" + monthlyData.getTotalSteps() + " ");
+                tvDailyAveragessss.setText("" + monthlyData.getDailyAverage() + " m");
+                tvTime.setText("" + monthlyData.getTime() + " Minutes");
+                tvCalories.setText("" + monthlyData.getCalories() + " Cal");
+            }
         }
     }
 
     private void setAllTimeData(String all_time, AllTimeData allTimeData) {
-        if (type.equalsIgnoreCase("All Time")) {
-            tvTotStepssss.setText("" + allTimeData.getTotalSteps() + " ");
-            tvDailyAveragessss.setText("" + allTimeData.getDailyAverage() + " m");
-            tvTime.setText("" + allTimeData.getTime() + " Minutes");
-            tvCalories.setText("" + allTimeData.getCalories() + " Cal");
-
+        if (allTimeData != null) {
+            if (type.equalsIgnoreCase("All Time")) {
+                tvTotStepssss.setText("" + allTimeData.getTotalSteps() + " ");
+                tvDailyAveragessss.setText("" + allTimeData.getDailyAverage() + " m");
+                tvTime.setText("" + allTimeData.getTime() + " Minutes");
+                tvCalories.setText("" + allTimeData.getCalories() + " Cal");
+            }
         }
     }
 
     private void setWeeklyData(String weekly, WeeklyData weeklyData) {
-        if (type.equalsIgnoreCase("Weekly")) {
-            tvTotStepssss.setText("" + weeklyData.getTotalSteps() + " ");
-            tvDailyAveragessss.setText("" + weeklyData.getDailyAverage() + " m");
-            tvTime.setText("" + weeklyData.getTime() + " Minutes");
-            tvCalories.setText("" + weeklyData.getCalories() + " Cal");
-
+        if (weeklyData != null) {
+            if (type.equalsIgnoreCase("Weekly")) {
+                tvTotStepssss.setText("" + weeklyData.getTotalSteps() + " ");
+                tvDailyAveragessss.setText("" + weeklyData.getDailyAverage() + " m");
+                tvTime.setText("" + weeklyData.getTime() + " Minutes");
+                tvCalories.setText("" + weeklyData.getCalories() + " Cal");
+            }
         }
     }
 

@@ -53,14 +53,15 @@
                     <TextView
                         android:id="@+id/tvMale"
                         android:layout_width="114dp"
-                        android:layout_height="24dp"
+                        android:layout_height="wrap_content"
                         android:gravity="center"
                         android:inputType="textCapWords"
                         android:text="Male"
                         android:layout_weight="1"
                         android:layout_marginTop="@dimen/dp_10"
                         android:layout_marginStart="@dimen/dp_60"
-                        android:textColor="#C4C4C4" />
+                        android:textColor="#C4C4C4"
+                        android:textSize="20sp"/>
 
                     <!-- -->  </LinearLayout>
 
@@ -90,7 +91,8 @@
                         android:textAlignment="center"
                         android:layout_marginLeft="@dimen/dp_10"
                         android:layout_marginTop="@dimen/dp_10"
-                        android:textColor="#C4C4C4" />
+                        android:textColor="#C4C4C4"
+                        android:textSize="@dimen/sp_20"/>
 
                 </LinearLayout>
 

@@ -7,14 +7,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.app.furoapp.R;
 import com.app.furoapp.activity.newFeature.StepsTracker.adapter.StepsCountAdapter;
-import com.app.furoapp.activity.newFeature.bmiCalculator.AgeAdapter;
+import com.app.furoapp.activity.newFeature.bmiCalculator.adapter.AgeAdapter;
 import com.app.furoapp.activity.newFeature.bmiCalculator.AgeModelTest;
 
 import java.util.ArrayList;
@@ -30,6 +32,9 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
     StepsCountAdapter stepsCountAdapter;
     private String selectNumber;
     int adapterCurrentPos = 0;
+    private NumberPicker picker1;
+    private String[] pickerVals;
+    private int getnuberVal;
 
 
     @Override
@@ -39,6 +44,26 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
         findViews();
         clickEvent();
         setRecyAdapter();
+       // numberPicker();
+    }
+
+    private void numberPicker() {
+        int start = 1000;
+        String[] numbers = new String[20];
+        for (int i = 0; i <= 20; i++) {
+            numbers[i] = start + "";
+            start = start + 100;
+        }
+        picker1.setMaxValue(20);
+        picker1.setMinValue(1);
+        picker1.setDisplayedValues(numbers);
+        picker1.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
+                int valuePicker1 = picker1.getValue();
+                Log.d("picker value", String.valueOf(valuePicker1));
+            }
+        });
     }
 
 
@@ -46,6 +71,7 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
         rvStepsCount = findViewById(R.id.rvStepsCount);
         ivContinue = findViewById(R.id.ivContinue);
         ivBack = findViewById(R.id.ivBack);
+        picker1 = findViewById(R.id.numberpicker_main_picker);
 
     }
 
@@ -58,12 +84,12 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
         List<AgeModelTest> ageModelTestArrayList = new ArrayList<>();
         for (int i = 3000; i <= 20000; i = i + 100) {
             AgeModelTest ageModelTest = new AgeModelTest();
+           // ageModelTest.setAge(String.valueOf(Color.parseColor("#000000")));
             ageModelTest.setAge("" + i);
             ageModelTestArrayList.add(ageModelTest);
         }
         StepsCountAdapter stepsCountAdapter = new StepsCountAdapter(getApplicationContext(), ageModelTestArrayList, this);
         rvStepsCount.setAdapter(stepsCountAdapter);
-
         rvStepsCount.scrollToPosition(adapterCurrentPos);   // scroll to current position in android
 
     }

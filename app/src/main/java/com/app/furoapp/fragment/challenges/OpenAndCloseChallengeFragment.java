@@ -85,7 +85,6 @@ public class OpenAndCloseChallengeFragment extends Fragment {
         View view = binding.getRoot();
 
 
-
         useridopenandclose = FuroPrefs.getString(getContext(), "loginUserId");
         recyclerView = view.findViewById(R.id.ChallengeByYou);
         recyclerViewdraft = view.findViewById(R.id.challengeDraftrecycler);
@@ -101,9 +100,15 @@ public class OpenAndCloseChallengeFragment extends Fragment {
         pGif.setImageResource(R.drawable.sqats);
 
 
-       userIdChallenge = FuroPrefs.getInt(getApplicationContext(), "challengefuroid", 0);
+        userIdChallenge = FuroPrefs.getInt(getApplicationContext(), "challengefuroid", 0);
 
 
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         draftloadmore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,8 +135,6 @@ public class OpenAndCloseChallengeFragment extends Fragment {
         getDataChallenge();
         getDChallengeForYou();
         getDChallengeDraft();
-
-        return view;
     }
 
     public OpenAndCloseChallengeFragment() {
@@ -162,9 +165,9 @@ public class OpenAndCloseChallengeFragment extends Fragment {
             public void onResponse(Call<ChallenegeForYouRecieve> call, Response<ChallenegeForYouRecieve> response) {
                 pGif.setVisibility(View.GONE);
                 linearLayout.setVisibility(View.GONE);
-                if (response != null) {
+                if (response != null && response.body() != null) {
 
-                    if (response.body() != null && response.body().getReceiveChallenge().size() >= 2) {
+                    if (response.body().getReceiveChallenge() != null && response.body().getReceiveChallenge().size() > 0) { /*>= 2*/
 
                         List<ReceiveChallenge> sreceiveChallenges1 = response.body().getReceiveChallenge().subList(0, 2);
 
@@ -249,13 +252,13 @@ public class OpenAndCloseChallengeFragment extends Fragment {
                                 if (challTypeby.equalsIgnoreCase("map")) {
                                     Intent intent = new Intent(getActivity(), MapChallengeActivityBy.class);
                                     //  String Challengeid = challengeId;
-                                    FuroPrefs.putString(getApplicationContext(),"challengeidforshare",challengeId);
+                                    FuroPrefs.putString(getApplicationContext(), "challengeidforshare", challengeId);
                                     intent.putExtra("userIdChallengeByMap", challengeId);
                                     startActivity(intent);
                                 } else if (challTypeby.equalsIgnoreCase("video")) {
                                     Intent intent = new Intent(getActivity(), ChallengeByUserandChallengeForUserDetailActivity.class);
                                     // String Challengeid = challengeId;
-                                    FuroPrefs.putString(getApplicationContext(),"challengeidforshare",challengeId);
+                                    FuroPrefs.putString(getApplicationContext(), "challengeidforshare", challengeId);
                                     intent.putExtra("userIdChallengeByVideo", challengeId);
                                     startActivity(intent);
 

@@ -84,13 +84,13 @@ public class TellUsMoreActivity extends AppCompatActivity {
             @Override
             public void onValueChange(final int selectedValue) {
                 getUserWeightInKg = String.valueOf(selectedValue);
-                tvWeightRulerValueInKgs.setText(getUserWeightInKg + " kg ");
+                tvWeightRulerValueInKgs.setText(getUserWeightInKg + " kgs ");
             }
 
             @Override
             public void onIntermediateValueChange(final int selectedValue) {
                 getUserWeightInKg = String.valueOf(selectedValue);
-                tvWeightRulerValueInKgs.setText(getUserWeightInKg + " kg ");
+                tvWeightRulerValueInKgs.setText(getUserWeightInKg + " kgs ");
             }
         });
     }

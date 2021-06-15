@@ -96,7 +96,7 @@
             <ImageView
                 android:id="@+id/ivSave"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_35"
+                android:layout_height="@dimen/dp_40"
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="28dp"
                 android:layout_marginTop="@dimen/dp_16"

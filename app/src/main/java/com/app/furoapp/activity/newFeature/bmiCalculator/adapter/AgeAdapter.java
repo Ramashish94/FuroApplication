@@ -1,4 +1,4 @@
-package com.app.furoapp.activity.newFeature.bmiCalculator;
+package com.app.furoapp.activity.newFeature.bmiCalculator.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.LikeListAdapter;
+import com.app.furoapp.activity.newFeature.bmiCalculator.AgeModelTest;
 
 import java.util.List;
 

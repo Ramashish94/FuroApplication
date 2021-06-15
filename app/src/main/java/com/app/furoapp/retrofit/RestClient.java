@@ -25,8 +25,7 @@ import com.app.furoapp.activity.newFeature.ContentEngagementModule.saveBookmark.
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsRequest;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
-import com.app.furoapp.activity.newFeature.notification.challangeNotification.ChallengeNotificationResp;
-import com.app.furoapp.activity.newFeature.notification.dailyNotification.DailyFeedNotificationResponse;
+import com.app.furoapp.activity.newFeature.notification.allNotificationModal.NotificationResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.ChangeGlassSizeRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.UserChangeGlassSizeResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.cupCreate.CupCreateResponse;
@@ -367,16 +366,16 @@ public class RestClient {
 
     /*added new feature in FQ*/
     /*notification*/
-   /* public static void getNotificationData(String token, Callback<NotificationResponse> callback) {
+    public static void getNotificationData(String token, Callback<NotificationResponse> callback) {
         RetrofitClient.getClient().getNotification(token).enqueue(callback);
-    }*/
-    public static void getChallangeNotificationData(String token, Callback<ChallengeNotificationResp> callback) {
+    }
+   /* public static void getChallangeNotificationData(String token, Callback<ChallengeNotificationResp> callback) {
         RetrofitClient.getClient().CHALLANGE_NOTIFICATION_RESPONSE_CALL(token).enqueue(callback);
     }
 
     public static void getDailyNotificationData(String token, Callback<DailyFeedNotificationResponse> callback) {
         RetrofitClient.getClient().DAILY_NOTIFICATION_RESPONSE_CALL(token).enqueue(callback);
-    }
+    }*/
 
     /*modify*/
     public static void myContentfeedAllActivity(String token, Callback<ActivitiesListing> callback) {

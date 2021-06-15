@@ -27,11 +27,17 @@
                     android:layout_margin="32dp"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="27dp"
-                        android:layout_marginTop="@dimen/dp_25"
-                        android:src="@drawable/step_goal" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="create your step goals   "
+                        android:textColor="@color/black_color"
+                        android:textSize="@dimen/sp_20"
+                        android:fontFamily="@font/bebase_font_family_regular"
+                        android:textStyle="italic"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/dp_25"/>
+
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -49,6 +55,20 @@
                     android:layout_margin="32dp"
                     android:gravity="center"
                     android:orientation="vertical">
+
+                    <NumberPicker
+                        android:id="@+id/numberpicker_main_picker"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:visibility="gone"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -128,6 +148,13 @@
 
 
                     </FrameLayout>
+
+
+
+
+
+
+
                 </LinearLayout>
 
 

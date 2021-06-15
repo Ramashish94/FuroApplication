@@ -20,13 +20,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="what's your wakeup tme   "
+                        android:textColor="@color/black_color"
+                        android:textSize="@dimen/sp_20"
+                        android:fontFamily="@font/bebase_font_family_regular"
+                        android:textStyle="italic"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="70dp"/>
                 <ImageView
                     android:layout_width="228dp"
                     android:layout_height="27dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="70dp"
-                    android:src="@drawable/wekuptime" />
+                    android:src="@drawable/wekuptime"
+                    android:visibility="gone"/>
 
                 <LinearLayout
                     android:layout_width="312dp"
@@ -58,13 +68,23 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/dp_30"
                     android:background="@drawable/viewline" />
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="what's your bed tme   "
+                    android:textColor="@color/black_color"
+                    android:textSize="@dimen/sp_20"
+                    android:fontFamily="@font/bebase_font_family_regular"
+                    android:textStyle="italic"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="70dp"/>
                 <ImageView
-                    android:layout_width="228dp"
+                    android:layout_width="191dp"
                     android:layout_height="27dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/dp_30"
-                    android:src="@drawable/bedtime" />
+                    android:src="@drawable/bedtime"
+                    android:visibility="gone"/>
 
                 <LinearLayout
                     android:layout_width="312dp"
@@ -109,11 +129,11 @@
             <ImageView
                 android:id="@+id/ivContinue"
                 android:layout_width="312dp"
-                android:layout_height="@dimen/dp_35"
+                android:layout_height="@dimen/dp_40"
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="28dp"
                 android:layout_marginRight="28dp"
-                android:layout_marginBottom="@dimen/dp_25"
+                android:layout_marginBottom="45dp"
                 android:background="@drawable/continue1" />
         </LinearLayout>
 

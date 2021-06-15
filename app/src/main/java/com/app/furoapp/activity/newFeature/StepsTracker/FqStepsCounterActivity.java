@@ -142,7 +142,6 @@ public class FqStepsCounterActivity extends AppCompatActivity {
             tvActivateStepsCounter.setVisibility(View.GONE);
             llMarkLapAndStop.setVisibility(View.VISIBLE);
             tvDiActivate.setVisibility(View.GONE);
-
             customHandler.removeCallbacks(updateTimerThread);
             if ((sensorManager) != null) {
                 sensorManager.unregisterListener(stepDetector, sensorAcceleroMeter);
@@ -164,6 +163,8 @@ public class FqStepsCounterActivity extends AppCompatActivity {
             }
             startTime = SystemClock.uptimeMillis();
             customHandler.postDelayed(updateTimerThread, 0);
+            llMarkLapAndStop.setVisibility(View.GONE);
+            tvDiActivate.setVisibility(View.VISIBLE);
         });
 
         tvStop.setOnClickListener(v -> {
@@ -304,7 +305,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
             stepCount = 0;
         }
         tvCountsSteps.setText("");
-        finish();
+
     }
 
     //function to determine the distance run in kilometers/meter using average step length for men and number of steps
@@ -337,7 +338,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     private void callUserStepGoalApi() {
         UserStepsGoalRequest userStepsGoalRequest = new UserStepsGoalRequest();
         userStepsGoalRequest.setTime(getTime);
-        userStepsGoalRequest.setTime(String.valueOf(distanceInMeter));
+        userStepsGoalRequest.setDistance(String.valueOf(distanceInMeter));
         userStepsGoalRequest.setCalories(String.valueOf(getCalculateCalories));
         userStepsGoalRequest.setCount_steps(String.valueOf(stepCount));
         if (stepsAchivedVal != null) {
@@ -353,18 +354,23 @@ public class FqStepsCounterActivity extends AppCompatActivity {
                 public void onResponse(Call<UserStepsGoalResponse> call, Response<UserStepsGoalResponse> response) {
                     Util.dismissProgressDialog();
                     if (response.code() == 200) {
-
-                        if (stepsAchivedVal.equalsIgnoreCase(String.valueOf(stepCount))) {
-                            includeCongratsStepsTrack.setVisibility(View.VISIBLE);
-                            llFqStepCounter.setClickable(false);
-                        } else if (selectNumberAchievedVal.equalsIgnoreCase(String.valueOf(stepCount))) {
-                            includeCongratsStepsTrack.setVisibility(View.VISIBLE);
-                            llFqStepCounter.setClickable(false);
+                        if (stepsAchivedVal != null) {
+                            if (stepsAchivedVal.equalsIgnoreCase(String.valueOf(stepCount))) {
+                                includeCongratsStepsTrack.setVisibility(View.VISIBLE);
+                                llFqStepCounter.setClickable(false);
+                            }
+                        } else if (selectNumberAchievedVal != null) {
+                            if (selectNumberAchievedVal.equalsIgnoreCase(String.valueOf(stepCount))) {
+                                includeCongratsStepsTrack.setVisibility(View.VISIBLE);
+                                llFqStepCounter.setClickable(false);
+                            }
                         } else {
                            /* Toast.makeText(FqStepsCounterActivity.this, "Steps goal created successfully !", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), HistoryDetailsActivity.class);
                             startActivity(intent);*/
                         }
+                        Toast.makeText(FqStepsCounterActivity.this, "Data saved Successfully !", Toast.LENGTH_SHORT).show();
+
                     } else {
                         if (response.code() == 500) {
                             Toast.makeText(FqStepsCounterActivity.this, "Internal server error !", Toast.LENGTH_SHORT).show();
@@ -449,5 +455,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
 
 }

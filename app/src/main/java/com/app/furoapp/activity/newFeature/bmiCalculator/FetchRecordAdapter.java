@@ -44,8 +44,8 @@ public class FetchRecordAdapter extends RecyclerView.Adapter<FetchRecordAdapter.
         Bmi bmi = bmiList.get(position);
         holder.tvBmiScore.setText("" + bmi.getBmi());
         holder.tvGender.setText("" + bmi.getGender());
-        holder.tvWaight.setText("" + bmi.getWeight()+" kg");
-        holder.tvHeight.setText("" + bmi.getHeight()+" cm");
+        holder.tvWaight.setText("" + bmi.getWeight()+" KG");
+        holder.tvHeight.setText("" + bmi.getHeight());
 
         DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
         try {

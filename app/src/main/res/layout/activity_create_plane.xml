@@ -22,12 +22,17 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="228dp"
-                    android:layout_height="27dp"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Create a plan    "
+                    android:textColor="@color/black_color"
+                    android:textSize="@dimen/dp_25"
+                    android:fontFamily="@font/bebase_font_family_regular"
+                    android:textStyle="italic"
                     android:layout_gravity="center"
-                    android:layout_marginTop="75dp"
-                    android:src="@drawable/create_plan" />
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/dp_75"/>
 
                 <LinearLayout
                     android:layout_width="312dp"
@@ -286,11 +291,11 @@
 
             <ImageView
                 android:id="@+id/ivStartJourney"
-                android:layout_width="312dp"
-                android:layout_height="@dimen/dp_40"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
                 android:layout_gravity="bottom"
-                android:layout_marginLeft="28dp"
                 android:layout_marginTop="@dimen/dp_45"
+                android:layout_marginLeft="28dp"
                 android:layout_marginRight="28dp"
                 android:layout_marginBottom="45dp"
                 android:background="@drawable/startjounary" />

@@ -23,6 +23,7 @@ import com.app.furoapp.activity.newFeature.waterIntakeCalculator.adapter.AllPlan
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.adapter.WaterInMlAdapter;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchAllPlan.AllPlan;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchAllPlan.FetchAllPlanResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchAllPlan.GlassSize;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.PlaneCreateRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.PlaneCreateResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.WaterGlassSizeModel;
@@ -61,6 +62,8 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
     public String onGoingPlanId;
     public RadioGroup rdbt_group;
     public RadioButton rdBtnRecommendedPlan;
+    private int waterTakenInMl;
+    private boolean isPalnSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +112,8 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
                 if (response.code() == 200) {
                     if (response.body() != null && response.body().getStatus() != null) {
                         if (response.body().getAllPlans() != null && response.body().getAllPlans().size() > 0) {
+                            // getGlass size
+                            getGlassSize(response.body().getGlassSize());
                             //recommended plan
                             setRecommendedData(response.body().getAllPlans());
                             //for all plan
@@ -133,12 +138,16 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
         });
     }
 
+    private void getGlassSize(GlassSize glassSize) {
+        glassSizeInMl = Integer.parseInt(glassSize.getGlassSizeInMl());
+    }
+
     private void setRecommendedData(List<AllPlan> allPlans) {
         if (allPlans != null && allPlans.size() > 0) {
             if (allPlans.get(0).getIsRecomended() == 1) {
                 tvEveryTime.setText("Every " + allPlans.get(0).getRecommendedDurationInMins() + " minutes");
-                glassSizeInMl = Integer.parseInt(String.valueOf(allPlans.get(0).getWaterTakeInMl()));
-                tvShowsMl.setText("" + glassSizeInMl + " ml");
+                waterTakenInMl = Integer.parseInt(String.valueOf(allPlans.get(0).getWaterTakeInMl()));
+                tvShowsMl.setText("" + waterTakenInMl + " ml");
             }
         }
 
@@ -207,26 +216,27 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
         ivStartJourney.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (planId != null) {
-                    Intent intent = new Intent(getApplicationContext(), WaterIntakeCounterActivity.class);
-                    intent.putExtra("planId", planId);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    Toast.makeText(CreatePlaneActivity.this, "Please provided plan id !", Toast.LENGTH_SHORT).show();
-                }
+
+                Intent intent = new Intent(getApplicationContext(), WaterIntakeCounterActivity.class);
+                intent.putExtra("planId", planId);
+                startActivity(intent);
+
             }
         });
-
+        /*            holder.ivCircle.setBackgroundResource(R.drawable.bluecircle);
+         */
         ivRecommendedPlan.setOnClickListener(v -> {
             ivRecommendedPlan.setVisibility(View.GONE);
             ivSelRecommendedPlan.setVisibility(View.VISIBLE);
+//            if (isPalnSelected){
+//                ivRecommendedPlan.setBackgroundResource(R.drawable.bluecircle);
+//            }
+
         });
         ivSelRecommendedPlan.setOnClickListener(v -> {
             ivRecommendedPlan.setVisibility(View.VISIBLE);
             ivSelRecommendedPlan.setVisibility(View.GONE);
         });
-
 
 
         /*rdbt_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -313,8 +323,8 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
     }
 
     @Override
-    public void getPlanClickCallBack(Integer id, String waterTakeInMl, String
-            recommendedDurationInMins) {
+    public void getPlanClickCallBack(Integer id, String waterTakeInMl, String recommendedDurationInMins) {
+        isPalnSelected = true;
         planId = String.valueOf(id);
         Log.d("planId", planId);
         waterTakeMl = waterTakeInMl;

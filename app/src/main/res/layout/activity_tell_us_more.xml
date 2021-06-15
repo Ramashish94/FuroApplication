@@ -457,12 +457,12 @@
             <ImageView
                 android:id="@+id/ivContinue"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_35"
+                android:layout_height="@dimen/dp_40"
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="@dimen/dp_40"
                 android:layout_marginTop="@dimen/dp_120"
                 android:layout_marginRight="@dimen/dp_40"
-                android:layout_marginBottom="@dimen/dp_45"
+                android:layout_marginBottom="45dp"
                 android:background="@drawable/continue1" />
         </LinearLayout>
 

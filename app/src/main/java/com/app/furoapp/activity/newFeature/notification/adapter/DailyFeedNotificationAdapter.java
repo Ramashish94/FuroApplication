@@ -1,4 +1,4 @@
-package com.app.furoapp.activity.newFeature.notification.notificationModel;
+package com.app.furoapp.activity.newFeature.notification.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,16 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.notification.challangeNotification.ChallengeNotification;
-import com.app.furoapp.activity.newFeature.notification.dailyNotification.DailyFeedNotification;
+import com.app.furoapp.activity.newFeature.notification.allNotificationModal.DailyFeedNotification;
+import com.app.furoapp.activity.newFeature.notification.allNotificationModal.Datum;
 
 import java.util.List;
 
 public class DailyFeedNotificationAdapter extends RecyclerView.Adapter<DailyFeedNotificationAdapter.MyViewHolder> {
     Context context;
-    List<DailyFeedNotification> dailyFeedNotificationList;
+    List<Datum> dailyFeedNotificationList;
 
-    public DailyFeedNotificationAdapter(Context applicationContext, List<DailyFeedNotification> dailyFeedNotificationList) {
+    public DailyFeedNotificationAdapter(Context applicationContext, List<Datum> dailyFeedNotificationList) {
         this.context = applicationContext;
         this.dailyFeedNotificationList = dailyFeedNotificationList;
     }
@@ -36,7 +36,7 @@ public class DailyFeedNotificationAdapter extends RecyclerView.Adapter<DailyFeed
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        DailyFeedNotification dailyFeedNotification = dailyFeedNotificationList.get(position);
+        Datum dailyFeedNotification = dailyFeedNotificationList.get(position);
         holder.tvNtifictionTxt.setText("" + dailyFeedNotification.getNotificationType());
         holder.tvTimeReadingTxt.setText("" + dailyFeedNotification.getContentTitle());
     }

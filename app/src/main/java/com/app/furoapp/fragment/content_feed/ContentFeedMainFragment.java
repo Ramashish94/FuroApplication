@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,11 +26,15 @@ import com.app.furoapp.R;
 import com.app.furoapp.activity.AboutContestChallengeActivity;
 import com.app.furoapp.activity.WelcomeActivityContentFeed;
 import com.app.furoapp.activity.newFeature.notification.NotificationSectionActivity;
+import com.app.furoapp.activity.newFeature.notification.allNotificationModal.DailyFeedNotification;
+import com.app.furoapp.activity.newFeature.notification.allNotificationModal.NotificationResponse;
 import com.app.furoapp.adapter.BannerImageeAdapter;
 import com.app.furoapp.databinding.FragmentContentFeedMainBinding;
 import com.app.furoapp.model.Bannersecond.Banner;
 import com.app.furoapp.model.Bannersecond.BannerSecondResponse;
 import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
+import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.GifImageView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -51,57 +56,31 @@ public class ContentFeedMainFragment extends Fragment {
     ImageView imageViewcontentquestionmark, contestChallenge;
     public LinearLayout llNotificationSection;
     BottomNavigationView navigationFeed;
+    public String getAccessToken;
+    TextView tvCountNotification;
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
-
     }
 
+    public ContentFeedMainFragment() {
+
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_content_feed_main, container, false);
         View view = binding.getRoot();
-        setOnClickListeners();
         recyclerView = binding.bannerSecond;
         imageView = binding.imagebanner;
-
-
         navigationFeed = binding.navigationfeed;
 
-
         imageViewcontentquestionmark = view.findViewById(R.id.contentfeed);
-
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AboutContestChallengeActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        imageViewcontentquestionmark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), WelcomeActivityContentFeed.class);
-                startActivity(intent);
-            }
-        });
-
         llNotificationSection = view.findViewById(R.id.llNotificationSection);
-        llNotificationSection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), NotificationSectionActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
+        tvCountNotification = view.findViewById(R.id.tvCountNotification);
         navigationFeed.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         Fragment contentFeedHomeFragment = ContentFeedHomeFragment.newInstance(ContentFeedHomeFragment.class.getSimpleName());
         replaceFragmentWithStack(R.id.container_feed, contentFeedHomeFragment, ContentFeedHomeFragment.class.getSimpleName());
@@ -110,8 +89,12 @@ public class ContentFeedMainFragment extends Fragment {
         return view;
     }
 
-    public ContentFeedMainFragment() {
-
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getAccessToken = FuroPrefs.getString(getActivity(), Constants.Get_ACCESS_TOKEN);
+        setOnClickListeners();
+        callNotificationApi();
     }
 
     public static ContentFeedMainFragment newInstance(String name) {
@@ -122,9 +105,6 @@ public class ContentFeedMainFragment extends Fragment {
         return fragment;
     }
 
-    private void setOnClickListeners() {
-
-    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -219,9 +199,58 @@ public class ContentFeedMainFragment extends Fragment {
                 Toast.makeText(getActivity(), "Something Went Wrong !!", Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
+
+    private void setOnClickListeners() {
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AboutContestChallengeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        imageViewcontentquestionmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), WelcomeActivityContentFeed.class);
+                startActivity(intent);
+            }
+        });
+
+        llNotificationSection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), NotificationSectionActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void callNotificationApi() {
+        RestClient.getNotificationData(getAccessToken, new Callback<NotificationResponse>() {
+            @Override
+            public void onResponse(Call<NotificationResponse> call, Response<NotificationResponse> response) {
+                if (response.code() == 200) {
+                    if (response.body() != null) {
+                        setNotificationCount(response.body().getDailyFeedNotification());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationResponse> call, Throwable t) {
+                Toast.makeText(getActivity(), "Some thing went wrong", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+    private void setNotificationCount(DailyFeedNotification dailyFeedNotification) {
+        tvCountNotification.setText("" + dailyFeedNotification.getTo());
+    }
+
+
 }
 
 

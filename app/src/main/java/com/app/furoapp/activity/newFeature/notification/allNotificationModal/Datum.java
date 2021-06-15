@@ -1,10 +1,10 @@
 
-package com.app.furoapp.activity.newFeature.notification.dailyNotification;
+package com.app.furoapp.activity.newFeature.notification.allNotificationModal;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class DailyFeedNotification {
+public class Datum {
 
     @SerializedName("id")
     @Expose
@@ -14,34 +14,34 @@ public class DailyFeedNotification {
     private String notificationType;
     @SerializedName("category")
     @Expose
-    private String category;
+    private Object category;
     @SerializedName("msg_type")
     @Expose
-    private String msgType;
+    private Object msgType;
     @SerializedName("who_gets_notified")
     @Expose
-    private String whoGetsNotified;
+    private Object whoGetsNotified;
     @SerializedName("how_notified")
     @Expose
-    private String howNotified;
+    private Object howNotified;
     @SerializedName("content_type")
     @Expose
-    private Object contentType;
+    private String contentType;
     @SerializedName("content_repeat_auto")
     @Expose
     private Object contentRepeatAuto;
     @SerializedName("content_title")
     @Expose
-    private Object contentTitle;
+    private String contentTitle;
     @SerializedName("content_description")
     @Expose
     private Object contentDescription;
     @SerializedName("blog_id")
     @Expose
-    private Object blogId;
+    private Integer blogId;
     @SerializedName("deep_link")
     @Expose
-    private Object deepLink;
+    private String deepLink;
     @SerializedName("content_datetime")
     @Expose
     private String contentDatetime;
@@ -71,43 +71,43 @@ public class DailyFeedNotification {
         this.notificationType = notificationType;
     }
 
-    public String getCategory() {
+    public Object getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Object category) {
         this.category = category;
     }
 
-    public String getMsgType() {
+    public Object getMsgType() {
         return msgType;
     }
 
-    public void setMsgType(String msgType) {
+    public void setMsgType(Object msgType) {
         this.msgType = msgType;
     }
 
-    public String getWhoGetsNotified() {
+    public Object getWhoGetsNotified() {
         return whoGetsNotified;
     }
 
-    public void setWhoGetsNotified(String whoGetsNotified) {
+    public void setWhoGetsNotified(Object whoGetsNotified) {
         this.whoGetsNotified = whoGetsNotified;
     }
 
-    public String getHowNotified() {
+    public Object getHowNotified() {
         return howNotified;
     }
 
-    public void setHowNotified(String howNotified) {
+    public void setHowNotified(Object howNotified) {
         this.howNotified = howNotified;
     }
 
-    public Object getContentType() {
+    public String getContentType() {
         return contentType;
     }
 
-    public void setContentType(Object contentType) {
+    public void setContentType(String contentType) {
         this.contentType = contentType;
     }
 
@@ -119,11 +119,11 @@ public class DailyFeedNotification {
         this.contentRepeatAuto = contentRepeatAuto;
     }
 
-    public Object getContentTitle() {
+    public String getContentTitle() {
         return contentTitle;
     }
 
-    public void setContentTitle(Object contentTitle) {
+    public void setContentTitle(String contentTitle) {
         this.contentTitle = contentTitle;
     }
 
@@ -135,19 +135,19 @@ public class DailyFeedNotification {
         this.contentDescription = contentDescription;
     }
 
-    public Object getBlogId() {
+    public Integer getBlogId() {
         return blogId;
     }
 
-    public void setBlogId(Object blogId) {
+    public void setBlogId(Integer blogId) {
         this.blogId = blogId;
     }
 
-    public Object getDeepLink() {
+    public String getDeepLink() {
         return deepLink;
     }
 
-    public void setDeepLink(Object deepLink) {
+    public void setDeepLink(String deepLink) {
         this.deepLink = deepLink;
     }
 

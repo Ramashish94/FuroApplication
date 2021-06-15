@@ -223,14 +223,14 @@
         <ImageView
             android:id="@+id/ivContinue"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
+            android:layout_height="@dimen/dp_40"
             android:layout_gravity="bottom"
             android:src="@drawable/conti" />
 
         <ImageView
             android:id="@+id/ivSkip"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
+            android:layout_height="@dimen/dp_40"
             android:layout_gravity="bottom"
             android:layout_marginTop="@dimen/dp_10"
             android:src="@drawable/skipbn" />

@@ -35,7 +35,6 @@ public class StepsCountAdapter extends RecyclerView.Adapter<StepsCountAdapter.My
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_steps_count, parent, false);
-
         return new MyViewHolder(itemView);
     }
 
@@ -55,7 +54,7 @@ public class StepsCountAdapter extends RecyclerView.Adapter<StepsCountAdapter.My
             holder.tvNumber.setTextColor(Color.parseColor("#19CFE6"));
         } else {
 //           clicked=false;
-            holder.tvNumber.setTextColor(Color.parseColor("#FFFFFF"));
+            holder.tvNumber.setTextColor(Color.parseColor("#979797"));
         }
 
     }
@@ -79,6 +78,6 @@ public class StepsCountAdapter extends RecyclerView.Adapter<StepsCountAdapter.My
     }
 
     public interface StepsClickCallBack {
-       void stepSelectItem(int position, String age);
+        void stepSelectItem(int position, String age);
     }
 }

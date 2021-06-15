@@ -93,7 +93,7 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
             @Override
             public void onValueChange(final int selectedValue) {
                 userHeightInCm = String.valueOf(selectedValue);
-                tvHeightRulerValueInCms.setText(userHeightInCm + " cm ");
+                tvHeightRulerValueInCms.setText(userHeightInCm + " cms ");
                 centimeterToFeet(String.valueOf(userHeightInCm));
             }
 
@@ -101,6 +101,7 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
             public void onIntermediateValueChange(final int selectedValue) {
                 userHeightInCm = String.valueOf(selectedValue);
                 tvHeightRulerValueInCms.setText(userHeightInCm + " cms ");
+                centimeterToFeet(String.valueOf(userHeightInCm));
             }
         });
 
@@ -117,7 +118,7 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
             @Override
             public void onIntermediateValueChange(final int selectedValue) {
                 userWeightInKg = String.valueOf(selectedValue);
-                tvWeightRulerValueInKgs.setText(userWeightInKg + " kg ");
+                tvWeightRulerValueInKgs.setText(userWeightInKg + " kgs ");
             }
         });
     }

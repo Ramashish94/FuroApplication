@@ -1,30 +1,42 @@
 
-package com.app.furoapp.activity.newFeature.notification.challangeNotification;
+package com.app.furoapp.activity.newFeature.notification.allNotificationModal;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ChallengeNotification {
+public class Datum__2 {
 
     @SerializedName("id")
     @Expose
     private Integer id;
+    @SerializedName("category")
+    @Expose
+    private String category;
+    @SerializedName("sender_id")
+    @Expose
+    private String senderId;
+    @SerializedName("receiver_id")
+    @Expose
+    private String receiverId;
+    @SerializedName("msg_id")
+    @Expose
+    private String msgId;
     @SerializedName("title")
     @Expose
     private String title;
     @SerializedName("body")
     @Expose
     private String body;
-    @SerializedName("user_id")
-    @Expose
-    private Object userId;
     @SerializedName("challenge_id")
     @Expose
     private String challengeId;
-    @SerializedName("receiver_id")
+    @SerializedName("challenge_type")
     @Expose
-    private String receiverId;
+    private String challengeType;
+    @SerializedName("flag")
+    @Expose
+    private String flag;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
@@ -43,6 +55,38 @@ public class ChallengeNotification {
         this.id = id;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
+    }
+
+    public String getReceiverId() {
+        return receiverId;
+    }
+
+    public void setReceiverId(String receiverId) {
+        this.receiverId = receiverId;
+    }
+
+    public String getMsgId() {
+        return msgId;
+    }
+
+    public void setMsgId(String msgId) {
+        this.msgId = msgId;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -59,14 +103,6 @@ public class ChallengeNotification {
         this.body = body;
     }
 
-    public Object getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Object userId) {
-        this.userId = userId;
-    }
-
     public String getChallengeId() {
         return challengeId;
     }
@@ -75,12 +111,20 @@ public class ChallengeNotification {
         this.challengeId = challengeId;
     }
 
-    public String getReceiverId() {
-        return receiverId;
+    public String getChallengeType() {
+        return challengeType;
     }
 
-    public void setReceiverId(String receiverId) {
-        this.receiverId = receiverId;
+    public void setChallengeType(String challengeType) {
+        this.challengeType = challengeType;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 
     public String getCreatedAt() {

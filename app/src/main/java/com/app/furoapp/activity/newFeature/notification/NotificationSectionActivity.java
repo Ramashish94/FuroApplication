@@ -10,13 +10,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.StepsTracker.AddNewSlotPreferActivity;
-import com.app.furoapp.activity.newFeature.notification.challangeNotification.ChallengeNotification;
-import com.app.furoapp.activity.newFeature.notification.challangeNotification.ChallengeNotificationResp;
-import com.app.furoapp.activity.newFeature.notification.dailyNotification.DailyFeedNotification;
-import com.app.furoapp.activity.newFeature.notification.dailyNotification.DailyFeedNotificationResponse;
-import com.app.furoapp.activity.newFeature.notification.notificationModel.DailyFeedNotificationAdapter;
-import com.app.furoapp.model.challangeNotification.ChallangeNotificationResponse;
+import com.app.furoapp.activity.newFeature.notification.adapter.ChallangeNotificationAdapter;
+import com.app.furoapp.activity.newFeature.notification.adapter.CronNotificationAdapter;
+import com.app.furoapp.activity.newFeature.notification.adapter.DailyFeedNotificationAdapter;
+import com.app.furoapp.activity.newFeature.notification.allNotificationModal.ChallengeNotification;
+import com.app.furoapp.activity.newFeature.notification.allNotificationModal.DailyFeedNotification;
+import com.app.furoapp.activity.newFeature.notification.allNotificationModal.Datum;
+import com.app.furoapp.activity.newFeature.notification.allNotificationModal.Datum__1;
+import com.app.furoapp.activity.newFeature.notification.allNotificationModal.Datum__2;
+import com.app.furoapp.activity.newFeature.notification.allNotificationModal.NotificationResponse;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
@@ -31,11 +33,13 @@ import retrofit2.Response;
 
 public class NotificationSectionActivity extends AppCompatActivity {
 
-    public RecyclerView rvChallangeNotification, rvDailyReadNotification;
+    public RecyclerView rvChallangeNotification, rvDailyReadNotification, rvCronNotification;
     ChallangeNotificationAdapter challangeNotificationAdapter;
     DailyFeedNotificationAdapter dailyFeedNotificationAdapter;
-    List<ChallengeNotification> challengeNotificationList = new ArrayList<>();
-    List<DailyFeedNotification> dailyFeedNotificationList = new ArrayList<>();
+    CronNotificationAdapter cronNotificationAdapter;
+    List<Datum__1> challengeNotificationList = new ArrayList<>();
+    List<Datum__2> cronNotificationList = new ArrayList<>();
+    List<Datum> dailyFeedNotificationList = new ArrayList<>();
     TextView tvNosOfDailyNotification, tvNosOfChallengeNotification;
 
     private String getAccessToken;
@@ -49,44 +53,54 @@ public class NotificationSectionActivity extends AppCompatActivity {
         getAccessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
         rvChallangeNotification = findViewById(R.id.rvChallangeNotification);
         rvDailyReadNotification = findViewById(R.id.rvDailyReadNotification);
+        rvCronNotification = findViewById(R.id.rvCronNotification);
+
         tvNosOfChallengeNotification = findViewById(R.id.tvNosOfChallengeNotification);
         tvNosOfDailyNotification = findViewById(R.id.tvNosOfDailyNotification);
 
         setChallangeNotificationRecyAdapter();
         setDailyReadNotificationAdapter();
-        getChallengeNotificationApi();
-        callDailyFeedNotificationApi();
+        setCronNotificationAdapter();
+
+        callNotificationApi();
+
     }
 
-    private void getChallengeNotificationApi() {
+    private void callNotificationApi() {
         if (Util.isInternetConnected(getApplicationContext())) {
             Util.showProgressDialog(getApplicationContext());
-            RestClient.getChallangeNotificationData(getAccessToken, new Callback<ChallengeNotificationResp>() {
+            RestClient.getNotificationData(getAccessToken, new Callback<NotificationResponse>() {
                 @Override
-                public void onResponse(Call<ChallengeNotificationResp> call, Response<ChallengeNotificationResp> response) {
+                public void onResponse(Call<NotificationResponse> call, Response<NotificationResponse> response) {
                     Util.dismissProgressDialog();
                     if (response.code() == 200) {
-                        if (response.body() != null && response.body().getStatus() != null) {
-                            challangeNotificationAdapter(response.body().getChallengeNotification());
+                        if (response.body() != null) {
+                            //challenge notification;
+                            notifyChallengeAdapter(response.body().getChallengeNotification().getData());
+                            // setChalleneNotificationData(response.body().getChallengeNotification());
+                            // daily notification;
+                            notifyDailyAdapter(response.body().getDailyFeedNotification().getData());
+                            // cron notification
+                            notifyCronAdapter(response.body().getCronNotification().getData());
+
                         }
 
                     } else if (response.code() == 500) {
                         Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
                     } else if (response.code() == 403) {
                         Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
-                    } else if (response.code() == 404) {
-                        Toast.makeText(getApplicationContext(), +response.code(), Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
-                public void onFailure(Call<ChallengeNotificationResp> call, Throwable t) {
+                public void onFailure(Call<NotificationResponse> call, Throwable t) {
 
                 }
             });
 
         }
     }
+
 
     private void setChallangeNotificationRecyAdapter() {
         challangeNotificationAdapter = new ChallangeNotificationAdapter(getApplicationContext(), challengeNotificationList);
@@ -96,36 +110,12 @@ public class NotificationSectionActivity extends AppCompatActivity {
         rvChallangeNotification.setAdapter(challangeNotificationAdapter);
     }
 
-    private void challangeNotificationAdapter(List<ChallengeNotification> challengeNotification) {
+    private void notifyChallengeAdapter(List<Datum__1> data) {
         challengeNotificationList.clear();
-        challengeNotificationList.addAll(challengeNotification);
+        challengeNotificationList.addAll(data);
         if (challengeNotificationList != null && challengeNotificationList.size() > 0) {
             challangeNotificationAdapter.notifyDataSetChanged();
         }
-    }
-
-    private void callDailyFeedNotificationApi() {
-        Util.showProgressDialog(getApplicationContext());
-        RestClient.getDailyNotificationData(getAccessToken, new Callback<DailyFeedNotificationResponse>() {
-            @Override
-            public void onResponse(Call<DailyFeedNotificationResponse> call, Response<DailyFeedNotificationResponse> response) {
-                Util.dismissProgressDialog();
-                if (response.code() == 200) {
-                    if (response.body() != null && response.body().getStatus() != null) {
-                        notifyDailyNotificationAdapter(response.body().getDailyFeedNotification());
-                    }
-                } else if (response.code() == 500) {
-                    Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
-                } else if (response.code() == 403) {
-                    Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<DailyFeedNotificationResponse> call, Throwable t) {
-
-            }
-        });
     }
 
     private void setDailyReadNotificationAdapter() {
@@ -136,13 +126,28 @@ public class NotificationSectionActivity extends AppCompatActivity {
         rvDailyReadNotification.setAdapter(dailyFeedNotificationAdapter);
     }
 
-    private void notifyDailyNotificationAdapter(List<DailyFeedNotification> dailyFeedNotification) {
+    private void notifyDailyAdapter(List<Datum> data) {
         dailyFeedNotificationList.clear();
-        dailyFeedNotificationList.addAll(dailyFeedNotification);
+        dailyFeedNotificationList.addAll(data);
         if (dailyFeedNotificationList != null && dailyFeedNotificationList.size() > 0) {
-            challangeNotificationAdapter.notifyDataSetChanged();
+            dailyFeedNotificationAdapter.notifyDataSetChanged();
         }
     }
 
+    private void setCronNotificationAdapter() {
+        cronNotificationAdapter = new CronNotificationAdapter(getApplicationContext(), cronNotificationList);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        rvCronNotification.setLayoutManager(layoutManager);
+        rvCronNotification.setItemAnimator(new DefaultItemAnimator());
+        rvCronNotification.setAdapter(cronNotificationAdapter);
+    }
+
+    private void notifyCronAdapter(List<Datum__2> data) {
+        cronNotificationList.clear();
+        cronNotificationList.addAll(data);
+        if (cronNotificationList != null && cronNotificationList.size() > 0) {
+            cronNotificationAdapter.notifyDataSetChanged();
+        }
+    }
 
 }

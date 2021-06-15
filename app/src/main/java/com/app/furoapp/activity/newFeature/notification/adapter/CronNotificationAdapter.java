@@ -1,4 +1,4 @@
-package com.app.furoapp.activity.newFeature.notification;
+package com.app.furoapp.activity.newFeature.notification.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,17 +11,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.notification.challangeNotification.ChallengeNotification;
+import com.app.furoapp.activity.newFeature.notification.allNotificationModal.Datum__1;
+import com.app.furoapp.activity.newFeature.notification.allNotificationModal.Datum__2;
 
 import java.util.List;
 
-public class ChallangeNotificationAdapter extends RecyclerView.Adapter<ChallangeNotificationAdapter.MyViewHolder> {
+public class CronNotificationAdapter extends RecyclerView.Adapter<CronNotificationAdapter.MyViewHolder> {
     Context context;
-    List<ChallengeNotification> challengeNotificationList;
+    List<Datum__2> cronNotificationList;
 
-    public ChallangeNotificationAdapter(Context applicationContext, List<ChallengeNotification> challengeNotificationList) {
+    public CronNotificationAdapter(Context applicationContext, List<Datum__2> cronNotificationList) {
         this.context = applicationContext;
-        this.challengeNotificationList = challengeNotificationList;
+        this.cronNotificationList = cronNotificationList;
     }
 
     @NonNull
@@ -35,15 +36,15 @@ public class ChallangeNotificationAdapter extends RecyclerView.Adapter<Challange
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        ChallengeNotification challengeNotification = challengeNotificationList.get(position);
+        Datum__2 challengeNotification = cronNotificationList.get(position);
         holder.tvNtifictionTxt.setText("" + challengeNotification.getTitle());
         holder.tvTimeReadingTxt.setText("" + challengeNotification.getBody());
     }
 
     @Override
     public int getItemCount() {
-        if (challengeNotificationList != null && challengeNotificationList.size() > 0) {
-            return challengeNotificationList.size();
+        if (cronNotificationList != null && cronNotificationList.size() > 0) {
+            return cronNotificationList.size();
         } else {
             return 0;
         }

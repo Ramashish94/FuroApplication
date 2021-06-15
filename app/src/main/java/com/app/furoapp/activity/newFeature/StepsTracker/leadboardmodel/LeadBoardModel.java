@@ -1,4 +1,4 @@
-package com.app.furoapp.activity.newFeature.StepsTracker;
+package com.app.furoapp.activity.newFeature.StepsTracker.leadboardmodel;
 
 import android.widget.ImageView;
 

@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llFqStepCounter"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fq_steps"
     android:orientation="vertical"
-    android:id="@+id/llFqStepCounter"
     tools:context=".activity.newFeature.StepsTracker.FqStepsCounterActivity">
 
     <FrameLayout
@@ -35,24 +35,25 @@
 
                     <ImageView
                         android:id="@+id/ivBackIcon"
-                        android:layout_width="@dimen/dp_40"
-                        android:layout_height="@dimen/dp_40"
-                        android:layout_weight="30"
+                        android:layout_width="@dimen/dp_60"
+                        android:layout_height="@dimen/dp_30"
+                        android:layout_weight="33"
                         android:src="@drawable/back_black_arrow" />
 
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="27dp"
-                        android:layout_weight="40"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:layout_weight="33"
                         android:src="@drawable/fqstepscounter" />
 
 
                     <ImageView
                         android:id="@+id/ivSetting"
-                        android:layout_width="@dimen/dp_40"
+                        android:layout_width="@dimen/dp_60"
                         android:layout_height="@dimen/dp_40"
-                        android:layout_weight="30"
+                        android:layout_weight="33"
                         android:src="@drawable/ic_settings_black_24dp" />
 
                 </LinearLayout>
@@ -103,10 +104,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/din_alter_nate_bold"
-                        tools:text="Of 38000 Steps"
                         android:textColor="#2F2F2F"
                         android:textSize="@dimen/sp_12"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:text="Of 38000 Steps" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -144,10 +145,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dp_7"
-                            tools:text="49 Minutes"
                             android:textColor="@color/black_color"
                             android:textSize="23sp"
-                            android:textStyle="normal" />
+                            android:textStyle="normal"
+                            tools:text="49 Minutes" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -166,10 +167,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dp_7"
-                            tools:text="128555"
                             android:textColor="@color/black_color"
                             android:textSize="23sp"
-                            android:textStyle="normal" />
+                            android:textStyle="normal"
+                            tools:text="128555" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -191,10 +192,10 @@
                         android:layout_width="@dimen/dp_120"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_7"
-                        tools:text="315 Cal"
                         android:textColor="@color/black_color"
                         android:textSize="23sp"
-                        android:textStyle="normal" />
+                        android:textStyle="normal"
+                        tools:text="315 Cal" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -207,14 +208,14 @@
                         android:id="@+id/tvActivateStepsCounter"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_40"
+                        android:layout_marginTop="?actionBarSize"
                         android:background="@drawable/btn_next_shape"
                         android:fontFamily="@font/bebas_neue_bold"
-                        android:layout_marginTop="?actionBarSize"
                         android:gravity="center"
                         android:text="Activate step counter"
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp_14"
-                        android:textStyle="italic" />
+                        android:textStyle="italic"/>
 
                     <TextView
                         android:id="@+id/tvDiActivate"
@@ -229,12 +230,50 @@
                         android:textStyle="italic"
                         android:visibility="gone" />
 
+                    <LinearLayout
+                        android:id="@+id/llMarkLapAndStop"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_45"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/tvMarkLap"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_40"
+                            android:layout_marginRight="@dimen/dp_10"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_next_shape"
+                            android:fontFamily="@font/bebas_neue_bold"
+                            android:gravity="center"
+                            android:text="+  MarkLap"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp_14"
+                            android:textStyle="italic" />
+
+                        <TextView
+                            android:id="@+id/tvStop"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_40"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:layout_weight="1"
+                            android:background="@drawable/diactivate_bg"
+                            android:fontFamily="@font/bebas_neue_bold"
+                            android:gravity="center"
+                            android:text="stop"
+                            android:textColor="@color/vertical_line_color"
+                            android:textSize="@dimen/sp_14"
+                            android:textStyle="italic" />
+
+                    </LinearLayout>
+
+
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_45"
-                        android:src="@drawable/learn_prizm"
                         android:layout_marginTop="?actionBarSize"
-                        android:layout_marginBottom="?actionBarSize"/>
+                        android:layout_marginBottom="?actionBarSize"
+                        android:src="@drawable/learn_prizm" />
 
 
                 </LinearLayout>
@@ -259,9 +298,11 @@
                 android:src="@drawable/history" />
 
         </LinearLayout>
-        <include layout="@layout/congrats_popup_menu_og_step_tracker"
+
+        <include
             android:id="@+id/incudeCongratsStepsTrack"
-            android:visibility="gone"/>
+            layout="@layout/congrats_popup_menu_og_step_tracker"
+            android:visibility="gone" />
 
     </FrameLayout>
 </LinearLayout>

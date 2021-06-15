@@ -29,7 +29,6 @@
     <uses-feature
         android:name="android.hardware.sensor.gyroscope"
         android:required="true" />
-
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
@@ -43,7 +42,10 @@
         android:roundIcon="@mipmap/app_icon_new_round"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.newFeature.StepsTracker.FqStepsCounterInKotlinActivity"></activity>
+        <activity
+            android:name=".activity.newFeature.StepsTracker.StepCounterSettingsActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <activity android:name=".activity.newFeature.StepsTracker.FqStepsCounterInKotlinActivity" />
         <activity
             android:name=".activity.newFeature.StepsTracker.LeadBoardActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />

@@ -12,8 +12,7 @@ import android.widget.ImageView;
 
 import com.app.furoapp.R;
 import com.app.furoapp.activity.newFeature.StepsTracker.adapter.LeadBoardAdapter;
-import com.app.furoapp.activity.newFeature.StepsTracker.adapter.StepsCountAdapter;
-import com.app.furoapp.activity.newFeature.bmiCalculator.AgeModelTest;
+import com.app.furoapp.activity.newFeature.StepsTracker.leadboardmodel.LeadBoardModel;
 
 import java.util.ArrayList;
 import java.util.List;

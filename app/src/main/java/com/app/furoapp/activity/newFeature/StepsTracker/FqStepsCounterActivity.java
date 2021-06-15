@@ -41,7 +41,7 @@ import retrofit2.Response;
 
 public class FqStepsCounterActivity extends AppCompatActivity {
     public ImageView ivBackIcon, ivSetting, ivLeadBord, ivModified, ivHistory;
-    public TextView tvCountsSteps, tvTotNumberOfSteps, tvTimes, tvCalories, tvDistance, tvActivateStepsCounter, tvDiActivate;
+    public TextView tvCountsSteps, tvTotNumberOfSteps, tvTimes, tvCalories, tvDistance, tvActivateStepsCounter, tvDiActivate, tvMarkLap, tvStop;
     public View includeCongratsStepsTrack;
     public double magnitudePrevious = 0;
     private Integer stepCount = 0;
@@ -64,7 +64,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     public GoogleSignInClient mGoogleSignInClient;
     public AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
-    LinearLayout llFqStepCounter;
+    LinearLayout llFqStepCounter, llMarkLapAndStop, llCongratsClosedIcon;
     public String selectNumberAchievedVal;
 
     @Override
@@ -108,6 +108,10 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         tvDiActivate = findViewById(R.id.tvDiActivate);
         includeCongratsStepsTrack = findViewById(R.id.incudeCongratsStepsTrack);
         llFqStepCounter = findViewById(R.id.llFqStepCounter);
+        tvStop = findViewById(R.id.tvStop);
+        tvMarkLap = findViewById(R.id.tvMarkLap);
+        llMarkLapAndStop = findViewById(R.id.llMarkLapAndStop);
+        llCongratsClosedIcon = findViewById(R.id.llCongratsClosedIcon);
     }
 
     private void clickEvent() {
@@ -116,7 +120,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         });
 
         ivSetting.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), HistoryDetailsActivity.class);
+            Intent intent = new Intent(getApplicationContext(), StepCounterSettingsActivity.class);
             startActivity(intent);
             finish();
         });
@@ -135,15 +139,51 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         });
 
         tvDiActivate.setOnClickListener(v -> {
-            tvDiActivate.setVisibility(View.VISIBLE);
             tvActivateStepsCounter.setVisibility(View.GONE);
+            llMarkLapAndStop.setVisibility(View.VISIBLE);
+            tvDiActivate.setVisibility(View.GONE);
+
             customHandler.removeCallbacks(updateTimerThread);
+            if ((sensorManager) != null) {
+                sensorManager.unregisterListener(stepDetector, sensorAcceleroMeter);
+            }
             callUserStepGoalApi();
         });
 
         ivHistory.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), HistoryDetailsActivity.class);
             startActivity(intent);
+            finish();
+        });
+        tvMarkLap.setOnClickListener(v -> {
+            if (stepCount != null) {
+                stepCount = 0;
+                distanceInMeter = 0;
+                getCalculateCalories = 0;
+                stepCounter();// step counter functionality implimentation
+            }
+            startTime = SystemClock.uptimeMillis();
+            customHandler.postDelayed(updateTimerThread, 0);
+        });
+
+        tvStop.setOnClickListener(v -> {
+            if ((sensorManager) != null) {
+                stepCount = 0;
+                distanceInMeter = 0;
+                getCalculateCalories = 0;
+                sensorManager.unregisterListener(stepDetector, sensorAcceleroMeter);
+            }
+            SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.clear();
+            customHandler.removeCallbacks(updateTimerThread);
+            stepCount = 0;
+            finish();
+        });
+
+        llCongratsClosedIcon.setOnClickListener(v -> {
+            includeCongratsStepsTrack.setVisibility(View.GONE);
+
             finish();
         });
     }
@@ -155,17 +195,6 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         } else {
             tvTotNumberOfSteps.setText("Of " + selectNumberAchievedVal + " Steps");
         }
-
-      /*   if (stepsAchivedVal.equalsIgnoreCase(String.valueOf(stepCount))) {
-            includeCongratsStepsTrack.setVisibility(View.VISIBLE);
-            llFqStepCounter.setClickable(false);
-            finish();
-        }else if (selectNumberAchievedVal.equals(String.valueOf(stepCount))) {
-            includeCongratsStepsTrack.setVisibility(View.VISIBLE);
-            llFqStepCounter.setClickable(false);
-            finish();
-        }*/
-
     }
 
 
@@ -256,6 +285,10 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         if ((sensorManager) != null) {
+            SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.clear();
+            stepCount = 0;
             sensorManager.unregisterListener(stepDetector, sensorAcceleroMeter);
         }
     }
@@ -263,6 +296,13 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        if ((sensorManager) != null) {
+            sensorManager.unregisterListener(stepDetector, sensorAcceleroMeter);
+            SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.clear();
+            stepCount = 0;
+        }
         tvCountsSteps.setText("");
         finish();
     }
@@ -313,9 +353,18 @@ public class FqStepsCounterActivity extends AppCompatActivity {
                 public void onResponse(Call<UserStepsGoalResponse> call, Response<UserStepsGoalResponse> response) {
                     Util.dismissProgressDialog();
                     if (response.code() == 200) {
-                        Toast.makeText(FqStepsCounterActivity.this, "Steps goal created successfully !", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), HistoryDetailsActivity.class);
-                        startActivity(intent);
+
+                        if (stepsAchivedVal.equalsIgnoreCase(String.valueOf(stepCount))) {
+                            includeCongratsStepsTrack.setVisibility(View.VISIBLE);
+                            llFqStepCounter.setClickable(false);
+                        } else if (selectNumberAchievedVal.equalsIgnoreCase(String.valueOf(stepCount))) {
+                            includeCongratsStepsTrack.setVisibility(View.VISIBLE);
+                            llFqStepCounter.setClickable(false);
+                        } else {
+                           /* Toast.makeText(FqStepsCounterActivity.this, "Steps goal created successfully !", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), HistoryDetailsActivity.class);
+                            startActivity(intent);*/
+                        }
                     } else {
                         if (response.code() == 500) {
                             Toast.makeText(FqStepsCounterActivity.this, "Internal server error !", Toast.LENGTH_SHORT).show();

@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.StepsTracker.LeadBoardModel;
+import com.app.furoapp.activity.newFeature.StepsTracker.leadboardmodel.LeadBoardModel;
 
 import java.util.List;
 

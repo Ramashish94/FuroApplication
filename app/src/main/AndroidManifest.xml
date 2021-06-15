@@ -132,7 +132,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.newFeature.healthCare.HealthCenterDashboardActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".activity.newFeature.likeAndSaved.LikedAndSavedActivity"
             android:screenOrientation="portrait"

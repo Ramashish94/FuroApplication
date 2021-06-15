@@ -65,6 +65,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     public AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     LinearLayout llFqStepCounter;
+    public String selectNumberAchievedVal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +77,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         clickEvent();
 
         stepsAchivedVal = getIntent().getStringExtra("getAchievedVal");
-        stepsAchivedVal = getIntent().getStringExtra("selectNumber");
+        selectNumberAchievedVal = getIntent().getStringExtra("selectNumber");
         getAccessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -151,9 +152,15 @@ public class FqStepsCounterActivity extends AppCompatActivity {
 
         if (stepsAchivedVal != null) {
             tvTotNumberOfSteps.setText("Of " + stepsAchivedVal + " Steps");
+        } else {
+            tvTotNumberOfSteps.setText("Of " + selectNumberAchievedVal + " Steps");
         }
 
-       /* if (stepsAchivedVal.equalsIgnoreCase(String.valueOf(stepCount))) {
+      /*   if (stepsAchivedVal.equalsIgnoreCase(String.valueOf(stepCount))) {
+            includeCongratsStepsTrack.setVisibility(View.VISIBLE);
+            llFqStepCounter.setClickable(false);
+            finish();
+        }else if (selectNumberAchievedVal.equals(String.valueOf(stepCount))) {
             includeCongratsStepsTrack.setVisibility(View.VISIBLE);
             llFqStepCounter.setClickable(false);
             finish();
@@ -179,7 +186,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
                     double magnitudeDelta = magnitude - magnitudePrevious;
                     // Log.d("magnitudeDelta", String.valueOf(magnitudeDelta));
                     magnitudePrevious = magnitude;
-                    if (magnitudeDelta > 6) {
+                    if (magnitudeDelta > 5) {
                         stepCount++;
                         Log.d("stepCount", String.valueOf(+stepCount));
                     }
@@ -293,7 +300,12 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         userStepsGoalRequest.setTime(String.valueOf(distanceInMeter));
         userStepsGoalRequest.setCalories(String.valueOf(getCalculateCalories));
         userStepsGoalRequest.setCount_steps(String.valueOf(stepCount));
-        userStepsGoalRequest.setTotal_steps(stepsAchivedVal);
+        if (stepsAchivedVal != null) {
+            userStepsGoalRequest.setTotal_steps(stepsAchivedVal);
+        } else {
+            userStepsGoalRequest.setTotal_steps(selectNumberAchievedVal);
+        }
+
         if (Util.isInternetConnected(getApplicationContext())) {
             Utils.showProgressDialogBar(getApplicationContext());
             RestClient.getUserStepsGoal(getAccessToken, userStepsGoalRequest, new Callback<UserStepsGoalResponse>() {

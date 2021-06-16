@@ -142,33 +142,34 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
     private void callDailyWaterIntakeUpdatePlanApi() {
 
         WaterIntakeUpdatePlanRequest waterIntakeUpdatePlanRequest = new WaterIntakeUpdatePlanRequest();
-        waterIntakeUpdatePlanRequest.setPlan_id(planId);
-        Util.showProgressDialog(getApplicationContext());
-        RestClient.getWaterIntakeUpdatePlan(getAccessToken, waterIntakeUpdatePlanRequest, new Callback<WaterIntakeUpdatePlanResponse>() {
-            @Override
-            public void onResponse(Call<WaterIntakeUpdatePlanResponse> call, Response<WaterIntakeUpdatePlanResponse> response) {
-                Util.dismissProgressDialog();
-                if (response.code() == 200) {
-                    if (response.body() != null && response.body().getStatus() != null) {
-                        // set today progress data
-                        setGlassSize(response.body());
+        if (planId!=null) {
+            waterIntakeUpdatePlanRequest.setPlan_id(planId);
+            Util.showProgressDialog(getApplicationContext());
+            RestClient.getWaterIntakeUpdatePlan(getAccessToken, waterIntakeUpdatePlanRequest, new Callback<WaterIntakeUpdatePlanResponse>() {
+                @Override
+                public void onResponse(Call<WaterIntakeUpdatePlanResponse> call, Response<WaterIntakeUpdatePlanResponse> response) {
+                    Util.dismissProgressDialog();
+                    if (response.code() == 200) {
+                        if (response.body() != null && response.body().getStatus() != null) {
+                            // set today progress data
+                            setGlassSize(response.body());
 
-                        setTodayProgressData(response.body().getSelectedPlan());
+                            setTodayProgressData(response.body().getSelectedPlan());
 
+                        }
+                    } else if (response.code() == 500) {
+                        Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
+                    } else if (response.code() == 403) {
+                        Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
                     }
-                } else if (response.code() == 500) {
-                    Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
-                } else if (response.code() == 403) {
-                    Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
                 }
-            }
 
-            @Override
-            public void onFailure(Call<WaterIntakeUpdatePlanResponse> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Something  went wrong !", Toast.LENGTH_SHORT).show();
-            }
-        });
-
+                @Override
+                public void onFailure(Call<WaterIntakeUpdatePlanResponse> call, Throwable t) {
+                    Toast.makeText(getApplicationContext(), "Something  went wrong !", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     private void setGlassSize(WaterIntakeUpdatePlanResponse body) {

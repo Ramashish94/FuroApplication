@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.furoapp.R;
+import com.app.furoapp.activity.newFeature.StepsTracker.padometer.Activity_Main;
 
 public class WantToAcivedActivity extends AppCompatActivity {
     public ImageView ivContinue, ivSkip, ivAddNewSlot;
@@ -100,7 +101,7 @@ public class WantToAcivedActivity extends AppCompatActivity {
 
         ivContinue.setOnClickListener(v -> {
             if (isAchievedSelected) {
-                intent = new Intent(getApplicationContext(), FqStepsCounterActivity.class);
+                intent = new Intent(getApplicationContext(), Activity_Main.class);
                 intent.putExtra("getAchievedVal", getAchievedVal);
                 startActivity(intent);
             } else {

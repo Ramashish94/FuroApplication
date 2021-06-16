@@ -2,6 +2,7 @@ package com.app.furoapp.activity.newFeature.StepsTracker;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -44,7 +45,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     public TextView tvCountsSteps, tvTotNumberOfSteps, tvTimes, tvCalories, tvDistance, tvActivateStepsCounter, tvDiActivate, tvMarkLap, tvStop;
     public View includeCongratsStepsTrack;
     public double magnitudePrevious = 0;
-    private Integer stepCount = 0;
+    private Integer stepCount = -1;
     public SensorManager sensorManager;
     public Sensor sensorAcceleroMeter;
     public static final String TAG = "FqStepsCounterActivity";
@@ -66,6 +67,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     private AlertDialog dialog;
     LinearLayout llFqStepCounter, llMarkLapAndStop, llCongratsClosedIcon;
     public String selectNumberAchievedVal;
+    private Integer getStepsCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -216,9 +218,9 @@ public class FqStepsCounterActivity extends AppCompatActivity {
                     double magnitudeDelta = magnitude - magnitudePrevious;
                     // Log.d("magnitudeDelta", String.valueOf(magnitudeDelta));
                     magnitudePrevious = magnitude;
-                    if (magnitudeDelta > 5) {
-                        stepCount++;
-                        Log.d("stepCount", String.valueOf(+stepCount));
+                    if (magnitudeDelta > 1.5) {
+                        getStepsCount = stepCount++;
+                        Log.d("stepCount", String.valueOf(+getStepsCount - 1));
                     }
                     tvCountsSteps.setText(stepCount + "");
                 }
@@ -233,6 +235,8 @@ public class FqStepsCounterActivity extends AppCompatActivity {
                 if (sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
                     stepCount++;
                 }*/
+
+
                 distanceInMeter = getDistanceRun(stepCount);
                 Log.d(TAG, "onSensorChanged() called with: distanceInMeter = [" + distanceInMeter + "]");
                 tvDistance.setText("" + distanceInMeter + " meter");
@@ -455,7 +459,6 @@ public class FqStepsCounterActivity extends AppCompatActivity {
                     }
                 });
     }
-
 
 
 }

@@ -218,12 +218,21 @@ public class FqStepsCounterActivity extends AppCompatActivity {
                     double magnitudeDelta = magnitude - magnitudePrevious;
                     // Log.d("magnitudeDelta", String.valueOf(magnitudeDelta));
                     magnitudePrevious = magnitude;
-                    if (magnitudeDelta > 1.5) {
-                        getStepsCount = stepCount++;
-                        Log.d("stepCount", String.valueOf(+getStepsCount - 1));
+                    if (magnitudeDelta >= 2) {
+                        stepCount = stepCount + 1;
+                        Log.d("stepCount", String.valueOf(""+stepCount));
                     }
                     tvCountsSteps.setText(stepCount + "");
                 }
+//                if (event.sensor.getType()==Sensor.TYPE_STEP_COUNTER) {
+//                    stepCount++;
+//                }
+//                //stepCount = (int) event.values[0];
+//
+//
+//                tvCountsSteps.setText(stepCount + "");
+
+
                /* Sensor sensor = event.sensor;
                 float[] values = event.values;
                 int value = -1;

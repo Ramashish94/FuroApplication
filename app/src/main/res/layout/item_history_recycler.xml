@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dp_10"
     android:orientation="vertical">
 
 
@@ -10,29 +11,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_35"
-        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_8"
         android:layout_marginRight="@dimen/dp_35"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tvCurrentDate"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_20"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:text="Today,   "
             android:textAllCaps="true"
             android:textColor="@color/vertical_line_color"
-            android:textStyle="normal" />
+            android:textStyle="normal"
+            android:textSize="@dimen/sp_16"/>
 
         <TextView
             android:id="@+id/tvDateWithDays"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_20"
-            android:layout_gravity="bottom"
+            android:layout_height="wrap_content"
             android:text="17 jun, sunday"
             android:textAllCaps="true"
             android:textColor="@color/vertical_line_color"
-            android:textStyle="normal" />
+            android:textStyle="normal"
+            android:textSize="@dimen/sp_16"/>
 
     </LinearLayout>
 
@@ -40,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_35"
-        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginTop="@dimen/dp_2"
         android:layout_marginRight="@dimen/dp_35"
         android:orientation="vertical">
 
@@ -48,6 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/dp_5"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -123,7 +126,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_35"
-        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_35"
         android:orientation="vertical">
 

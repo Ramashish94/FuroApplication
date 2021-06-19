@@ -26,7 +26,9 @@ import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.AllTimeData
 import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.Data;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.HistoryResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.MonthlyData;
+import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.MonthlyDataList;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.WeeklyData;
+import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.WeeklyDataList;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
@@ -81,7 +83,7 @@ public class HistoryDetailsActivity extends AppCompatActivity {
 
         initViews();
         clickEvent();
-        callApi();
+
 
         getAccessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
 
@@ -117,10 +119,7 @@ public class HistoryDetailsActivity extends AppCompatActivity {
             finish();
         });
 
-    }
 
-
-    private void callApi() {
         switchBtnWeekly.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -128,6 +127,7 @@ public class HistoryDetailsActivity extends AppCompatActivity {
                     type = "Weekly";
                     switchBtnAllType.setChecked(false);
                     switchBtnMontly.setChecked(false);
+                    //setWeeklyDataAdapter();
                     callHistoryApi("Weekly");/*str_act,*/
                 }
 
@@ -141,6 +141,7 @@ public class HistoryDetailsActivity extends AppCompatActivity {
                     type = "Monthly";
                     switchBtnWeekly.setChecked(false);
                     switchBtnAllType.setChecked(false);
+                    //  setMonthlyDataAdapter();
                     callHistoryApi("Monthly");/*str_act,*/
 
                 }
@@ -154,12 +155,57 @@ public class HistoryDetailsActivity extends AppCompatActivity {
                     type = "All Time";
                     switchBtnWeekly.setChecked(false);
                     switchBtnMontly.setChecked(false);
+                    // setAllTimeDataAdapter();
                     callHistoryApi("All Time");/*/*str_act,*/
 
                 }
             }
         });
         callHistoryApi();
+
+
+    }
+
+    private void callApi() {
+       /* switchBtnWeekly.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    type = "Weekly";
+                    switchBtnAllType.setChecked(false);
+                    switchBtnMontly.setChecked(false);
+                    callHistoryApi("Weekly");*//*str_act,*//*
+                }
+
+            }
+        });
+
+        switchBtnMontly.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    type = "Monthly";
+                    switchBtnWeekly.setChecked(false);
+                    switchBtnAllType.setChecked(false);
+                    callHistoryApi("Monthly");*//*str_act,*//*
+
+                }
+            }
+        });
+
+        switchBtnAllType.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    type = "All Time";
+                    switchBtnWeekly.setChecked(false);
+                    switchBtnMontly.setChecked(false);
+                    callHistoryApi("All Time");*//*//**str_act,*//*
+
+                }
+            }
+        });
+        callHistoryApi();*/
     }
 
     private void callHistoryApi() {
@@ -171,8 +217,10 @@ public class HistoryDetailsActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                     if (response.body() != null) {
                         if (response.body().getData().getAllTimeCounterList() != null) {
-                            setData(response.body().getData().getAllTimeCounterList());
+                            setDateData(response.body().getData().getAllTimeCounterList().get(0));
                             setChartView(response.body().getData().getAllTimeCounterList());
+                            // setAllTimedata(response.body().getData().getAllTimeData());
+                            setAllTimeAdapter(response.body().getData().getAllTimeCounterList());
                         }
                     }
 
@@ -191,20 +239,26 @@ public class HistoryDetailsActivity extends AppCompatActivity {
         });
     }
 
-    private void setData(List<AllTimeCounter> allTimeCounterList) {
-        if (allTimeCounterList != null && allTimeCounterList.size() > 0) {
-            //if (allTimeCounterList.get(0).getId() == 1) {
-            tvTotStep.setText("" + allTimeCounterList.get(0).getCountSteps());
-            tvDailyAverage.setText("" + allTimeCounterList.get(0).getDailyAverage() + " m");
 
-            tvTotStepssss.setText("" + allTimeCounterList.get(0).getCountSteps() + " ");
-            tvDailyAveragessss.setText("" + allTimeCounterList.get(0).getDailyAverage() + " m");
-            tvTime.setText("" + allTimeCounterList.get(0).getTime() + " Minutes");
-            tvCalories.setText("" + allTimeCounterList.get(0).getCalories() + " Cal");
+    private void setAllTimedata(AllTimeData allTimeData) {
+        tvTotStep.setText("" + allTimeData.getCountSteps());
+        tvDailyAverage.setText("" + allTimeData.getDailyAverage() + " m");
+
+        tvTotStepssss.setText("" + allTimeData.getCountSteps() + " ");
+        tvDailyAveragessss.setText("" + allTimeData.getDailyAverage() + " m");
+        tvTime.setText("" + allTimeData.getTime() + " Minutes");
+        tvCalories.setText("" + allTimeData.getCalories() + " Cal");
+    }
+
+    private void setDateData(AllTimeCounter allTimeCounterList) {
+        if (allTimeCounterList != null) {
+            //if (allTimeCounterList.get(0).getId() == 1) {
+            tvTotStep.setText("" + allTimeCounterList.getCountSteps());
+            tvDailyAverage.setText("" + allTimeCounterList.getDailyAverage() + " m");
 
             DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
             try {
-                date = dateFormat.parse(allTimeCounterList.get(0).getCreatedAt());
+                date = dateFormat.parse(allTimeCounterList.getCreatedAt());
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -228,24 +282,30 @@ public class HistoryDetailsActivity extends AppCompatActivity {
                         //  Data data = response.body().getData();
                         if (response.body() != null) {
                             if (type.equals("Weekly")) {
-                                setWeeklyData("Weekly", response.body().getData().getWeeklyData());
-                                setChartView(response.body().getData().getAllTimeCounterList());
-                                setBarData(response.body().getData().getAllTimeCounterList());
-                            } else if (type.equals("All Time")) {
-                                setAllTimeData("All Time", response.body().getData().getAllTimeData());
-                                setChartView(response.body().getData().getAllTimeCounterList());
+                                setData("Weekly", response.body().getData());
+                                setWeeklyChartView(response.body().getData().getWeeklyDataLists());
+                                //setDate(response.body().getData().getAllTimeCounterList());
+                                setListAdapter("Weekly", response.body().getData());
 
+                            } else if (type.equals("All Time")) {
+                                setData("Weekly", response.body().getData());
+                                // setAllTimeData("All Time", response.body().getData().getAllTimeData());
+                                setAllTimeChartView(response.body().getData().getAllTimeCounterList());
+                                //setDate(response.body().getData().getAllTimeCounterList());
+                                setListAdapter("All Time", response.body().getData());
 
                             } else if (type.equals("Monthly")) {
-                                setMonthlyData("Monthly", response.body().getData().getMonthlyData());
-                                setChartView(response.body().getData().getAllTimeCounterList());
-
+                                setData("Weekly", response.body().getData());
+                                //setMonthlyData("Monthly", response.body().getData().getMonthlyData());
+                                setMonthlyChartView(response.body().getData().getMonthlyDataLists());
+                                //setDate(response.body().getData().getAllTimeCounterList());
+                                setListAdapter("Monthly", response.body().getData());
                             }
                         }
                     } else if (response.code() == 500) {
                         Toast.makeText(HistoryDetailsActivity.this, "Internal server error", Toast.LENGTH_SHORT).show();
                     } else if (response.code() == 403) {
-                        //Toast.makeText(HistoryDetailsActivity.this, response.code() + " Session expire please login again", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(HistoryDetailsActivity.this, response.code() + " Session expire please login again", Toast.LENGTH_SHORT).show();
                         //  getTokenExpireDialog();
                     }
                 }
@@ -258,68 +318,131 @@ public class HistoryDetailsActivity extends AppCompatActivity {
         }
     }
 
-    private void setBarData(List<AllTimeCounter> allTimeCounterList) {
+
+    private void setDate(List<AllTimeCounter> allTimeCounterList) {
         if (allTimeCounterList != null && allTimeCounterList.size() > 0) {
-            tvTotStep.setText("" + allTimeCounterList.get(0).getCountSteps());
-            tvDailyAverage.setText("" + allTimeCounterList.get(0).getDailyAverage());
+
+            DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
+            try {
+                date = dateFormat.parse(allTimeCounterList.get(0).getCreatedAt());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            DateFormat dateFormat1 = new SimpleDateFormat("dd MMM, EEE");
+            String getDate = dateFormat1.format(date);
+            tvDateWithDays.setText(getDate);
         }
     }
 
-    private void setMonthlyData(String monthly, MonthlyData monthlyData) {
-        if (monthlyData != null) {
-            if (type.equalsIgnoreCase("Monthly")) {
-                tvTotStepssss.setText("" + monthlyData.getTotalSteps() + " ");
-                tvDailyAveragessss.setText("" + monthlyData.getDailyAverage() + " m");
-                tvTime.setText("" + monthlyData.getTime() + " Minutes");
-                tvCalories.setText("" + monthlyData.getCalories() + " Cal");
-            }
-        }
-    }
-
-    private void setAllTimeData(String all_time, AllTimeData allTimeData) {
-        if (allTimeData != null) {
-            if (type.equalsIgnoreCase("All Time")) {
-                tvTotStepssss.setText("" + allTimeData.getTotalSteps() + " ");
-                tvDailyAveragessss.setText("" + allTimeData.getDailyAverage() + " m");
-                tvTime.setText("" + allTimeData.getTime() + " Minutes");
-                tvCalories.setText("" + allTimeData.getCalories() + " Cal");
-            }
-        }
-    }
 
     private void setWeeklyData(String weekly, WeeklyData weeklyData) {
         if (weeklyData != null) {
             if (type.equalsIgnoreCase("Weekly")) {
-                tvTotStepssss.setText("" + weeklyData.getTotalSteps() + " ");
+                tvTotStep.setText("" + weeklyData.getCountSteps() + " ");
+                tvDailyAverage.setText("" + weeklyData.getDailyAverage() + " ");
+
+               /* tvTime.setText("" + weeklyData.getTime() + " Minutes");
+                tvTotStepssss.setText("" + weeklyData.getCountSteps() + " ");
                 tvDailyAveragessss.setText("" + weeklyData.getDailyAverage() + " m");
-                tvTime.setText("" + weeklyData.getTime() + " Minutes");
-                tvCalories.setText("" + weeklyData.getCalories() + " Cal");
+                tvCalories.setText("" + weeklyData.getCalories() + " Cal");*/
             }
         }
     }
 
 
-    private void setListAdapter(String weekly, Data data) {
-        if (type.equals("Weekly")) {
-            rvHistory.setLayoutManager(new LinearLayoutManager(this));
-            weeklyHistoryAdapter = new WeeklyHistoryAdapter(getApplicationContext(), (List<WeeklyData>) data.getWeeklyData());
-            rvHistory.setAdapter(weeklyHistoryAdapter);
-            weeklyHistoryAdapter.notifyDataSetChanged();
+    private void setMonthlyData(String monthly, MonthlyData monthlyData) {
+        if (monthlyData != null) {
+            if (type.equalsIgnoreCase("Monthly")) {
+                tvTotStep.setText("" + monthlyData.getCountSteps() + " ");
+                tvDailyAverage.setText("" + monthlyData.getDailyAverage() + " ");
+
+              /*  tvTime.setText("" + monthlyData.getTime() + " Minutes");
+                tvTotStepssss.setText("" + monthlyData.getCountSteps() + " ");
+                tvDailyAveragessss.setText("" + monthlyData.getDailyAverage() + " m");
+                tvCalories.setText("" + monthlyData.getCalories() + " Cal");*/
+            }
         }
-        if (type.equals("All Time")) {
-            rvHistory.setLayoutManager(new LinearLayoutManager(this));
-            allTimeHistoryAdapter = new AllTimeHistoryAdapter(getApplicationContext(), (List<AllTimeData>) data.getAllTimeData());
-            rvHistory.setAdapter(allTimeHistoryAdapter);
-            allTimeHistoryAdapter.notifyDataSetChanged();
-        }
-        if (type.equals("Monthly")) {
-            rvHistory.setLayoutManager(new LinearLayoutManager(this));
-            monthlyHistoryAdapter = new MonthlyHistoryAdapter(getApplicationContext(), (List<MonthlyData>) data.getMonthlyData());
-            rvHistory.setAdapter(monthlyHistoryAdapter);
-            monthlyHistoryAdapter.notifyDataSetChanged();
+    }
 
 
+    private void setAllTimeData(String all_time, AllTimeData allTimeData) {
+        if (allTimeData != null) {
+            if (type.equalsIgnoreCase("All Time")) {
+                tvTotStep.setText("" + allTimeData.getCountSteps() + " ");
+                tvDailyAverage.setText("" + allTimeData.getDailyAverage() + " ");
+
+                /*tvTime.setText("" + allTimeData.getTime() + " Minutes");
+                tvTotStepssss.setText("" + allTimeData.getCountSteps() + " ");
+                tvDailyAveragessss.setText("" + allTimeData.getDailyAverage() + " m");
+                tvCalories.setText("" + allTimeData.getCalories() + " Cal");*/
+            }
         }
+    }
+
+
+    private void setWeeklyChartView(List<WeeklyDataList> weeklyDataLists) {
+        ArrayList<BarEntry> entries = new ArrayList<>();
+        ArrayList<String> labels = new ArrayList<String>();
+        int index = 0;
+
+        for (WeeklyDataList weeklyDataList : weeklyDataLists) {
+            entries.add(new BarEntry(Float.parseFloat(String.valueOf(weeklyDataList.getCountSteps())), index));
+            labels.add(String.valueOf(weeklyDataList.getCountSteps()));
+            index++;
+        }
+
+        BarDataSet bardataset = new BarDataSet(entries, "Cells");
+        BarData data = new BarData(labels, bardataset);
+        barChart.setData(data);
+        // set the data and list of labels into chart
+        barChart.setDescription("");  // set the description
+        bardataset.setColors(Collections.singletonList(getResources().getColor(R.color.light_blue)));
+
+        barChart.animateY(2000);
+    }
+
+
+    private void setMonthlyChartView(List<MonthlyDataList> monthlyDataLists) {
+        ArrayList<BarEntry> entries = new ArrayList<>();
+        ArrayList<String> labels = new ArrayList<String>();
+        int index = 0;
+
+        for (MonthlyDataList monthlyDataList : monthlyDataLists) {
+            entries.add(new BarEntry(Float.parseFloat(String.valueOf(monthlyDataList.getCountSteps())), index));
+            labels.add(String.valueOf(monthlyDataList.getCountSteps()));
+            index++;
+        }
+
+        BarDataSet bardataset = new BarDataSet(entries, "Cells");
+        BarData data = new BarData(labels, bardataset);
+        barChart.setData(data);
+        // set the data and list of labels into chart
+        barChart.setDescription("");  // set the description
+        bardataset.setColors(Collections.singletonList(getResources().getColor(R.color.light_blue)));
+
+        barChart.animateY(2000);
+    }
+
+
+    private void setAllTimeChartView(List<AllTimeCounter> allTimeCounterList) {
+        ArrayList<BarEntry> entries = new ArrayList<>();
+        ArrayList<String> labels = new ArrayList<String>();
+        int index = 0;
+
+        for (AllTimeCounter allTimeCounter : allTimeCounterList) {
+            entries.add(new BarEntry(Float.parseFloat(String.valueOf(allTimeCounter.getCountSteps())), index));
+            labels.add(String.valueOf(allTimeCounter.getCountSteps()));
+            index++;
+        }
+
+        BarDataSet bardataset = new BarDataSet(entries, "Cells");
+        BarData data = new BarData(labels, bardataset);
+        barChart.setData(data);
+        // set the data and list of labels into chart
+        barChart.setDescription("");  // set the description
+        bardataset.setColors(Collections.singletonList(getResources().getColor(R.color.light_blue)));
+
+        barChart.animateY(2000);
     }
 
 
@@ -343,6 +466,50 @@ public class HistoryDetailsActivity extends AppCompatActivity {
 
         barChart.animateY(5000);
     }
+
+    private void setListAdapter(String type, Data data) {
+        if (type.equals("Weekly")) {
+            rvHistory.setLayoutManager(new LinearLayoutManager(this));
+            weeklyHistoryAdapter = new WeeklyHistoryAdapter(getApplicationContext(), data.getWeeklyDataLists());
+            rvHistory.setAdapter(weeklyHistoryAdapter);
+            weeklyHistoryAdapter.notifyDataSetChanged();
+        }
+        if (type.equals("All Time")) {
+            rvHistory.setLayoutManager(new LinearLayoutManager(this));
+            allTimeHistoryAdapter = new AllTimeHistoryAdapter(getApplicationContext(), data.getAllTimeCounterList());
+            rvHistory.setAdapter(allTimeHistoryAdapter);
+            allTimeHistoryAdapter.notifyDataSetChanged();
+        }
+        if (type.equals("Monthly")) {
+            rvHistory.setLayoutManager(new LinearLayoutManager(this));
+            monthlyHistoryAdapter = new MonthlyHistoryAdapter(getApplicationContext(), data.getMonthlyDataLists());
+            rvHistory.setAdapter(monthlyHistoryAdapter);
+            monthlyHistoryAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private void setData(String type, Data data) {
+        if (type.equals("Weekly")) {
+            tvTotStep.setText("" + data.getWeeklyData().getCountSteps() + " ");
+            tvDailyAverage.setText("" + data.getWeeklyData().getDailyAverage() + " ");
+        }
+        if (type.equals("All Time")) {
+            tvTotStep.setText("" + data.getAllTimeData().getCountSteps() + " ");
+            tvDailyAverage.setText("" + data.getAllTimeData().getDailyAverage() + " ");
+        }
+        if (type.equals("Monthly")) {
+            tvTotStep.setText("" + data.getMonthlyData().getCountSteps() + " ");
+            tvDailyAverage.setText("" + data.getMonthlyData().getDailyAverage() + " ");
+        }
+    }
+
+    private void setAllTimeAdapter(List<AllTimeCounter> allTimeCounterList) {
+        rvHistory.setLayoutManager(new LinearLayoutManager(this));
+        allTimeHistoryAdapter = new AllTimeHistoryAdapter(getApplicationContext(), allTimeCounterList);
+        rvHistory.setAdapter(allTimeHistoryAdapter);
+        allTimeHistoryAdapter.notifyDataSetChanged();
+    }
+
 
     private void getTokenExpireDialog() {
         if (getAccessToken != null) {

@@ -7,6 +7,12 @@ import com.google.gson.annotations.SerializedName;
 
 public class Data {
 
+    @SerializedName("Weekly Data Lists")
+    @Expose
+    private List<WeeklyDataList> weeklyDataLists = null;
+    @SerializedName("Monthly Data Lists")
+    @Expose
+    private List<MonthlyDataList> monthlyDataLists = null;
     @SerializedName("Weekly Data")
     @Expose
     private WeeklyData weeklyData;
@@ -19,6 +25,22 @@ public class Data {
     @SerializedName("All Time Counter List")
     @Expose
     private List<AllTimeCounter> allTimeCounterList = null;
+
+    public List<WeeklyDataList> getWeeklyDataLists() {
+        return weeklyDataLists;
+    }
+
+    public void setWeeklyDataLists(List<WeeklyDataList> weeklyDataLists) {
+        this.weeklyDataLists = weeklyDataLists;
+    }
+
+    public List<MonthlyDataList> getMonthlyDataLists() {
+        return monthlyDataLists;
+    }
+
+    public void setMonthlyDataLists(List<MonthlyDataList> monthlyDataLists) {
+        this.monthlyDataLists = monthlyDataLists;
+    }
 
     public WeeklyData getWeeklyData() {
         return weeklyData;

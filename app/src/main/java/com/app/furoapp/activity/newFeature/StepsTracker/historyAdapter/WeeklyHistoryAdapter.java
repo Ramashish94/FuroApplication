@@ -11,19 +11,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.Datum;
-import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.AllTimeData;
-import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.WeeklyData;
+import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.WeeklyDataList;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class WeeklyHistoryAdapter extends RecyclerView.Adapter<WeeklyHistoryAdapter.MyViewHolder> {
     Context context;
-    List<WeeklyData> weeklyDataList;
+    List<WeeklyDataList> weeklyDataList;
     private int row_index = -1;
+    public Date date;
 
-
-    public WeeklyHistoryAdapter(Context context, List<WeeklyData> weeklyDataList) {
+    public WeeklyHistoryAdapter(Context context, List<WeeklyDataList> weeklyDataList) {
         this.context = context;
         this.weeklyDataList = weeklyDataList;
     }
@@ -39,11 +41,23 @@ public class WeeklyHistoryAdapter extends RecyclerView.Adapter<WeeklyHistoryAdap
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        WeeklyData weeklyData = weeklyDataList.get(position);
-        holder.tvTotSteps.setText("" + weeklyData.getTotalSteps());
+        WeeklyDataList weeklyData = weeklyDataList.get(position);
+        holder.tvTotSteps.setText("" + weeklyData.getCountSteps());
         holder.tvDailyAverage.setText("" + weeklyData.getDailyAverage() + " m");
         holder.tvTime.setText("" + weeklyData.getTime() + " Minutes");
         holder.tvCalories.setText("" + weeklyData.getCalories() + " Cal");
+
+        DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
+        try {
+            date = dateFormat.parse(weeklyData.getCreatedAt());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        DateFormat dateFormat1 = new SimpleDateFormat("dd MMM, EEE");
+        String getDate = dateFormat1.format(date);
+        holder.tvDateWithDays.setText(getDate);
+
+
     }
 
     @Override
@@ -56,7 +70,7 @@ public class WeeklyHistoryAdapter extends RecyclerView.Adapter<WeeklyHistoryAdap
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvTotSteps, tvDailyAverage, tvTime, tvCalories;
+        public TextView tvTotSteps, tvDailyAverage, tvTime, tvCalories, tvDateWithDays;
         public LinearLayout llTimeSlot, llTimeDeleteSlot;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -65,6 +79,8 @@ public class WeeklyHistoryAdapter extends RecyclerView.Adapter<WeeklyHistoryAdap
             tvDailyAverage = itemView.findViewById(R.id.tvDailyAverage);
             tvTime = itemView.findViewById(R.id.tvTime);
             tvCalories = itemView.findViewById(R.id.tvCalories);
+            tvDateWithDays = itemView.findViewById(R.id.tvDateWithDays);
+
         }
     }
 

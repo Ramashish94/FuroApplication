@@ -12,6 +12,9 @@ public class AllTimeData {
     @SerializedName("calories")
     @Expose
     private String calories;
+    @SerializedName("count_steps")
+    @Expose
+    private String countSteps;
     @SerializedName("total_steps")
     @Expose
     private String totalSteps;
@@ -33,6 +36,14 @@ public class AllTimeData {
 
     public void setCalories(String calories) {
         this.calories = calories;
+    }
+
+    public String getCountSteps() {
+        return countSteps;
+    }
+
+    public void setCountSteps(String countSteps) {
+        this.countSteps = countSteps;
     }
 
     public String getTotalSteps() {

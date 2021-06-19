@@ -92,7 +92,7 @@
                             android:layout_weight="1"
                             android:checked="false"
                             android:gravity="center"
-                            android:text="Weekly" />
+                            android:text="Monthly" />
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/switchBtnAlType"
@@ -234,12 +234,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_16"
-                        android:visibility="gone" />
+                        />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:layout_width="match_parent"

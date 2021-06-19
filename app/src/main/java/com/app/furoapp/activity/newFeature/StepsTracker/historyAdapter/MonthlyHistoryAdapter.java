@@ -11,20 +11,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.Datum;
-import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.MonthlyData;
-import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.WeeklyData;
+import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.MonthlyDataList;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class MonthlyHistoryAdapter extends RecyclerView.Adapter<MonthlyHistoryAdapter.MyViewHolder> {
     Context context;
-    List<MonthlyData> monthlyDataList;
-
+    List<MonthlyDataList> monthlyDataList;
     private int row_index = -1;
+    public Date date;
 
 
-    public MonthlyHistoryAdapter(Context context, List<MonthlyData> monthlyDataList) {
+    public MonthlyHistoryAdapter(Context context, List<MonthlyDataList> monthlyDataList) {
         this.context = context;
         this.monthlyDataList = monthlyDataList;
     }
@@ -40,11 +42,21 @@ public class MonthlyHistoryAdapter extends RecyclerView.Adapter<MonthlyHistoryAd
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        MonthlyData monthlyData = monthlyDataList.get(position);
-        holder.tvTotSteps.setText("" + monthlyData.getTotalSteps());
-        holder.tvDailyAverage.setText("" + monthlyData.getDailyAverage() +" m");
-        holder.tvTime.setText("" + monthlyData.getTime()+" Minutes");
-        holder.tvCalories.setText("" + monthlyData.getCalories()+" Cal");
+        MonthlyDataList monthlyData = monthlyDataList.get(position);
+        holder.tvTotSteps.setText("" + monthlyData.getCountSteps());
+        holder.tvDailyAverage.setText("" + monthlyData.getDailyAverage() + " m");
+        holder.tvTime.setText("" + monthlyData.getTime() + " Minutes");
+        holder.tvCalories.setText("" + monthlyData.getCalories() + " Cal");
+
+        DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
+        try {
+            date = dateFormat.parse(monthlyData.getCreatedAt());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        DateFormat dateFormat1 = new SimpleDateFormat("dd MMM, EEE");
+        String getDate = dateFormat1.format(date);
+        holder.tvDateWithDays.setText(getDate);
 
     }
 
@@ -58,7 +70,7 @@ public class MonthlyHistoryAdapter extends RecyclerView.Adapter<MonthlyHistoryAd
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvTotSteps, tvDailyAverage, tvTime, tvCalories;
+        public TextView tvTotSteps, tvDailyAverage, tvTime, tvCalories,tvDateWithDays;
         public LinearLayout llTimeSlot, llTimeDeleteSlot;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -67,6 +79,7 @@ public class MonthlyHistoryAdapter extends RecyclerView.Adapter<MonthlyHistoryAd
             tvDailyAverage = itemView.findViewById(R.id.tvDailyAverage);
             tvTime = itemView.findViewById(R.id.tvTime);
             tvCalories = itemView.findViewById(R.id.tvCalories);
+            tvDateWithDays = itemView.findViewById(R.id.tvDateWithDays);
         }
     }
 

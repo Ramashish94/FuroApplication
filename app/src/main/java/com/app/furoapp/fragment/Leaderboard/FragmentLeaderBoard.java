@@ -126,7 +126,9 @@ public class FragmentLeaderBoard extends Fragment {
                     LeaderModel leaderModel = response.body();
                     if (type.equals("week")) {
                         tv_norecord.setVisibility(View.GONE);
-                        if (leaderModel.getLeadership().getWeekly().size() > 0) {
+                        if (leaderModel != null && leaderModel.getLeadership() != null
+                                && leaderModel.getLeadership().getWeekly() != null &&
+                                leaderModel.getLeadership().getWeekly().size() > 0) {
 
                             setAdapterWeekly(leaderModel.getLeadership().getWeekly());
                         } else {
@@ -134,14 +136,18 @@ public class FragmentLeaderBoard extends Fragment {
                         }
                     } else if (type.equals("all")) {
                         tv_norecord.setVisibility(View.GONE);
-                        if (leaderModel.getLeadership().getAllTime().size() > 0) {
+                        if (leaderModel != null && leaderModel.getLeadership() != null
+                                && leaderModel.getLeadership().getAllTime() != null &&
+                                leaderModel.getLeadership().getAllTime().size() > 0) {
                             setAdapter(leaderModel.getLeadership().getAllTime());
                         } else {
                             tv_norecord.setVisibility(View.VISIBLE);
                         }
                     } else if (type.equals("monthly")) {
                         tv_norecord.setVisibility(View.GONE);
-                        if (leaderModel.getLeadership().getMonthly().size() > 0) {
+                        if (leaderModel != null && leaderModel.getLeadership() != null
+                                && leaderModel.getLeadership().getMonthly() != null &&
+                                leaderModel.getLeadership().getMonthly().size() > 0) {
 
                             setAdapterMonthly(leaderModel.getLeadership().getMonthly());
                         } else {

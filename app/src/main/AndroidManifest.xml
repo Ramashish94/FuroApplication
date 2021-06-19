@@ -589,6 +589,8 @@
             android:label="@string/app_name"
             android:launchMode="singleTask" />
 
+        <service android:name=".services.StepCountingService" />
+
 
     </application>
 

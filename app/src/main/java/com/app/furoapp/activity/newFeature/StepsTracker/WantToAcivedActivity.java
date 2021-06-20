@@ -101,7 +101,8 @@ public class WantToAcivedActivity extends AppCompatActivity {
 
         ivContinue.setOnClickListener(v -> {
             if (isAchievedSelected) {
-                intent = new Intent(getApplicationContext(), PedoMeterMainActivity.class);
+                //intent = new Intent(getApplicationContext(), PedoMeterMainActivity.class);
+                intent = new Intent(getApplicationContext(), FqStepsCounterActivity.class);
                 intent.putExtra("getAchievedVal", getAchievedVal);
                 startActivity(intent);
             } else {

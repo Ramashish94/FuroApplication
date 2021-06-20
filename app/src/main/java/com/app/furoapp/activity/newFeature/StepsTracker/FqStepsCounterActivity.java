@@ -496,7 +496,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         String countedStep = intentData.getStringExtra("Counted_Step");
         String DetectedStep = intentData.getStringExtra("Detected_Step");
         Log.d(TAG, String.valueOf(countedStep));
-        Log.d(TAG, String.valueOf(DetectedStep));
+        Log.d(TAG, String.valueOf(countedStep));
         tvCountsSteps.setText(DetectedStep);
 
     }

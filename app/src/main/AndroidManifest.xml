@@ -54,7 +54,7 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".activity.newFeature.StepsTracker.StepCounterSettingsActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".activity.newFeature.StepsTracker.LeadBoardActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
@@ -529,67 +529,9 @@
             </intent-filter>
         </receiver>
 
-
-        <!--added -->
-        <receiver android:name=".activity.newFeature.StepsTracker.padometer.BootReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-        <receiver android:name=".activity.newFeature.StepsTracker.padometer.AppUpdatedReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
-            </intent-filter>
-        </receiver>
-
-        <service android:name=".activity.newFeature.StepsTracker.padometer.SensorListener" />
-
-        <service
-            android:name=".activity.newFeature.StepsTracker.padometer.DashClock"
-            android:permission="com.google.android.apps.dashclock.permission.READ_EXTENSION_DATA">
-            <intent-filter>
-                <action android:name="com.google.android.apps.dashclock.Extension" />
-            </intent-filter>
-
-            <meta-data
-                android:name="protocolVersion"
-                android:value="2" />
-            <meta-data
-                android:name="worldReadable"
-                android:value="true" />
-            <meta-data
-                android:name="description"
-                android:value="Displays the steps taken today" />
-        </service>
-
-        <activity
-            android:name=".activity.newFeature.StepsTracker.padometer.WidgetConfig"
-            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-            </intent-filter>
-        </activity>
-
-        <receiver android:name=".activity.newFeature.StepsTracker.padometer.Widget">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/widget" />
-        </receiver>
-
-        <service
-            android:name=".activity.newFeature.StepsTracker.padometer.WidgetUpdateService"
-            android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-        <activity
-            android:name=".activity.newFeature.StepsTracker.padometer.Activity_Main"
-            android:label="@string/app_name"
-            android:launchMode="singleTask" />
-
         <service android:name=".services.StepCountingService" />
+
+        <service android:name=".activity.newFeature.StepsTracker.padometer.StepCountingService" />
 
 
     </application>

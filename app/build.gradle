@@ -1,24 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
-buildscript {
-    repositories {
-        google()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
-        jcenter()
-    }
-    dependencies {
-        if (rootProject.ext.has("gradle_classpath")) {
-            classpath rootProject.ext.gradle_classpath
-        } else {
-            logger.warn('classpath not found in rootProject')
-            classpath 'com.android.tools.build:gradle:3.0.1'
-        }
-    }
-}
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -173,6 +156,7 @@ android {
         implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
         implementation "com.github.skydoves:progressview:1.1.1"
 
+        implementation 'com.android.support:appcompat-v7:27.1.1'
         implementation 'com.github.j4velin.colorpicker:colorpicker:1.20.6'
         implementation 'com.github.j4velin.EazeGraph:EazeGraph:1.0.3'
         implementation 'com.google.android.apps.dashclock:dashclock-api:2.0.0'

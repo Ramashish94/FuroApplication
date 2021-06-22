@@ -1,16 +1,24 @@
 package com.app.furoapp.activity.newFeature.StepsTracker.padometer;
 
-/** Activity class - for Managing and Update UI elements (views). */
+/**
+ * Activity class - for Managing and Update UI elements (views).
+ */
 
+import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,12 +38,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
 
 import com.app.furoapp.R;
+import com.app.furoapp.StepCountingServiceFuro;
+import com.app.furoapp.services.SensorBackgroundService;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 public class PedoMeterMainActivity extends AppCompatActivity {
 
@@ -71,7 +88,11 @@ public class PedoMeterMainActivity extends AppCompatActivity {
 
     private Intent intent;
     private static final String TAG = "SensorEvent";
+    // you'll always need a reference to the sensorManager
+    private SensorManager mSensorManager;
 
+    // and we will populate this list
+    private List<Sensor> deviceSensors;
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
@@ -79,11 +100,38 @@ public class PedoMeterMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pedo_meter_main);
 
-        // ___ instantiate intent ___ \\
-        //  Instantiate the intent declared globally - which will be passed to startService and stopService.
-        intent = new Intent(this, StepCountingService.class);
+        Dexter.withActivity(this)
+                .withPermissions(Manifest.permission.ACTIVITY_RECOGNITION)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        if (report.areAllPermissionsGranted()) {
+                            // ___ instantiate intent ___ \\
+                            //  Instantiate the intent declared globally - which will be passed to startService and stopService.
+                            intent = new Intent(PedoMeterMainActivity.this, StepCountingServiceFuro.class);
 
-        init(); // Call view initialisation method.
+                            init(); // Call view initialisation method.
+
+                        }
+
+                        if (report.isAnyPermissionPermanentlyDenied()) {
+
+                        }
+                    }
+
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).check();
+
+//        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+//
+//        // this is how to list all sensors
+//        deviceSensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
+
+
     }
 
     // Initialise views.
@@ -101,7 +149,7 @@ public class PedoMeterMainActivity extends AppCompatActivity {
             // Set opacity (transparency) of image.
             parentDrawable.setAlpha(32);
             // Retrieve parent relativelayout.
-            RelativeLayout parentLayout = (RelativeLayout)findViewById(R.id.parentLayout);
+            RelativeLayout parentLayout = (RelativeLayout) findViewById(R.id.parentLayout);
             // Set drawable image to imageview.
             parentLayout.setBackground(parentDrawable);
 
@@ -109,30 +157,66 @@ public class PedoMeterMainActivity extends AppCompatActivity {
             InputStream inputStream2 = getAssets().open("c.jpg");
             Drawable childDrawable = Drawable.createFromStream(inputStream2, null);
             childDrawable.setAlpha(128);
-            LinearLayout childLayout = (LinearLayout)findViewById(R.id.childLayout);
+            LinearLayout childLayout = (LinearLayout) findViewById(R.id.childLayout);
             childLayout.setBackground(childDrawable);
 
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             ioe.printStackTrace();
         }
 
         // ________________ Service Management (Start & Stop Service). ________________ //
         // ___ start Service & register broadcast receiver ___ \\
-        startServiceBtn = (Button)findViewById(R.id.startServiceBtn);
+        startServiceBtn = (Button) findViewById(R.id.startServiceBtn);
         startServiceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // start Service.
-                startService(new Intent(getBaseContext(), StepCountingService.class));
+                startService(new Intent(getBaseContext(), StepCountingServiceFuro.class));
                 // register our BroadcastReceiver by passing in an IntentFilter. * identifying the message that is broadcasted by using static string "BROADCAST_ACTION".
-                registerReceiver(broadcastReceiver, new IntentFilter(StepCountingService.BROADCAST_ACTION));
+                registerReceiver(broadcastReceiver, new IntentFilter(StepCountingServiceFuro.BROADCAST_ACTION));
                 isServiceStopped = false;
+
+
+
+                // get scheduler and prepare intent
+//                AlarmManager scheduler = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//                Intent intent = new Intent(getApplicationContext(), SensorBackgroundService.class);
+//
+//                // add some extras for config
+//                Bundle args = new Bundle();
+//                try {
+//                    float value = Float.parseFloat("1");
+//                    args.putFloat(SensorBackgroundService.KEY_THRESHOLD_MIN_VALUE, value);
+//                }catch(Exception e){
+//                    // ignore
+//                }
+//                try {
+//                    float value = Float.parseFloat("10");
+//                    args.putFloat(SensorBackgroundService.KEY_THRESHOLD_MAX_VALUE, value);
+//                }catch(Exception e){
+//                    // ignore
+//                }
+//                args.putBoolean(SensorBackgroundService.KEY_LOGGING,true);
+//                intent.putExtras(args);
+//
+//                // try getting interval option
+//                long interval;
+//                try{
+//                    interval = Long.parseLong(".5");
+//                }catch(Exception e){
+//                    // use the default in that case
+//                    interval = 1000L;
+//                }
+//
+//                PendingIntent scheduledIntent = PendingIntent.getService(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//                // start the service
+//                scheduler.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, scheduledIntent);
             }
         });
 
         // ___ unregister receiver & stop service ___ \\
-        stopServiceBtn = (Button)findViewById(R.id.stopServiceBtn);
+        stopServiceBtn = (Button) findViewById(R.id.stopServiceBtn);
         stopServiceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,7 +224,7 @@ public class PedoMeterMainActivity extends AppCompatActivity {
                     // call unregisterReceiver - to stop listening for broadcasts.
                     unregisterReceiver(broadcastReceiver);
                     // stop Service.
-                    stopService(new Intent(getBaseContext(), StepCountingService.class));
+                    stopService(new Intent(getBaseContext(), StepCountingServiceFuro.class));
                     isServiceStopped = true;
                 }
             }
@@ -148,12 +232,12 @@ public class PedoMeterMainActivity extends AppCompatActivity {
         // ___________________________________________________________________________ \\
 
         // Textviews
-        stepCountTxV = (TextView)findViewById(R.id.stepCountTxV);
-        stepDetectTxV = (TextView)findViewById(R.id.stepDetectTxV);
+        stepCountTxV = (TextView) findViewById(R.id.stepCountTxV);
+        stepDetectTxV = (TextView) findViewById(R.id.stepDetectTxV);
 
         // ImageView
-        imageView2 = (ImageView)findViewById(R.id.imageView2);
-        Bitmap bitmap2 = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
+        imageView2 = (ImageView) findViewById(R.id.imageView2);
+        Bitmap bitmap2 = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
         imageView2.setImageBitmap(bitmap2);
 
     }
@@ -203,7 +287,7 @@ public class PedoMeterMainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu ,menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
@@ -212,7 +296,7 @@ public class PedoMeterMainActivity extends AppCompatActivity {
 
         if (item.getItemId() == R.id.action_about) {
             String msg = "Thank you for enjoying Pedometer!";
-            Toast toast = Toast.makeText(this,msg, Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(this, msg, Toast.LENGTH_SHORT);
             toast.show();
             return true;
         }
@@ -234,22 +318,21 @@ public class PedoMeterMainActivity extends AppCompatActivity {
     // ___________________________________________________________________________ \\
 
 
-
     private void txvAnimation() {
-        TranslateAnimation translateAnimation = new TranslateAnimation(100,-100,100,-100);
+        TranslateAnimation translateAnimation = new TranslateAnimation(100, -100, 100, -100);
         translateAnimation.setDuration(200);
         translateAnimation.setInterpolator(new LinearOutSlowInInterpolator());
         stepCountTxV.startAnimation(translateAnimation);
-        ScaleAnimation sclaeAnimation = new ScaleAnimation(0,1,0,1);
+        ScaleAnimation sclaeAnimation = new ScaleAnimation(0, 1, 0, 1);
         sclaeAnimation.setDuration(200);
         sclaeAnimation.setInterpolator(new AnticipateOvershootInterpolator());
         stepDetectTxV.startAnimation(sclaeAnimation);
 
-        TranslateAnimation translateAnimation3 = new TranslateAnimation(-100,0,-100,0);
+        TranslateAnimation translateAnimation3 = new TranslateAnimation(-100, 0, -100, 0);
         translateAnimation3.setDuration(200);
         translateAnimation3.setInterpolator(new CycleInterpolator(2));
         imageView2.startAnimation(translateAnimation3);
-        ScaleAnimation sclaeAnimation3 = new ScaleAnimation(0,1,1,0);
+        ScaleAnimation sclaeAnimation3 = new ScaleAnimation(0, 1, 1, 0);
         sclaeAnimation3.setDuration(200);
         sclaeAnimation3.setInterpolator(new BounceInterpolator());
         imageView2.startAnimation(sclaeAnimation3);

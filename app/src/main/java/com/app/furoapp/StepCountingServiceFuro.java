@@ -1,6 +1,8 @@
-package com.app.furoapp.activity.newFeature.StepsTracker.padometer;
+package com.app.furoapp;
 
-/** Service - for Counting the steps in the Background using Step Counter Sensor, and broadcasting Sensor values to Main Activity. */
+/**
+ * Service - for Counting the steps in the Background using Step Counter Sensor, and broadcasting Sensor values to Main Activity.
+ */
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -12,14 +14,22 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+
 import android.util.Log;
+import android.widget.Toast;
+
+import androidx.core.app.NotificationCompat;
 
 import com.app.furoapp.R;
 
+import java.util.Date;
+
 // _________ Extend Service class & implement Service lifecycle callback methods. _________ //
-public class StepCountingService extends Service implements SensorEventListener {
+public class StepCountingServiceFuro extends Service implements SensorEventListener {
 
     SensorManager sensorManager;
     Sensor stepCounterSensor;
@@ -41,14 +51,12 @@ public class StepCountingService extends Service implements SensorEventListener 
     Intent intent;
     // A string that identifies what kind of action is taking place.
     private static final String TAG = "StepService";
-    public static final String BROADCAST_ACTION = "com.websmithing.yusuf.mybroadcast";
+    public static final String BROADCAST_ACTION = "com.app.furo.step.counter";
     // Create a handler - that will be used to broadcast our data, after a specified amount of time.
     private final Handler handler = new Handler();
     // Declare and initialise counter - for keeping a record of how many times the service carried out updates.
     int counter = 0;
     // ___________________________________________________________________________ \\
-
-
 
     /** Called when the service is being created. */
     @Override
@@ -69,11 +77,17 @@ public class StepCountingService extends Service implements SensorEventListener 
 
         showNotification();
 
+//        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+//        stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+//        stepDetectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
+//        sensorManager.registerListener(this, stepCounterSensor, SensorManager.SENSOR_DELAY_NORMAL);
+//        sensorManager.registerListener(this, stepDetectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
+
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         stepDetectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
-        sensorManager.registerListener(this, stepCounterSensor, 0);
-        sensorManager.registerListener(this, stepDetectorSensor, 0);
+        sensorManager.registerListener(this, stepCounterSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this, stepDetectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
         //currentStepCount = 0;
         currentStepsDetected = 0;
@@ -85,10 +99,10 @@ public class StepCountingService extends Service implements SensorEventListener 
         // --------------------------------------------------------------------------- \\
         // ___ (3) start handler ___ \\
         /////if (serviceStopped == false) {
-            // remove any existing callbacks to the handler
-            handler.removeCallbacks(updateBroadcastData);
-            // call our handler with or without delay.
-            handler.post(updateBroadcastData); // 0 seconds
+        // remove any existing callbacks to the handler
+        handler.removeCallbacks(updateBroadcastData);
+        // call our handler with or without delay.
+        handler.post(updateBroadcastData); // 0 seconds
         /////}
         // ___________________________________________________________________________ \\
 
@@ -140,6 +154,8 @@ public class StepCountingService extends Service implements SensorEventListener 
                 stepCounter = (int) event.values[0]; // Assign the StepCounter Sensor event value to it.
             }
             newStepCounter = countSteps - stepCounter; // By subtracting the stepCounter variable from the Sensor event value - We start a new counting sequence from 0. Where the Sensor event value will increase, and stepCounter value will be only initialised once.
+            Toast.makeText(this, "FQ_counter - " + String.valueOf(newStepCounter), Toast.LENGTH_LONG).show();
+
         }
 
         // STEP_DETECTOR Sensor.
@@ -147,6 +163,8 @@ public class StepCountingService extends Service implements SensorEventListener 
         if (event.sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
             int detectSteps = (int) event.values[0];
             currentStepsDetected += detectSteps; //steps = steps + detectSteps; // This variable will be initialised with the STEP_DETECTOR event value (1), and will be incremented by itself (+1) for as long as steps are detected.
+            Toast.makeText(this, "FQ_counter - " + String.valueOf(currentStepsDetected), Toast.LENGTH_LONG).show();
+
         }
 
         Log.v("Service Counter", String.valueOf(newStepCounter));
@@ -162,11 +180,11 @@ public class StepCountingService extends Service implements SensorEventListener 
     // --------------------------------------------------------------------------- \\
     // _ Manage notification. _
     private void showNotification() {
-        Notification.Builder notificationBuilder = new Notification.Builder(this);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
         notificationBuilder.setContentTitle("Pedometer");
         notificationBuilder.setContentText("Pedometer session is running in the background.");
-        notificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
-//        notificationBuilder.setColor(Color.parseColor("#6600cc"));
+        notificationBuilder.setSmallIcon(R.mipmap.app_icon);
+        notificationBuilder.setColor(Color.parseColor("#6600cc"));
         int colorLED = Color.argb(255, 0, 255, 0);
         notificationBuilder.setLights(colorLED, 500, 500);
         // To  make sure that the Notification LED is triggered.
@@ -174,12 +192,10 @@ public class StepCountingService extends Service implements SensorEventListener 
         notificationBuilder.setOngoing(true);
 
         //Intent resultIntent = new Intent(this, MainActivity.class);
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(this,0,new Intent(),0);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, new Intent(), 0);
         notificationBuilder.setContentIntent(resultPendingIntent);
 
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-
         notificationManager.notify(0, notificationBuilder.build());
 
     }

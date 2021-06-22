@@ -147,10 +147,11 @@ public class PreviewActivity extends AppCompatActivity implements ProgressReques
         challengeYourFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(PreviewActivity.this, VideoChallangeFriendsActivity.class);
+
                 startActivity(intent);
                 finish();
-
             }
         });
         discardThisSubmission.setOnClickListener(new View.OnClickListener() {
@@ -186,8 +187,6 @@ public class PreviewActivity extends AppCompatActivity implements ProgressReques
                     formatted = String.format("%d:%02d:%02d", hours, minutes, seconds);
                     recordingDurationTime.setText(formatted);
                     actDuration.setText(formatted);
-
-
                 }
             });
 
@@ -225,6 +224,33 @@ public class PreviewActivity extends AppCompatActivity implements ProgressReques
         });
 
         initialise();
+        //getPermission();
+    }
+
+    private void getPermission() {
+        Dexter.withActivity(this)
+                .withPermissions(Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS
+
+                )
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        if (report.areAllPermissionsGranted()) {
+
+
+                        }
+
+                        if (report.isAnyPermissionPermanentlyDenied()) {
+
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).check();
+
     }
 
     public void onProfileImageClickNew() {
@@ -253,6 +279,7 @@ public class PreviewActivity extends AppCompatActivity implements ProgressReques
                     }
                 }).check();
     }
+
     private void initialise() {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Uploading File");
@@ -321,34 +348,37 @@ public class PreviewActivity extends AppCompatActivity implements ProgressReques
                 @Override
                 public void onResponse(Call<CreateVideoChallangeResponse> call, Response<CreateVideoChallangeResponse> response) {
                     progressDialog.dismiss();
-                    if (response.body() != null) {
-                        if (response.body().getStatus().equalsIgnoreCase("200")) {
-                            String duration = response.body().getNewchallenge().getAcitivityDuration();
-                            String count = response.body().getNewchallenge().getActivityCount();
-                            String actName = response.body().getNewchallenge().getChallengeActivity();
+                    if (response.code() == 200) {
+                        if (response.body() != null) {
+                            if (response.body().getStatus().equalsIgnoreCase("200")) {
+                                String duration = response.body().getNewchallenge().getAcitivityDuration();
+                                String count = response.body().getNewchallenge().getActivityCount();
+                                String actName = response.body().getNewchallenge().getChallengeActivity();
 
-                            FuroPrefs.putString(getApplicationContext(), "getAcitivityDuration", duration);
-                            FuroPrefs.putString(getApplicationContext(), "getActivityCount", count);
-                            FuroPrefs.putString(getApplicationContext(), "getChallengeActivity", actName);
+                                FuroPrefs.putString(getApplicationContext(), "getAcitivityDuration", duration);
+                                FuroPrefs.putString(getApplicationContext(), "getActivityCount", count);
+                                FuroPrefs.putString(getApplicationContext(), "getChallengeActivity", actName);
 
-                            Toast.makeText(PreviewActivity.this, " Video uploaded successfully.  ", Toast.LENGTH_SHORT).show();
-                            String actOpen = "video";
-                            FuroPrefs.putString(getApplicationContext(), "activity_open", actOpen);
-                            String challengeid = String.valueOf(response.body().getNewchallenge().getId());
-                            FuroPrefs.putString(getApplicationContext(), "challengeidforshare", challengeid);
-                            textView.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
+                                Toast.makeText(PreviewActivity.this, " Video uploaded successfully.  ", Toast.LENGTH_SHORT).show();
+                                getPermission();
+                                String actOpen = "video";
+                                FuroPrefs.putString(getApplicationContext(), "activity_open", actOpen);
+                                String challengeid = String.valueOf(response.body().getNewchallenge().getId());
+                                FuroPrefs.putString(getApplicationContext(), "challengeidforshare", challengeid);
+                                textView.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
 
-                                    Toast.makeText(PreviewActivity.this, "You can Save Video only once ", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(PreviewActivity.this, "You can Save Video only once ", Toast.LENGTH_SHORT).show();
 
-                                }
-                            });
+                                    }
+                                });
 
-                        } else {
-                            Toast.makeText(PreviewActivity.this, " Your Internet is slow/not working kindly connect wifi or better network", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(PreviewActivity.this, "message " + response.code(), Toast.LENGTH_SHORT).show();
+                            }
+
                         }
-
                     }
                     challengeYourFriend.setVisibility(View.VISIBLE);
                 }
@@ -536,7 +566,7 @@ public class PreviewActivity extends AppCompatActivity implements ProgressReques
         text_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PreviewActivity.this, CreateChallengeActivity  .class);
+                Intent intent = new Intent(PreviewActivity.this, CreateChallengeActivity.class);
                 startActivity(intent);
                 finish();
 
@@ -586,7 +616,6 @@ public class PreviewActivity extends AppCompatActivity implements ProgressReques
 
             }
         });
-
 
 
         dialog.show();

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.viewpager.widget.ViewPager;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,6 +20,13 @@ import com.app.furoapp.fragment.challenges.LeaderBoardFriendFragment;
 import com.app.furoapp.fragment.challenges.LeaderBoardInviteFragment;
 import com.app.furoapp.fragment.socialFragment.Social;
 import com.google.android.material.tabs.TabLayout;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+
+import java.util.List;
 
 public class VideoChallangeFriendsActivity extends AppCompatActivity {
 
@@ -36,7 +44,6 @@ public class VideoChallangeFriendsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_video_challange_friends);
-
         viewPager = binding.vpLeaderBoardCalll;
         tabLayout = binding.tabLeaderboardd;
         backButton = binding.tvTitle;
@@ -62,6 +69,8 @@ public class VideoChallangeFriendsActivity extends AppCompatActivity {
 
 
     }
+
+
 
     private void setupTabLayout() {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());

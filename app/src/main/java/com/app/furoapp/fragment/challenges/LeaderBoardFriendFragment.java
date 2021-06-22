@@ -3,15 +3,11 @@ package com.app.furoapp.fragment.challenges;
 import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -27,7 +23,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -136,12 +131,13 @@ public class LeaderBoardFriendFragment extends Fragment implements FriendLeaderB
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               sendContactsToServer();
+                sendContactsToServer();
             }
         });
 
         return view;
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -200,8 +196,7 @@ public class LeaderBoardFriendFragment extends Fragment implements FriendLeaderB
             } while (cursor.moveToNext());
 
         }
-
-
+        // }
     }
 
 
@@ -458,7 +453,6 @@ public class LeaderBoardFriendFragment extends Fragment implements FriendLeaderB
 
         }
     }
-
 
 
 }

@@ -211,7 +211,8 @@ public interface ApiInterface {
 
     // send video to server
     @Multipart
-    @POST("https://furoapi.ml/api/create-challenge-video")
+  //  @POST("https://furoapi.ml/api/create-challenge-video")
+    @POST("create-challenge-video")
     Call<CreateVideoChallangeResponse> videouploadChallange(
 
             @Part("user_id") RequestBody user_id,

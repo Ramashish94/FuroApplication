@@ -16,11 +16,11 @@ import com.app.furoapp.R;
 import com.app.furoapp.activity.newFeature.StepsTracker.padometer.PedoMeterMainActivity;
 
 public class WantToAcivedActivity extends AppCompatActivity {
-    public ImageView ivContinue, ivSkip, ivAddNewSlot;
+    public ImageView ivContinue, ivAddNewSlot;
     Intent intent;
     public LinearLayout llLooseWeight, llStayHealthy, llStayActive;
     public ImageView ivLooseWeightUnselected, ivLooseWeightSelected, ivStayHealthyUnSelected, ivStayHealthySelected, ivStayActiveUnSelected, ivStayActiveSelected;
-    public TextView tvLooseWeight, tvStayHealthy, tvStayActive;
+    public TextView tvLooseWeight, tvStayHealthy, tvStayActive, ivSkip;
     private String getAchievedVal;
     private boolean isAchievedSelected;
 
@@ -101,8 +101,8 @@ public class WantToAcivedActivity extends AppCompatActivity {
 
         ivContinue.setOnClickListener(v -> {
             if (isAchievedSelected) {
-                intent = new Intent(getApplicationContext(), PedoMeterMainActivity.class);
-                //intent = new Intent(getApplicationContext(), FqStepsCounterActivity.class);
+                //intent = new Intent(getApplicationContext(), PedoMeterMainActivity.class);
+                intent = new Intent(getApplicationContext(), FqStepsCounterActivity.class);
                 intent.putExtra("getAchievedVal", getAchievedVal);
                 startActivity(intent);
             } else {

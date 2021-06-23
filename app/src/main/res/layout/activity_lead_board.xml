@@ -11,24 +11,27 @@
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="12dp"
         android:layout_marginRight="32dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/ivLeadBoardCross"
-            android:layout_width="@dimen/dp_35"
-            android:layout_height="@dimen/dp_35"
+            android:layout_width="@dimen/dp_25"
+            android:layout_height="@dimen/dp_25"
             android:background="@drawable/leadboard_cross" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Leaderboard "
+            android:textColor="@color/black_color"
+            android:fontFamily="@font/bebase_font_family_regular"
+            android:textStyle="italic"
+            android:textSize="@dimen/sp_16" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_24"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/dp_60"
-            android:layout_marginRight="@dimen/dp_60"
-            android:background="@drawable/leadboardtext" />
     </LinearLayout>
 
 
@@ -117,25 +120,36 @@
             android:layout_weight="1"
             android:gravity="center_vertical">
 
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="18dp"
-                android:background="@drawable/name" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center|start"
+                android:text="Name "
+                android:textAllCaps="true"
+                android:textColor="@color/black_btn"
+                android:textStyle="normal"
+                />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/dp_25"
+            android:layout_marginRight="@dimen/dp_10"
             android:layout_weight="1"
             android:gravity="center_vertical">
 
-            <ImageView
-                android:layout_width="@dimen/dp_100"
-                android:layout_height="18dp"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/score" />
+                android:gravity="center|end"
+                android:text="Activity Fq score "
+                android:textAllCaps="true"
+                android:textColor="@color/black_btn"
+                android:textStyle="normal"
+                />
         </LinearLayout>
 
 

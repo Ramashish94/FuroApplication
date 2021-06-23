@@ -14,11 +14,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
 import com.app.furoapp.activity.LoginTutorialScreen;
+import com.app.furoapp.activity.newFeature.StepsTracker.adapter.LeadBoardAdapter;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyAdapter.AllTimeHistoryAdapter;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyAdapter.MonthlyHistoryAdapter;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyAdapter.WeeklyHistoryAdapter;
@@ -28,7 +30,6 @@ import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.Data;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.HistoryResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.MonthlyData;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.MonthlyDataList;
-import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.WeeklyData;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.WeeklyDataList;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
@@ -50,7 +51,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -72,11 +72,12 @@ public class HistoryDetailsActivity extends AppCompatActivity {
     private String getAccessToken;
     TextView tvTotStep, tvDailyAverage, tvTotStepssss, tvDailyAveragessss, tvTime, tvCalories, tvDateWithDays;
     TextView tvSun, tvMon, tvTue, tvWed, tvThu, tvFri, tvSat;
-    RecyclerView rvHistory;
+    RecyclerView rvHistory, rvDays;
     public GoogleSignInClient mGoogleSignInClient;
     public AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     public Date date;
+    public LinearLayout llHistoryDetailsLayout;
 
 
     @Override
@@ -111,12 +112,14 @@ public class HistoryDetailsActivity extends AppCompatActivity {
         tvTotStep = findViewById(R.id.tvTotStep);
         tvDailyAverage = findViewById(R.id.tvDailyAverage);
         rvHistory = findViewById(R.id.rvHistory);
+        //rvDays = findViewById(R.id.rvDays);
 
         tvTotStepssss = findViewById(R.id.tvTotStepssss);
         tvDailyAveragessss = findViewById(R.id.tvDailyAveragessss);
         tvTime = findViewById(R.id.tvTime);
         tvCalories = findViewById(R.id.tvCalories);
         tvDateWithDays = findViewById(R.id.tvDateWithDays);
+        llHistoryDetailsLayout = findViewById(R.id.llHistoryDetailsLayout);
 
         tvSun = findViewById(R.id.tvSun);
         tvMon = findViewById(R.id.tvMon);
@@ -165,7 +168,6 @@ public class HistoryDetailsActivity extends AppCompatActivity {
                     type = "Weekly";
                     switchBtnAllType.setChecked(false);
                     switchBtnMontly.setChecked(false);
-                    //setWeeklyDataAdapter();
                     callHistoryApi("Weekly");/*str_act,*/
                 }
 
@@ -179,8 +181,8 @@ public class HistoryDetailsActivity extends AppCompatActivity {
                     type = "Monthly";
                     switchBtnWeekly.setChecked(false);
                     switchBtnAllType.setChecked(false);
-                    //  setMonthlyDataAdapter();
                     callHistoryApi("Monthly");/*str_act,*/
+
 
                 }
             }
@@ -193,7 +195,6 @@ public class HistoryDetailsActivity extends AppCompatActivity {
                     type = "All Time";
                     switchBtnWeekly.setChecked(false);
                     switchBtnMontly.setChecked(false);
-                    // setAllTimeDataAdapter();
                     callHistoryApi("All Time");/*/*str_act,*/
 
                 }
@@ -202,6 +203,7 @@ public class HistoryDetailsActivity extends AppCompatActivity {
         callHistoryApi();
 
     }
+
 
     private void callApi() {
        /* switchBtnWeekly.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -255,11 +257,12 @@ public class HistoryDetailsActivity extends AppCompatActivity {
                     if (response.body() != null) {
                         if (response.body().getData().getAllTimeCounterList() != null) {
                             setDateData(response.body().getData().getAllTimeCounterList().get(0));
+                            setstepsAndDailyAvaragedata(response.body().getData().getAllTimeData());
                             //setChartView(response.body().getData().getAllTimeCounterList());
                             setAllTimeChartView(response.body().getData().getAllTimeCounterList());
-
                             // setAllTimedata(response.body().getData().getAllTimeData());
-                            setAllTimeAdapter(response.body().getData().getAllTimeCounterList());
+                            //setAllTimeAdapter(response.body().getData().getAllTimeCounterList());
+                            setGraphMonthlyAndAllTimeDelails("All Time", response.body().getData());
                         }
                     }
 
@@ -278,22 +281,15 @@ public class HistoryDetailsActivity extends AppCompatActivity {
         });
     }
 
-
-    private void setAllTimedata(AllTimeData allTimeData) {
-        tvTotStep.setText("" + allTimeData.getCountSteps());
-        tvDailyAverage.setText("" + allTimeData.getDailyAverage() + " m");
-
-        tvTotStepssss.setText("" + allTimeData.getCountSteps() + " ");
-        tvDailyAveragessss.setText("" + allTimeData.getDailyAverage() + " m");
-        tvTime.setText("" + allTimeData.getTime() + " Minutes");
-        tvCalories.setText("" + allTimeData.getCalories() + " Cal");
+    private void setstepsAndDailyAvaragedata(AllTimeData allTimeData) {
+        if (allTimeData != null) {
+            tvTotStep.setText("" + allTimeData.getCountSteps());
+            tvDailyAverage.setText("" + allTimeData.getDailyAverage() + " m");
+        }
     }
 
     private void setDateData(AllTimeCounter allTimeCounterList) {
         if (allTimeCounterList != null) {
-            //if (allTimeCounterList.get(0).getId() == 1) {
-            tvTotStep.setText("" + allTimeCounterList.getCountSteps());
-            tvDailyAverage.setText("" + allTimeCounterList.getDailyAverage() + " m");
 
             DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
             try {
@@ -320,25 +316,25 @@ public class HistoryDetailsActivity extends AppCompatActivity {
                     if (response.code() == 200) {
                         //  Data data = response.body().getData();
                         if (response.body() != null) {
-                            if (type.equals("Weekly")) {
+                            if (type.equalsIgnoreCase("Weekly")) {
                                 setData("Weekly", response.body().getData());
                                 setWeeklyChartView(response.body().getData().getWeeklyDataLists());
-                                //setDate(response.body().getData().getAllTimeCounterList());
                                 setListAdapter("Weekly", response.body().getData());
 
-                            } else if (type.equals("All Time")) {
-                                setData("Weekly", response.body().getData());
-                                // setAllTimeData("All Time", response.body().getData().getAllTimeData());
-                                setAllTimeChartView(response.body().getData().getAllTimeCounterList());
-                                //setDate(response.body().getData().getAllTimeCounterList());
-                                setListAdapter("All Time", response.body().getData());
-
-                            } else if (type.equals("Monthly")) {
-                                setData("Weekly", response.body().getData());
-                                //setMonthlyData("Monthly", response.body().getData().getMonthlyData());
+                            } else if (type.equalsIgnoreCase("Monthly")) {
+                                setData("Monthly", response.body().getData());
+                                setGraphMonthlyAndAllTimeDelails("Monthly", response.body().getData());
                                 setMonthlyChartView(response.body().getData().getMonthlyDataLists());
-                                //setDate(response.body().getData().getAllTimeCounterList());
-                                setListAdapter("Monthly", response.body().getData());
+                                // setListAdapter("Monthly", response.body().getData());
+//                                setGraphChartMontly(response.body().getData().getMonthlyData());
+
+                            } else if (type.equalsIgnoreCase("All Time")) {
+                                setData("All Time", response.body().getData());
+                                setGraphMonthlyAndAllTimeDelails("All Time", response.body().getData());
+                                setAllTimeChartView(response.body().getData().getAllTimeCounterList());
+                                //setListAdapter("All Time", response.body().getData());
+//                                setGraphChartAllTime(response.body().getData().getAllTimeData());
+
                             }
                         }
                     } else if (response.code() == 500) {
@@ -357,10 +353,40 @@ public class HistoryDetailsActivity extends AppCompatActivity {
         }
     }
 
+   /* private void setWeeklyAdapter() {
+        daysGraphAdapter = new DaysGraphAdapter(getApplicationContext(), weeklyDataListList);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true);
+        rvDays.setLayoutManager(layoutManager);
+        rvDays.setItemAnimator(new DefaultItemAnimator());
+        rvDays.setAdapter(daysGraphAdapter);
+    }
+
+    private void notifyDaysAdapter(List<WeeklyDataList> weeklyDataLists) {
+        weeklyDataListList.clear();
+        weeklyDataListList.addAll(weeklyDataLists);
+        if (weeklyDataListList != null && weeklyDataListList.size() > 0) {
+            daysGraphAdapter.notifyDataSetChanged();
+        } else {
+            Toast.makeText(this, "No record found !", Toast.LENGTH_SHORT).show();
+        }
+    }
+*/
+
     private void setWeeklyChartView(List<WeeklyDataList> weeklyDataLists) {
         ArrayList<BarEntry> entries = new ArrayList<>();
         ArrayList<String> labels = new ArrayList<String>();
         int index = 0;
+
+        DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
+        try {
+            date = dateFormat.parse(weeklyDataLists.get(0).getCreatedAt());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        DateFormat dateFormat1 = new SimpleDateFormat("dd MMM, EEE");
+        String getDate = dateFormat1.format(date);
+
+
 
         for (WeeklyDataList weeklyDataList : weeklyDataLists) {
             entries.add(new BarEntry(Float.parseFloat(String.valueOf(weeklyDataList.getCountSteps())), index));
@@ -368,7 +394,7 @@ public class HistoryDetailsActivity extends AppCompatActivity {
             index++;
         }
 
-        BarDataSet bardataset = new BarDataSet(entries, "");
+        BarDataSet bardataset = new BarDataSet(entries, getDate);
         BarData data = new BarData(labels, bardataset);
         barChart.setData(data);
         // set the data and list of labels into chart
@@ -402,7 +428,17 @@ public class HistoryDetailsActivity extends AppCompatActivity {
             index++;
         }
 
-        BarDataSet bardataset = new BarDataSet(entries, "");
+        DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
+        try {
+            date = dateFormat.parse(monthlyDataLists.get(0).getCreatedAt());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        DateFormat dateFormat1 = new SimpleDateFormat("dd MMM, EEE");
+        String getDate = dateFormat1.format(date);
+
+
+        BarDataSet bardataset = new BarDataSet(entries, getDate);
         BarData data = new BarData(labels, bardataset);
         barChart.setData(data);
         // set the data and list of labels into chart
@@ -437,7 +473,18 @@ public class HistoryDetailsActivity extends AppCompatActivity {
             index++;
         }
 
-        BarDataSet bardataset = new BarDataSet(entries,"");
+        DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
+        try {
+            date = dateFormat.parse(allTimeCounterList.get(0).getCreatedAt());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        DateFormat dateFormat1 = new SimpleDateFormat("dd MMM, EEE");
+        String getDate = dateFormat1.format(date);
+
+
+
+        BarDataSet bardataset = new BarDataSet(entries, getDate);
         BarData data = new BarData(labels, bardataset);
         barChart.setData(data);
         // set the data and list of labels into chart
@@ -459,62 +506,51 @@ public class HistoryDetailsActivity extends AppCompatActivity {
         barChart.getAxisRight().setDrawAxisLine(false);
     }
 
-
-   /* private void setChartView(List<AllTimeCounter> allTimeCounterList) {
-        ArrayList<BarEntry> entries = new ArrayList<>();
-        ArrayList<String> labels = new ArrayList<String>();
-        int index = 0;
-
-        for (AllTimeCounter allTimeCounter : allTimeCounterList) {
-            entries.add(new BarEntry(Float.parseFloat(String.valueOf(allTimeCounter.getCountSteps())), index));
-            labels.add(String.valueOf(allTimeCounter.getCountSteps()));
-            index++;
-        }
-
-        BarDataSet bardataset = new BarDataSet(entries, "Cells");
-        BarData data = new BarData(labels, bardataset);
-        barChart.setData(data);
-        // set the data and list of labels into chart
-        barChart.setDescription("");  // set the description
-        bardataset.setColors(Collections.singletonList(getResources().getColor(R.color.light_blue)));
-
-        barChart.animateY(5000);
-    }*/
-
     private void setListAdapter(String type, Data data) {
-        if (type.equals("Weekly")) {
+        if (type.equalsIgnoreCase("Weekly")) {
+            llHistoryDetailsLayout.setVisibility(View.GONE);
+            rvHistory.setVisibility(View.VISIBLE);
             rvHistory.setLayoutManager(new LinearLayoutManager(this));
             weeklyHistoryAdapter = new WeeklyHistoryAdapter(getApplicationContext(), data.getWeeklyDataLists());
             rvHistory.setAdapter(weeklyHistoryAdapter);
             weeklyHistoryAdapter.notifyDataSetChanged();
         }
-        if (type.equals("All Time")) {
-            rvHistory.setLayoutManager(new LinearLayoutManager(this));
-            allTimeHistoryAdapter = new AllTimeHistoryAdapter(getApplicationContext(), data.getAllTimeCounterList());
-            rvHistory.setAdapter(allTimeHistoryAdapter);
-            allTimeHistoryAdapter.notifyDataSetChanged();
-        }
-        if (type.equals("Monthly")) {
+
+        if (type.equalsIgnoreCase("Monthly")) {
+            llHistoryDetailsLayout.setVisibility(View.VISIBLE);
+            rvHistory.setVisibility(View.GONE);
             rvHistory.setLayoutManager(new LinearLayoutManager(this));
             monthlyHistoryAdapter = new MonthlyHistoryAdapter(getApplicationContext(), data.getMonthlyDataLists());
             rvHistory.setAdapter(monthlyHistoryAdapter);
             monthlyHistoryAdapter.notifyDataSetChanged();
         }
+
+        if (type.equalsIgnoreCase("All Time")) {
+            llHistoryDetailsLayout.setVisibility(View.VISIBLE);
+            rvHistory.setVisibility(View.GONE);
+            rvHistory.setLayoutManager(new LinearLayoutManager(this));
+            allTimeHistoryAdapter = new AllTimeHistoryAdapter(getApplicationContext(), data.getAllTimeCounterList());
+            rvHistory.setAdapter(allTimeHistoryAdapter);
+            allTimeHistoryAdapter.notifyDataSetChanged();
+        }
     }
 
     private void setData(String type, Data data) {
-        if (type.equals("Weekly")) {
+        if (type.equalsIgnoreCase("Weekly")) {
             tvTotStep.setText("" + data.getWeeklyData().getCountSteps() + " ");
             tvDailyAverage.setText("" + data.getWeeklyData().getDailyAverage() + " ");
         }
-        if (type.equals("All Time")) {
-            tvTotStep.setText("" + data.getAllTimeData().getCountSteps() + " ");
-            tvDailyAverage.setText("" + data.getAllTimeData().getDailyAverage() + " ");
-        }
-        if (type.equals("Monthly")) {
+
+        if (type.equalsIgnoreCase("Monthly")) {
             tvTotStep.setText("" + data.getMonthlyData().getCountSteps() + " ");
             tvDailyAverage.setText("" + data.getMonthlyData().getDailyAverage() + " ");
         }
+
+        if (type.equalsIgnoreCase("All Time")) {
+            tvTotStep.setText("" + data.getAllTimeData().getCountSteps() + " ");
+            tvDailyAverage.setText("" + data.getAllTimeData().getDailyAverage() + " ");
+        }
+
     }
 
     private void setAllTimeAdapter(List<AllTimeCounter> allTimeCounterList) {
@@ -522,6 +558,36 @@ public class HistoryDetailsActivity extends AppCompatActivity {
         allTimeHistoryAdapter = new AllTimeHistoryAdapter(getApplicationContext(), allTimeCounterList);
         rvHistory.setAdapter(allTimeHistoryAdapter);
         allTimeHistoryAdapter.notifyDataSetChanged();
+    }
+
+
+    private void setGraphMonthlyAndAllTimeDelails(String type, Data data) {
+        if (type.equalsIgnoreCase("Monthly")) {
+            rvHistory.setVisibility(View.GONE);
+            llHistoryDetailsLayout.setVisibility(View.VISIBLE);
+
+            tvTotStep.setText("" + data.getMonthlyData().getCountSteps() + " ");
+            tvDailyAverage.setText("" + data.getMonthlyData().getDailyAverage() + " ");
+
+            tvTotStepssss.setText("" + data.getMonthlyData().getCountSteps() + " ");
+            tvDailyAveragessss.setText("" + data.getMonthlyData().getDailyAverage() + " m");
+            tvTime.setText("" + data.getMonthlyData().getTime() + " Minutes");
+            tvCalories.setText("" + data.getMonthlyData().getCalories() + " Cal");
+
+        }
+
+        if (type.equalsIgnoreCase("All Time")) {
+            rvHistory.setVisibility(View.GONE);
+            llHistoryDetailsLayout.setVisibility(View.VISIBLE);
+
+            tvTotStep.setText("" + data.getMonthlyData().getCountSteps() + " ");
+            tvDailyAverage.setText("" + data.getMonthlyData().getDailyAverage() + " ");
+
+            tvTotStepssss.setText("" + data.getAllTimeData().getCountSteps() + " ");
+            tvDailyAveragessss.setText("" + data.getAllTimeData().getDailyAverage() + " m");
+            tvTime.setText("" + data.getAllTimeData().getTime() + " Minutes");
+            tvCalories.setText("" + data.getAllTimeData().getCalories() + " Cal");
+        }
     }
 
 

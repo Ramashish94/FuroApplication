@@ -1,12 +1,11 @@
 package com.app.furoapp.activity.newFeature.StepsTracker;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.hardware.Sensor;
-import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -38,6 +37,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -72,6 +78,10 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     public String selectNumberAchievedVal;
     private Integer getStepsCount;
     private boolean isServiceStopped;
+    public Intent intent;
+    public String countedStep;
+    public String DetectedStep;
+    public Integer getCountSteps;
 
 
     @Override
@@ -79,9 +89,8 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fq_steps_counter);
 
-
         initViews();
-        clickEvent();
+        //  clickEvent();
 
         stepsAchivedVal = getIntent().getStringExtra("getAchievedVal");
         selectNumberAchievedVal = getIntent().getStringExtra("selectNumber");
@@ -97,8 +106,37 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
 
         setdata();
-    }
 
+
+        Dexter.withActivity(this)
+                .withPermissions(Manifest.permission.ACTIVITY_RECOGNITION)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        if (report.areAllPermissionsGranted()) {
+                            // ___ instantiate intent ___ \\
+                            //  Instantiate the intent declared globally - which will be passed to startService and stopService.
+                            intent = new Intent(FqStepsCounterActivity.this, StepCountingServiceFuro.class);
+
+                            //  init(); // Call view initialisation method.
+                            clickEvent();
+
+                        }
+
+                        if (report.isAnyPermissionPermanentlyDenied()) {
+
+                        }
+                    }
+
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).check();
+
+
+    }
 
     private void initViews() {
         ivBackIcon = findViewById(R.id.ivBackIcon);
@@ -122,6 +160,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         isServiceStopped = true;
     }
 
+
     private void clickEvent() {
         ivBackIcon.setOnClickListener(v -> {
             finish();
@@ -135,7 +174,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         ivLeadBord.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), LeadBoardActivity.class);
             startActivity(intent);
-            finish();
+
         });
 
 // ________________ Service Management (Start & Stop Service). ________________ //
@@ -143,9 +182,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         tvActivateStepsCounter.setOnClickListener(v -> {
             tvDiActivate.setVisibility(View.VISIBLE);
             tvActivateStepsCounter.setVisibility(View.GONE);
-//            stepCounter();// step counter functionality implimentation
-            startTime = SystemClock.uptimeMillis();
-            customHandler.postDelayed(updateTimerThread, 0);
+            stepCounterTime();// step counter functionality implimentation
             // start Service.
             startService(new Intent(getBaseContext(), StepCountingServiceFuro.class));
             // register our BroadcastReceiver by passing in an IntentFilter. * identifying the message that is broadcasted by using static string "BROADCAST_ACTION".
@@ -159,9 +196,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
             llMarkLapAndStop.setVisibility(View.VISIBLE);
             tvDiActivate.setVisibility(View.GONE);
             customHandler.removeCallbacks(updateTimerThread);
-            if ((sensorManager) != null) {
-                sensorManager.unregisterListener(stepDetector, sensorAcceleroMeter);
-            }
+
             if (!isServiceStopped) {
                 // call unregisterReceiver - to stop listening for broadcasts.
                 unregisterReceiver(broadcastReceiver);
@@ -169,45 +204,34 @@ public class FqStepsCounterActivity extends AppCompatActivity {
                 stopService(new Intent(getBaseContext(), StepCountingServiceFuro.class));
                 isServiceStopped = true;
             }
+
             callUserStepGoalApi();
         });
 
         ivHistory.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), HistoryDetailsActivity.class);
             startActivity(intent);
-            finish();
+
         });
         tvMarkLap.setOnClickListener(v -> {
-            if (stepCount != null) {
-                stepCount = 0;
-                distanceInMeter = 0;
-                getCalculateCalories = 0;
-//                stepCounter();// step counter functionality implimentation
-            }
-            startTime = SystemClock.uptimeMillis();
-            customHandler.postDelayed(updateTimerThread, 0);
+            stepCounterTime();// step counter functionality implimentation
+            // start Service.
+            startService(new Intent(getBaseContext(), StepCountingServiceFuro.class));
+            // register our BroadcastReceiver by passing in an IntentFilter. * identifying the message that is broadcasted by using static string "BROADCAST_ACTION".
+            registerReceiver(broadcastReceiver, new IntentFilter(StepCountingServiceFuro.BROADCAST_ACTION));
+            isServiceStopped = false;
+
             llMarkLapAndStop.setVisibility(View.GONE);
             tvDiActivate.setVisibility(View.VISIBLE);
         });
 
         tvStop.setOnClickListener(v -> {
-            if ((sensorManager) != null) {
-                stepCount = 0;
-                distanceInMeter = 0;
-                getCalculateCalories = 0;
-                sensorManager.unregisterListener(stepDetector, sensorAcceleroMeter);
-            }
-            SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.clear();
             customHandler.removeCallbacks(updateTimerThread);
-            stepCount = 0;
             finish();
         });
 
         llCongratsClosedIcon.setOnClickListener(v -> {
             includeCongratsStepsTrack.setVisibility(View.GONE);
-
             finish();
         });
     }
@@ -221,125 +245,18 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         }
     }
 
+    public void stepCounterTime() {
+        startTime = SystemClock.uptimeMillis();
+        customHandler.postDelayed(updateTimerThread, 0);
 
-    public void stepCounter() {
-        Log.d(TAG, "OnCreate: Initialization Sensor service ");
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        sensorAcceleroMeter = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        stepDetector = new SensorEventListener() {
-            @Override
-            public void onSensorChanged(SensorEvent event) {
-                if (event != null) {
-                    float x_acceleration = event.values[0];
-                    float y_acceleration = event.values[1];
-                    float z_acceleration = event.values[2];
-                    //Log.d(TAG, "OnSensorChanged: X: " + event.values[0] + "Y:" + event.values[1] + "Z:" + event.values[2]);
-                    double magnitude = Math.sqrt(x_acceleration * x_acceleration + y_acceleration * y_acceleration + z_acceleration * z_acceleration);
-                    //  Log.d("magnitude", String.valueOf(+magnitude));
-                    double magnitudeDelta = magnitude - magnitudePrevious;
-                    // Log.d("magnitudeDelta", String.valueOf(magnitudeDelta));
-                    magnitudePrevious = magnitude;
-                    if (magnitudeDelta >= 2) {
-                        stepCount = stepCount + 1;
-                        Log.d("stepCount", String.valueOf("" + stepCount));
-                    }
-//                    tvCountsSteps.setText(stepCount + "");
-                }
-//                if (event.sensor.getType()==Sensor.TYPE_STEP_COUNTER) {
-//                    stepCount++;
-//                }
-//                //stepCount = (int) event.values[0];
-//
-//
-//                tvCountsSteps.setText(stepCount + "");
-
-
-               /* Sensor sensor = event.sensor;
-                float[] values = event.values;
-                int value = -1;
-
-                if (values.length > 0) {
-                    value = (int) values[0];
-                }
-                Log.d(TAG, "onSensorChanged() called with: sensor type = [" + sensor.getType() + "]");
-                if (sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
-                    stepCount++;
-                }*/
-
-
-                distanceInMeter = getDistanceRun(stepCount);
-                Log.d(TAG, "onSensorChanged() called with: distanceInMeter = [" + distanceInMeter + "]");
-                tvDistance.setText("" + distanceInMeter + " meter");
-                getCalculateCalories = calculateCalories(stepCount);
-                tvCalories.setText("" + getCalculateCalories);
-                Log.d(TAG, "onSensorChanged() called with: Calories = [" + calculateCalories(stepCount) + "]");
-            }
-
-            @Override
-            public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-            }
-        };
-        sensorManager.registerListener(stepDetector, sensorAcceleroMeter, sensorManager.SENSOR_DELAY_NORMAL);
-        Log.d(TAG, "OnCreate: Registered sensorAcceleroMeter listener ");
-
-    }
-
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.clear();
-//        editor.putInt("stepCount", stepCount);
-//        Log.d("stepCount", String.valueOf(+stepCount));
-//        editor.apply();
-//    }
-
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.clear();
-//        editor.putInt("stepCount", stepCount);
-//        Log.d("stepCount", String.valueOf(+stepCount));
-//        editor.apply();
-//        // distanceInMeter = getDistanceRun(stepCount);
-//    }
-
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
-//        stepCount = sharedPreferences.getInt("stepCount", 0);
-//        Log.d("stepCount", String.valueOf(+stepCount));
-//    }
-
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        if ((sensorManager) != null) {
-//            SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
-//            SharedPreferences.Editor editor = sharedPreferences.edit();
-//            editor.clear();
-//            stepCount = 0;
-//            sensorManager.unregisterListener(stepDetector, sensorAcceleroMeter);
-//        }
-//    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        if ((sensorManager) != null) {
-            sensorManager.unregisterListener(stepDetector, sensorAcceleroMeter);
-            SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.clear();
-            stepCount = 0;
-        }
-        tvCountsSteps.setText("");
-
+       /* if (countedStep != null) {
+            distanceInMeter = getDistanceRun(countedStep);
+            Log.d(TAG, "onSensorChanged() called with: distanceInMeter = [" + distanceInMeter + "]");
+            tvDistance.setText("" + distanceInMeter + " meter");
+            getCalculateCalories = calculateCalories(countedStep);
+            tvCalories.setText("" + getCalculateCalories);
+            Log.d(TAG, "onSensorChanged() called with: Calories = [" + calculateCalories((long) getCalculateCalories) + "]");
+        }*/
     }
 
     //function to determine the distance run in kilometers/meter using average step length for men and number of steps
@@ -374,7 +291,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         userStepsGoalRequest.setTime(getTime);
         userStepsGoalRequest.setDistance(String.valueOf(distanceInMeter));
         userStepsGoalRequest.setCalories(String.valueOf(getCalculateCalories));
-        userStepsGoalRequest.setCount_steps(String.valueOf(stepCount));
+        userStepsGoalRequest.setCount_steps(String.valueOf(countedStep));
         if (stepsAchivedVal != null) {
             userStepsGoalRequest.setTotal_steps(stepsAchivedVal);
         } else {
@@ -493,15 +410,24 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     // ___ retrieve data from intent & set data to textviews __ \\
     private void updateViews(Intent intentData) {
         // retrieve data out of the intent.
-        String countedStep = intentData.getStringExtra("Counted_Step");
-        String DetectedStep = intentData.getStringExtra("Detected_Step");
+         countedStep = intentData.getStringExtra("Counted_Step");
+         DetectedStep = intentData.getStringExtra("Detected_Step");
         Log.d(TAG, String.valueOf(countedStep));
-        Log.d(TAG, String.valueOf(countedStep));
-        tvCountsSteps.setText(DetectedStep);
+        Log.d(TAG, String.valueOf(DetectedStep));
+        tvCountsSteps.setText(""+countedStep);
+
+       getCountSteps = Integer.valueOf(countedStep);
+
+        /*added*/
+        distanceInMeter = (float) (getCountSteps * 78) / (float) 100;
+        Log.d(TAG, "onSensorChanged() called with: distanceInMeter = [" + distanceInMeter + "]");
+        tvDistance.setText("" + distanceInMeter + " meter");
+        getCalculateCalories = (float) (getCountSteps * 0.045);
+        tvCalories.setText("" + getCalculateCalories);
+        Log.d(TAG, "onSensorChanged() called with: Calories = [" + calculateCalories((long) getCalculateCalories) + "]");
 
     }
 
-    // --------------------------------------------------------------------------- \\
     // ___ create Broadcast Receiver ___ \\
     // create a BroadcastReceiver - to receive the message that is going to be broadcast from the Service
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {

@@ -67,7 +67,7 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".activity.newFeature.StepsTracker.LeadBoardActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.newFeature.StepsTracker.HistoryDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar" />

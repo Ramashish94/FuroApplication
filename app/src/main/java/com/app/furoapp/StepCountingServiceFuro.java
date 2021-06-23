@@ -154,7 +154,7 @@ public class StepCountingServiceFuro extends Service implements SensorEventListe
                 stepCounter = (int) event.values[0]; // Assign the StepCounter Sensor event value to it.
             }
             newStepCounter = countSteps - stepCounter; // By subtracting the stepCounter variable from the Sensor event value - We start a new counting sequence from 0. Where the Sensor event value will increase, and stepCounter value will be only initialised once.
-            Toast.makeText(this, "FQ_counter - " + String.valueOf(newStepCounter), Toast.LENGTH_LONG).show();
+           // Toast.makeText(this, "FQ_counter - " + String.valueOf(newStepCounter), Toast.LENGTH_LONG).show();
 
         }
 
@@ -163,7 +163,7 @@ public class StepCountingServiceFuro extends Service implements SensorEventListe
         if (event.sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
             int detectSteps = (int) event.values[0];
             currentStepsDetected += detectSteps; //steps = steps + detectSteps; // This variable will be initialised with the STEP_DETECTOR event value (1), and will be incremented by itself (+1) for as long as steps are detected.
-            Toast.makeText(this, "FQ_counter - " + String.valueOf(currentStepsDetected), Toast.LENGTH_LONG).show();
+          //  Toast.makeText(this, "FQ_counter - " + String.valueOf(currentStepsDetected), Toast.LENGTH_LONG).show();
 
         }
 

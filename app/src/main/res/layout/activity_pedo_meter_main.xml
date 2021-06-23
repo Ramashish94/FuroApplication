@@ -8,13 +8,6 @@
     android:backgroundTintMode="add"
     android:id="@+id/parentLayout"
     android:alpha="0.90">
-    <!--android:background="@mipmap/h"-->
-
-<!--    <de.j4velin.pedometer.Animation-->
-<!--        android:id="@+id/custom_view"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        />-->
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -86,7 +79,5 @@
 
         </LinearLayout>
     </RelativeLayout>
-
-    <!-- Animation Custom View -->
 
 </RelativeLayout>

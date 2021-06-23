@@ -1,6 +1,7 @@
 package com.app.furoapp.activity.newFeature.StepsTracker.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,8 +41,8 @@ public class LeadBoardAdapter extends RecyclerView.Adapter<LeadBoardAdapter.MyVi
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         LeadBoardModel leadBoardModel = leadBoardModelList.get(position);
-        holder.tvScore.setText("" + leadBoardModel.getName());
-        holder.tvName.setText("" + leadBoardModel.getScore());
+        holder.tvScore.setText("" + leadBoardModel.getScore());
+        holder.tvName.setText("" + leadBoardModel.getName());
 
         holder.llLeadBoardItem.setOnClickListener(v -> {
             leadBoardClickCallBack.leadBoardItemClick(position, leadBoardModel.getName(), leadBoardModel.getScore());
@@ -49,13 +50,16 @@ public class LeadBoardAdapter extends RecyclerView.Adapter<LeadBoardAdapter.MyVi
             notifyDataSetChanged();
         });
 
-        if (row_index == position) {
-//            clicked=true;
-            //holder.tvAge.setTextColor(Color.parseColor("#19CFE6"));
-        } else {
+//        if (row_index == position) {
+//           clicked=true;
+//            holder.tvScore.setTextColor(Color.parseColor("#19CFE6"));
+//            holder.tvName.setTextColor(Color.parseColor("#19CFE6"));
+//        } else {
 //           clicked=false;
-            //holder.tvAge.setTextColor(Color.parseColor("#FFFFFF"));
-        }
+//            holder.tvScore.setTextColor(Color.parseColor("#19CFE6"));
+//            holder.tvName.setTextColor(Color.parseColor("#19CFE6"));
+//
+//        }
 
 
     }

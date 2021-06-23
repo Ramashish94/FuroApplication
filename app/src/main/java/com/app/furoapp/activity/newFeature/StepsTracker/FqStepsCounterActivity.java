@@ -24,11 +24,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.furoapp.R;
+import com.app.furoapp.StepCountingServiceFuro;
 import com.app.furoapp.activity.LoginTutorialScreen;
 import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalResponse;
 import com.app.furoapp.retrofit.RestClient;
-import com.app.furoapp.services.StepCountingService;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
@@ -147,9 +147,9 @@ public class FqStepsCounterActivity extends AppCompatActivity {
             startTime = SystemClock.uptimeMillis();
             customHandler.postDelayed(updateTimerThread, 0);
             // start Service.
-            startService(new Intent(getBaseContext(), StepCountingService.class));
+            startService(new Intent(getBaseContext(), StepCountingServiceFuro.class));
             // register our BroadcastReceiver by passing in an IntentFilter. * identifying the message that is broadcasted by using static string "BROADCAST_ACTION".
-            registerReceiver(broadcastReceiver, new IntentFilter(StepCountingService.BROADCAST_ACTION));
+            registerReceiver(broadcastReceiver, new IntentFilter(StepCountingServiceFuro.BROADCAST_ACTION));
             isServiceStopped = false;
         });
 
@@ -166,7 +166,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
                 // call unregisterReceiver - to stop listening for broadcasts.
                 unregisterReceiver(broadcastReceiver);
                 // stop Service.
-                stopService(new Intent(getBaseContext(), StepCountingService.class));
+                stopService(new Intent(getBaseContext(), StepCountingServiceFuro.class));
                 isServiceStopped = true;
             }
             callUserStepGoalApi();

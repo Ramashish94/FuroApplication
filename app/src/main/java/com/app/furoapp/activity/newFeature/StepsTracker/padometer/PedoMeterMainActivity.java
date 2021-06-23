@@ -43,7 +43,6 @@ import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
 
 import com.app.furoapp.R;
 import com.app.furoapp.StepCountingServiceFuro;
-import com.app.furoapp.services.SensorBackgroundService;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;

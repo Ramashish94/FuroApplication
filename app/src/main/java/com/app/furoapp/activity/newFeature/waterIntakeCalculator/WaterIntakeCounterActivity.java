@@ -198,29 +198,34 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             if (selectedPlan.getRecommendedGlassOfWater() != null) {
                 tvRecommendedNosOfGlasses.setText("/" + selectedPlan.getRecommendedGlassOfWater().toString());
             }
-        }
-        if (selectedPlan.getCreatedAt() != null) {
 
-            DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
-            try {
-                date = dateFormat.parse(selectedPlan.getCreatedAt());
-            } catch (ParseException e) {
-                e.printStackTrace();
+            if (selectedPlan.getCreatedAt() != null) {
+
+                DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
+                try {
+                    date = dateFormat.parse(selectedPlan.getCreatedAt());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                DateFormat dateFormat1 = new SimpleDateFormat("dd MMM, EEE");
+                String getDate = dateFormat1.format(date);
+                tvDateWithDay.setText(getDate);
             }
-            DateFormat dateFormat1 = new SimpleDateFormat("dd MMM, EEE");
-            String getDate = dateFormat1.format(date);
-            tvDateWithDay.setText(getDate);
-        }
-        /*Update progress percent*/
-        takenWaterInPercent = (takingWater * 100 / totRecommendedWater);
-        scProgressBar.setPercent(takenWaterInPercent);     // set percent on progress bar
-        if (takingWater == totRecommendedWater || takenWaterInPercent >= 98) {
-            includeCongratsPopMenu.setVisibility(View.VISIBLE);
-            clWaterIntakeCounter.setClickable(false);
-            finish();
-        }/* else {
+
+            /*Update progress percent*/
+            takenWaterInPercent = (takingWater * 100 / totRecommendedWater);
+            scProgressBar.setPercent(takenWaterInPercent);     // set percent on progress bar
+            if (takingWater == totRecommendedWater || takenWaterInPercent >= 99) {
+                includeCongratsPopMenu.setVisibility(View.VISIBLE);
+                clWaterIntakeCounter.setClickable(false);
+            }/* else {
             Toast.makeText(this, "Selected plan will be Null", Toast.LENGTH_SHORT).show();
         }*/
+
+
+        }
+
+
     }
 
 

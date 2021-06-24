@@ -82,6 +82,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     public String countedStep;
     public String DetectedStep;
     public Integer getCountSteps;
+    public Integer getDetectedSteps;
 
 
     @Override
@@ -291,7 +292,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         userStepsGoalRequest.setTime(getTime);
         userStepsGoalRequest.setDistance(String.valueOf(distanceInMeter));
         userStepsGoalRequest.setCalories(String.valueOf(getCalculateCalories));
-        userStepsGoalRequest.setCount_steps(String.valueOf(countedStep));
+        userStepsGoalRequest.setCount_steps(String.valueOf(DetectedStep));
         if (stepsAchivedVal != null) {
             userStepsGoalRequest.setTotal_steps(stepsAchivedVal);
         } else {
@@ -410,19 +411,20 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     // ___ retrieve data from intent & set data to textviews __ \\
     private void updateViews(Intent intentData) {
         // retrieve data out of the intent.
-         countedStep = intentData.getStringExtra("Counted_Step");
-         DetectedStep = intentData.getStringExtra("Detected_Step");
+        countedStep = intentData.getStringExtra("Counted_Step");
+        DetectedStep = intentData.getStringExtra("Detected_Step");
         Log.d(TAG, String.valueOf(countedStep));
+        tvCountsSteps.setText("" + DetectedStep);
         Log.d(TAG, String.valueOf(DetectedStep));
-        tvCountsSteps.setText(""+countedStep);
 
-       getCountSteps = Integer.valueOf(countedStep);
+        getCountSteps = Integer.valueOf(countedStep);
+        getDetectedSteps = Integer.parseInt(DetectedStep);
 
         /*added*/
-        distanceInMeter = (float) (getCountSteps * 78) / (float) 100;
+        distanceInMeter = (float) (getDetectedSteps * 78) / (float) 100;
         Log.d(TAG, "onSensorChanged() called with: distanceInMeter = [" + distanceInMeter + "]");
         tvDistance.setText("" + distanceInMeter + " meter");
-        getCalculateCalories = (float) (getCountSteps * 0.045);
+        getCalculateCalories = (float) (getDetectedSteps * 0.045);
         tvCalories.setText("" + getCalculateCalories);
         Log.d(TAG, "onSensorChanged() called with: Calories = [" + calculateCalories((long) getCalculateCalories) + "]");
 

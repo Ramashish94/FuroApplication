@@ -337,4 +337,10 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
         super.onBackPressed();
         finish();
     }*/
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        callFetchAllPlanApi();
+    }
 }

@@ -20,6 +20,8 @@ public class FetchAllPlanAdapter extends RecyclerView.Adapter<FetchAllPlanAdapte
     List<Datum> datumList;
     public TimeSlotClickCallBack timeSlotClickCallBack;
     private int row_index = -1;
+    int count = 0;
+    public int getPosition;
 
 
     public FetchAllPlanAdapter(Context context, List<Datum> datumList, TimeSlotClickCallBack timeSlotClickCallBack) {
@@ -40,7 +42,8 @@ public class FetchAllPlanAdapter extends RecyclerView.Adapter<FetchAllPlanAdapte
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Datum datum = datumList.get(position);
-        holder.tvSlotCount.setText("" + datum.getId() + " - ");
+        getPosition = position + 1;
+        holder.tvSlotCount.setText("Slot " + getPosition + " - ");
         holder.tvSlotTime.setText("" + datum.getTimeslot());
 
         holder.llTimeSlot.setOnClickListener(v -> {
@@ -56,7 +59,6 @@ public class FetchAllPlanAdapter extends RecyclerView.Adapter<FetchAllPlanAdapte
 //           clicked=false;
             //holder.tvAge.setTextColor(Color.parseColor("#FFFFFF"));
         }
-
 
     }
 

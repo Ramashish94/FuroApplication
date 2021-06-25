@@ -70,6 +70,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.newFeature.StepsTracker.HistoryDetailsActivity"
+            android:clearTaskOnLaunch="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.newFeature.StepsTracker.FqStepsCounterActivity"

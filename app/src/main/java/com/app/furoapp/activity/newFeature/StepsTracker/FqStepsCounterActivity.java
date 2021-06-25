@@ -3,6 +3,7 @@ package com.app.furoapp.activity.newFeature.StepsTracker;
 import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.hardware.Sensor;
@@ -24,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.furoapp.R;
 import com.app.furoapp.StepCountingServiceFuro;
+import com.app.furoapp.activity.HomeMainActivity;
 import com.app.furoapp.activity.LoginTutorialScreen;
 import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalResponse;
@@ -52,7 +54,7 @@ import retrofit2.Response;
 public class FqStepsCounterActivity extends AppCompatActivity {
     public ImageView ivBackIcon, ivSetting, ivLeadBord, ivModified, ivHistory;
     public TextView tvCountsSteps, tvTotNumberOfSteps, tvTimes, tvCalories, tvDistance, tvActivateStepsCounter, tvDiActivate, tvMarkLap, tvStop;
-    public View includeCongratsStepsTrack;
+    public View includeCongratsStepsTrack, incudeAlertDialog;
     public double magnitudePrevious = 0;
     private Integer stepCount = -1;
     public SensorManager sensorManager;
@@ -74,7 +76,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     public GoogleSignInClient mGoogleSignInClient;
     public AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
-    LinearLayout llFqStepCounter, llMarkLapAndStop, llCongratsClosedIcon;
+    public LinearLayout llFqStepCounter, llMarkLapAndStop, llCongratsClosedIcon, llModifiedAlert;
     public String selectNumberAchievedVal;
     private Integer getStepsCount;
     private boolean isServiceStopped;
@@ -83,6 +85,10 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     public String DetectedStep;
     public Integer getCountSteps;
     public Integer getDetectedSteps;
+    AlertDialog.Builder builder;
+    private AlertDialog alertDialog;
+    private ImageView btn_Cancel;
+    private TextView tvContinue, tvModified;
 
 
     @Override
@@ -153,11 +159,16 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         tvActivateStepsCounter = findViewById(R.id.tvActivateStepsCounter);
         tvDiActivate = findViewById(R.id.tvDiActivate);
         includeCongratsStepsTrack = findViewById(R.id.incudeCongratsStepsTrack);
+        incudeAlertDialog = findViewById(R.id.incudeAlertDialog);
         llFqStepCounter = findViewById(R.id.llFqStepCounter);
         tvStop = findViewById(R.id.tvStop);
         tvMarkLap = findViewById(R.id.tvMarkLap);
         llMarkLapAndStop = findViewById(R.id.llMarkLapAndStop);
         llCongratsClosedIcon = findViewById(R.id.llCongratsClosedIcon);
+        btn_Cancel = findViewById(R.id.btn_cancel);
+        tvContinue = findViewById(R.id.tvContinue);
+        tvModified = findViewById(R.id.tvModified);
+        //llModifiedAlert=findViewById(R.id.llModifiedAlert);
         isServiceStopped = true;
     }
 
@@ -235,6 +246,27 @@ public class FqStepsCounterActivity extends AppCompatActivity {
             includeCongratsStepsTrack.setVisibility(View.GONE);
             finish();
         });
+
+        ivModified.setOnClickListener(v -> {
+            //openModifiedAlertDialog();
+            incudeAlertDialog.setVisibility(View.VISIBLE);
+            llFqStepCounter.setClickable(false);
+        });
+
+        btn_Cancel.setOnClickListener(v -> {
+            incudeAlertDialog.setVisibility(View.GONE);
+        });
+
+        tvContinue.setOnClickListener(v -> {
+            incudeAlertDialog.setVisibility(View.GONE);
+        });
+        tvModified.setOnClickListener(v -> {
+           incudeAlertDialog.setVisibility(View.GONE);
+           /* Intent intent = new Intent(getApplicationContext(),WantToAcivedActivity.class);
+            startActivity(intent);*/
+            finish();
+        });
+
     }
 
     private void setdata() {
@@ -440,4 +472,73 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         }
     };
     // ___________________________________________________________________________ \\
+
+
+    private void openModifiedAlertDialog() {
+             /* AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setIcon(android.R.drawable.ic_dialog_alert);
+        builder.setTitle("Alert !");
+        builder.setMessage("Are you sure you want to modify this entry?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();*/
+
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.alertt_dialog_modified_data_, null);
+
+
+        dialogBuilder.setView(dialogView);
+
+        final AlertDialog dialog = dialogBuilder.create();
+
+
+        btn_Cancel = dialogView.findViewById(R.id.btn_cancel);
+        tvContinue = dialogView.findViewById(R.id.tvContinue);
+        tvModified = dialogView.findViewById(R.id.tvModified);
+        llFqStepCounter.setClickable(false);
+        btn_Cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+            }
+        });
+        tvContinue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+            }
+        });
+        tvModified.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // FqStepsCounterActivity.super.onBackPressed();
+                dialog.dismiss();
+                finish();
+              /*  finishAffinity();
+                System.exit(0);*/
+
+
+            }
+        });
+        dialog.show();
+
+
+    }
+
+
 }

@@ -13,6 +13,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.furoapp.R;
 import com.app.furoapp.activity.newFeature.StepsTracker.adapter.StepsCountAdapter;
@@ -35,6 +36,7 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
     private NumberPicker picker1;
     private String[] pickerVals;
     private int getnuberVal;
+    private boolean isSelectedCustomGoal;
 
 
     @Override
@@ -44,7 +46,7 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
         findViews();
         clickEvent();
         setRecyAdapter();
-       // numberPicker();
+        // numberPicker();
     }
 
     private void numberPicker() {
@@ -84,7 +86,7 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
         List<AgeModelTest> ageModelTestArrayList = new ArrayList<>();
         for (int i = 3000; i <= 20000; i = i + 100) {
             AgeModelTest ageModelTest = new AgeModelTest();
-           // ageModelTest.setAge(String.valueOf(Color.parseColor("#000000")));
+            // ageModelTest.setAge(String.valueOf(Color.parseColor("#000000")));
             ageModelTest.setAge("" + i);
             ageModelTestArrayList.add(ageModelTest);
         }
@@ -96,10 +98,14 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
 
     private void clickEvent() {
         ivContinue.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), FqStepsCounterActivity.class);
-            intent.putExtra("selectNumber", selectNumber);
-            startActivity(intent);
-            finish();
+            if (isSelectedCustomGoal) {
+                Intent intent = new Intent(getApplicationContext(), FqStepsCounterActivity.class);
+                intent.putExtra("selectNumber", selectNumber);
+                startActivity(intent);
+
+            }else {
+                Toast.makeText(this, "Please select your goal !", Toast.LENGTH_SHORT).show();
+            }
         });
 
 
@@ -113,6 +119,7 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
     @SuppressLint("LongLogTag")
     @Override
     public void stepSelectItem(int position, String number) {
+        isSelectedCustomGoal = true;
         adapterCurrentPos = position;
         selectNumber = String.valueOf(number);
         Log.d("selectNumber", selectNumber);

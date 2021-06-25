@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginTop="?actionBarSize">
+        android:layout_marginTop="?actionBarSize"
+        android:layout_marginRight="32dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,9 +27,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_30"
+                    android:layout_marginLeft="@dimen/dp_10"
                     android:fontFamily="@font/bebas_neue_bold"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/dp_10"
                     android:text="What do you want to achieved ?"
                     android:textColor="@color/white"
                     android:textSize="@dimen/dp_20"
@@ -39,9 +39,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_35"
                 android:layout_marginRight="@dimen/dp_10"
-                android:layout_marginLeft="@dimen/dp_10"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -83,10 +83,10 @@
                             android:id="@+id/tvLooseWeight"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/bebas_neue_bold"
                             android:layout_marginTop="@dimen/dp_10"
+                            android:layout_weight="1"
                             android:gravity="center_horizontal"
+                            android:fontFamily="@font/bebas_neue_bold"
                             android:text="Loose weight"
                             android:textColor="@color/white"
                             android:textStyle="italic" />
@@ -127,13 +127,15 @@
                             android:id="@+id/tvStayHealthy"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/bebas_neue_bold"
-                            android:gravity="center_horizontal"
-                            android:text="Stay healthy"
                             android:layout_marginTop="@dimen/dp_10"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:fontFamily="@font/bebas_neue_bold"
+                            android:text="Stay healthy"
                             android:textColor="@color/white"
                             android:textStyle="italic" />
+
+
 
                     </LinearLayout>
 
@@ -178,10 +180,10 @@
                             android:id="@+id/tvStayActive"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_10"
                             android:layout_weight="1"
                             android:fontFamily="@font/bebas_neue_bold"
                             android:gravity="center_horizontal"
-                            android:layout_marginTop="@dimen/dp_10"
                             android:text="Stay active"
                             android:textColor="@color/white"
                             android:textStyle="italic" />
@@ -226,26 +228,36 @@
             android:layout_height="@dimen/dp_40"
             android:layout_gravity="bottom"
             android:src="@drawable/conti" />
-
+        <!--<TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@drawable/continue_bg_want_to_achived"
+            android:fontFamily="@font/bebas_neue_bold"
+            android:gravity="center"
+            android:text="continue  "
+            android:textColor="@color/black_color"
+            android:textStyle="italic"-->
+            />
         <TextView
             android:id="@+id/ivSkip"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_40"
-            android:fontFamily="@font/bebas_neue_bold"
             android:layout_marginTop="@dimen/dp_10"
-            android:text="Custom Goal  "
-            android:gravity="center"
             android:background="@drawable/select_custom_goal_bg"
+            android:fontFamily="@font/bebas_neue_bold"
+            android:gravity="center"
+            android:text="Custom Goal  "
             android:textColor="@color/white"
             android:textStyle="italic" />
-       <!--
-        <ImageView
-            android:id="@+id/ivSkip"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_40"
-            android:layout_gravity="bottom"
-            android:layout_marginTop="@dimen/dp_10"
-            android:src="@drawable/skipbn" />-->
+        <!--
+         <ImageView
+             android:id="@+id/ivSkip"
+             android:layout_width="match_parent"
+             android:layout_height="@dimen/dp_40"
+             android:layout_gravity="bottom"
+             android:layout_marginTop="@dimen/dp_10"
+             android:src="@drawable/skipbn" />-->
 
     </LinearLayout>
 </LinearLayout>

@@ -483,20 +483,42 @@ public class HistoryDetailsActivity extends AppCompatActivity {
                 DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
                 try {
                     date1 = dateFormat.parse(weeklyDataLists.get(0).getCreatedAt());
+                    date2 = dateFormat.parse(weeklyDataLists.get(1).getCreatedAt());
+                    date3 = dateFormat.parse(weeklyDataLists.get(2).getCreatedAt());
+                    date4 = dateFormat.parse(weeklyDataLists.get(3).getCreatedAt());
+                    date5 = dateFormat.parse(weeklyDataLists.get(4).getCreatedAt());
+                    date6 = dateFormat.parse(weeklyDataLists.get(5).getCreatedAt());
+                    date7 = dateFormat.parse(weeklyDataLists.get(6).getCreatedAt());
+
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                DateFormat dateFormat1 = new SimpleDateFormat("EEE");/*dd MMM,*/
+               DateFormat dateFormat1 = new SimpleDateFormat("EEE");/*dd MMM,*/
                 String getDate1 = dateFormat1.format(date1);
+                String getDate2 = dateFormat1.format(date2);
+                String getDate3 = dateFormat1.format(date3);
+                String getDate4 = dateFormat1.format(date4);
+                String getDate5 = dateFormat1.format(date5);
+                String getDate6 = dateFormat1.format(date6);
+                String getDate7 = dateFormat1.format(date7);
+
                 tvDays1.setText("" + getDate1);
+                tvDays2.setText("" + getDate2);
+                tvDays3.setText("" + getDate3);
+                tvDays4.setText("" + getDate4);
+                tvDays5.setText("" + getDate5);
+                tvDays6.setText("" + getDate6);
+                tvDays7.setText("" + getDate7);
+
+
 /////////////////////
-                DateFormat dateFormat2 = new SimpleDateFormat(("yyyy-MM-dd"));
+       /*          DateFormat dateFormat2 = new SimpleDateFormat(("yyyy-MM-dd"));
                 try {
                     date2 = dateFormat2.parse(weeklyDataLists.get(1).getCreatedAt());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                DateFormat dateFormat2_ = new SimpleDateFormat("EEE");/*dd MMM,*/
+                DateFormat dateFormat2_ = new SimpleDateFormat("EEE");*//*dd MMM,*//*
                 String getDate2 = dateFormat2_.format(date2).trim();
                 tvDays2.setText("" + getDate2.trim());
                 ////////////////////
@@ -507,7 +529,7 @@ public class HistoryDetailsActivity extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                DateFormat dateFormat3_ = new SimpleDateFormat("EEE");/*dd MMM,*/
+                DateFormat dateFormat3_ = new SimpleDateFormat("EEE");*//*dd MMM,*//*
                 String getDate3 = dateFormat3_.format(date3);
                 tvDays3.setText("" + getDate3);
                 ////////////////////
@@ -518,7 +540,7 @@ public class HistoryDetailsActivity extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                DateFormat dateFormat4_ = new SimpleDateFormat("EEE");/*dd MMM,*/
+                DateFormat dateFormat4_ = new SimpleDateFormat("EEE");*//*dd MMM,*//*
                 String getDate4 = dateFormat4_.format(date4);
                 tvDays4.setText("" + getDate4);
                 ////////////////////
@@ -530,7 +552,7 @@ public class HistoryDetailsActivity extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                DateFormat dateFormat5_ = new SimpleDateFormat("EEE");/*dd MMM,*/
+                DateFormat dateFormat5_ = new SimpleDateFormat("EEE");*//*dd MMM,*//*
                 String getDate5 = dateFormat5_.format(date5);
                 tvDays5.setText("" + getDate5);
                 ////////////////////
@@ -541,7 +563,7 @@ public class HistoryDetailsActivity extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                DateFormat dateFormat6_ = new SimpleDateFormat("EEE");/*dd MMM,*/
+                DateFormat dateFormat6_ = new SimpleDateFormat("EEE");*//*dd MMM,*//*
                 String getDate6 = dateFormat6_.format(date6);
                 tvDays6.setText("" + getDate6);
                 ////////////////////
@@ -551,12 +573,12 @@ public class HistoryDetailsActivity extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                DateFormat dateFormat7_ = new SimpleDateFormat("EEE");/*dd MMM,*/
+                DateFormat dateFormat7_ = new SimpleDateFormat("EEE");*//*dd MMM,*//*
                 String getDate7 = dateFormat7_.format(date7);
                 tvDays7.setText("" + getDate7);
                 ////////////////////
 
-
+*/
             }
         }
     }

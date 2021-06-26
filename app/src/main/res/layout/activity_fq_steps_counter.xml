@@ -132,7 +132,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="55"
                         android:orientation="vertical">
 
                         <ImageView
@@ -148,19 +148,38 @@
                             android:textColor="@color/black_color"
                             android:textSize="23sp"
                             android:textStyle="normal"
-                            tools:text="49 Minutes" />
+                            tools:text="49 Min" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="45"
                         android:orientation="vertical">
 
-                        <ImageView
-                            android:layout_width="@dimen/dp_75"
-                            android:layout_height="@dimen/dp_20"
-                            android:src="@drawable/distance_" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/dp_75"
+                                android:layout_height="@dimen/dp_20"
+                                android:src="@drawable/distance_"
+                                android:layout_marginTop="@dimen/dp_2"/>
+
+                            <androidx.appcompat.widget.SwitchCompat
+                                android:id="@+id/swBtnInKm"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="false"
+                                android:text="  (in km) "
+                                android:textColor="#2A2929"
+                                android:theme="@style/SCBSwitch"
+                                />
+                        </LinearLayout>
+
+
 
                         <TextView
                             android:id="@+id/tvDistance"
@@ -170,7 +189,7 @@
                             android:textColor="@color/black_color"
                             android:textSize="23sp"
                             android:textStyle="normal"
-                            tools:text="128555" />
+                            tools:text="128555 m" />
                     </LinearLayout>
 
                 </LinearLayout>

@@ -3,7 +3,6 @@ package com.app.furoapp.activity.newFeature.StepsTracker;
 import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.hardware.Sensor;
@@ -15,6 +14,7 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,10 +22,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 import com.app.furoapp.R;
 import com.app.furoapp.StepCountingServiceFuro;
-import com.app.furoapp.activity.HomeMainActivity;
 import com.app.furoapp.activity.LoginTutorialScreen;
 import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalResponse;
@@ -60,7 +60,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     public SensorManager sensorManager;
     public Sensor sensorAcceleroMeter;
     public static final String TAG = "FqStepsCounterActivity";
-    private float distanceInMeter;
+    private float getDistanceMiAndKm;
     private Handler customHandler = new Handler();
     long timeInMilliseconds = 0L;
     long updatedTime = 0L;
@@ -89,7 +89,9 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     private AlertDialog alertDialog;
     private ImageView btn_Cancel;
     private TextView tvContinue, tvModified;
-
+    public SwitchCompat swBtnInKm;
+    private String distancetype;
+    private boolean isSwitchedChecked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,6 +171,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         tvContinue = findViewById(R.id.tvContinue);
         tvModified = findViewById(R.id.tvModified);
         //llModifiedAlert=findViewById(R.id.llModifiedAlert);
+        swBtnInKm = findViewById(R.id.swBtnInKm);
         isServiceStopped = true;
     }
 
@@ -261,7 +264,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
             incudeAlertDialog.setVisibility(View.GONE);
         });
         tvModified.setOnClickListener(v -> {
-           incudeAlertDialog.setVisibility(View.GONE);
+            incudeAlertDialog.setVisibility(View.GONE);
            /* Intent intent = new Intent(getApplicationContext(),WantToAcivedActivity.class);
             startActivity(intent);*/
             finish();
@@ -312,7 +315,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
             secs = secs % 60;
             int milliseconds = (int) (updatedTime % 1000);
             getTime = mins + ":" + String.format("%02d", secs);
-            tvTimes.setText("" + getTime + " minutes");/*":" + String.format("%02d", secs)*/
+            tvTimes.setText("" + getTime + " min");/*":" + String.format("%02d", secs)*/
             String timerValue = tvTimes.getText().toString().trim();
             FuroPrefs.putString(getApplication(), "time", timerValue);
             customHandler.postDelayed(this, 0);
@@ -322,7 +325,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     private void callUserStepGoalApi() {
         UserStepsGoalRequest userStepsGoalRequest = new UserStepsGoalRequest();
         userStepsGoalRequest.setTime(getTime);
-        userStepsGoalRequest.setDistance(String.valueOf(distanceInMeter));
+        userStepsGoalRequest.setDistance(String.valueOf(getDistanceMiAndKm));
         userStepsGoalRequest.setCalories(String.valueOf(getCalculateCalories));
         userStepsGoalRequest.setCount_steps(String.valueOf(DetectedStep));
         if (stepsAchivedVal != null) {
@@ -453,13 +456,47 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         getDetectedSteps = Integer.parseInt(DetectedStep);
 
         /*added*/
-        distanceInMeter = (float) (getDetectedSteps * 78) / (float) 100;
-        Log.d(TAG, "onSensorChanged() called with: distanceInMeter = [" + distanceInMeter + "]");
-        tvDistance.setText("" + distanceInMeter + " meter");
         getCalculateCalories = (float) (getDetectedSteps * 0.045);
-        tvCalories.setText("" + getCalculateCalories);
+        tvCalories.setText("" + getCalculateCalories + " Cal");
         Log.d(TAG, "onSensorChanged() called with: Calories = [" + calculateCalories((long) getCalculateCalories) + "]");
 
+
+        swBtnInKm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    isSwitchedChecked = true;
+                    getDistanceMiAndKm = (float) (getDetectedSteps * 78) / (float) 100000;
+                    tvDistance.setText("" + getDistanceMiAndKm + " km");
+                } else {
+                    isSwitchedChecked = false;
+                    getDistanceMiAndKm = (float) (getDetectedSteps * 78) / (float) 100;
+                    tvDistance.setText("" + getDistanceMiAndKm + " m");
+                }
+                //tvDistance.setText("" + getDistanceMiAndKm + " meter");
+            }
+
+        });
+
+
+        if (isSwitchedChecked) {
+            getDistanceMiAndKm = (float) (getDetectedSteps * 78) / (float) 100000;
+            tvDistance.setText("" + getDistanceMiAndKm + " km");
+        } else if (isSwitchedChecked == false) {
+            getDistanceMiAndKm = (float) (getDetectedSteps * 78) / (float) 100;
+            tvDistance.setText("" + getDistanceMiAndKm + " m");
+        }
+
+    }
+
+    private void getDistance(String distancetype) {
+        if (distancetype.equals("Distance")) {
+            getDistanceMiAndKm = (float) (getDetectedSteps * 78) / (float) 100000;
+            tvDistance.setText("" + getDistanceMiAndKm + " km");
+        } else {
+            getDistanceMiAndKm = (float) (getDetectedSteps * 78) / (float) 100;
+            tvDistance.setText("" + getDistanceMiAndKm + " m");
+        }
     }
 
     // ___ create Broadcast Receiver ___ \\
@@ -475,25 +512,6 @@ public class FqStepsCounterActivity extends AppCompatActivity {
 
 
     private void openModifiedAlertDialog() {
-             /* AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setIcon(android.R.drawable.ic_dialog_alert);
-        builder.setTitle("Alert !");
-        builder.setMessage("Are you sure you want to modify this entry?");
-        builder.setCancelable(false);
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();*/
 
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();

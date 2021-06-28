@@ -13,19 +13,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.bmiCalculator.AgeModelTest;
 
 import java.util.List;
 
 public class WeekFilterAdapter extends RecyclerView.Adapter<WeekFilterAdapter.MyViewHolder> {
     Context context;
-    List<WeekFilterModel> weekFilterModelList;
+    List<String> weekFilterModelList;
     public WeekClickCallBack weekClickCallBack;
     private int row_index = -1;
     public Boolean clicked = false;
-    public int getPosition;
+    public int getPosition = 1;
 
-    public WeekFilterAdapter(Context context, List<WeekFilterModel> weekFilterModelList, WeekClickCallBack weekClickCallBack) {
+    public WeekFilterAdapter(Context context, List<String> weekFilterModelList, WeekClickCallBack weekClickCallBack) {
         this.context = context;
         this.weekFilterModelList = weekFilterModelList;
         this.weekClickCallBack = weekClickCallBack;
@@ -42,14 +41,13 @@ public class WeekFilterAdapter extends RecyclerView.Adapter<WeekFilterAdapter.My
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        WeekFilterModel weekFilterModel = weekFilterModelList.get(position);
-        getPosition = position + 1;
-        holder.tvWeekNos.setText("Week " + getPosition + " - ");
-        holder.tvYear.setText("" + weekFilterModel.getWeek());
-        holder.tvWeekNos.setTextColor(Color.parseColor("#19CFE6"));
+//        WeekFilterModel weekFilterModel = weekFilterModelList.get(position);
 
+        holder.tvWeekNos.setText("Week " + (getPosition+position));
+        holder.tvYear.setText(weekFilterModelList.get(position));
+        holder.tvWeekNos.setTextColor(Color.parseColor("#19CFE6"));
         holder.llYear.setOnClickListener(v -> {
-            weekClickCallBack.weekSelectItem(weekFilterModel.getWeek());
+            weekClickCallBack.weekSelectItem(weekFilterModelList.get(position));
             row_index = position;
             notifyDataSetChanged();
         });
@@ -64,11 +62,7 @@ public class WeekFilterAdapter extends RecyclerView.Adapter<WeekFilterAdapter.My
 
     @Override
     public int getItemCount() {
-        if (weekFilterModelList != null && weekFilterModelList.size() > 0) {
-            return weekFilterModelList.size();
-        } else {
-            return 0;
-        }
+        return weekFilterModelList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -78,7 +72,7 @@ public class WeekFilterAdapter extends RecyclerView.Adapter<WeekFilterAdapter.My
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvYear = itemView.findViewById(R.id.tvYear);
+            tvYear = itemView.findViewById(R.id.tvWeek);
             ivYearCheck = itemView.findViewById(R.id.ivYearCheck);
             llYear = itemView.findViewById(R.id.llYear);
             tvWeekNos = itemView.findViewById(R.id.tvWeekNos);

@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.furoapp.R;
 import com.app.furoapp.activity.newFeature.StepsTracker.filterAdater.MonthFilterAdapter;
 import com.app.furoapp.activity.newFeature.StepsTracker.filterAdater.WeekFilterAdapter;
-import com.app.furoapp.activity.newFeature.StepsTracker.filterAdater.WeekFilterModel;
 import com.app.furoapp.activity.newFeature.StepsTracker.filterAdater.YearFilterAdapter;
 import com.app.furoapp.activity.newFeature.bmiCalculator.AgeModelTest;
 
@@ -41,7 +40,7 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
     public int currentMonth;
     public Date date;
     String maxDate = "Jan-2016";
-    List<WeekFilterModel> weekFilterModelList = new ArrayList<>();
+    List<String> weekFilterModelList = new ArrayList<>();
     List<String> allDates = new ArrayList<>();
     private String getMonth;
 
@@ -199,26 +198,30 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
     }
 
     private void setWeeklyFilterAdapter() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMM");
+        Date date = new Date();
+        String dateString = formatter.format(date);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_YEAR, -6);
+
+        System.out.println(dateString);
+        for (int w = 0; w < 4; w++) {
+            String newDateValue = formatter.format(calendar.getTime());
+            weekFilterModelList.add(dateString + " - " + newDateValue);
+            calendar.add(Calendar.DAY_OF_YEAR, -1);
+            String nextDateValue = formatter.format(calendar.getTime());
+            System.out.println(nextDateValue);
+            calendar.setTime(calendar.getTime());
+            dateString = nextDateValue;
+            calendar.add(Calendar.DAY_OF_YEAR, -6);
+        }
+        System.out.println(weekFilterModelList);
 
         weekFilterAdapter = new WeekFilterAdapter(getApplicationContext(), weekFilterModelList, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         rvFilterByWeek.setLayoutManager(layoutManager);
         rvFilterByWeek.setItemAnimator(new DefaultItemAnimator());
-        rvFilterByWeek.setAdapter(weekFilterAdapter);
-        List<AgeModelTest> ageModelTestArrayList = new ArrayList<>();
-        for (int i = 1; i <= 4; i++) {
-            AgeModelTest ageModelTest = new AgeModelTest();
-           /* Date myDate = dateFormat.parse(dateString);
-//            Date newDate = new Date(myDate.getTime() - 604800000L);
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(myDate);
-            calendar.add(Calendar.DAY_OF_YEAR, -7);
-            Date newDate = calendar.getTime();*/
-
-            ageModelTest.setAge("" + i);
-            ageModelTestArrayList.add(ageModelTest);
-        }
-        WeekFilterAdapter weekFilterAdapter = new WeekFilterAdapter(getApplicationContext(), weekFilterModelList, this);
         rvFilterByWeek.setAdapter(weekFilterAdapter);
 
     }

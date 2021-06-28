@@ -41,7 +41,6 @@ public class MonthFilterAdapter extends RecyclerView.Adapter<MonthFilterAdapter.
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.tvMonth.setText(allDates.get(position));
-        // holder.tvWakeTime.setText("" + ageModelTest.getAge());
 
         holder.llYear.setOnClickListener(v -> {
             monthlyClickCallBack.monthlySelectItem(allDates.get(position));
@@ -80,9 +79,4 @@ public class MonthFilterAdapter extends RecyclerView.Adapter<MonthFilterAdapter.
         void monthlySelectItem(String month);
     }
 
-    public void setList(List<String> allDates) {
-        this.allDates.clear();
-        this.allDates = allDates;
-        notifyDataSetChanged();
-    }
 }

@@ -19,22 +19,22 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_3"
             android:layout_marginLeft="@dimen/dp_5"
-            android:layout_weight="1"
+            android:layout_weight="35"
             android:text="Jun' 2021"
             android:textColor="@color/black_color"
-            android:textSize="@dimen/sp_16"
+            android:textSize="@dimen/sp_12"
             android:textStyle="normal" />
 
         <ImageView
             android:id="@+id/ivMonthCheck"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_16"
+            android:layout_height="@dimen/dp_14"
             android:layout_marginStart="@dimen/dp_3"
             android:layout_marginLeft="@dimen/dp_10"
-            android:layout_weight="1"
+            android:layout_weight="65"
             android:gravity="center"
             android:src="@drawable/checkicon"
-            android:textSize="@dimen/sp_18"
+            android:textSize="@dimen/dp_14"
             android:textStyle="bold" />
 
     </LinearLayout>

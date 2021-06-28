@@ -39,10 +39,10 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
     TextView tvYearMonthWeek, tvYearMonthWeekValue;
     public int currentMonth;
     public Date date;
-    String maxDate = "Jan-2016";
     List<String> weekFilterModelList = new ArrayList<>();
     List<String> allDates = new ArrayList<>();
-    private String getMonth;
+    private String getMonth, getWeek;
+    private int weekPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -228,8 +228,17 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
 
 
     @Override
-    public void weekSelectItem(String week) {
-
+    public void weekSelectItem(String position, String week) {
+        weekPosition = Integer.parseInt(position);
+        getWeek = week;
+        Log.d(" weekPosition", String.valueOf(weekPosition + 1));
+        Log.d(" getWeek", getWeek);
+        rvFilterByMonth.setVisibility(View.GONE);
+        llWeekMonthYearFilter.setVisibility(View.GONE);
+        tvYearMonthWeek.setText(" Week " + (1 + weekPosition));
+        tvYearMonthWeekValue.setText("" + getWeek);
+        ivFilterWeekUpArrow.setVisibility(View.GONE);
+        ivFilterWeekDownArrow.setVisibility(View.VISIBLE);
     }
 
 

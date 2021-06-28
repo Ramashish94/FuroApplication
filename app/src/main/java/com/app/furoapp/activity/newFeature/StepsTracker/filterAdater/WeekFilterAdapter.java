@@ -43,11 +43,11 @@ public class WeekFilterAdapter extends RecyclerView.Adapter<WeekFilterAdapter.My
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 //        WeekFilterModel weekFilterModel = weekFilterModelList.get(position);
 
-        holder.tvWeekNos.setText("Week " + (getPosition+position));
+        holder.tvWeekNos.setText("Week " + (getPosition + position));
         holder.tvYear.setText(weekFilterModelList.get(position));
         holder.tvWeekNos.setTextColor(Color.parseColor("#19CFE6"));
         holder.llYear.setOnClickListener(v -> {
-            weekClickCallBack.weekSelectItem(weekFilterModelList.get(position));
+            weekClickCallBack.weekSelectItem(String.valueOf(position), weekFilterModelList.get(position));
             row_index = position;
             notifyDataSetChanged();
         });
@@ -81,6 +81,6 @@ public class WeekFilterAdapter extends RecyclerView.Adapter<WeekFilterAdapter.My
     }
 
     public interface WeekClickCallBack {
-        void weekSelectItem(String week);
+        void weekSelectItem(String position, String week);
     }
 }

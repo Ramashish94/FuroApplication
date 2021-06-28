@@ -183,11 +183,11 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
 
     private void getDataAll(String type) {
         if (Util.isInternetConnected(getActivity())) {
-           // Util.showProgressDialog(getActivity());
+            Util.showProgressDialog(getActivity());
             RestClient.myContentfeedAllActivity(getAccessToken, new Callback<ActivitiesListing>() {
                 @Override
                 public void onResponse(Call<ActivitiesListing> call, Response<ActivitiesListing> response) {
-                  //  Util.dismissProgressDialog();
+                    Util.dismissProgressDialog();
 
                     if (response.body() != null) {
                         ActivitiesListing activitiesListing = response.body();
@@ -452,7 +452,7 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
         }
         if (isArticle) {
             if (checkPermission()) {
-                shareImage(url,title);
+                shareImage(url, title);
             }
         } else {
             Log.d(TAG, "() calleonClickShared with: pos = [" + url + "], data = [" + url + "]");
@@ -512,7 +512,7 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
         getDataAll(type);
     }
 
-    public void shareImage(String url,String title) {
+    public void shareImage(String url, String title) {
         Picasso.with(getApplicationContext()).load(url).into(new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {

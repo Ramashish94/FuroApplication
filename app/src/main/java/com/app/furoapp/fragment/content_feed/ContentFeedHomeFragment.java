@@ -183,11 +183,11 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
 
     private void getDataAll(String type) {
         if (Util.isInternetConnected(getActivity())) {
-            Util.showProgressDialog(getActivity());
+           // Util.showProgressDialog(getActivity());
             RestClient.myContentfeedAllActivity(getAccessToken, new Callback<ActivitiesListing>() {
                 @Override
                 public void onResponse(Call<ActivitiesListing> call, Response<ActivitiesListing> response) {
-                    Util.dismissProgressDialog();
+                  //  Util.dismissProgressDialog();
 
                     if (response.body() != null) {
                         ActivitiesListing activitiesListing = response.body();

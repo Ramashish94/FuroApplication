@@ -80,6 +80,9 @@
                         android:gravity="center"
                         android:orientation="horizontal">
 
+
+                        
+
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/switchBtnWeekly"
                             android:layout_width="match_parent"

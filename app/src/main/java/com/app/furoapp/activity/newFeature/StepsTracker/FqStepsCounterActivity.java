@@ -224,7 +224,8 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         });
 
         ivHistory.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), HistoryDetailsActivity.class);
+            //   Intent intent = new Intent(getApplicationContext(), HistoryDetailsActivity.class);
+            Intent intent = new Intent(getApplicationContext(), StepCounterHistoryActivity.class);
             startActivity(intent);
 
         });
@@ -382,7 +383,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         if (getAccessToken != null) {
             dialogBuilder = new AlertDialog.Builder(this);
             LayoutInflater inflater = this.getLayoutInflater();
-            View dialogView = inflater.inflate(R.layout.profile_alertdialog_logoutt_new, null);
+            View dialogView = inflater.inflate(R.layout.session_expired_layout, null);
             dialogBuilder.setView(dialogView);
             dialog = dialogBuilder.create();
             ImageView btn_Cancel = dialogView.findViewById(R.id.btn_cancel);

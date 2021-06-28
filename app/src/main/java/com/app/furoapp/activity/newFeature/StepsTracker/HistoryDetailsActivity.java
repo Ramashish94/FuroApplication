@@ -290,7 +290,7 @@ public class HistoryDetailsActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<HistoryResponse> call, Throwable t) {
-                    Toast.makeText(HistoryDetailsActivity.this, "Failure", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HistoryDetailsActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                 }
             });
         }

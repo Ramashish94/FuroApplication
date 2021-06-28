@@ -139,7 +139,9 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
     }
 
     private void getGlassSize(GlassSize glassSize) {
-        glassSizeInMl = Integer.parseInt(glassSize.getGlassSizeInMl());
+        if (glassSize!=null) {
+            glassSizeInMl = Integer.parseInt(glassSize.getGlassSizeInMl());
+        }
     }
 
     private void setRecommendedData(List<AllPlan> allPlans) {

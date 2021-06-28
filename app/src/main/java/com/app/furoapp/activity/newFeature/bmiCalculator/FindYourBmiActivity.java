@@ -82,9 +82,4 @@ public class FindYourBmiActivity extends AppCompatActivity {
         llFindForOthers.setBackgroundResource(R.drawable.find_yours_others);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
 }

@@ -381,7 +381,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:layout_weight="1"
-                                android:gravity="center"
+                                android:layout_marginLeft="@dimen/dp_16"
                                 android:orientation="vertical">
 
                                 <!-- <ImageView
@@ -394,7 +394,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="@dimen/dp_5"
                                     android:fontFamily="@font/bebas_neue_bold"
-                                    android:text="Steps "
+                                    android:text="Total Steps "
                                     android:textAllCaps="true"
                                     android:textSize="@dimen/sp_14" />
 
@@ -415,7 +415,6 @@
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:layout_weight="1"
-                                android:gravity="center"
                                 android:orientation="vertical">
 
                                 <TextView

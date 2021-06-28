@@ -13,25 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
 import com.app.furoapp.activity.newFeature.StepsTracker.StepCounterHistoryActivity;
-import com.app.furoapp.activity.newFeature.bmiCalculator.AgeModelTest;
 
-import java.util.Calendar;
 import java.util.List;
 
 public class MonthFilterAdapter extends RecyclerView.Adapter<MonthFilterAdapter.MyViewHolder> {
     List<String> allDates;
     Context context;
-    List<AgeModelTest> ageModelTestList;
     public MonthlyClickCallBack monthlyClickCallBack;
     private int row_index = -1;
     public Boolean clicked = false;
-
-
-    public MonthFilterAdapter(Context context, List<AgeModelTest> ageModelTestList, MonthlyClickCallBack monthlyClickCallBack) {
-        this.context = context;
-        this.ageModelTestList = ageModelTestList;
-        this.monthlyClickCallBack = monthlyClickCallBack;
-    }
 
     public MonthFilterAdapter(Context applicationContext, List<String> allDates, StepCounterHistoryActivity monthlyClickCallBack) {
         this.context = applicationContext;
@@ -50,12 +40,11 @@ public class MonthFilterAdapter extends RecyclerView.Adapter<MonthFilterAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        AgeModelTest ageModelTest = ageModelTestList.get(position);
-        holder.tvMonth.setText("" + ageModelTest.getAge());
+        holder.tvMonth.setText(allDates.get(position));
         // holder.tvWakeTime.setText("" + ageModelTest.getAge());
 
         holder.llYear.setOnClickListener(v -> {
-            monthlyClickCallBack.monthlySelectItem(ageModelTest.getAge());
+            monthlyClickCallBack.monthlySelectItem(allDates.get(position));
             row_index = position;
             notifyDataSetChanged();
         });
@@ -66,17 +55,11 @@ public class MonthFilterAdapter extends RecyclerView.Adapter<MonthFilterAdapter.
             holder.ivMonthCheck.setVisibility(View.INVISIBLE);
         }
 
-
-
     }
 
     @Override
     public int getItemCount() {
-        if (ageModelTestList != null && ageModelTestList.size() > 0) {
-            return ageModelTestList.size();
-        } else {
-            return 0;
-        }
+        return allDates.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -95,5 +78,11 @@ public class MonthFilterAdapter extends RecyclerView.Adapter<MonthFilterAdapter.
 
     public interface MonthlyClickCallBack {
         void monthlySelectItem(String month);
+    }
+
+    public void setList(List<String> allDates) {
+        this.allDates.clear();
+        this.allDates = allDates;
+        notifyDataSetChanged();
     }
 }

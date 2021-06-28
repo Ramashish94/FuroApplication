@@ -1,10 +1,5 @@
 package com.app.furoapp.activity.newFeature.StepsTracker;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,15 +7,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.app.furoapp.R;
 import com.app.furoapp.activity.newFeature.StepsTracker.filterAdater.MonthFilterAdapter;
 import com.app.furoapp.activity.newFeature.StepsTracker.filterAdater.WeekFilterAdapter;
 import com.app.furoapp.activity.newFeature.StepsTracker.filterAdater.WeekFilterModel;
 import com.app.furoapp.activity.newFeature.StepsTracker.filterAdater.YearFilterAdapter;
 import com.app.furoapp.activity.newFeature.bmiCalculator.AgeModelTest;
-import com.app.furoapp.activity.newFeature.bmiCalculator.adapter.AgeAdapter;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -57,21 +55,6 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
         setWeeklyFilterAdapter();
         // getMonth();
 
-
-        String maxDate = "Jan-2021";
-        SimpleDateFormat monthDate = new SimpleDateFormat("MMM-yyyy");
-        Calendar cal = Calendar.getInstance();
-        try {
-            cal.setTime(monthDate.parse(maxDate));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        for (int i = 1; i <= 12; i++) {
-            String month_name1 = monthDate.format(cal.getTime());
-            allDates.add(month_name1);
-            cal.add(Calendar.MONTH, -1);
-        }
-        System.out.println(allDates);
 
 
     }
@@ -184,16 +167,23 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
     }
 
     private void setMonthAdapter() {
-        if (allDates != null && allDates.size() > 0) {
-            monthFilterAdapter = new MonthFilterAdapter(getApplicationContext(), allDates, this);
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-            rvFilterByMonth.setLayoutManager(layoutManager);
-
-        } else {
-            monthFilterAdapter = new MonthFilterAdapter(getApplicationContext(), ageModelTests, this);
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-            rvFilterByMonth.setLayoutManager(layoutManager);
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM-yyyy");
+        Date date = new Date();
+        String maxDate = formatter.format(date);
+        Calendar cal = Calendar.getInstance();
+        try {
+            cal.setTime(formatter.parse(maxDate));
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+        for (int i = 1; i <= 12; i++) {
+            String month_name1 = formatter.format(cal.getTime());
+            allDates.add(month_name1);
+            cal.add(Calendar.MONTH, -1);
+        }
+        System.out.println(allDates);
+        monthFilterAdapter = new MonthFilterAdapter(getApplicationContext(), allDates, this);
+//        }
         rvFilterByMonth.setItemAnimator(new DefaultItemAnimator());
         rvFilterByMonth.setAdapter(monthFilterAdapter);
 

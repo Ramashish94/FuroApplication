@@ -43,6 +43,7 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
     String maxDate = "Jan-2016";
     List<WeekFilterModel> weekFilterModelList = new ArrayList<>();
     List<String> allDates = new ArrayList<>();
+    private String getMonth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +55,6 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
         setMonthAdapter();
         setWeeklyFilterAdapter();
         // getMonth();
-
-
-
     }
 
     private void intViews() {
@@ -186,27 +184,18 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
 //        }
         rvFilterByMonth.setItemAnimator(new DefaultItemAnimator());
         rvFilterByMonth.setAdapter(monthFilterAdapter);
-
-
-       /* monthFilterAdapter = new MonthFilterAdapter(getApplicationContext(), ageModelTests, this);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        rvFilterByMonth.setLayoutManager(layoutManager);
-        rvFilterByMonth.setItemAnimator(new DefaultItemAnimator());
-        rvFilterByMonth.setAdapter(monthFilterAdapter);*/
-
-        /*List<AgeModelTest> ageModelTestArrayList = new ArrayList<>();
-        for (int i = 2021; i <= 2030; i++) {
-            AgeModelTest ageModelTest = new AgeModelTest();
-            ageModelTest.setAge("" + i);
-            ageModelTestArrayList.add(ageModelTest);
-        }
-        MonthFilterAdapter monthFilterAdapter = new MonthFilterAdapter(getApplicationContext(), ageModelTestArrayList, this);
-        rvFilterByYear.setAdapter(monthFilterAdapter);*/
     }
 
     @Override
     public void monthlySelectItem(String month) {
-
+        getMonth = month;
+        Log.d(" getMonth", getMonth);
+        rvFilterByMonth.setVisibility(View.GONE);
+        llWeekMonthYearFilter.setVisibility(View.GONE);
+        tvYearMonthWeek.setText(" Month ");
+        tvYearMonthWeekValue.setText("" + getMonth);
+        ivFilterMonthUpArrow.setVisibility(View.GONE);
+        ivFilterMonthDownArrow.setVisibility(View.VISIBLE);
     }
 
     private void setWeeklyFilterAdapter() {

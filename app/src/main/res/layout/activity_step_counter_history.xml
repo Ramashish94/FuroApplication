@@ -232,14 +232,13 @@
                                 android:layout_gravity="center"
                                 android:layout_marginRight="@dimen/dp_20"
                                 android:layout_weight="1"
-                                android:gravity="center"
                                 android:orientation="vertical">
 
                                 <TextView
                                     android:id="@+id/tvYearMonthWeek"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/dp_10"
+                                    android:layout_marginLeft="@dimen/dp_20"
                                     android:layout_marginTop="@dimen/dp_10"
                                     android:text="Year"
                                     android:textColor="@color/light_blue"
@@ -248,31 +247,16 @@
 
                                 <TextView
                                     android:id="@+id/tvYearMonthWeekValue"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/dp_10"
+                                    android:layout_marginLeft="@dimen/dp_25"
                                     android:layout_marginTop="@dimen/dp_3"
                                     android:text="2021"
                                     android:textColor="@color/black_color"
-                                    android:textSize="@dimen/sp_18"
+                                    android:textSize="@dimen/sp_16"
                                     android:textStyle="normal" />
                             </LinearLayout>
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:orientation="horizontal">
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:orientation="horizontal">
-
-                            </LinearLayout>
 
                         </LinearLayout>
 
@@ -486,9 +470,9 @@
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/rvFilterByWeek"
                                 android:layout_width="match_parent"
-                                android:background="@color/white"
                                 android:layout_height="match_parent"
-                                android:layout_gravity="center" />
+                                android:layout_gravity="center"
+                                android:background="@color/white" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -505,10 +489,10 @@
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/rvFilterByMonth"
                                 android:layout_width="match_parent"
+                                android:layout_height="match_parent"
                                 android:background="@color/white"
-                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                                 android:orientation="vertical"
-                                android:layout_height="match_parent" />
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                         </LinearLayout>
 
@@ -528,7 +512,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="@dimen/dp_10"
-                                android:layout_marginRight="@dimen/dp_10"/>
+                                android:layout_marginRight="@dimen/dp_10" />
 
                         </LinearLayout>
 

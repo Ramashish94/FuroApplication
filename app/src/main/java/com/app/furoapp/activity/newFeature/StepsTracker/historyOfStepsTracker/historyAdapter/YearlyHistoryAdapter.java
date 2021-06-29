@@ -1,4 +1,4 @@
-package com.app.furoapp.activity.newFeature.StepsTracker.historyAdapter;
+package com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.historyAdapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,7 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.MonthlyDataList;
+import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.AllTimeCounter;
+import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.yearResponse.YearlyDataList;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -19,16 +20,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class MonthlyHistoryAdapter extends RecyclerView.Adapter<MonthlyHistoryAdapter.MyViewHolder> {
+public class YearlyHistoryAdapter extends RecyclerView.Adapter<YearlyHistoryAdapter.MyViewHolder> {
     Context context;
-    List<MonthlyDataList> monthlyDataList;
+    List<YearlyDataList> yearlyDataListList;
     private int row_index = -1;
     public Date date;
 
 
-    public MonthlyHistoryAdapter(Context context, List<MonthlyDataList> monthlyDataList) {
+    public YearlyHistoryAdapter(Context context, List<YearlyDataList> yearlyDataListList) {
         this.context = context;
-        this.monthlyDataList = monthlyDataList;
+        this.yearlyDataListList = yearlyDataListList;
     }
 
     @NonNull
@@ -42,15 +43,15 @@ public class MonthlyHistoryAdapter extends RecyclerView.Adapter<MonthlyHistoryAd
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        MonthlyDataList monthlyData = monthlyDataList.get(position);
-        holder.tvTotSteps.setText("" + monthlyData.getCountSteps());
-        holder.tvDailyAverage.setText("" + monthlyData.getDailyAverage() + " m");
-        holder.tvTime.setText("" + monthlyData.getTime() + " Minutes");
-        holder.tvCalories.setText("" + monthlyData.getCalories() + " Cal");
+        YearlyDataList yearlyDataList = yearlyDataListList.get(position);
+        holder.tvTotSteps.setText("" + yearlyDataList.getCountSteps());
+        holder.tvDailyAverage.setText("" + yearlyDataList.getDailyAverage() + " m");
+        holder.tvTime.setText("" + yearlyDataList.getTime() + " Minutes");
+        holder.tvCalories.setText("" + yearlyDataList.getCalories() + " Cal");
 
         DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
         try {
-            date = dateFormat.parse(monthlyData.getCreatedAt());
+            date = dateFormat.parse(yearlyDataList.getMonth());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -58,19 +59,20 @@ public class MonthlyHistoryAdapter extends RecyclerView.Adapter<MonthlyHistoryAd
         String getDate = dateFormat1.format(date);
         holder.tvDateWithDays.setText(getDate);
 
+        //holder.tvDateWithDays.setText("" + allTimeCounter.getCreatedAt());
     }
 
     @Override
     public int getItemCount() {
-        if (monthlyDataList != null && monthlyDataList.size() > 0) {
-            return monthlyDataList.size();
+        if (yearlyDataListList != null && yearlyDataListList.size() > 0) {
+            return yearlyDataListList.size();
         } else {
             return 0;
         }
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvTotSteps, tvDailyAverage, tvTime, tvCalories,tvDateWithDays;
+        public TextView tvTotSteps, tvDailyAverage, tvTime, tvCalories, tvDateWithDays;
         public LinearLayout llTimeSlot, llTimeDeleteSlot;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -83,7 +85,4 @@ public class MonthlyHistoryAdapter extends RecyclerView.Adapter<MonthlyHistoryAd
         }
     }
 
-    public interface TimeSlotClickCallBack {
-        void timeSlotClick(Integer id, String timeslot);
-    }
 }

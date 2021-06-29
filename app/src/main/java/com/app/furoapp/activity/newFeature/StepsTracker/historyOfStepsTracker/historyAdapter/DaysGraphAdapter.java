@@ -1,4 +1,4 @@
-package com.app.furoapp.activity.newFeature.StepsTracker.historyAdapter;
+package com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.historyAdapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,7 +15,6 @@ import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.WeeklyDataL
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 

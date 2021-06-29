@@ -1,4 +1,4 @@
-package com.app.furoapp.activity.newFeature.StepsTracker.historyAdapter;
+package com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.historyAdapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -7,6 +7,10 @@ import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotRes
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotTimeRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.FetchAllSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.HistoryResponse;
+import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.WeeklyMonthlyYearlyRequest;
+import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.monthlyResponse.MonthlyResponse;
+import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.weeklyResponse.WeeklyResponse;
+import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.yearResponse.YearlyResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalRequest;
@@ -473,8 +477,22 @@ public class RestClient {
     public static void getHistoryData(String token, Callback<HistoryResponse> callback) {
         RetrofitClient.getClient().HISTORY_RESPONSE_CALL(token).enqueue(callback);
     }
+
     public static void getHealthCenter(String token, Callback<HealthCenterResponse> callback) {
         RetrofitClient.getClient().HEALTH_CENTER_RESPONSE_CALL(token).enqueue(callback);
     }
+
+    public static void getWeeklyData(String token, WeeklyMonthlyYearlyRequest weeklyMonthlyYearlyRequest, Callback<WeeklyResponse> callback) {
+        RetrofitClient.getClient().WEEKLY_RESPONSE_CALL(token, weeklyMonthlyYearlyRequest).enqueue(callback);
+    }
+
+    public static void getMonthlyData(String token, WeeklyMonthlyYearlyRequest weeklyMonthlyYearlyRequest, Callback<MonthlyResponse> callback) {
+        RetrofitClient.getClient().MONTHLY_RESPONSE_CALL(token, weeklyMonthlyYearlyRequest).enqueue(callback);
+    }
+
+    public static void getYearlyData(String token, WeeklyMonthlyYearlyRequest weeklyMonthlyYearlyRequest, Callback<YearlyResponse> callback) {
+        RetrofitClient.getClient().YEARLY_RESPONSE_CALL(token, weeklyMonthlyYearlyRequest).enqueue(callback);
+    }
+
 
 }

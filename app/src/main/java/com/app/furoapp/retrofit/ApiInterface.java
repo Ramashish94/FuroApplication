@@ -7,6 +7,10 @@ import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotRes
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotTimeRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.FetchAllSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.HistoryResponse;
+import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.WeeklyMonthlyYearlyRequest;
+import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.monthlyResponse.MonthlyResponse;
+import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.weeklyResponse.WeeklyResponse;
+import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.yearResponse.YearlyResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalRequest;
@@ -211,7 +215,7 @@ public interface ApiInterface {
 
     // send video to server
     @Multipart
-  //  @POST("https://furoapi.ml/api/create-challenge-video")
+    //  @POST("https://furoapi.ml/api/create-challenge-video")
     @POST("create-challenge-video")
     Call<CreateVideoChallangeResponse> videouploadChallange(
 
@@ -532,4 +536,15 @@ public interface ApiInterface {
     /*user/health-center*/
     @GET("user/health-center")
     Call<HealthCenterResponse> HEALTH_CENTER_RESPONSE_CALL(@Header(TOKEN_KEY) String token);
+
+    /*user/history-step-counter*/
+    @POST("user/history-step-counter")
+    Call<WeeklyResponse> WEEKLY_RESPONSE_CALL(@Header(TOKEN_KEY) String token, @Body WeeklyMonthlyYearlyRequest weeklyMonthlyYearlyRequest);
+
+    @POST("user/history-step-counter")
+    Call<MonthlyResponse> MONTHLY_RESPONSE_CALL(@Header(TOKEN_KEY) String token, @Body WeeklyMonthlyYearlyRequest weeklyMonthlyYearlyRequest);
+
+    @POST("user/history-step-counter")
+    Call<YearlyResponse> YEARLY_RESPONSE_CALL(@Header(TOKEN_KEY) String token, @Body WeeklyMonthlyYearlyRequest weeklyMonthlyYearlyRequest);
+
 }

@@ -18,10 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
 import com.app.furoapp.activity.LoginTutorialScreen;
-import com.app.furoapp.activity.newFeature.StepsTracker.historyAdapter.AllTimeHistoryAdapter;
-import com.app.furoapp.activity.newFeature.StepsTracker.historyAdapter.DaysGraphAdapter;
-import com.app.furoapp.activity.newFeature.StepsTracker.historyAdapter.MonthlyHistoryAdapter;
-import com.app.furoapp.activity.newFeature.StepsTracker.historyAdapter.WeeklyHistoryAdapter;
+import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.historyAdapter.AllTimeHistoryAdapter;
+import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.historyAdapter.DaysGraphAdapter;
+import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.historyAdapter.MonthlyHistoryAdapter;
+import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.historyAdapter.WeeklyHistoryAdapter;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.AllTimeCounter;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.AllTimeData;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.Data;
@@ -54,7 +54,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HistoryDetailsActivity extends AppCompatActivity {
+public class HistoryDetailsActivity extends AppCompatActivity implements MonthlyHistoryAdapter.TimeSlotClickCallBack ,WeeklyHistoryAdapter.WeekClickCallBack{
 
     private BarChart barChart;
     public SwitchCompat switchBtnWeekly, switchBtnMontly, switchBtnAllType;
@@ -442,7 +442,7 @@ public class HistoryDetailsActivity extends AppCompatActivity {
                 rvHistory.setVisibility(View.VISIBLE);
                 // rvDays.setVisibility(View.VISIBLE);
                 rvHistory.setLayoutManager(new LinearLayoutManager(this));
-                weeklyHistoryAdapter = new WeeklyHistoryAdapter(getApplicationContext(), data.getWeeklyDataLists());
+                weeklyHistoryAdapter = new WeeklyHistoryAdapter(getApplicationContext(), data.getWeeklyDataLists(),this);
                 rvHistory.setAdapter(weeklyHistoryAdapter);
                 weeklyHistoryAdapter.notifyDataSetChanged();
             }
@@ -455,7 +455,7 @@ public class HistoryDetailsActivity extends AppCompatActivity {
                 rvDays.setVisibility(View.GONE);
                 llWeeklyDays.setVisibility(View.GONE);
                 rvHistory.setLayoutManager(new LinearLayoutManager(this));
-                monthlyHistoryAdapter = new MonthlyHistoryAdapter(getApplicationContext(), data.getMonthlyDataLists());
+                monthlyHistoryAdapter = new MonthlyHistoryAdapter(getApplicationContext(), data.getMonthlyDataLists(),this);
                 rvHistory.setAdapter(monthlyHistoryAdapter);
                 monthlyHistoryAdapter.notifyDataSetChanged();
             }
@@ -718,4 +718,13 @@ public class HistoryDetailsActivity extends AppCompatActivity {
                 });
     }
 
+    @Override
+    public void timeSlotClick(Integer id, String timeslot) {
+
+    }
+
+    @Override
+    public void weekClick(Integer id, String timeslot) {
+
+    }
 }

@@ -1,4 +1,4 @@
-package com.app.furoapp.activity.newFeature.StepsTracker.historyAdapter;
+package com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.historyAdapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.WeeklyDataList;
+import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.weeklyResponse.CurrentWeekStepCounter;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -22,12 +23,19 @@ import java.util.List;
 public class WeeklyHistoryAdapter extends RecyclerView.Adapter<WeeklyHistoryAdapter.MyViewHolder> {
     Context context;
     List<WeeklyDataList> weeklyDataList;
+    List<CurrentWeekStepCounter> currentWeekStepCounterList;
+    WeekClickCallBack weekClickCallBack;
     private int row_index = -1;
     public Date date;
 
-    public WeeklyHistoryAdapter(Context context, List<WeeklyDataList> weeklyDataList) {
+    public WeeklyHistoryAdapter(Context context, List<WeeklyDataList> weeklyDataList,  WeekClickCallBack weekClickCallBack) {
         this.context = context;
         this.weeklyDataList = weeklyDataList;
+    }
+
+    public WeeklyHistoryAdapter(Context context, List<CurrentWeekStepCounter> currentWeekStepCounterList) {
+        this.context = context;
+        this.currentWeekStepCounterList = currentWeekStepCounterList;
     }
 
     @NonNull
@@ -41,15 +49,21 @@ public class WeeklyHistoryAdapter extends RecyclerView.Adapter<WeeklyHistoryAdap
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        WeeklyDataList weeklyData = weeklyDataList.get(position);
+        /*WeeklyDataList weeklyData = weeklyDataList.get(position);
         holder.tvTotSteps.setText("" + weeklyData.getCountSteps());
         holder.tvDailyAverage.setText("" + weeklyData.getDailyAverage() + " m");
         holder.tvTime.setText("" + weeklyData.getTime() + " Minutes");
-        holder.tvCalories.setText("" + weeklyData.getCalories() + " Cal");
+        holder.tvCalories.setText("" + weeklyData.getCalories() + " Cal");*/
 
+        CurrentWeekStepCounter currentWeekStepCounter = currentWeekStepCounterList.get(position);
+        holder.tvTotSteps.setText("" + currentWeekStepCounter.getCountSteps());
+        holder.tvDailyAverage.setText("" + currentWeekStepCounter.getDailyAverage() + " m");
+        holder.tvTime.setText("" + currentWeekStepCounter.getTime() + " Minutes");
+        holder.tvCalories.setText("" + currentWeekStepCounter.getCalories() + " Cal");
         DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
+
         try {
-            date = dateFormat.parse(weeklyData.getCreatedAt());
+            date = dateFormat.parse(currentWeekStepCounter.getCreatedAt());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -62,7 +76,10 @@ public class WeeklyHistoryAdapter extends RecyclerView.Adapter<WeeklyHistoryAdap
 
     @Override
     public int getItemCount() {
-        if (weeklyDataList != null && weeklyDataList.size() > 0) {
+
+        if (currentWeekStepCounterList != null && currentWeekStepCounterList.size() > 0) {
+            return currentWeekStepCounterList.size();
+        } else if (weeklyDataList != null && weeklyDataList.size() > 0) {
             return weeklyDataList.size();
         } else {
             return 0;
@@ -84,5 +101,8 @@ public class WeeklyHistoryAdapter extends RecyclerView.Adapter<WeeklyHistoryAdap
         }
     }
 
+    public interface WeekClickCallBack {
+        void weekClick(Integer id, String timeslot);
+    }
 
 }

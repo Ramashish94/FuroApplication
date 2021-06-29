@@ -94,7 +94,7 @@
                         android:id="@+id/tvCountsSteps"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="000"
+                        android:text="0000"
                         android:textColor="@color/light_blue"
                         android:textSize="28sp"
                         android:textStyle="bold" />
@@ -107,7 +107,7 @@
                         android:textColor="#2F2F2F"
                         android:textSize="@dimen/sp_12"
                         android:textStyle="bold"
-                        tools:text="Of 38000 Steps" />
+                        tools:text=" Of 38000 Steps" />
                 </LinearLayout>
 
                 <LinearLayout

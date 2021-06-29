@@ -1,4 +1,4 @@
-package com.app.furoapp.activity.newFeature.StepsTracker.filterAdater;
+package com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.filterAdater;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -1,7 +1,6 @@
-package com.app.furoapp.activity.newFeature.StepsTracker.filterAdater;
+package com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.filterAdater;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.AllTimeCounter;
 import com.app.furoapp.activity.newFeature.bmiCalculator.AgeModelTest;
-import com.app.furoapp.activity.newFeature.bmiCalculator.adapter.AgeAdapter;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class YearFilterAdapter extends RecyclerView.Adapter<YearFilterAdapter.MyViewHolder> {

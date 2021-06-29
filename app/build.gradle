@@ -163,7 +163,8 @@ android {
        /* playImplementation 'com.google.android.gms:play-services-fitness:15.0.1'
         playImplementation 'com.google.android.gms:play-services-games:15.0.1'
         playImplementation 'com.google.android.gms:play-services-identity:15.0.1'*/
-
+        implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+        /*implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'*/
     }
 
 

@@ -37,6 +37,7 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -54,7 +55,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HistoryDetailsActivity extends AppCompatActivity implements MonthlyHistoryAdapter.TimeSlotClickCallBack ,WeeklyHistoryAdapter.WeekClickCallBack{
+public class HistoryDetailsActivity extends AppCompatActivity implements MonthlyHistoryAdapter.TimeSlotClickCallBack, WeeklyHistoryAdapter.WeekClickCallBack {
 
     private BarChart barChart;
     public SwitchCompat switchBtnWeekly, switchBtnMontly, switchBtnAllType;
@@ -320,10 +321,10 @@ public class HistoryDetailsActivity extends AppCompatActivity implements Monthly
             }
 
             BarDataSet bardataset = new BarDataSet(entries, getDate);
-            BarData data = new BarData(labels, bardataset);
+            BarData data = new BarData((IBarDataSet) labels, bardataset);
             barChart.setData(data);
             // set the data and list of labels into chart
-            barChart.setDescription("");  // set the description
+            //barChart.setDescription("ghj");  // set the description
             //      bardataset.setColors(Collections.singletonList(getResources().getColor(R.color.light_blue)));
 
             barChart.animateY(2000);
@@ -366,10 +367,10 @@ public class HistoryDetailsActivity extends AppCompatActivity implements Monthly
 
 
             BarDataSet bardataset = new BarDataSet(entries, "Monthly Data");
-            BarData data = new BarData(labels, bardataset);
+            BarData data = new BarData((IBarDataSet) labels, bardataset);
             barChart.setData(data);
             // set the data and list of labels into chart
-            barChart.setDescription("");  // set the description
+            //barChart.setDescription(+"");  // set the description
             //       bardataset.setColors(Collections.singletonList(getResources().getColor(R.color.light_blue)));
 
             barChart.animateY(2000);
@@ -412,10 +413,10 @@ public class HistoryDetailsActivity extends AppCompatActivity implements Monthly
 
 
             BarDataSet bardataset = new BarDataSet(entries, "All Time");
-            BarData data = new BarData(labels, bardataset);
+            BarData data = new BarData((IBarDataSet) labels, bardataset);
             barChart.setData(data);
             // set the data and list of labels into chart
-            barChart.setDescription("");  // set the description
+            //   barChart.setDescription("");  // set the description
             //     bardataset.setColors(Collections.singletonList(getResources().getColor(R.color.light_blue)));
 
             barChart.animateY(2000);
@@ -442,7 +443,7 @@ public class HistoryDetailsActivity extends AppCompatActivity implements Monthly
                 rvHistory.setVisibility(View.VISIBLE);
                 // rvDays.setVisibility(View.VISIBLE);
                 rvHistory.setLayoutManager(new LinearLayoutManager(this));
-                weeklyHistoryAdapter = new WeeklyHistoryAdapter(getApplicationContext(), data.getWeeklyDataLists(),this);
+                weeklyHistoryAdapter = new WeeklyHistoryAdapter(getApplicationContext(), data.getWeeklyDataLists(), this);
                 rvHistory.setAdapter(weeklyHistoryAdapter);
                 weeklyHistoryAdapter.notifyDataSetChanged();
             }
@@ -455,7 +456,7 @@ public class HistoryDetailsActivity extends AppCompatActivity implements Monthly
                 rvDays.setVisibility(View.GONE);
                 llWeeklyDays.setVisibility(View.GONE);
                 rvHistory.setLayoutManager(new LinearLayoutManager(this));
-                monthlyHistoryAdapter = new MonthlyHistoryAdapter(getApplicationContext(), data.getMonthlyDataLists(),this);
+                monthlyHistoryAdapter = new MonthlyHistoryAdapter(getApplicationContext(), data.getMonthlyDataLists(), this);
                 rvHistory.setAdapter(monthlyHistoryAdapter);
                 monthlyHistoryAdapter.notifyDataSetChanged();
             }
@@ -493,7 +494,7 @@ public class HistoryDetailsActivity extends AppCompatActivity implements Monthly
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-               DateFormat dateFormat1 = new SimpleDateFormat("EEE");/*dd MMM,*/
+                DateFormat dateFormat1 = new SimpleDateFormat("EEE");/*dd MMM,*/
                 String getDate1 = dateFormat1.format(date1);
                 String getDate2 = dateFormat1.format(date2);
                 String getDate3 = dateFormat1.format(date3);

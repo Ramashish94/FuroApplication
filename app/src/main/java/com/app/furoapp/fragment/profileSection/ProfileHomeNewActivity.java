@@ -58,6 +58,7 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
 
@@ -223,7 +224,6 @@ public class ProfileHomeNewActivity extends AppCompatActivity {
             ProfileWeeklyAdapter profileWeeklyAdapter = new ProfileWeeklyAdapter(profileModel.getProfile().getWeekly(), getApplicationContext());
             recyclerView.setAdapter(profileWeeklyAdapter);
             profileWeeklyAdapter.notifyDataSetChanged();
-
 
 
         }
@@ -435,10 +435,10 @@ public class ProfileHomeNewActivity extends AppCompatActivity {
         }
 
         BarDataSet bardataset = new BarDataSet(entries, "Cells");
-        BarData data = new BarData(labels, bardataset);
+        BarData data = new BarData((IBarDataSet) labels, bardataset);
         barChart.setData(data);
         // set the data and list of labels into chart
-        barChart.setDescription("");  // set the description
+        //  barChart.setDescription("");  // set the description
         bardataset.setColors(Collections.singletonList(getResources().getColor(R.color.light_blue)));
 
         barChart.animateY(5000);

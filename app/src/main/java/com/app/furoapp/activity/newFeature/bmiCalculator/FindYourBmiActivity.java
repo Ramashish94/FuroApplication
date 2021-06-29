@@ -47,7 +47,6 @@ public class FindYourBmiActivity extends AppCompatActivity {
                 intent.putExtra("findBmiType", findBmiType);
                 FuroPrefs.putString(getApplicationContext(), Constants.FIND_TYPE, findYoursType);
                 startActivity(intent);
-                finish();
 
             }
         });
@@ -60,7 +59,6 @@ public class FindYourBmiActivity extends AppCompatActivity {
                 llFindUrs.setBackgroundResource(R.drawable.find_yours_others);
                 Intent intent = new Intent(getApplicationContext(), CalculateBMIActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -69,7 +67,6 @@ public class FindYourBmiActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), RecordDataActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -82,4 +79,9 @@ public class FindYourBmiActivity extends AppCompatActivity {
         llFindForOthers.setBackgroundResource(R.drawable.find_yours_others);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

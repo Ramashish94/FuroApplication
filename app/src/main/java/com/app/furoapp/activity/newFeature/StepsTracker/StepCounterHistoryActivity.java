@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
+import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.WeeklyDataList;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.filterAdater.MonthFilterAdapter;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.filterAdater.WeekFilterAdapter;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.filterAdater.YearFilterAdapter;
@@ -39,6 +40,7 @@ import com.app.furoapp.utils.Util;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -87,6 +89,7 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
     LineChart lineChart;
     LineData lineData;
     List<Entry> entryList = new ArrayList<>();
+    private int getCountSteps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -216,8 +219,8 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
         Log.d(" getWeek", filterGettingVal);
         rvFilterByMonth.setVisibility(View.GONE);
         llWeekMonthYearFilter.setVisibility(View.GONE);
-        tvYearMonthWeek.setText(" Week " + (1 + weekPosition));
-        tvYearMonthWeekValue.setText("" + filterGettingVal);
+//        tvYearMonthWeek.setText(" Week " + (1 + weekPosition));
+//        tvYearMonthWeekValue.setText("" + filterGettingVal);
         ivFilterWeekUpArrow.setVisibility(View.GONE);
         ivFilterWeekDownArrow.setVisibility(View.VISIBLE);
         callFilterApi(getFilterType, filterGettingVal);
@@ -252,8 +255,8 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
         Log.d(" getMonth", filterGettingVal);
         rvFilterByMonth.setVisibility(View.GONE);
         llWeekMonthYearFilter.setVisibility(View.GONE);
-        tvYearMonthWeek.setText("Month");
-        tvYearMonthWeekValue.setText("" + filterGettingVal);
+//        tvYearMonthWeek.setText("Month");
+//        tvYearMonthWeekValue.setText("" + filterGettingVal);
         ivFilterMonthUpArrow.setVisibility(View.GONE);
         ivFilterMonthDownArrow.setVisibility(View.VISIBLE);
         callFilterApi(getFilterType, filterGettingVal);
@@ -286,8 +289,8 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
 
         rvFilterByYear.setVisibility(View.GONE);
         llWeekMonthYearFilter.setVisibility(View.GONE);
-        tvYearMonthWeek.setText("" + getFilterType);
-        tvYearMonthWeekValue.setText("Year");
+//        tvYearMonthWeek.setText("Year");
+//        tvYearMonthWeekValue.setText("" + filterGettingVal);
         ivFilterYearUpArrow.setVisibility(View.GONE);
         ivFilterYearDownArrow.setVisibility(View.VISIBLE);
         callFilterApi(getFilterType, filterGettingVal);
@@ -302,7 +305,7 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
         getMonthDate = formatter.format(date);
         Log.d("getMonthDate", getMonthDate);
 
-        tvYearMonthWeek.setText("month");
+        tvYearMonthWeek.setText("Month");
         tvYearMonthWeekValue.setText("" + getMonthDate);
 
 
@@ -317,12 +320,17 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
                     Util.dismissProgressDialog();
                     if (response.code() == 200) {
                         if (response.body() != null && response.body().getData() != null) {
-                            // monthly steps and daily average
-                            setMonthlyAndDailyAverage("month", response.body().getData().getMonthlyData());
-                            // notify history details
-                            notifyMonthlyHistoryAdapter(response.body().getData().getMonthStepCounter());
-                            //set line chart
-                            setMonthlyChart(response.body().getData().getMonthStepCounter());
+                            getCountSteps = Integer.parseInt(response.body().getData().getMonthlyData().getCountSteps());
+                            if (getCountSteps != 0) {
+                                // monthly steps and daily average
+                                setMonthlyAndDailyAverage("month", response.body().getData().getMonthlyData());
+                                // notify history details
+                                notifyMonthlyHistoryAdapter(response.body().getData().getMonthStepCounter());
+                                //set line chart
+                                setMonthlyChart(response.body().getData().getMonthStepCounter());
+                            } else {
+                                Toast.makeText(StepCounterHistoryActivity.this, "No more data", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     } else if (response.code() == 500) {
                         Toast.makeText(StepCounterHistoryActivity.this, "Internal server Error !", Toast.LENGTH_SHORT).show();
@@ -350,7 +358,7 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
 
     private void setMonthlyChart(List<MonthStepCounter> monthStepCounter) {
         if (monthStepCounter != null && monthStepCounter.size() > 0) {
-            List<Entry> lineEntries = getDataSet();
+            List<Entry> lineEntries = getMonthlyDataSet(monthStepCounter);
             LineDataSet lineDataSet = new LineDataSet(lineEntries, "LineChart");
             lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
             lineDataSet.setHighlightEnabled(true);
@@ -374,26 +382,19 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
             mpLineChart.getXAxis().setGranularity(1.0f);
             mpLineChart.getXAxis().setLabelCount(lineDataSet.getEntryCount());
             mpLineChart.setData(lineData);
+            mpLineChart.invalidate();
         }
     }
 
-    private List<Entry> getDataSet() {
+    private List<Entry> getMonthlyDataSet(List<MonthStepCounter> monthStepCounter) {
+        int monthIndex = 0;
         List<Entry> lineEntries = new ArrayList<Entry>();
-        lineEntries.add(new Entry(0, 1));
-        lineEntries.add(new Entry(1, 2));
-        lineEntries.add(new Entry(2, 3));
-        lineEntries.add(new Entry(3, 4));
-        lineEntries.add(new Entry(4, 2));
-        lineEntries.add(new Entry(5, 3));
-        lineEntries.add(new Entry(6, 1));
-        lineEntries.add(new Entry(7, 5));
-        lineEntries.add(new Entry(8, 7));
-        lineEntries.add(new Entry(9, 6));
-        lineEntries.add(new Entry(10, 4));
-        lineEntries.add(new Entry(11, 5));
+        for (MonthStepCounter monthStepCounter1 : monthStepCounter) {
+            lineEntries.add(new Entry(monthIndex, monthStepCounter1.getCountSteps()));
+            monthIndex++;
+        }
         return lineEntries;
     }
-
 
     private void setMonthlyHistoryAdapter() {
         monthlyHistoryAdapter = new MonthlyHistoryAdapter(getApplicationContext(), monthStepCounterList);
@@ -428,10 +429,17 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
                         if (response.code() == 200) {
                             if (response.body() != null) {
                                 if (response.body().getData() != null) {
-                                    //  steps and daily average Data
-                                    setWeekStepsDailyAvarageData("week", response.body().getData().getWeeklyData());
-                                    // notify weekly details
-                                    notifyWeekListAdapter(response.body().getData().getCurrentWeekStepCounter());
+                                    getCountSteps = Integer.parseInt(response.body().getData().getWeeklyData().getCountSteps());
+                                    if (getCountSteps != 0) {
+                                        //  steps and daily average Data
+                                        setWeekStepsDailyAvarageData("week", response.body().getData().getWeeklyData());
+                                        // notify weekly details
+                                        notifyWeekListAdapter(response.body().getData().getCurrentWeekStepCounter());
+                                        // set weekly line chart
+                                        setWeeklyLineChart(response.body().getData().getCurrentWeekStepCounter());
+                                    } else {
+                                        Toast.makeText(StepCounterHistoryActivity.this, "No more data !", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             }
 
@@ -460,10 +468,17 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
 
                             if (response.body() != null) {
                                 if (response.body().getData() != null) {
-                                    //  steps and daily average Data
-                                    setMonthlyAndDailyAverage("month", response.body().getData().getMonthlyData());
-                                    // notify weekly details
-                                    notifyMonthlyHistoryAdapter(response.body().getData().getMonthStepCounter());
+                                    getCountSteps = Integer.parseInt(response.body().getData().getMonthlyData().getCountSteps());
+                                    if (getCountSteps != 0) {
+                                        //  steps and daily average Data
+                                        setMonthlyAndDailyAverage("month", response.body().getData().getMonthlyData());
+                                        // notify weekly details
+                                        notifyMonthlyHistoryAdapter(response.body().getData().getMonthStepCounter());
+                                        //set line chart
+                                        setMonthlyChart(response.body().getData().getMonthStepCounter());
+                                    } else {
+                                        Toast.makeText(StepCounterHistoryActivity.this, "No more data !", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             }
                         } else if (response.code() == 500) {
@@ -492,10 +507,17 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
 
                             if (response.body() != null) {
                                 if (response.body().getData() != null) {
-                                    //  steps and daily average Data
-                                    setYearStepsDailyAvarageData("year", response.body().getData().getYearlyData());
-                                    // notify weekly details
-                                    notifyYearListAdapter(response.body().getData().getYearlyDataLists());
+                                    getCountSteps = Integer.parseInt(response.body().getData().getYearlyData().getCountSteps());
+                                    if (getCountSteps != 0) {
+                                        //  steps and daily average Data
+                                        setYearStepsDailyAvarageData("year", response.body().getData().getYearlyData());
+                                        // notify weekly details
+                                        notifyYearListAdapter(response.body().getData().getYearlyDataLists());
+                                        // setYear line chart
+                                        setYearLineChart(response.body().getData().getYearlyDataLists());
+                                    } else {
+                                        Toast.makeText(StepCounterHistoryActivity.this, "No more data !", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             }
                         } else if (response.code() == 500) {
@@ -512,12 +534,14 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
                 });
             }
         }
-    }
 
+    }
 
     private void setWeekStepsDailyAvarageData(String type, WeeklyData weeklyData) {
         if (type.equalsIgnoreCase("week")) {
             if (weeklyData != null) {
+                tvYearMonthWeek.setText(" Week " + (1 + weekPosition));
+                tvYearMonthWeekValue.setText("" + filterGettingVal);
                 tvTotStep.setText("" + weeklyData.getCountSteps());
                 tvDailyAverage.setText("" + weeklyData.getDailyAverage() + " m");
             }
@@ -527,6 +551,8 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
     private void setYearStepsDailyAvarageData(String type, YearlyData yearlyData) {
         if (type.equalsIgnoreCase("year")) {
             if (yearlyData != null) {
+                tvYearMonthWeek.setText("Year");
+                tvYearMonthWeekValue.setText("" + filterGettingVal);
                 tvTotStep.setText("" + yearlyData.getCountSteps());
                 tvDailyAverage.setText("" + yearlyData.getDailyAverage() + " m");
             }
@@ -565,5 +591,86 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
         }
     }
 
+    private void setWeeklyLineChart(List<CurrentWeekStepCounter> currentWeekStepCounter) {
+        if (currentWeekStepCounter != null && currentWeekStepCounter.size() > 0) {
+            List<Entry> lineEntries = getWeekDataSet(currentWeekStepCounter);
+            LineDataSet lineDataSet = new LineDataSet(lineEntries, "LineChart");
+            lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+            lineDataSet.setHighlightEnabled(true);
+            lineDataSet.setLineWidth(2);
+            lineDataSet.setColor(Color.RED);
+            lineDataSet.setCircleColor(Color.YELLOW);
+            lineDataSet.setCircleRadius(6);
+            lineDataSet.setCircleHoleRadius(3);
+            lineDataSet.setDrawHighlightIndicators(true);
+            lineDataSet.setHighLightColor(Color.RED);
+            lineDataSet.setValueTextSize(12);
+            lineDataSet.setValueTextColor(Color.DKGRAY);
+
+            LineData lineData = new LineData(lineDataSet);
+            mpLineChart.getDescription().setText("Total Steps");
+            mpLineChart.getDescription().setTextSize(12);
+            mpLineChart.setDrawMarkers(true);
+            mpLineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTH_SIDED);
+            mpLineChart.animateY(1000);
+            mpLineChart.getXAxis().setGranularityEnabled(true);
+            mpLineChart.getXAxis().setGranularity(1.0f);
+            mpLineChart.getXAxis().setLabelCount(lineDataSet.getEntryCount());
+            mpLineChart.setData(lineData);
+            mpLineChart.invalidate();
+
+        }
+    }
+
+    private List<Entry> getWeekDataSet(List<CurrentWeekStepCounter> currentWeekStepCounters) {
+        int WeekIndex = 0;
+        List<Entry> lineEntries = new ArrayList<Entry>();
+        for (CurrentWeekStepCounter currentWeekStepCounter : currentWeekStepCounters) {
+            lineEntries.add(new Entry(WeekIndex, currentWeekStepCounter.getCountSteps()));
+            WeekIndex++;
+        }
+        return lineEntries;
+    }
+
+
+    private void setYearLineChart(List<YearlyDataList> yearlyDataLists) {
+        if (yearlyDataLists != null && yearlyDataLists.size() > 0) {
+            List<Entry> lineEntries = getYearDataSet(yearlyDataLists);
+            LineDataSet lineDataSet = new LineDataSet(lineEntries, "LineChart");
+            lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+            lineDataSet.setHighlightEnabled(true);
+            lineDataSet.setLineWidth(2);
+            lineDataSet.setColor(Color.RED);
+            lineDataSet.setCircleColor(Color.YELLOW);
+            lineDataSet.setCircleRadius(6);
+            lineDataSet.setCircleHoleRadius(3);
+            lineDataSet.setDrawHighlightIndicators(true);
+            lineDataSet.setHighLightColor(Color.RED);
+            lineDataSet.setValueTextSize(12);
+            lineDataSet.setValueTextColor(Color.DKGRAY);
+
+            LineData lineData = new LineData(lineDataSet);
+            mpLineChart.getDescription().setText("Total Steps");
+            mpLineChart.getDescription().setTextSize(12);
+            mpLineChart.setDrawMarkers(true);
+            mpLineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTH_SIDED);
+            mpLineChart.animateY(1000);
+            mpLineChart.getXAxis().setGranularityEnabled(true);
+            mpLineChart.getXAxis().setGranularity(1.0f);
+            mpLineChart.getXAxis().setLabelCount(lineDataSet.getEntryCount());
+            mpLineChart.setData(lineData);
+            mpLineChart.invalidate();
+        }
+    }
+
+    private List<Entry> getYearDataSet(List<YearlyDataList> yearlyDataLists) {
+        int yearIndex = 0;
+        List<Entry> lineEntries = new ArrayList<Entry>();
+        for (YearlyDataList yearlyDataList : yearlyDataLists) {
+            lineEntries.add(new Entry(yearIndex, yearlyDataList.getCountSteps()));
+            yearIndex++;
+        }
+        return lineEntries;
+    }
 
 }

@@ -44,6 +44,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -540,8 +541,8 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
     private void setWeekStepsDailyAvarageData(String type, WeeklyData weeklyData) {
         if (type.equalsIgnoreCase("week")) {
             if (weeklyData != null) {
-                tvYearMonthWeek.setText(" Week " + (1 + weekPosition));
-                tvYearMonthWeekValue.setText("" + filterGettingVal);
+//                tvYearMonthWeek.setText(" Week " + (1 + weekPosition));
+//                tvYearMonthWeekValue.setText("" + filterGettingVal);
                 tvTotStep.setText("" + weeklyData.getCountSteps());
                 tvDailyAverage.setText("" + weeklyData.getDailyAverage() + " m");
             }
@@ -551,8 +552,8 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
     private void setYearStepsDailyAvarageData(String type, YearlyData yearlyData) {
         if (type.equalsIgnoreCase("year")) {
             if (yearlyData != null) {
-                tvYearMonthWeek.setText("Year");
-                tvYearMonthWeekValue.setText("" + filterGettingVal);
+//                tvYearMonthWeek.setText("Year");
+//                tvYearMonthWeekValue.setText("" + filterGettingVal);
                 tvTotStep.setText("" + yearlyData.getCountSteps());
                 tvDailyAverage.setText("" + yearlyData.getDailyAverage() + " m");
             }
@@ -598,32 +599,43 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
             lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
             lineDataSet.setHighlightEnabled(true);
             lineDataSet.setLineWidth(2);
-            lineDataSet.setColor(Color.RED);
-            lineDataSet.setCircleColor(Color.YELLOW);
+            lineDataSet.setColor(Color.parseColor("#19CFE6"));/*ColorTemplate.JOYFUL_COLORS*/
+            lineDataSet.setCircleColor(Color.parseColor("#19CFE6"));
             lineDataSet.setCircleRadius(6);
             lineDataSet.setCircleHoleRadius(3);
             lineDataSet.setDrawHighlightIndicators(true);
-            lineDataSet.setHighLightColor(Color.RED);
+            lineDataSet.setHighLightColor(Color.parseColor("#19CFE6"));
             lineDataSet.setValueTextSize(12);
-            lineDataSet.setValueTextColor(Color.DKGRAY);
+            lineDataSet.setValueTextColor(Color.parseColor("#19CFE6"));
+
 
             LineData lineData = new LineData(lineDataSet);
             mpLineChart.getDescription().setText("Total Steps");
             mpLineChart.getDescription().setTextSize(12);
             mpLineChart.setDrawMarkers(true);
-            mpLineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTH_SIDED);
+            mpLineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);//*BOTH_SIDED*//*
             mpLineChart.animateY(1000);
             mpLineChart.getXAxis().setGranularityEnabled(true);
             mpLineChart.getXAxis().setGranularity(1.0f);
+            mpLineChart.getXAxis().setAxisMinimum(1);
+            mpLineChart.getXAxis().setGranularity(10f);
+            mpLineChart.getXAxis().setLabelRotationAngle(-20);
             mpLineChart.getXAxis().setLabelCount(lineDataSet.getEntryCount());
             mpLineChart.setData(lineData);
             mpLineChart.invalidate();
+
+//            XAxis xAxis = mpLineChart.getXAxis();
+//            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+//            xAxis.setAxisMinimum(0f);
+//            xAxis.setGranularity(10f);
+//            xAxis.setLabelRotationAngle(-20);
+//            xAxis.setValueFormatter(new IndexAxisValueFormatter(year));
 
         }
     }
 
     private List<Entry> getWeekDataSet(List<CurrentWeekStepCounter> currentWeekStepCounters) {
-        int WeekIndex = 0;
+        int WeekIndex = 1;
         List<Entry> lineEntries = new ArrayList<Entry>();
         for (CurrentWeekStepCounter currentWeekStepCounter : currentWeekStepCounters) {
             lineEntries.add(new Entry(WeekIndex, currentWeekStepCounter.getCountSteps()));
@@ -640,8 +652,8 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
             lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
             lineDataSet.setHighlightEnabled(true);
             lineDataSet.setLineWidth(2);
-            lineDataSet.setColor(Color.RED);
-            lineDataSet.setCircleColor(Color.YELLOW);
+            lineDataSet.setColor(Color.BLUE);
+            lineDataSet.setCircleColor(Color.BLUE);
             lineDataSet.setCircleRadius(6);
             lineDataSet.setCircleHoleRadius(3);
             lineDataSet.setDrawHighlightIndicators(true);
@@ -656,10 +668,19 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
             mpLineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTH_SIDED);
             mpLineChart.animateY(1000);
             mpLineChart.getXAxis().setGranularityEnabled(true);
-            mpLineChart.getXAxis().setGranularity(1.0f);
+            //mpLineChart.getXAxis().setGranularity(1.0f);
             mpLineChart.getXAxis().setLabelCount(lineDataSet.getEntryCount());
             mpLineChart.setData(lineData);
+
+            XAxis xAxis = mpLineChart.getXAxis();
+            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+            xAxis.setAxisMinimum(0f);
+            xAxis.setGranularity(10f);
+            xAxis.setLabelRotationAngle(-20);
+            //xAxis.setValueFormatter(new IndexAxisValueFormatter(year));
+
             mpLineChart.invalidate();
+
         }
     }
 

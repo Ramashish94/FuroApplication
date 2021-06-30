@@ -5,12 +5,15 @@ import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetai
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragment_ListingNew.ActivitiesListing;
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotTimeRequest;
+import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.deleteSlot.DeleteSlotReq;
+import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.deleteSlot.DeleteSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.FetchAllSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.HistoryResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.WeeklyMonthlyYearlyRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.monthlyResponse.MonthlyResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.weeklyResponse.WeeklyResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.yearResponse.YearlyResponse;
+import com.app.furoapp.activity.newFeature.StepsTracker.leaderBoard.model.LeaderBoardResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalRequest;
@@ -144,6 +147,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public interface ApiInterface {
 
@@ -525,6 +529,11 @@ public interface ApiInterface {
     @POST("user/add-new-slot")
     Call<AddNewSlotResponse> ADD_NEW_SLOT_RESPONSE_CALL(@Header(TOKEN_KEY) String token, @Body AddNewSlotTimeRequest addNewSlotTimeRequest);
 
+    /*user/deleted slots*/
+    @GET("user/deleted-slots/{id}")
+    Call<DeleteSlotResponse> deleteSlot(@Header(TOKEN_KEY) String token, @Path("id") Integer id);
+
+
     /*user/step-goal*/
     @POST("user/step-goal")
     Call<UserStepsGoalResponse> USER_STEPS_GOAL_RESPONSE_CALL(@Header(TOKEN_KEY) String token, @Body UserStepsGoalRequest userStepsGoalRequest);
@@ -546,5 +555,9 @@ public interface ApiInterface {
 
     @POST("user/history-step-counter")
     Call<YearlyResponse> YEARLY_RESPONSE_CALL(@Header(TOKEN_KEY) String token, @Body WeeklyMonthlyYearlyRequest weeklyMonthlyYearlyRequest);
+
+    @POST("user/leader-board")
+    Call<LeaderBoardResponse> LEADER_BOARD_RESPONSE_CALL(@Header(TOKEN_KEY) String token);
+
 
 }

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,11 +19,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
 import com.app.furoapp.activity.LoginTutorialScreen;
-import com.app.furoapp.activity.newFeature.StepsTracker.adapter.FetchAllPlanAdapter;
+import com.app.furoapp.activity.newFeature.StepsTracker.adapter.FetchAllSlotAdapter;
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotTimeRequest;
+import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.deleteSlot.DeleteSlotReq;
+import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.deleteSlot.DeleteSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.Datum;
 import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.FetchAllSlotResponse;
+import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.historyAdapter.WeeklyHistoryAdapter;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
@@ -42,10 +44,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddNewSlotPreferActivity extends Activity implements FetchAllPlanAdapter.TimeSlotClickCallBack {
+public class AddNewSlotPreferActivity extends Activity implements FetchAllSlotAdapter.DeleteSlotClickCallBack {
     public ImageView ivContinue, ivSkip, ivAddNewSlot;
     Intent intent;
-    FetchAllPlanAdapter fetchAllPlanAdapter;
+    FetchAllSlotAdapter fetchAllSlotAdapter;
     List<Datum> datumList = new ArrayList<>();
     public RecyclerView rvSlotTime;
     public String getAccessToken;
@@ -69,8 +71,9 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllPlanAd
 
         findViews();
         clicklistner();
-        setFetchAllPlanAdapter();
         callFetchAllPlanApi();
+        ///setFetchAllPlanAdapter();
+
         timePickerEvent();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -201,30 +204,39 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllPlanAd
         });
     }
 
-    private void setFetchAllPlanAdapter() {
-        fetchAllPlanAdapter = new FetchAllPlanAdapter(getApplicationContext(), datumList, this);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        rvSlotTime.setLayoutManager(layoutManager);
-        rvSlotTime.setItemAnimator(new DefaultItemAnimator());
-        rvSlotTime.setAdapter(fetchAllPlanAdapter);
-    }
-
     private void notifyFetchAllSlotTime(List<Datum> data) {
-        datumList.clear();
-        datumList.addAll(data);
-        if (datumList != null && datumList.size() > 0) {
-            fetchAllPlanAdapter.notifyDataSetChanged();
-        } else {
-            Toast.makeText(this, "No record found !", Toast.LENGTH_SHORT).show();
-        }
+        rvSlotTime.setLayoutManager(new LinearLayoutManager(this));
+        fetchAllSlotAdapter = new FetchAllSlotAdapter(getApplicationContext(), data, this);
+        rvSlotTime.setAdapter(fetchAllSlotAdapter);
+        fetchAllSlotAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void timeSlotClick(Integer id, String timeslot) {
-        String getId = String.valueOf(id);
-        Log.d("id", getId);
+    public void deleteSlotClick(Integer id, String timeslot) {
+        Integer getId = id;
+        Log.d("id", String.valueOf(getId));
         String getTimeSlot = timeslot;
         Log.d("TimeSlot", timeslot);
+        callDeleteApi(getId);
+    }
+
+    private void callDeleteApi(Integer getId) {
+        RestClient.deleteSlot(getAccessToken, getId, new Callback<DeleteSlotResponse>() {
+            @Override
+            public void onResponse(Call<DeleteSlotResponse> call, Response<DeleteSlotResponse> response) {
+                if (response.code() == 200) {
+                    if (response.body().getData() != null) {
+                        Toast.makeText(AddNewSlotPreferActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        callFetchAllPlanApi();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DeleteSlotResponse> call, Throwable t) {
+
+            }
+        });
     }
 
 
@@ -232,7 +244,7 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllPlanAd
         if (getAccessToken != null) {
             dialogBuilder = new AlertDialog.Builder(this);
             LayoutInflater inflater = this.getLayoutInflater();
-            View dialogView = inflater.inflate(R.layout.profile_alertdialog_logoutt_new, null);
+            View dialogView = inflater.inflate(R.layout.session_expired_layout, null);
             dialogBuilder.setView(dialogView);
             dialog = dialogBuilder.create();
             ImageView btn_Cancel = dialogView.findViewById(R.id.btn_cancel);
@@ -268,7 +280,6 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllPlanAd
         } else {
 
         }
-
     }
 
     public void googleSignOut() {

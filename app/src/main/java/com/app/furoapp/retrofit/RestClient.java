@@ -5,12 +5,15 @@ import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetai
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragment_ListingNew.ActivitiesListing;
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotTimeRequest;
+import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.deleteSlot.DeleteSlotReq;
+import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.deleteSlot.DeleteSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.FetchAllSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.HistoryResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.WeeklyMonthlyYearlyRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.monthlyResponse.MonthlyResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.weeklyResponse.WeeklyResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.yearResponse.YearlyResponse;
+import com.app.furoapp.activity.newFeature.StepsTracker.leaderBoard.model.LeaderBoardResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalRequest;
@@ -470,6 +473,10 @@ public class RestClient {
         RetrofitClient.getClient().ADD_NEW_SLOT_RESPONSE_CALL(token, addNewSlotTimeRequest).enqueue(callback);
     }
 
+    public static void deleteSlot(String token, Integer id, Callback<DeleteSlotResponse> callback) {
+        RetrofitClient.getClient().deleteSlot(token, id).enqueue(callback);
+    }
+
     public static void getUserStepsGoal(String token, UserStepsGoalRequest userStepsGoalRequest, Callback<UserStepsGoalResponse> callback) {
         RetrofitClient.getClient().USER_STEPS_GOAL_RESPONSE_CALL(token, userStepsGoalRequest).enqueue(callback);
     }
@@ -492,6 +499,10 @@ public class RestClient {
 
     public static void getYearlyData(String token, WeeklyMonthlyYearlyRequest weeklyMonthlyYearlyRequest, Callback<YearlyResponse> callback) {
         RetrofitClient.getClient().YEARLY_RESPONSE_CALL(token, weeklyMonthlyYearlyRequest).enqueue(callback);
+    }
+
+    public static void getLeaderBoardData(String token, Callback<LeaderBoardResponse> callback) {
+        RetrofitClient.getClient().LEADER_BOARD_RESPONSE_CALL(token).enqueue(callback);
     }
 
 

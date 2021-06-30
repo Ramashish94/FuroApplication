@@ -187,7 +187,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
             finish();
         });
         ivLeadBord.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), LeadBoardActivity.class);
+            Intent intent = new Intent(getApplicationContext(), LeaderBoardActivity.class);
             startActivity(intent);
 
         });

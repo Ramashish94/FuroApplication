@@ -1,7 +1,6 @@
-package com.app.furoapp.activity.newFeature.StepsTracker.adapter;
+package com.app.furoapp.activity.newFeature.StepsTracker.leaderBoard.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,21 +11,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.StepsTracker.leadboardmodel.LeadBoardModel;
+import com.app.furoapp.activity.newFeature.StepsTracker.leaderBoard.model.LeadBoardModel;
 
 import java.util.List;
 
-public class LeadBoardAdapter extends RecyclerView.Adapter<LeadBoardAdapter.MyViewHolder> {
+public class LeaderBoardWeeklyAdapter extends RecyclerView.Adapter<LeaderBoardWeeklyAdapter.MyViewHolder> {
     Context context;
     List<LeadBoardModel> leadBoardModelList;
-    public LeadBoardClickCallBack leadBoardClickCallBack;
+    public WeeklyItemClickCallBack weeklyItemClickCallBack;
     private int row_index = -1;
 
 
-    public LeadBoardAdapter(Context context, List<LeadBoardModel> leadBoardModelList, LeadBoardClickCallBack leadBoardClickCallBack) {
+    public LeaderBoardWeeklyAdapter(Context context, List<LeadBoardModel> leadBoardModelList, WeeklyItemClickCallBack weeklyItemClickCallBack) {
         this.context = context;
         this.leadBoardModelList = leadBoardModelList;
-        this.leadBoardClickCallBack = leadBoardClickCallBack;
+        this.weeklyItemClickCallBack = weeklyItemClickCallBack;
     }
 
     @NonNull
@@ -45,7 +44,7 @@ public class LeadBoardAdapter extends RecyclerView.Adapter<LeadBoardAdapter.MyVi
         holder.tvName.setText("" + leadBoardModel.getName());
 
         holder.llLeadBoardItem.setOnClickListener(v -> {
-            leadBoardClickCallBack.leadBoardItemClick(position, leadBoardModel.getName(), leadBoardModel.getScore());
+            weeklyItemClickCallBack.weekItemClick(position, leadBoardModel.getName(), leadBoardModel.getScore());
             row_index = position;
             notifyDataSetChanged();
         });
@@ -85,7 +84,7 @@ public class LeadBoardAdapter extends RecyclerView.Adapter<LeadBoardAdapter.MyVi
         }
     }
 
-    public interface LeadBoardClickCallBack {
-        void leadBoardItemClick(int position, String name, String score);
+    public interface WeeklyItemClickCallBack {
+        void weekItemClick(int position, String name, String score);
     }
 }

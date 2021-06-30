@@ -95,7 +95,7 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
     List<Entry> entryList = new ArrayList<>();
     private int getCountSteps;
     public Date getDate, date1, date2, date3, date4, date5, date6, date7;
-    TextView tvDays1, tvDays2, tvDays3, tvDays4, tvDays5, tvDays6, tvDays7;
+    public TextView tvDays1, tvDays2, tvDays3, tvDays4, tvDays5, tvDays6, tvDays7;
 
     public LinearLayout llHistoryDetailsLayout, llWeeklyDays;
 
@@ -390,6 +390,7 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
                             if (response.body() != null) {
                                 if (response.body().getData() != null) {
                                     getCountSteps = Integer.parseInt(response.body().getData().getWeeklyData().getCountSteps());
+                                    llWeeklyDays.setVisibility(View.VISIBLE);
                                     if (getCountSteps != 0) {
                                         //  steps and daily average Data
                                         setWeekStepsDailyAvarageData("week", response.body().getData().getWeeklyData());
@@ -428,9 +429,9 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
                     @Override
                     public void onResponse(Call<MonthlyResponse> call, Response<MonthlyResponse> response) {
                         if (response.code() == 200) {
-
                             if (response.body() != null) {
                                 if (response.body().getData() != null) {
+                                    llWeeklyDays.setVisibility(View.INVISIBLE);
                                     getCountSteps = Integer.parseInt(response.body().getData().getMonthlyData().getCountSteps());
                                     if (getCountSteps != 0) {
                                         //  steps and daily average Data
@@ -472,6 +473,7 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
                             if (response.body() != null) {
                                 if (response.body().getData() != null) {
                                     getCountSteps = Integer.parseInt(response.body().getData().getYearlyData().getCountSteps());
+                                    llWeeklyDays.setVisibility(View.INVISIBLE);
                                     if (getCountSteps != 0) {
                                         //  steps and daily average Data
                                         setYearStepsDailyAvarageData("year", response.body().getData().getYearlyData());
@@ -584,7 +586,7 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
 
 
             LineData lineData = new LineData(lineDataSet);
-            mpLineChart.getDescription().setText("");
+            mpLineChart.getDescription().setText("Total Steps");
             mpLineChart.getDescription().setTextSize(12);
             mpLineChart.setDrawMarkers(true);
             mpLineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);//*BOTH_SIDED*//*
@@ -630,7 +632,7 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
 
 
             LineData lineData = new LineData(lineDataSet);
-            mpLineChart.getDescription().setText("");
+            mpLineChart.getDescription().setText("Total Steps");
             mpLineChart.getDescription().setTextSize(12);
             mpLineChart.setDrawMarkers(true);
             mpLineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);//*BOTH_SIDED*//*
@@ -674,7 +676,7 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
 
 
             LineData lineData = new LineData(lineDataSet);
-            mpLineChart.getDescription().setText("");
+            mpLineChart.getDescription().setText("Total Steps");
             mpLineChart.getDescription().setTextSize(12);
             mpLineChart.setDrawMarkers(true);
             mpLineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);//*BOTH_SIDED*//*
@@ -702,9 +704,9 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
     }
 
     private void setWeeklyDaysName(String type, List<CurrentWeekStepCounter> currentWeekStepCounter) {
-        if (type.equalsIgnoreCase("Weekly")) {
+        if (type.equalsIgnoreCase("week")) {
             if (currentWeekStepCounter != null && currentWeekStepCounter.size() > 0) {
-
+                llWeeklyDays.setVisibility(View.VISIBLE);
                 DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
                 try {
                     date1 = dateFormat.parse(currentWeekStepCounter.get(0).getCreatedAt());
@@ -720,12 +722,19 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
                 }
                 DateFormat dateFormat1 = new SimpleDateFormat("EEE");/*dd MMM,*/
                 String getDate1 = dateFormat1.format(date1);
+                Log.d("setWeeklyDaysName: ", getDate1);
                 String getDate2 = dateFormat1.format(date2);
+                Log.d("setWeeklyDaysName: ", getDate1);
                 String getDate3 = dateFormat1.format(date3);
+                Log.d("setWeeklyDaysName: ", getDate1);
                 String getDate4 = dateFormat1.format(date4);
+                Log.d("setWeeklyDaysName: ", getDate1);
                 String getDate5 = dateFormat1.format(date5);
+                Log.d("setWeeklyDaysName: ", getDate1);
                 String getDate6 = dateFormat1.format(date6);
+                Log.d("setWeeklyDaysName: ", getDate1);
                 String getDate7 = dateFormat1.format(date7);
+                Log.d("setWeeklyDaysName: ", getDate1);
 
                 tvDays1.setText("" + getDate1);
                 tvDays2.setText("" + getDate2);

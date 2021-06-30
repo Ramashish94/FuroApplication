@@ -3,12 +3,14 @@ package com.app.furoapp.activity.newFeature.StepsTracker;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -47,6 +49,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -87,11 +90,14 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
     public String getAcessToken;
     private WeeklyMonthlyYearlyRequest weeklyMonthlyYearlyRequest;
     public LineChart mpLineChart;
-
     LineChart lineChart;
     LineData lineData;
     List<Entry> entryList = new ArrayList<>();
     private int getCountSteps;
+    public Date getDate, date1, date2, date3, date4, date5, date6, date7;
+    TextView tvDays1, tvDays2, tvDays3, tvDays4, tvDays5, tvDays6, tvDays7;
+
+    public LinearLayout llHistoryDetailsLayout, llWeeklyDays;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +112,18 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
         setMonthFiltrAdapter();
         setWeeklyFilterAdapter();
 
-        call1stMonthlyApi("month");
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM-yyyy");
+        Date date = new Date();
+        System.out.println(formatter.format(date));
+        filterGettingVal = formatter.format(date);
+        Log.d("getMonthDate", filterGettingVal);
+
+        tvYearMonthWeek.setText("Month");
+        tvYearMonthWeekValue.setText("" + filterGettingVal);
+
+
+        callFilterApi("month", filterGettingVal);
+        // call1stMonthlyApi("month");
         //setMonthlyHistoryAdapter();
     }
 
@@ -134,6 +151,15 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
         tvTotStep = findViewById(R.id.tvTotStep);
         tvDailyAverage = findViewById(R.id.tvDailyAverage);
         mpLineChart = findViewById(R.id.LineChart);
+
+        llWeeklyDays = findViewById(R.id.llWeeklyDays);
+        tvDays1 = findViewById(R.id.tvDays1);
+        tvDays2 = findViewById(R.id.tvDays2);
+        tvDays3 = findViewById(R.id.tvDays3);
+        tvDays4 = findViewById(R.id.tvDays4);
+        tvDays5 = findViewById(R.id.tvDays5);
+        tvDays6 = findViewById(R.id.tvDays6);
+        tvDays7 = findViewById(R.id.tvDays7);
     }
 
     private void clickEvent() {
@@ -221,12 +247,11 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
         Log.d(" getWeek", filterGettingVal);
         rvFilterByMonth.setVisibility(View.GONE);
         llWeekMonthYearFilter.setVisibility(View.GONE);
-        tvYearMonthWeek.setText(" Week " + (1 + weekPosition));
-        tvYearMonthWeekValue.setText("" + filterGettingVal);
+        //tvYearMonthWeek.setText(" Week " + (1 + weekPosition));
+        //   tvYearMonthWeekValue.setText("" + filterGettingVal);
         ivFilterWeekUpArrow.setVisibility(View.GONE);
         ivFilterWeekDownArrow.setVisibility(View.VISIBLE);
         callFilterApi(getFilterType, filterGettingVal);
-        // setWeeklyHistoryAdapter();
     }
 
     private void setMonthFiltrAdapter() {
@@ -257,8 +282,8 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
         Log.d(" getMonth", filterGettingVal);
         rvFilterByMonth.setVisibility(View.GONE);
         llWeekMonthYearFilter.setVisibility(View.GONE);
-        tvYearMonthWeek.setText("Month");
-        tvYearMonthWeekValue.setText("" + filterGettingVal);
+//        tvYearMonthWeek.setText("Month");
+//        tvYearMonthWeekValue.setText("" + filterGettingVal);
         ivFilterMonthUpArrow.setVisibility(View.GONE);
         ivFilterMonthDownArrow.setVisibility(View.VISIBLE);
         callFilterApi(getFilterType, filterGettingVal);
@@ -291,24 +316,24 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
 
         rvFilterByYear.setVisibility(View.GONE);
         llWeekMonthYearFilter.setVisibility(View.GONE);
-        tvYearMonthWeek.setText("Year");
-        tvYearMonthWeekValue.setText("" + filterGettingVal);
+//        tvYearMonthWeek.setText("Year");
+//        tvYearMonthWeekValue.setText("" + filterGettingVal);
         ivFilterYearUpArrow.setVisibility(View.GONE);
         ivFilterYearDownArrow.setVisibility(View.VISIBLE);
         callFilterApi(getFilterType, filterGettingVal);
         //setYearlyHistoryAdapter();
     }
 
-    private void call1stMonthlyApi(String month) {
+    /*  private void call1stMonthlyApi(String month) {
 
-        SimpleDateFormat formatter = new SimpleDateFormat("MMM-yyyy");
+     *//* SimpleDateFormat formatter = new SimpleDateFormat("MMM-yyyy");
         Date date = new Date();
         System.out.println(formatter.format(date));
-        getMonthDate = formatter.format(date);
-        Log.d("getMonthDate", getMonthDate);
+        filterGettingVal = formatter.format(date);
+        Log.d("getMonthDate", filterGettingVal);
 
         tvYearMonthWeek.setText("Month");
-        tvYearMonthWeekValue.setText("" + getMonthDate);
+        tvYearMonthWeekValue.setText("" + filterGettingVal);*//*
 
 
         WeeklyMonthlyYearlyRequest weeklyMonthlyYearlyRequest = new WeeklyMonthlyYearlyRequest();
@@ -347,41 +372,7 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
                 }
             });
         }
-    }
-
-    private void setMonthlyAndDailyAverage(String type, MonthlyData monthlyData) {
-        if (type.equalsIgnoreCase("month")) {
-            if (monthlyData != null) {
-                tvTotStep.setText("" + monthlyData.getCountSteps());
-                tvDailyAverage.setText("" + monthlyData.getDailyAverage() + " m");
-            }
-        }
-    }
-
-
-    private void setMonthlyHistoryAdapter() {
-        monthlyHistoryAdapter = new MonthlyHistoryAdapter(getApplicationContext(), monthStepCounterList);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        rvHistory.setLayoutManager(layoutManager);
-        rvHistory.setItemAnimator(new DefaultItemAnimator());
-        rvHistory.setAdapter(monthlyHistoryAdapter);
-    }
-
-    private void notifyMonthlyHistoryAdapter(List<MonthStepCounter> monthStepCounter) {
-        if (monthStepCounter != null && monthStepCounter.size() > 0) {
-            rvHistory.setLayoutManager(new LinearLayoutManager(this));
-            monthlyHistoryAdapter = new MonthlyHistoryAdapter(getApplicationContext(), monthStepCounter);
-            rvHistory.setAdapter(monthlyHistoryAdapter);
-            monthlyHistoryAdapter.notifyDataSetChanged();
-        /*if (monthStepCounter != null && monthStepCounter.size() > 0) {
-            monthStepCounterList.clear();
-            monthStepCounterList.addAll(monthStepCounter);
-            if (monthStepCounterList != null && monthStepCounterList.size() > 0) {
-                monthlyHistoryAdapter.notifyDataSetChanged();
-            }
-        }*/
-        }
-    }
+    }*/
 
     private void callFilterApi(String getFilterType, String filterGettingVal) {
         weeklyMonthlyYearlyRequest = new WeeklyMonthlyYearlyRequest();
@@ -406,8 +397,11 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
                                         notifyWeekListAdapter(response.body().getData().getCurrentWeekStepCounter());
                                         // set weekly line chart
                                         setWeeklyLineChart(response.body().getData().getCurrentWeekStepCounter());
+                                        // weekly days name
+                                        setWeeklyDaysName("week", response.body().getData().getCurrentWeekStepCounter());
                                     } else {
-                                        Toast.makeText(StepCounterHistoryActivity.this, "No more data !", Toast.LENGTH_SHORT).show();
+                                        getAlertDialog();
+                                        // Toast.makeText(StepCounterHistoryActivity.this, "No more data !", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }
@@ -446,7 +440,8 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
                                         //set line chart
                                         setMonthlyChart(response.body().getData().getMonthStepCounter());
                                     } else {
-                                        Toast.makeText(StepCounterHistoryActivity.this, "No more data !", Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(StepCounterHistoryActivity.this, "No more data !", Toast.LENGTH_SHORT).show();
+                                        getAlertDialog();
                                     }
                                 }
                             }
@@ -485,7 +480,8 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
                                         // setYear line chart
                                         setYearLineChart(response.body().getData().getYearlyDataLists());
                                     } else {
-                                        Toast.makeText(StepCounterHistoryActivity.this, "No more data !", Toast.LENGTH_SHORT).show();
+                                        //  Toast.makeText(StepCounterHistoryActivity.this, "No more data !", Toast.LENGTH_SHORT).show();
+                                        getAlertDialog();
                                     }
                                 }
                             }
@@ -509,10 +505,21 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
     private void setWeekStepsDailyAvarageData(String type, WeeklyData weeklyData) {
         if (type.equalsIgnoreCase("week")) {
             if (weeklyData != null) {
-//                tvYearMonthWeek.setText(" Week " + (1 + weekPosition));
-//                tvYearMonthWeekValue.setText("" + filterGettingVal);
+                tvYearMonthWeek.setText(" Week " + (1 + weekPosition));
+                tvYearMonthWeekValue.setText("" + filterGettingVal);
                 tvTotStep.setText("" + weeklyData.getCountSteps());
                 tvDailyAverage.setText("" + weeklyData.getDailyAverage() + " m");
+            }
+        }
+    }
+
+    private void setMonthlyAndDailyAverage(String type, MonthlyData monthlyData) {
+        if (type.equalsIgnoreCase("month")) {
+            if (monthlyData != null) {
+                tvYearMonthWeek.setText("Month");
+                tvYearMonthWeekValue.setText("" + filterGettingVal);
+                tvTotStep.setText("" + monthlyData.getCountSteps());
+                tvDailyAverage.setText("" + monthlyData.getDailyAverage() + " m");
             }
         }
     }
@@ -520,20 +527,12 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
     private void setYearStepsDailyAvarageData(String type, YearlyData yearlyData) {
         if (type.equalsIgnoreCase("year")) {
             if (yearlyData != null) {
-//                tvYearMonthWeek.setText("Year");
-//                tvYearMonthWeekValue.setText("" + filterGettingVal);
+                tvYearMonthWeek.setText("Year");
+                tvYearMonthWeekValue.setText("" + filterGettingVal);
                 tvTotStep.setText("" + yearlyData.getCountSteps());
                 tvDailyAverage.setText("" + yearlyData.getDailyAverage() + " m");
             }
         }
-    }
-
-    private void setWeeklyHistoryAdapter() {
-        weeklyHistoryAdapter = new WeeklyHistoryAdapter(getApplicationContext(), currentWeekStepCounterList);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        rvHistory.setLayoutManager(layoutManager);
-        rvHistory.setItemAnimator(new DefaultItemAnimator());
-        rvHistory.setAdapter(weeklyHistoryAdapter);
     }
 
     private void notifyWeekListAdapter(List<CurrentWeekStepCounter> currentWeekStepCounter) {
@@ -545,19 +544,15 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
         } else {
             Toast.makeText(this, "No records fond in this week ! ", Toast.LENGTH_SHORT).show();
         }
-       /* currentWeekStepCounterList.clear();
-        currentWeekStepCounterList.addAll(currentWeekStepCounter);
-        if (currentWeekStepCounterList != null && currentWeekStepCounterList.size() > 0) {
-            weeklyHistoryAdapter.notifyDataSetChanged();
-        }*/
     }
 
-    private void setYearlyHistoryAdapter() {
-        yearlyHistoryAdapter = new YearlyHistoryAdapter(getApplicationContext(), yearlyDataListList);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        rvHistory.setLayoutManager(layoutManager);
-        rvHistory.setItemAnimator(new DefaultItemAnimator());
-        rvHistory.setAdapter(yearlyHistoryAdapter);
+    private void notifyMonthlyHistoryAdapter(List<MonthStepCounter> monthStepCounter) {
+        if (monthStepCounter != null && monthStepCounter.size() > 0) {
+            rvHistory.setLayoutManager(new LinearLayoutManager(this));
+            monthlyHistoryAdapter = new MonthlyHistoryAdapter(getApplicationContext(), monthStepCounter);
+            rvHistory.setAdapter(monthlyHistoryAdapter);
+            monthlyHistoryAdapter.notifyDataSetChanged();
+        }
     }
 
     private void notifyYearListAdapter(List<YearlyDataList> yearlyDataLists) {
@@ -569,17 +564,12 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
         } else {
             Toast.makeText(this, "No records fond in this years ! ", Toast.LENGTH_SHORT).show();
         }
-       /* yearlyDataListList.clear();
-        yearlyDataListList.addAll(yearlyDataLists);
-        if (yearlyDataListList != null && yearlyDataListList.size() > 0) {
-            yearlyHistoryAdapter.notifyDataSetChanged();
-        }*/
     }
 
     private void setWeeklyLineChart(List<CurrentWeekStepCounter> currentWeekStepCounter) {
         if (currentWeekStepCounter != null && currentWeekStepCounter.size() > 0) {
             List<Entry> lineEntries = getWeekDataSet(currentWeekStepCounter);
-            LineDataSet lineDataSet = new LineDataSet(lineEntries, "LineChart");
+            LineDataSet lineDataSet = new LineDataSet(lineEntries, filterGettingVal);
             lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
             lineDataSet.setHighlightEnabled(true);
             lineDataSet.setLineWidth(2);
@@ -594,7 +584,7 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
 
 
             LineData lineData = new LineData(lineDataSet);
-            mpLineChart.getDescription().setText("Total Steps");
+            mpLineChart.getDescription().setText("");
             mpLineChart.getDescription().setTextSize(12);
             mpLineChart.setDrawMarkers(true);
             mpLineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);//*BOTH_SIDED*//*
@@ -602,7 +592,7 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
             mpLineChart.getXAxis().setGranularityEnabled(true);
             mpLineChart.getXAxis().setGranularity(1.0f);
             mpLineChart.getXAxis().setAxisMinimum(1);
-            mpLineChart.getXAxis().setGranularity(10f);
+            mpLineChart.getXAxis().setGranularity(100f);
             mpLineChart.getXAxis().setLabelRotationAngle(-20);
             mpLineChart.getXAxis().setLabelCount(lineDataSet.getEntryCount());
             mpLineChart.setData(lineData);
@@ -625,7 +615,7 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
     private void setMonthlyChart(List<MonthStepCounter> monthStepCounter) {
         if (monthStepCounter != null && monthStepCounter.size() > 0) {
             List<Entry> lineEntries = getMonthlyDataSet(monthStepCounter);
-            LineDataSet lineDataSet = new LineDataSet(lineEntries, "LineChart");
+            LineDataSet lineDataSet = new LineDataSet(lineEntries, filterGettingVal);
             lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
             lineDataSet.setHighlightEnabled(true);
             lineDataSet.setLineWidth(2);
@@ -640,7 +630,7 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
 
 
             LineData lineData = new LineData(lineDataSet);
-            mpLineChart.getDescription().setText("Total Steps");
+            mpLineChart.getDescription().setText("");
             mpLineChart.getDescription().setTextSize(12);
             mpLineChart.setDrawMarkers(true);
             mpLineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);//*BOTH_SIDED*//*
@@ -669,7 +659,7 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
     private void setYearLineChart(List<YearlyDataList> yearlyDataLists) {
         if (yearlyDataLists != null && yearlyDataLists.size() > 0) {
             List<Entry> lineEntries = getYearDataSet(yearlyDataLists);
-            LineDataSet lineDataSet = new LineDataSet(lineEntries, "LineChart");
+            LineDataSet lineDataSet = new LineDataSet(lineEntries, filterGettingVal);
             lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
             lineDataSet.setHighlightEnabled(true);
             lineDataSet.setLineWidth(2);
@@ -684,7 +674,7 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
 
 
             LineData lineData = new LineData(lineDataSet);
-            mpLineChart.getDescription().setText("Total Steps");
+            mpLineChart.getDescription().setText("");
             mpLineChart.getDescription().setTextSize(12);
             mpLineChart.setDrawMarkers(true);
             mpLineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);//*BOTH_SIDED*//*
@@ -710,5 +700,72 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
         }
         return lineEntries;
     }
+
+    private void setWeeklyDaysName(String type, List<CurrentWeekStepCounter> currentWeekStepCounter) {
+        if (type.equalsIgnoreCase("Weekly")) {
+            if (currentWeekStepCounter != null && currentWeekStepCounter.size() > 0) {
+
+                DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
+                try {
+                    date1 = dateFormat.parse(currentWeekStepCounter.get(0).getCreatedAt());
+                    date2 = dateFormat.parse(currentWeekStepCounter.get(1).getCreatedAt());
+                    date3 = dateFormat.parse(currentWeekStepCounter.get(2).getCreatedAt());
+                    date4 = dateFormat.parse(currentWeekStepCounter.get(3).getCreatedAt());
+                    date5 = dateFormat.parse(currentWeekStepCounter.get(4).getCreatedAt());
+                    date6 = dateFormat.parse(currentWeekStepCounter.get(5).getCreatedAt());
+                    date7 = dateFormat.parse(currentWeekStepCounter.get(6).getCreatedAt());
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                DateFormat dateFormat1 = new SimpleDateFormat("EEE");/*dd MMM,*/
+                String getDate1 = dateFormat1.format(date1);
+                String getDate2 = dateFormat1.format(date2);
+                String getDate3 = dateFormat1.format(date3);
+                String getDate4 = dateFormat1.format(date4);
+                String getDate5 = dateFormat1.format(date5);
+                String getDate6 = dateFormat1.format(date6);
+                String getDate7 = dateFormat1.format(date7);
+
+                tvDays1.setText("" + getDate1);
+                tvDays2.setText("" + getDate2);
+                tvDays3.setText("" + getDate3);
+                tvDays4.setText("" + getDate4);
+                tvDays5.setText("" + getDate5);
+                tvDays6.setText("" + getDate6);
+                tvDays7.setText("" + getDate7);
+
+            }
+        }
+    }
+
+
+    private void getAlertDialog() {
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.item_no_records_founds, null);
+        dialogBuilder.setView(dialogView);
+        final AlertDialog dialog = dialogBuilder.create();
+
+        ImageView ivBtnCancel = dialogView.findViewById(R.id.ivBtnCancel);
+        TextView tvChooseAnyFilter = dialogView.findViewById(R.id.tvChooseAnyFilter);
+        ivBtnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+            }
+        });
+        tvChooseAnyFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+            }
+        });
+        dialog.show();
+
+    }
+
 
 }

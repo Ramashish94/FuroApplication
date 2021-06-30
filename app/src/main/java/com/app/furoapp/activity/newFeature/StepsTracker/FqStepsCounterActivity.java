@@ -53,7 +53,7 @@ import retrofit2.Response;
 
 public class FqStepsCounterActivity extends AppCompatActivity {
     public ImageView ivBackIcon, ivSetting, ivLeadBord, ivModified, ivHistory;
-    public TextView tvCountsSteps, tvTotNumberOfSteps, tvTimes, tvCalories, tvDistance, tvActivateStepsCounter, tvDiActivate, tvMarkLap, tvStop;
+    public TextView tvCountsSteps, tvTotNumberOfSteps, tvTimes, tvCalories, tvDistance, tvActivateStepsCounter, tvDiActivate, tvMarkLap, tvStop,tvPrizmTips;
     public View includeCongratsStepsTrack, incudeAlertDialog;
     public double magnitudePrevious = 0;
     private Integer stepCount = -1;
@@ -172,6 +172,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         tvModified = findViewById(R.id.tvModified);
         //llModifiedAlert=findViewById(R.id.llModifiedAlert);
         swBtnInKm = findViewById(R.id.swBtnInKm);
+        tvPrizmTips=findViewById(R.id.tvPrizmTips);
         isServiceStopped = true;
     }
 

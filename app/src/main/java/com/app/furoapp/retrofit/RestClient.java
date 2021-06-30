@@ -7,6 +7,7 @@ import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotRes
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotTimeRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.deleteSlot.DeleteSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.FetchAllSlotResponse;
+import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.TipsResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.HistoryResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.WeeklyMonthlyYearlyRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.monthlyResponse.MonthlyResponse;
@@ -504,5 +505,8 @@ public class RestClient {
         RetrofitClient.getClient().LEADER_BOARD_RESPONSE_CALL(token).enqueue(callback);
     }
 
+    public static void getAllTipsData(String token, Callback<TipsResponse> callback) {
+        RetrofitClient.getClient().ALL_TIPS_RESPONSE_CALL(token).enqueue(callback);
+    }
 
 }

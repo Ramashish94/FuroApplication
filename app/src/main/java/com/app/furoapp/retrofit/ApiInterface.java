@@ -7,6 +7,7 @@ import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotRes
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotTimeRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.deleteSlot.DeleteSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.FetchAllSlotResponse;
+import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.TipsResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.HistoryResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.WeeklyMonthlyYearlyRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.monthlyResponse.MonthlyResponse;
@@ -557,6 +558,11 @@ public interface ApiInterface {
 
     @GET("user/leader-board")
     Call<LeaderBoardResponse> LEADER_BOARD_RESPONSE_CALL(@Header(TOKEN_KEY) String token);
+
+    /*user/step-goal*/
+    @GET("user/all-trips ")
+    Call<TipsResponse> ALL_TIPS_RESPONSE_CALL(@Header(TOKEN_KEY) String token);
+
 
 
 }

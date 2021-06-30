@@ -27,6 +27,8 @@ import androidx.appcompat.widget.SwitchCompat;
 import com.app.furoapp.R;
 import com.app.furoapp.StepCountingServiceFuro;
 import com.app.furoapp.activity.LoginTutorialScreen;
+import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.DataItem;
+import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.TipsResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalResponse;
 import com.app.furoapp.retrofit.RestClient;
@@ -62,6 +64,10 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     public static final String TAG = "FqStepsCounterActivity";
     private float getDistanceMiAndKm;
     private Handler customHandler = new Handler();
+    private Handler tipsHandler = new Handler();
+    private List<DataItem> tipsList;
+    private int tipsListSize = 0;
+    private int tipsStart = 0;
     long timeInMilliseconds = 0L;
     long updatedTime = 0L;
     private long startTime = 0L;
@@ -144,7 +150,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
                     }
                 }).check();
 
-
+        callTipsApi();
     }
 
     private void initViews() {
@@ -513,6 +519,54 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     // ___________________________________________________________________________ \\
 
 
+    private Runnable tipsRunnable = new Runnable() {
+        public void run() {
+            if (tipsList != null || tipsList.size() > 0) {
+                if (tipsStart == (tipsListSize - 1)) {
+                    tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph());
+                    tipsStart = 0;
+                }else {
+                    tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph());
+                    tipsStart++;
+                }
+            }
+            tipsHandler.postDelayed(this, 5000);
+        }
+    };
+
+
+    private void callTipsApi() {
+        if (Util.isInternetConnected(getApplicationContext())) {
+            Utils.showProgressDialogBar(getApplicationContext());
+            RestClient.getAllTipsData(getAccessToken, new Callback<TipsResponse>() {
+                @Override
+                public void onResponse(Call<TipsResponse> call, Response<TipsResponse> response) {
+                    Util.dismissProgressDialog();
+                    if (response.code() == 200) {
+                        Log.d(TAG, "onResponse() called with: , response = [" + response.body() + "]");
+                        tipsList = response.body().getData().getData();
+                        tipsListSize = tipsList.size();
+                        tipsHandler.postDelayed(tipsRunnable, 0);
+                    } else {
+                        if (response.code() == 500) {
+                            Toast.makeText(FqStepsCounterActivity.this, "Internal server error !", Toast.LENGTH_SHORT).show();
+                        }
+                        if (response.code() == 403) {
+                            Toast.makeText(FqStepsCounterActivity.this, response.code() + "Session expire Please login again", Toast.LENGTH_SHORT).show();
+                            getAlertTokenExpire();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<TipsResponse> call, Throwable t) {
+                    Toast.makeText(FqStepsCounterActivity.this, "Failure", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+
     private void openModifiedAlertDialog() {
 
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -556,7 +610,6 @@ public class FqStepsCounterActivity extends AppCompatActivity {
             }
         });
         dialog.show();
-
 
     }
 

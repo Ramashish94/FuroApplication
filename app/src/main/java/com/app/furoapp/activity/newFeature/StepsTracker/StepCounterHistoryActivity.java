@@ -112,17 +112,17 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
         setMonthFiltrAdapter();
         setWeeklyFilterAdapter();
 
-        SimpleDateFormat formatter = new SimpleDateFormat("MMM-yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy");/*MMM-yyyy*/
         Date date = new Date();
         System.out.println(formatter.format(date));
         filterGettingVal = formatter.format(date);
         Log.d("getMonthDate", filterGettingVal);
 
-        tvYearMonthWeek.setText("Month");
+        tvYearMonthWeek.setText("Year");
         tvYearMonthWeekValue.setText("" + filterGettingVal);
 
 
-        callFilterApi("month", filterGettingVal);
+        callFilterApi("year", filterGettingVal);
         // call1stMonthlyApi("month");
         //setMonthlyHistoryAdapter();
     }
@@ -390,8 +390,8 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
                             if (response.body() != null) {
                                 if (response.body().getData() != null) {
                                     getCountSteps = Integer.parseInt(response.body().getData().getWeeklyData().getCountSteps());
-                                    llWeeklyDays.setVisibility(View.VISIBLE);
                                     if (getCountSteps != 0) {
+                                        llWeeklyDays.setVisibility(View.VISIBLE);
                                         //  steps and daily average Data
                                         setWeekStepsDailyAvarageData("week", response.body().getData().getWeeklyData());
                                         // notify weekly details
@@ -431,9 +431,9 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
                         if (response.code() == 200) {
                             if (response.body() != null) {
                                 if (response.body().getData() != null) {
-                                    llWeeklyDays.setVisibility(View.INVISIBLE);
                                     getCountSteps = Integer.parseInt(response.body().getData().getMonthlyData().getCountSteps());
                                     if (getCountSteps != 0) {
+                                        llWeeklyDays.setVisibility(View.INVISIBLE);
                                         //  steps and daily average Data
                                         setMonthlyAndDailyAverage("month", response.body().getData().getMonthlyData());
                                         // notify weekly details
@@ -473,8 +473,8 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
                             if (response.body() != null) {
                                 if (response.body().getData() != null) {
                                     getCountSteps = Integer.parseInt(response.body().getData().getYearlyData().getCountSteps());
-                                    llWeeklyDays.setVisibility(View.INVISIBLE);
                                     if (getCountSteps != 0) {
+                                        llWeeklyDays.setVisibility(View.INVISIBLE);
                                         //  steps and daily average Data
                                         setYearStepsDailyAvarageData("year", response.body().getData().getYearlyData());
                                         // notify weekly details

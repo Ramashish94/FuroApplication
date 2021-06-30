@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llYear"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/llYear"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:gravity="center"
         android:elevation="@dimen/dp_5"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <TextView
@@ -28,20 +28,19 @@
             android:id="@+id/ivYearCheck"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_16"
+            android:layout_marginRight="@dimen/dp_3"
             android:layout_weight="8"
             android:src="@drawable/checkicon"
-            android:layout_marginRight="@dimen/dp_3"
             android:textSize="@dimen/sp_18"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1.5dp"
-        android:background="@drawable/viewline"
-        android:layout_marginRight="@dimen/dp_10"/>
-
-
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@drawable/viewline" />
 
 
 </LinearLayout>

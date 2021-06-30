@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -11,21 +12,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.StepsTracker.leaderBoard.model.LeadBoardModel;
+import com.app.furoapp.activity.newFeature.StepsTracker.leaderBoard.model.DailyDataCount;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class LeaderBoardAllTimeAdapter extends RecyclerView.Adapter<LeaderBoardAllTimeAdapter.MyViewHolder> {
+public class DailyLeaderBoardAdapter extends RecyclerView.Adapter<DailyLeaderBoardAdapter.MyViewHolder> {
     Context context;
-    List<LeadBoardModel> leadBoardModelList;
-    public AllTimeClickCallBack allTimeClickCallBack;
+    List<DailyDataCount> dailyDataCountList;
+    public DailyItemClickCallBack dailyItemClickCallBack;
     private int row_index = -1;
 
 
-    public LeaderBoardAllTimeAdapter(Context context, List<LeadBoardModel> leadBoardModelList, AllTimeClickCallBack allTimeClickCallBack) {
+    public DailyLeaderBoardAdapter(Context context, List<DailyDataCount> dailyDataCountList, DailyItemClickCallBack dailyItemClickCallBack) {
         this.context = context;
-        this.leadBoardModelList = leadBoardModelList;
-        this.allTimeClickCallBack = allTimeClickCallBack;
+        this.dailyDataCountList = dailyDataCountList;
+        this.dailyItemClickCallBack = dailyItemClickCallBack;
     }
 
     @NonNull
@@ -39,12 +41,15 @@ public class LeaderBoardAllTimeAdapter extends RecyclerView.Adapter<LeaderBoardA
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        LeadBoardModel leadBoardModel = leadBoardModelList.get(position);
-        holder.tvScore.setText("" + leadBoardModel.getScore());
-        holder.tvName.setText("" + leadBoardModel.getName());
+        DailyDataCount dailyDataCount = dailyDataCountList.get(position);
+        if (dailyDataCount.getUser().getImage() != null) {
+            Picasso.with(context).load(dailyDataCount.getUser().getImage()).error(R.drawable.ic_userimageiconss).into(holder.ivUserImage);
+        }
+        holder.tvName.setText("" + dailyDataCount.getUser().getUsername());
+        holder.tvScore.setText("" + dailyDataCount.getCountSteps());
 
         holder.llLeadBoardItem.setOnClickListener(v -> {
-            allTimeClickCallBack.allTimeItemClick(position, leadBoardModel.getName(), leadBoardModel.getScore());
+            dailyItemClickCallBack.dailyItemClick(position, dailyDataCount.getUser().getUsername(), dailyDataCount.getCountSteps());
             row_index = position;
             notifyDataSetChanged();
         });
@@ -65,8 +70,8 @@ public class LeaderBoardAllTimeAdapter extends RecyclerView.Adapter<LeaderBoardA
 
     @Override
     public int getItemCount() {
-        if (leadBoardModelList != null && leadBoardModelList.size() > 0) {
-            return leadBoardModelList.size();
+        if (dailyDataCountList != null && dailyDataCountList.size() > 0) {
+            return dailyDataCountList.size();
         } else {
             return 0;
         }
@@ -75,16 +80,18 @@ public class LeaderBoardAllTimeAdapter extends RecyclerView.Adapter<LeaderBoardA
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tvScore, tvName;
         public LinearLayout llLeadBoardItem, llTimeDeleteSlot;
+        public ImageView ivUserImage;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tvScore = itemView.findViewById(R.id.tvScore);
             tvName = itemView.findViewById(R.id.tvName);
             llLeadBoardItem = itemView.findViewById(R.id.llLeadBoardItem);
+            ivUserImage = itemView.findViewById(R.id.ivUserImage);
         }
     }
 
-    public interface AllTimeClickCallBack {
-        void allTimeItemClick(int position, String name, String score);
+    public interface DailyItemClickCallBack {
+        void dailyItemClick(int position, String name, String score);
     }
 }

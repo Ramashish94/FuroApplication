@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -11,21 +12,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.StepsTracker.leaderBoard.model.LeadBoardModel;
+import com.app.furoapp.activity.newFeature.StepsTracker.leaderBoard.model.MonthlyDataCount;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class LeaderBoardWeeklyAdapter extends RecyclerView.Adapter<LeaderBoardWeeklyAdapter.MyViewHolder> {
+public class MonthlyLeaderBoardAdapter extends RecyclerView.Adapter<MonthlyLeaderBoardAdapter.MyViewHolder> {
     Context context;
-    List<LeadBoardModel> leadBoardModelList;
-    public WeeklyItemClickCallBack weeklyItemClickCallBack;
+    List<MonthlyDataCount> monthlyDataCountList;
+    public MonthlyClickCallBack monthlyClickCallBack;
     private int row_index = -1;
 
 
-    public LeaderBoardWeeklyAdapter(Context context, List<LeadBoardModel> leadBoardModelList, WeeklyItemClickCallBack weeklyItemClickCallBack) {
+    public MonthlyLeaderBoardAdapter(Context context, List<MonthlyDataCount> monthlyDataCountList, MonthlyClickCallBack monthlyClickCallBack) {
         this.context = context;
-        this.leadBoardModelList = leadBoardModelList;
-        this.weeklyItemClickCallBack = weeklyItemClickCallBack;
+        this.monthlyDataCountList = monthlyDataCountList;
+        this.monthlyClickCallBack = monthlyClickCallBack;
     }
 
     @NonNull
@@ -39,12 +41,15 @@ public class LeaderBoardWeeklyAdapter extends RecyclerView.Adapter<LeaderBoardWe
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        LeadBoardModel leadBoardModel = leadBoardModelList.get(position);
-        holder.tvScore.setText("" + leadBoardModel.getScore());
-        holder.tvName.setText("" + leadBoardModel.getName());
+        MonthlyDataCount monthlyDataCount = monthlyDataCountList.get(position);
+        if (monthlyDataCount.getUser().getImage() != null) {
+            Picasso.with(context).load(monthlyDataCount.getUser().getImage()).error(R.drawable.ic_userimageiconss).into(holder.ivUserImage);
+        }
+        holder.tvName.setText("" + monthlyDataCount.getUser().getUsername());
+        holder.tvScore.setText("" + monthlyDataCount.getCountSteps());
 
         holder.llLeadBoardItem.setOnClickListener(v -> {
-            weeklyItemClickCallBack.weekItemClick(position, leadBoardModel.getName(), leadBoardModel.getScore());
+            monthlyClickCallBack.monthlyItemClick(position, monthlyDataCount.getUser().getUsername(), monthlyDataCount.getCountSteps());
             row_index = position;
             notifyDataSetChanged();
         });
@@ -65,8 +70,8 @@ public class LeaderBoardWeeklyAdapter extends RecyclerView.Adapter<LeaderBoardWe
 
     @Override
     public int getItemCount() {
-        if (leadBoardModelList != null && leadBoardModelList.size() > 0) {
-            return leadBoardModelList.size();
+        if (monthlyDataCountList != null && monthlyDataCountList.size() > 0) {
+            return monthlyDataCountList.size();
         } else {
             return 0;
         }
@@ -75,16 +80,18 @@ public class LeaderBoardWeeklyAdapter extends RecyclerView.Adapter<LeaderBoardWe
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tvScore, tvName;
         public LinearLayout llLeadBoardItem, llTimeDeleteSlot;
+        public ImageView ivUserImage;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tvScore = itemView.findViewById(R.id.tvScore);
             tvName = itemView.findViewById(R.id.tvName);
             llLeadBoardItem = itemView.findViewById(R.id.llLeadBoardItem);
+            ivUserImage = itemView.findViewById(R.id.ivUserImage);
         }
     }
 
-    public interface WeeklyItemClickCallBack {
-        void weekItemClick(int position, String name, String score);
+    public interface MonthlyClickCallBack {
+        void monthlyItemClick(int position, String name, String score);
     }
 }

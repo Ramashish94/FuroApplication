@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
+import com.app.furoapp.activity.newFeature.StepsTracker.adapter.FetchAllSlotAdapter;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.WeeklyDataList;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.filterAdater.MonthFilterAdapter;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.filterAdater.WeekFilterAdapter;
@@ -106,7 +107,7 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
         setWeeklyFilterAdapter();
 
         call1stMonthlyApi("month");
-        setMonthlyHistoryAdapter();
+        //setMonthlyHistoryAdapter();
     }
 
 
@@ -220,12 +221,12 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
         Log.d(" getWeek", filterGettingVal);
         rvFilterByMonth.setVisibility(View.GONE);
         llWeekMonthYearFilter.setVisibility(View.GONE);
-//        tvYearMonthWeek.setText(" Week " + (1 + weekPosition));
-//        tvYearMonthWeekValue.setText("" + filterGettingVal);
+        tvYearMonthWeek.setText(" Week " + (1 + weekPosition));
+        tvYearMonthWeekValue.setText("" + filterGettingVal);
         ivFilterWeekUpArrow.setVisibility(View.GONE);
         ivFilterWeekDownArrow.setVisibility(View.VISIBLE);
         callFilterApi(getFilterType, filterGettingVal);
-        setWeeklyHistoryAdapter();
+        // setWeeklyHistoryAdapter();
     }
 
     private void setMonthFiltrAdapter() {
@@ -256,12 +257,12 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
         Log.d(" getMonth", filterGettingVal);
         rvFilterByMonth.setVisibility(View.GONE);
         llWeekMonthYearFilter.setVisibility(View.GONE);
-//        tvYearMonthWeek.setText("Month");
-//        tvYearMonthWeekValue.setText("" + filterGettingVal);
+        tvYearMonthWeek.setText("Month");
+        tvYearMonthWeekValue.setText("" + filterGettingVal);
         ivFilterMonthUpArrow.setVisibility(View.GONE);
         ivFilterMonthDownArrow.setVisibility(View.VISIBLE);
         callFilterApi(getFilterType, filterGettingVal);
-        setMonthlyHistoryAdapter();
+        // setMonthlyHistoryAdapter();
     }
 
 
@@ -290,12 +291,12 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
 
         rvFilterByYear.setVisibility(View.GONE);
         llWeekMonthYearFilter.setVisibility(View.GONE);
-//        tvYearMonthWeek.setText("Year");
-//        tvYearMonthWeekValue.setText("" + filterGettingVal);
+        tvYearMonthWeek.setText("Year");
+        tvYearMonthWeekValue.setText("" + filterGettingVal);
         ivFilterYearUpArrow.setVisibility(View.GONE);
         ivFilterYearDownArrow.setVisibility(View.VISIBLE);
         callFilterApi(getFilterType, filterGettingVal);
-        setYearlyHistoryAdapter();
+        //setYearlyHistoryAdapter();
     }
 
     private void call1stMonthlyApi(String month) {
@@ -357,45 +358,6 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
         }
     }
 
-    private void setMonthlyChart(List<MonthStepCounter> monthStepCounter) {
-        if (monthStepCounter != null && monthStepCounter.size() > 0) {
-            List<Entry> lineEntries = getMonthlyDataSet(monthStepCounter);
-            LineDataSet lineDataSet = new LineDataSet(lineEntries, "LineChart");
-            lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-            lineDataSet.setHighlightEnabled(true);
-            lineDataSet.setLineWidth(2);
-            lineDataSet.setColor(Color.RED);
-            lineDataSet.setCircleColor(Color.YELLOW);
-            lineDataSet.setCircleRadius(6);
-            lineDataSet.setCircleHoleRadius(3);
-            lineDataSet.setDrawHighlightIndicators(true);
-            lineDataSet.setHighLightColor(Color.RED);
-            lineDataSet.setValueTextSize(12);
-            lineDataSet.setValueTextColor(Color.DKGRAY);
-
-            LineData lineData = new LineData(lineDataSet);
-            mpLineChart.getDescription().setText("Total Steps");
-            mpLineChart.getDescription().setTextSize(12);
-            mpLineChart.setDrawMarkers(true);
-            mpLineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTH_SIDED);
-            mpLineChart.animateY(1000);
-            mpLineChart.getXAxis().setGranularityEnabled(true);
-            mpLineChart.getXAxis().setGranularity(1.0f);
-            mpLineChart.getXAxis().setLabelCount(lineDataSet.getEntryCount());
-            mpLineChart.setData(lineData);
-            mpLineChart.invalidate();
-        }
-    }
-
-    private List<Entry> getMonthlyDataSet(List<MonthStepCounter> monthStepCounter) {
-        int monthIndex = 0;
-        List<Entry> lineEntries = new ArrayList<Entry>();
-        for (MonthStepCounter monthStepCounter1 : monthStepCounter) {
-            lineEntries.add(new Entry(monthIndex, monthStepCounter1.getCountSteps()));
-            monthIndex++;
-        }
-        return lineEntries;
-    }
 
     private void setMonthlyHistoryAdapter() {
         monthlyHistoryAdapter = new MonthlyHistoryAdapter(getApplicationContext(), monthStepCounterList);
@@ -407,11 +369,17 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
 
     private void notifyMonthlyHistoryAdapter(List<MonthStepCounter> monthStepCounter) {
         if (monthStepCounter != null && monthStepCounter.size() > 0) {
+            rvHistory.setLayoutManager(new LinearLayoutManager(this));
+            monthlyHistoryAdapter = new MonthlyHistoryAdapter(getApplicationContext(), monthStepCounter);
+            rvHistory.setAdapter(monthlyHistoryAdapter);
+            monthlyHistoryAdapter.notifyDataSetChanged();
+        /*if (monthStepCounter != null && monthStepCounter.size() > 0) {
             monthStepCounterList.clear();
             monthStepCounterList.addAll(monthStepCounter);
             if (monthStepCounterList != null && monthStepCounterList.size() > 0) {
                 monthlyHistoryAdapter.notifyDataSetChanged();
             }
+        }*/
         }
     }
 
@@ -569,11 +537,19 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
     }
 
     private void notifyWeekListAdapter(List<CurrentWeekStepCounter> currentWeekStepCounter) {
-        currentWeekStepCounterList.clear();
+        if (currentWeekStepCounter != null && currentWeekStepCounter.size() > 0) {
+            rvHistory.setLayoutManager(new LinearLayoutManager(this));
+            weeklyHistoryAdapter = new WeeklyHistoryAdapter(getApplicationContext(), currentWeekStepCounter);
+            rvHistory.setAdapter(weeklyHistoryAdapter);
+            weeklyHistoryAdapter.notifyDataSetChanged();
+        } else {
+            Toast.makeText(this, "No records fond in this week ! ", Toast.LENGTH_SHORT).show();
+        }
+       /* currentWeekStepCounterList.clear();
         currentWeekStepCounterList.addAll(currentWeekStepCounter);
         if (currentWeekStepCounterList != null && currentWeekStepCounterList.size() > 0) {
             weeklyHistoryAdapter.notifyDataSetChanged();
-        }
+        }*/
     }
 
     private void setYearlyHistoryAdapter() {
@@ -585,11 +561,19 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
     }
 
     private void notifyYearListAdapter(List<YearlyDataList> yearlyDataLists) {
-        yearlyDataListList.clear();
+        if (yearlyDataLists != null && yearlyDataLists.size() > 0) {
+            rvHistory.setLayoutManager(new LinearLayoutManager(this));
+            yearlyHistoryAdapter = new YearlyHistoryAdapter(getApplicationContext(), yearlyDataLists);
+            rvHistory.setAdapter(yearlyHistoryAdapter);
+            yearlyHistoryAdapter.notifyDataSetChanged();
+        } else {
+            Toast.makeText(this, "No records fond in this years ! ", Toast.LENGTH_SHORT).show();
+        }
+       /* yearlyDataListList.clear();
         yearlyDataListList.addAll(yearlyDataLists);
         if (yearlyDataListList != null && yearlyDataListList.size() > 0) {
             yearlyHistoryAdapter.notifyDataSetChanged();
-        }
+        }*/
     }
 
     private void setWeeklyLineChart(List<CurrentWeekStepCounter> currentWeekStepCounter) {
@@ -624,12 +608,6 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
             mpLineChart.setData(lineData);
             mpLineChart.invalidate();
 
-//            XAxis xAxis = mpLineChart.getXAxis();
-//            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-//            xAxis.setAxisMinimum(0f);
-//            xAxis.setGranularity(10f);
-//            xAxis.setLabelRotationAngle(-20);
-//            xAxis.setValueFormatter(new IndexAxisValueFormatter(year));
 
         }
     }
@@ -644,6 +622,49 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
         return lineEntries;
     }
 
+    private void setMonthlyChart(List<MonthStepCounter> monthStepCounter) {
+        if (monthStepCounter != null && monthStepCounter.size() > 0) {
+            List<Entry> lineEntries = getMonthlyDataSet(monthStepCounter);
+            LineDataSet lineDataSet = new LineDataSet(lineEntries, "LineChart");
+            lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+            lineDataSet.setHighlightEnabled(true);
+            lineDataSet.setLineWidth(2);
+            lineDataSet.setColor(Color.parseColor("#19CFE6"));/*ColorTemplate.JOYFUL_COLORS*/
+            lineDataSet.setCircleColor(Color.parseColor("#19CFE6"));
+            lineDataSet.setCircleRadius(6);
+            lineDataSet.setCircleHoleRadius(3);
+            lineDataSet.setDrawHighlightIndicators(true);
+            lineDataSet.setHighLightColor(Color.parseColor("#19CFE6"));
+            lineDataSet.setValueTextSize(12);
+            lineDataSet.setValueTextColor(Color.parseColor("#19CFE6"));
+
+
+            LineData lineData = new LineData(lineDataSet);
+            mpLineChart.getDescription().setText("Total Steps");
+            mpLineChart.getDescription().setTextSize(12);
+            mpLineChart.setDrawMarkers(true);
+            mpLineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);//*BOTH_SIDED*//*
+            mpLineChart.animateY(1000);
+            mpLineChart.getXAxis().setGranularityEnabled(true);
+            mpLineChart.getXAxis().setGranularity(1.0f);
+            mpLineChart.getXAxis().setAxisMinimum(1);
+            mpLineChart.getXAxis().setGranularity(100f);
+            mpLineChart.getXAxis().setLabelRotationAngle(-20);
+            mpLineChart.getXAxis().setLabelCount(lineDataSet.getEntryCount());
+            mpLineChart.setData(lineData);
+            mpLineChart.invalidate();
+        }
+    }
+
+    private List<Entry> getMonthlyDataSet(List<MonthStepCounter> monthStepCounter) {
+        int monthIndex = 1;
+        List<Entry> lineEntries = new ArrayList<Entry>();
+        for (MonthStepCounter monthStepCounter1 : monthStepCounter) {
+            lineEntries.add(new Entry(monthIndex, monthStepCounter1.getCountSteps()));
+            monthIndex++;
+        }
+        return lineEntries;
+    }
 
     private void setYearLineChart(List<YearlyDataList> yearlyDataLists) {
         if (yearlyDataLists != null && yearlyDataLists.size() > 0) {
@@ -652,40 +673,36 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
             lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
             lineDataSet.setHighlightEnabled(true);
             lineDataSet.setLineWidth(2);
-            lineDataSet.setColor(Color.BLUE);
-            lineDataSet.setCircleColor(Color.BLUE);
+            lineDataSet.setColor(Color.parseColor("#19CFE6"));/*ColorTemplate.JOYFUL_COLORS*/
+            lineDataSet.setCircleColor(Color.parseColor("#19CFE6"));
             lineDataSet.setCircleRadius(6);
             lineDataSet.setCircleHoleRadius(3);
             lineDataSet.setDrawHighlightIndicators(true);
-            lineDataSet.setHighLightColor(Color.RED);
+            lineDataSet.setHighLightColor(Color.parseColor("#19CFE6"));
             lineDataSet.setValueTextSize(12);
-            lineDataSet.setValueTextColor(Color.DKGRAY);
+            lineDataSet.setValueTextColor(Color.parseColor("#19CFE6"));
+
 
             LineData lineData = new LineData(lineDataSet);
             mpLineChart.getDescription().setText("Total Steps");
             mpLineChart.getDescription().setTextSize(12);
             mpLineChart.setDrawMarkers(true);
-            mpLineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTH_SIDED);
+            mpLineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);//*BOTH_SIDED*//*
             mpLineChart.animateY(1000);
             mpLineChart.getXAxis().setGranularityEnabled(true);
-            //mpLineChart.getXAxis().setGranularity(1.0f);
+            mpLineChart.getXAxis().setGranularity(1.0f);
+            mpLineChart.getXAxis().setAxisMinimum(1);
+            mpLineChart.getXAxis().setGranularity(100f);
+            mpLineChart.getXAxis().setLabelRotationAngle(-20);
             mpLineChart.getXAxis().setLabelCount(lineDataSet.getEntryCount());
             mpLineChart.setData(lineData);
-
-            XAxis xAxis = mpLineChart.getXAxis();
-            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-            xAxis.setAxisMinimum(0f);
-            xAxis.setGranularity(10f);
-            xAxis.setLabelRotationAngle(-20);
-            //xAxis.setValueFormatter(new IndexAxisValueFormatter(year));
-
             mpLineChart.invalidate();
 
         }
     }
 
     private List<Entry> getYearDataSet(List<YearlyDataList> yearlyDataLists) {
-        int yearIndex = 0;
+        int yearIndex = 1;
         List<Entry> lineEntries = new ArrayList<Entry>();
         for (YearlyDataList yearlyDataList : yearlyDataLists) {
             lineEntries.add(new Entry(yearIndex, yearlyDataList.getCountSteps()));

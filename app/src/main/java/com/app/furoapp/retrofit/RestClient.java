@@ -5,7 +5,6 @@ import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetai
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragment_ListingNew.ActivitiesListing;
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotTimeRequest;
-import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.deleteSlot.DeleteSlotReq;
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.deleteSlot.DeleteSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.FetchAllSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.HistoryResponse;

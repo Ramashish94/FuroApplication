@@ -21,16 +21,17 @@
             android:layout_width="@dimen/dp_25"
             android:layout_height="@dimen/dp_25"
             android:background="@drawable/leadboard_cross" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/bebase_font_family_regular"
             android:gravity="center"
             android:text="Leaderboard "
             android:textColor="@color/black_color"
-            android:fontFamily="@font/bebase_font_family_regular"
-            android:textStyle="italic"
-            android:textSize="@dimen/sp_16" />
+            android:textSize="@dimen/sp_16"
+            android:textStyle="italic" />
 
     </LinearLayout>
 
@@ -59,6 +60,18 @@
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchBtnDaily"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/sp_10"
+                android:layout_weight="1"
+                android:checked="true"
+                android:gravity="center"
+                android:text="Daily" />
+
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switchBtnWeekly"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -82,17 +95,6 @@
                 android:gravity="center"
                 android:text="Monthly" />
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switchBtnAlType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center"
-                android:layout_marginRight="@dimen/sp_10"
-                android:layout_weight="1"
-                android:checked="true"
-                android:gravity="center"
-                android:text="All time" />
 
         </LinearLayout>
 
@@ -128,8 +130,7 @@
                 android:text="Name "
                 android:textAllCaps="true"
                 android:textColor="@color/black_btn"
-                android:textStyle="normal"
-                />
+                android:textStyle="normal" />
         </LinearLayout>
 
         <LinearLayout
@@ -148,8 +149,7 @@
                 android:text="Activity Fq score "
                 android:textAllCaps="true"
                 android:textColor="@color/black_btn"
-                android:textStyle="normal"
-                />
+                android:textStyle="normal" />
         </LinearLayout>
 
 
@@ -158,14 +158,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:layout_marginLeft="@dimen/dp_16"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvLeaderBoardRecy"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"/>
 
 
     </LinearLayout>

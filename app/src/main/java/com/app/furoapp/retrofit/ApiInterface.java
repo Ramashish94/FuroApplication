@@ -5,7 +5,6 @@ import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetai
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragment_ListingNew.ActivitiesListing;
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotTimeRequest;
-import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.deleteSlot.DeleteSlotReq;
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.deleteSlot.DeleteSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.FetchAllSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.HistoryResponse;
@@ -556,7 +555,7 @@ public interface ApiInterface {
     @POST("user/history-step-counter")
     Call<YearlyResponse> YEARLY_RESPONSE_CALL(@Header(TOKEN_KEY) String token, @Body WeeklyMonthlyYearlyRequest weeklyMonthlyYearlyRequest);
 
-    @POST("user/leader-board")
+    @GET("user/leader-board")
     Call<LeaderBoardResponse> LEADER_BOARD_RESPONSE_CALL(@Header(TOKEN_KEY) String token);
 
 

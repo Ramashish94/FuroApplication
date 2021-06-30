@@ -7,25 +7,25 @@ import com.google.gson.annotations.SerializedName;
 
 public class Data {
 
-    @SerializedName("User ID")
+    @SerializedName("user_detail")
     @Expose
-    private Integer userID;
-    @SerializedName("Daily Data Count")
+    private UserDetail userDetail;
+    @SerializedName("daily_data_count")
     @Expose
     private List<DailyDataCount> dailyDataCount = null;
-    @SerializedName("Weekly Data Count")
+    @SerializedName("weekly_data_count")
     @Expose
     private List<WeeklyDataCount> weeklyDataCount = null;
-    @SerializedName("Monthly Data Count")
+    @SerializedName("monthly_data_count")
     @Expose
     private List<MonthlyDataCount> monthlyDataCount = null;
 
-    public Integer getUserID() {
-        return userID;
+    public UserDetail getUserDetail() {
+        return userDetail;
     }
 
-    public void setUserID(Integer userID) {
-        this.userID = userID;
+    public void setUserDetail(UserDetail userDetail) {
+        this.userDetail = userDetail;
     }
 
     public List<DailyDataCount> getDailyDataCount() {

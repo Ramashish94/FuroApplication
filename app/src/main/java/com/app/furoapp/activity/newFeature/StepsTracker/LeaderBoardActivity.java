@@ -7,20 +7,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.historyAdapter.AllTimeHistoryAdapter;
-import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.historyAdapter.MonthlyHistoryAdapter;
-import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.historyAdapter.WeeklyHistoryAdapter;
-import com.app.furoapp.activity.newFeature.StepsTracker.leaderBoard.adapter.LeaderBoardAllTimeAdapter;
-import com.app.furoapp.activity.newFeature.StepsTracker.leaderBoard.adapter.LeaderBoardMonthlyAdapter;
-import com.app.furoapp.activity.newFeature.StepsTracker.leaderBoard.adapter.LeaderBoardWeeklyAdapter;
+import com.app.furoapp.activity.newFeature.StepsTracker.leaderBoard.adapter.MonthlyLeaderBoardAdapter;
+import com.app.furoapp.activity.newFeature.StepsTracker.leaderBoard.adapter.WeeklyLeaderBoardAdapter;
+import com.app.furoapp.activity.newFeature.StepsTracker.leaderBoard.adapter.DailyLeaderBoardAdapter;
 import com.app.furoapp.activity.newFeature.StepsTracker.leaderBoard.model.Data;
-import com.app.furoapp.activity.newFeature.StepsTracker.leaderBoard.model.LeadBoardModel;
 import com.app.furoapp.activity.newFeature.StepsTracker.leaderBoard.model.LeaderBoardResponse;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
@@ -33,14 +28,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LeaderBoardActivity extends AppCompatActivity implements LeaderBoardWeeklyAdapter.WeeklyItemClickCallBack,
-        LeaderBoardMonthlyAdapter.MonthlyItemClickCallBack, LeaderBoardAllTimeAdapter.AllTimeClickCallBack {
+public class LeaderBoardActivity extends AppCompatActivity implements DailyLeaderBoardAdapter.DailyItemClickCallBack,
+        WeeklyLeaderBoardAdapter.WeeklyItemClickCallBack, MonthlyLeaderBoardAdapter.MonthlyClickCallBack {
     RecyclerView rvLeaderBoardRecy;
-    LeaderBoardWeeklyAdapter leaderBoardWeeklyAdapter;
-    LeaderBoardMonthlyAdapter leaderBoardMonthlyAdapter;
-    LeaderBoardAllTimeAdapter leaderBoardAllTimeAdapter;
-    List<LeadBoardModel> leadBoardModelList = new ArrayList<>();
-    public SwitchCompat switchBtnWeekly, switchBtnMontly, switchBtnAllType;
+    DailyLeaderBoardAdapter dailyLeaderBoardAdapter;
+    WeeklyLeaderBoardAdapter weeklyLeaderBoardAdapter;
+    MonthlyLeaderBoardAdapter monthlyLeaderBoardAdapter;
+    public SwitchCompat switchBtnWeekly, switchBtnMontly, switchBtnDaily;
     private String type;
     ImageView ivLeadBoardCross;
     private String getAccessToken;
@@ -54,11 +48,11 @@ public class LeaderBoardActivity extends AppCompatActivity implements LeaderBoar
         rvLeaderBoardRecy = findViewById(R.id.rvLeaderBoardRecy);
         switchBtnWeekly = findViewById(R.id.switchBtnWeekly);
         switchBtnMontly = findViewById(R.id.switchBtnMonthly);
-        switchBtnAllType = findViewById(R.id.switchBtnAlType);
+        switchBtnDaily = findViewById(R.id.switchBtnDaily);
         ivLeadBoardCross = findViewById(R.id.ivLeadBoardCross);
         clickEvent();
 
-        callLeaderBoardApi("All Time");
+        callLeaderBoardApi("Daily");
 
     }
 
@@ -67,12 +61,24 @@ public class LeaderBoardActivity extends AppCompatActivity implements LeaderBoar
             finish();
         });
 
+        switchBtnDaily.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    type = "Daily";
+                    switchBtnWeekly.setChecked(false);
+                    switchBtnMontly.setChecked(false);
+                    callLeaderBoardApi("Daily");/*/*str_act,*/
+                }
+            }
+        });
+
         switchBtnWeekly.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     type = "Weekly";
-                    switchBtnAllType.setChecked(false);
+                    switchBtnDaily.setChecked(false);
                     switchBtnMontly.setChecked(false);
                     callLeaderBoardApi("Weekly");/*str_act,*/
                 }
@@ -86,23 +92,12 @@ public class LeaderBoardActivity extends AppCompatActivity implements LeaderBoar
                 if (isChecked) {
                     type = "Monthly";
                     switchBtnWeekly.setChecked(false);
-                    switchBtnAllType.setChecked(false);
+                    switchBtnDaily.setChecked(false);
                     callLeaderBoardApi("Monthly");/*str_act,*/
                 }
             }
         });
 
-        switchBtnAllType.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    type = "All Time";
-                    switchBtnWeekly.setChecked(false);
-                    switchBtnMontly.setChecked(false);
-                    callLeaderBoardApi("All Time");/*/*str_act,*/
-                }
-            }
-        });
 
         if (type != null) {
             callLeaderBoardApi(type);
@@ -117,19 +112,17 @@ public class LeaderBoardActivity extends AppCompatActivity implements LeaderBoar
             public void onResponse(Call<LeaderBoardResponse> call, Response<LeaderBoardResponse> response) {
                 if (response.code() == 200) {
                     if (response.body() != null) {
-                        if (type.equalsIgnoreCase("Weekly")) {
+                        if (type.equalsIgnoreCase("Daily")) {
+                            setAdapter("Daily", response.body().getData());
+                        } else if (type.equalsIgnoreCase("Weekly")) {
                             setAdapter("Weekly", response.body().getData());
                         } else if (type.equalsIgnoreCase("Monthly")) {
                             setAdapter("Monthly", response.body().getData());
-                        } else if (type.equalsIgnoreCase("All Time")) {
-                            setAdapter("All Time", response.body().getData());
-                        } else {
-                            setAdapter("All Time", response.body().getData());
                         }
                     }
                 } else if (response.code() == 500) {
                     Toast.makeText(LeaderBoardActivity.this, "Internal server error !", Toast.LENGTH_SHORT).show();
-                } else if (response.code() == 200) {
+                } else if (response.code() == 403) {
                     Toast.makeText(LeaderBoardActivity.this, "Session expired Please login again !", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -142,51 +135,39 @@ public class LeaderBoardActivity extends AppCompatActivity implements LeaderBoar
 
     }
 
-
-    private void setLeadBoardRecyAdapter() {
-        leaderBoardWeeklyAdapter = new LeaderBoardWeeklyAdapter(getApplicationContext(), leadBoardModelList, this);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        rvLeaderBoardRecy.setLayoutManager(layoutManager);
-        rvLeaderBoardRecy.setItemAnimator(new DefaultItemAnimator());
-        rvLeaderBoardRecy.setAdapter(leaderBoardWeeklyAdapter);
-        /*List<LeadBoardModel> leadBoardModelArrayList = new ArrayList<>();
-        for (int i = 0; i <= 20; i++) {
-            LeadBoardModel leadBoardModel = new LeadBoardModel();
-            leadBoardModel.setName("Sager");
-            leadBoardModel.setScore("100");
-            leadBoardModelArrayList.add(leadBoardModel);
-        }
-        LeadBoardAdapter leadBoardAdapter = new LeadBoardAdapter(getApplicationContext(), leadBoardModelArrayList, this);
-        rvLeaderBoardRecy.setAdapter(leadBoardAdapter);*/
-    }
-
     private void setAdapter(String type, Data data) {
-        if (type.equalsIgnoreCase("Weekly")) {
-            //if (data != null && data.get() != null && data.getWeeklyDataLists().size() > 0) {
-            rvLeaderBoardRecy.setLayoutManager(new LinearLayoutManager(this));
-            //   leaderBoardWeeklyAdapter = new LeaderBoardWeeklyAdapter(getApplicationContext(), data.getWeeklyDataLists(), this);
-            rvLeaderBoardRecy.setAdapter(leaderBoardWeeklyAdapter);
-            leaderBoardWeeklyAdapter.notifyDataSetChanged();
-            //}
+        if (type.equalsIgnoreCase("Daily")) {
+            if (data != null && data.getDailyDataCount() != null && data.getDailyDataCount().size() > 0) {
+                rvLeaderBoardRecy.setLayoutManager(new LinearLayoutManager(this));
+                dailyLeaderBoardAdapter = new DailyLeaderBoardAdapter(getApplicationContext(), data.getDailyDataCount(), this);
+                rvLeaderBoardRecy.setAdapter(dailyLeaderBoardAdapter);
+                dailyLeaderBoardAdapter.notifyDataSetChanged();
+            } else {
+                Toast.makeText(this, "No daily Records found !", Toast.LENGTH_SHORT).show();
+            }
+        } else if (type.equalsIgnoreCase("Weekly")) {
+            if (data != null && data.getWeeklyDataCount() != null && data.getWeeklyDataCount().size() > 0) {
+                rvLeaderBoardRecy.setLayoutManager(new LinearLayoutManager(this));
+                weeklyLeaderBoardAdapter = new WeeklyLeaderBoardAdapter(getApplicationContext(), data.getWeeklyDataCount(), this);
+                rvLeaderBoardRecy.setAdapter(weeklyLeaderBoardAdapter);
+                weeklyLeaderBoardAdapter.notifyDataSetChanged();
+            } else {
+                Toast.makeText(this, "No weekly Records found !", Toast.LENGTH_SHORT).show();
+            }
         } else if (type.equalsIgnoreCase("Monthly")) {
-            // if (data != null && data.getMonthlyDataLists() != null && data.getAllTimeCounterList().size() > 0) {
-            rvLeaderBoardRecy.setLayoutManager(new LinearLayoutManager(this));
-            //     leaderBoardMonthlyAdapter = new LeaderBoardMonthlyAdapter(getApplicationContext(), data.getMonthlyDataLists(), this);
-            rvLeaderBoardRecy.setAdapter(leaderBoardMonthlyAdapter);
-            leaderBoardMonthlyAdapter.notifyDataSetChanged();
-            // }
-        } else if (type.equalsIgnoreCase("All Time")) {
-            // if (data != null && data.getAllTimeCounterList() != null && data.getAllTimeCounterList().size() > 0) {
-            rvLeaderBoardRecy.setLayoutManager(new LinearLayoutManager(this));
-            //   leaderBoardAllTimeAdapter = new LeaderBoardAllTimeAdapter(getApplicationContext(), data.getAllTimeCounterList(), this);
-            rvLeaderBoardRecy.setAdapter(leaderBoardAllTimeAdapter);
-            leaderBoardAllTimeAdapter.notifyDataSetChanged();
-            // }
+            if (data != null && data.getMonthlyDataCount() != null && data.getMonthlyDataCount().size() > 0) {
+                rvLeaderBoardRecy.setLayoutManager(new LinearLayoutManager(this));
+                monthlyLeaderBoardAdapter = new MonthlyLeaderBoardAdapter(getApplicationContext(), data.getMonthlyDataCount(), this);
+                rvLeaderBoardRecy.setAdapter(monthlyLeaderBoardAdapter);
+                monthlyLeaderBoardAdapter.notifyDataSetChanged();
+            } else {
+                Toast.makeText(this, "No monthly Records found !", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
     @Override
-    public void weekItemClick(int position, String name, String score) {
+    public void dailyItemClick(int position, String name, String score) {
 
     }
 
@@ -195,8 +176,9 @@ public class LeaderBoardActivity extends AppCompatActivity implements LeaderBoar
 
     }
 
+
     @Override
-    public void allTimeItemClick(int position, String name, String score) {
+    public void weeklyItemClick(int position, String name, String score) {
 
     }
 }

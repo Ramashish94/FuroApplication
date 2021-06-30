@@ -205,10 +205,14 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllSlotAd
     }
 
     private void notifyFetchAllSlotTime(List<Datum> data) {
-        rvSlotTime.setLayoutManager(new LinearLayoutManager(this));
-        fetchAllSlotAdapter = new FetchAllSlotAdapter(getApplicationContext(), data, this);
-        rvSlotTime.setAdapter(fetchAllSlotAdapter);
-        fetchAllSlotAdapter.notifyDataSetChanged();
+        if (data != null && data.size() > 0) {
+            rvSlotTime.setLayoutManager(new LinearLayoutManager(this));
+            fetchAllSlotAdapter = new FetchAllSlotAdapter(getApplicationContext(), data, this);
+            rvSlotTime.setAdapter(fetchAllSlotAdapter);
+            fetchAllSlotAdapter.notifyDataSetChanged();
+        } else {
+            Toast.makeText(this, "No records founds !", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

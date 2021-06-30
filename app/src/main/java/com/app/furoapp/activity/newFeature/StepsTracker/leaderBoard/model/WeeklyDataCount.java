@@ -12,6 +12,12 @@ public class WeeklyDataCount {
     @SerializedName("user_id")
     @Expose
     private Integer userId;
+    @SerializedName("position")
+    @Expose
+    private Integer position;
+    @SerializedName("user")
+    @Expose
+    private User__1 user;
 
     public String getCountSteps() {
         return countSteps;
@@ -27,6 +33,22 @@ public class WeeklyDataCount {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public Integer getPosition() {
+        return position;
+    }
+
+    public void setPosition(Integer position) {
+        this.position = position;
+    }
+
+    public User__1 getUser() {
+        return user;
+    }
+
+    public void setUser(User__1 user) {
+        this.user = user;
     }
 
 }

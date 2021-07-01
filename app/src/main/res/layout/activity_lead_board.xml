@@ -115,10 +115,27 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center|start"
+                android:text="Rank"
+                android:textAllCaps="true"
+                android:textColor="@color/black_btn"
+                android:textStyle="normal" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/dp_25"
+            android:layout_marginLeft="@dimen/dp_16"
             android:layout_weight="1"
             android:gravity="center_vertical">
 
@@ -158,7 +175,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginLeft="@dimen/dp_20"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -166,7 +183,7 @@
             android:id="@+id/rvLeaderBoardRecy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"/>
+            android:layout_marginTop="@dimen/dp_10" />
 
 
     </LinearLayout>

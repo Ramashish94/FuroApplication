@@ -46,6 +46,7 @@ public class WeeklyLeaderBoardAdapter extends RecyclerView.Adapter<WeeklyLeaderB
         if (weeklyDataCount.getUser().getImage() != null) {
             Picasso.with(context).load(weeklyDataCount.getUser().getImage()).error(R.drawable.ic_userimageiconss).into(holder.ivUserImage);
         }
+        holder.tvRank.setText(""+weeklyDataCount.getPosition());
         holder.tvName.setText("" + weeklyDataCount.getUser().getUsername());
         holder.tvScore.setText("" + weeklyDataCount.getCountSteps());
 
@@ -79,7 +80,7 @@ public class WeeklyLeaderBoardAdapter extends RecyclerView.Adapter<WeeklyLeaderB
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvScore, tvName;
+        public TextView tvScore, tvName, tvRank;
         public LinearLayout llLeadBoardItem, llTimeDeleteSlot;
         public ImageView ivUserImage;
 
@@ -89,6 +90,7 @@ public class WeeklyLeaderBoardAdapter extends RecyclerView.Adapter<WeeklyLeaderB
             tvName = itemView.findViewById(R.id.tvName);
             llLeadBoardItem = itemView.findViewById(R.id.llLeadBoardItem);
             ivUserImage = itemView.findViewById(R.id.ivUserImage);
+            tvRank = itemView.findViewById(R.id.tvRank);
         }
     }
 

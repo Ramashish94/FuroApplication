@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -138,30 +139,36 @@ public class LeaderBoardActivity extends AppCompatActivity implements DailyLeade
     private void setAdapter(String type, Data data) {
         if (type.equalsIgnoreCase("Daily")) {
             if (data != null && data.getDailyDataCount() != null && data.getDailyDataCount().size() > 0) {
+                rvLeaderBoardRecy.setVisibility(View.VISIBLE);
                 rvLeaderBoardRecy.setLayoutManager(new LinearLayoutManager(this));
                 dailyLeaderBoardAdapter = new DailyLeaderBoardAdapter(getApplicationContext(), data.getDailyDataCount(), this);
                 rvLeaderBoardRecy.setAdapter(dailyLeaderBoardAdapter);
                 dailyLeaderBoardAdapter.notifyDataSetChanged();
             } else {
                 Toast.makeText(this, "No daily Records found !", Toast.LENGTH_SHORT).show();
+                rvLeaderBoardRecy.setVisibility(View.GONE);
             }
         } else if (type.equalsIgnoreCase("Weekly")) {
             if (data != null && data.getWeeklyDataCount() != null && data.getWeeklyDataCount().size() > 0) {
+                rvLeaderBoardRecy.setVisibility(View.VISIBLE);
                 rvLeaderBoardRecy.setLayoutManager(new LinearLayoutManager(this));
                 weeklyLeaderBoardAdapter = new WeeklyLeaderBoardAdapter(getApplicationContext(), data.getWeeklyDataCount(), this);
                 rvLeaderBoardRecy.setAdapter(weeklyLeaderBoardAdapter);
                 weeklyLeaderBoardAdapter.notifyDataSetChanged();
             } else {
+                rvLeaderBoardRecy.setVisibility(View.GONE);
                 Toast.makeText(this, "No weekly Records found !", Toast.LENGTH_SHORT).show();
             }
         } else if (type.equalsIgnoreCase("Monthly")) {
             if (data != null && data.getMonthlyDataCount() != null && data.getMonthlyDataCount().size() > 0) {
+                rvLeaderBoardRecy.setVisibility(View.VISIBLE);
                 rvLeaderBoardRecy.setLayoutManager(new LinearLayoutManager(this));
                 monthlyLeaderBoardAdapter = new MonthlyLeaderBoardAdapter(getApplicationContext(), data.getMonthlyDataCount(), this);
                 rvLeaderBoardRecy.setAdapter(monthlyLeaderBoardAdapter);
                 monthlyLeaderBoardAdapter.notifyDataSetChanged();
             } else {
                 Toast.makeText(this, "No monthly Records found !", Toast.LENGTH_SHORT).show();
+                rvLeaderBoardRecy.setVisibility(View.GONE);
             }
         }
     }

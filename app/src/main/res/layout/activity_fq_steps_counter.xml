@@ -17,13 +17,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="32dp"
-            android:layout_marginTop="32dp"
             android:layout_marginRight="32dp"
             android:layout_marginBottom="?actionBarSize">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dp_20"
                 android:orientation="vertical">
 
 
@@ -126,7 +126,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/dp_100"
+                    android:layout_marginTop="@dimen/dp_90"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -195,7 +195,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="?actionBarSize"
+                    android:layout_marginTop="@dimen/dp_20"
                     android:orientation="vertical">
 
 
@@ -218,7 +218,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="?actionBarSize"
                     android:orientation="vertical">
 
                     <TextView
@@ -238,6 +237,7 @@
                         android:id="@+id/tvDiActivate"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_40"
+                        android:layout_marginTop="?actionBarSize"
                         android:background="@drawable/diactivate_bg"
                         android:fontFamily="@font/bebas_neue_bold"
                         android:gravity="center"
@@ -247,10 +247,12 @@
                         android:textStyle="italic"
                         android:visibility="gone" />
 
+
                     <LinearLayout
                         android:id="@+id/llMarkLapAndStop"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_45"
+                        android:layout_marginTop="?actionBarSize"
                         android:orientation="horizontal"
                         android:visibility="gone">
 

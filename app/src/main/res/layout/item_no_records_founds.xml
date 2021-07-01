@@ -81,7 +81,7 @@
                 android:fontFamily="@font/googlesans_medium"
                 android:gravity="center"
                 android:padding="@dimen/dp_2"
-                android:text="No such records found for existing filter ?"
+                android:text="No such records found for existing filter ! Please choose other filter value !"
                 android:textColor="#808080"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"

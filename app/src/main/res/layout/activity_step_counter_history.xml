@@ -289,6 +289,8 @@
                                     android:background="@color/bottom_gray"
                                     android:gravity="bottom"
                                     android:orientation="horizontal"
+                                    android:paddingTop="@dimen/dp_1"
+                                    android:paddingBottom="@dimen/dp_5"
                                     android:visibility="gone">
 
                                     <TextView
@@ -360,6 +362,143 @@
                                         android:textAllCaps="true"
                                         android:textSize="@dimen/sp_14"
                                         tools:text="Day7 " />
+
+                                </LinearLayout>
+
+                                <!--layout of year month-->
+                                <LinearLayout
+                                    android:id="@+id/llYearMonth"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="bottom"
+                                    android:background="@color/bottom_gray"
+                                    android:gravity="bottom"
+                                    android:orientation="horizontal"
+                                    android:paddingTop="@dimen/dp_5"
+                                    android:layout_marginLeft="@dimen/dp_15"
+                                    android:paddingBottom="@dimen/dp_5">
+
+                                    <TextView
+                                        android:id="@+id/tvMonthName1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:textAllCaps="true"
+                                        android:textSize="@dimen/sp_10"
+                                        tools:text="jan " />
+
+                                    <TextView
+                                        android:id="@+id/tvMonthName2"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:textAllCaps="true"
+                                        android:textSize="@dimen/sp_10"
+                                        tools:text="fab " />
+
+                                    <TextView
+                                        android:id="@+id/tvMonthName3"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:textSize="@dimen/sp_10"
+                                        android:textAllCaps="true"
+                                        tools:text="mar " />
+
+                                    <TextView
+                                        android:id="@+id/tvMonthName4"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:textAllCaps="true"
+                                        android:textSize="@dimen/sp_10"
+                                        tools:text="apr " />
+
+                                    <TextView
+                                        android:id="@+id/tvMonthName5"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:textAllCaps="true"
+                                        android:textSize="@dimen/sp_10"
+                                        tools:text="may " />
+
+                                    <TextView
+                                        android:id="@+id/tvMonthName6"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:textAllCaps="true"
+                                        android:textSize="@dimen/sp_10"
+                                        tools:text="jun " />
+
+                                    <TextView
+                                        android:id="@+id/tvMonthName7"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:textAllCaps="true"
+                                        android:textSize="@dimen/sp_10"
+                                        tools:text="jul " />
+
+
+                                    <TextView
+                                        android:id="@+id/tvMonthName8"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:textAllCaps="true"
+                                        android:textSize="@dimen/sp_10"
+                                        tools:text="aug " />
+
+
+                                    <TextView
+                                        android:id="@+id/tvMonthName9"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:textAllCaps="true"
+                                        android:textSize="@dimen/sp_10"
+                                        tools:text="sep " />
+
+                                    <TextView
+                                        android:id="@+id/tvMonthName10"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:textAllCaps="true"
+                                        android:textSize="@dimen/sp_10"
+                                        tools:text="oct " />
+
+                                    <TextView
+                                        android:id="@+id/tvMonthName11"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:textAllCaps="true"
+                                        android:textSize="@dimen/sp_10"
+                                        tools:text="nov " />
+
+                                    <TextView
+                                        android:id="@+id/tvMonthName12"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:textAllCaps="true"
+                                        android:textSize="@dimen/sp_10"
+                                        tools:text="dec " />
 
                                 </LinearLayout>
 
@@ -734,12 +873,12 @@
                                </LinearLayout>
                            </LinearLayout>-->
 
-                  <!--  <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1.5dp"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="?actionBarSize"
-                        android:background="@drawable/viewline" />-->
+                    <!--  <View
+                          android:layout_width="match_parent"
+                          android:layout_height="1.5dp"
+                          android:layout_gravity="center"
+                          android:layout_marginBottom="?actionBarSize"
+                          android:background="@drawable/viewline" />-->
                 </LinearLayout>
             </LinearLayout>
 

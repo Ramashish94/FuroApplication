@@ -81,7 +81,7 @@
                     android:layout_gravity="center"
                     android:layout_marginRight="@dimen/dp_5"
                     android:layout_weight="1"
-                    android:checked="false"
+                    android:checked="true"
                     android:gravity="center"
                     android:text="Weekly" />
 
@@ -95,7 +95,7 @@
                     android:layout_weight="1"
                     android:checked="false"
                     android:gravity="center"
-                    android:text="Weekly" />
+                    android:text="Monthly" />
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/switchBtnAlType"
@@ -180,7 +180,7 @@
                             android:layout_height="@dimen/dp_20"
                             android:layout_gravity="bottom"
                             android:layout_weight="1"
-                            android:text="Total amount drunk "
+                            android:text="Total water intake"
                             android:textColor="@color/black_color" />
 
                         <TextView
@@ -510,13 +510,34 @@
 
             </LinearLayout>-->
 
-            <ImageView
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_60"
-                android:layout_marginLeft="@dimen/dp_16"
-                android:layout_marginTop="@dimen/dp_35"
-                android:layout_marginRight="@dimen/dp_16"
-                android:src="@drawable/water_is_healthy_for_crutial" />
+                android:layout_height="?actionBarSize"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_marginTop="@dimen/dp_40"
+                android:background="@drawable/tips_bg"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvPrizmTips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="?actionBarSize"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    tools:text="Fun Facts"
+                    android:textColor="@color/vertical_line_color"/><!--android:background="@drawable/slot_time_bottom_bg"-->
+            </LinearLayout>
+
+
+            <!--  <ImageView
+                  android:layout_width="match_parent"
+                  android:layout_height="@dimen/dp_60"
+                  android:layout_marginLeft="@dimen/dp_16"
+                  android:layout_marginTop="@dimen/dp_35"
+                  android:layout_marginRight="@dimen/dp_16"
+                  android:src="@drawable/water_is_healthy_for_crutial" />-->
         </LinearLayout>
 
 

@@ -20,23 +20,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="what's your wakeup tme   "
-                        android:textColor="@color/black_color"
-                        android:textSize="@dimen/sp_20"
-                        android:fontFamily="@font/bebase_font_family_regular"
-                        android:textStyle="italic"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="70dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="60dp"
+                    android:fontFamily="@font/bebase_font_family_regular"
+                    android:text="what's your wakeup tme   "
+                    android:textColor="@color/black_color"
+                    android:textSize="@dimen/sp_20"
+                    android:textStyle="italic" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_40"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_40"
+                    android:gravity="center"
+                    android:text="We need the following information to create a perfect plan for you."
+                    android:textColor="@color/black_btn"
+                    android:textSize="@dimen/sp_13"
+                    android:textStyle="normal" />
+
+
                 <ImageView
                     android:layout_width="228dp"
                     android:layout_height="27dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="70dp"
                     android:src="@drawable/wekuptime"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="312dp"
@@ -50,10 +65,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:theme="@style/TimePicker"
-                        android:timePickerMode="spinner"
                         android:descendantFocusability="blocksDescendants"
-                        />
+                        android:theme="@style/TimePicker"
+                        android:timePickerMode="spinner" />
 
                     <!-- <androidx.recyclerview.widget.RecyclerView
                          android:id="@+id/rvWakeupTime"
@@ -68,29 +82,31 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/dp_30"
                     android:background="@drawable/viewline" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/bebase_font_family_regular"
                     android:text="what's your bed tme   "
                     android:textColor="@color/black_color"
                     android:textSize="@dimen/sp_20"
-                    android:fontFamily="@font/bebase_font_family_regular"
-                    android:textStyle="italic"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="70dp"/>
+                    android:textStyle="italic" />
+
                 <ImageView
                     android:layout_width="191dp"
                     android:layout_height="27dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/dp_30"
                     android:src="@drawable/bedtime"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="312dp"
                     android:layout_height="149dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/dp_30"
+                    android:layout_marginTop="@dimen/dp_25"
                     android:background="@drawable/wekup_bg"
                     android:orientation="horizontal">
 
@@ -99,9 +115,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:theme="@style/TimePicker"
                         android:descendantFocusability="blocksDescendants"
-                        android:timePickerMode="spinner"/>
+                        android:theme="@style/TimePicker"
+                        android:timePickerMode="spinner" />
 
                     <!--<androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvBedTime"

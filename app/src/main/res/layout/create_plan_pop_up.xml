@@ -24,7 +24,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="20"
+            android:layout_weight="30"
             android:orientation="vertical">
 
 
@@ -70,17 +70,28 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/dp_10"
                 android:background="@drawable/rectbg_white"
                 android:orientation="vertical">
 
-                <ImageView
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:gravity="center"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:layout_marginRight="22dp"
+                    android:text="A person should consume an average of 2500 ml of water. Consuming inappropriate levels of water may result into over or under hydration which can cause health problems.Set a daily water intake target and keep yourself properly hydrated."
+                    android:textColor="@color/black_btn"
+                    android:textStyle="normal" />
+
+               <!-- <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dp_60"
                     android:layout_marginLeft="22dp"
                     android:layout_marginTop="@dimen/dp_30"
                     android:layout_marginRight="22dp"
-                    android:src="@drawable/intake_amount_title" />
+                    android:src="@drawable/intake_amount_title" />-->
 
                 <LinearLayout
                     android:layout_width="280dp"
@@ -141,7 +152,8 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
 
 
                     <ImageView
@@ -150,6 +162,7 @@
                         android:layout_height="@dimen/dp_40"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/dp_10"
+                        android:visibility="gone"
                         android:background="@drawable/dont_try_to_go_overhead" />
 
                     <TextView
@@ -161,7 +174,7 @@
                         android:text="The feel awesome"
                         android:textColor="#43A714"
                         android:textSize="@dimen/sp_16"
-                        android:visibility="invisible" />
+                        android:visibility="gone" />
                 </FrameLayout>
             </LinearLayout>
 
@@ -170,7 +183,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="80"
+            android:layout_weight="70"
             android:gravity="center"
             android:orientation="vertical"
             tools:ignore="MissingConstraints">

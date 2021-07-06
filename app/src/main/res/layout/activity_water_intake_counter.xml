@@ -425,7 +425,7 @@
                                     android:layout_height="@dimen/dp_20"
                                     android:layout_gravity="bottom"
                                     android:layout_weight="1"
-                                    android:text="Total amount drunk "
+                                    android:text="Total water intake "
                                     android:textColor="@color/black_color" />
 
                                 <TextView

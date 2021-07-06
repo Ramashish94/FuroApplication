@@ -139,7 +139,7 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
     }
 
     private void getGlassSize(GlassSize glassSize) {
-        if (glassSize!=null) {
+        if (glassSize != null) {
             glassSizeInMl = Integer.parseInt(glassSize.getGlassSizeInMl());
         }
     }
@@ -284,10 +284,10 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
         Log.d(" Glass Size", String.valueOf(getWaterMlSize));
 
         if (getWaterMlSize > 8000) {
-            ivOverloadIndicatorMsg.setVisibility(View.VISIBLE);
+            ivOverloadIndicatorMsg.setVisibility(View.GONE);
             tvFeelAweSome.setVisibility(View.GONE);
         } else {
-            tvFeelAweSome.setVisibility(View.VISIBLE);
+            tvFeelAweSome.setVisibility(View.GONE);
             ivOverloadIndicatorMsg.setVisibility(View.GONE);
         }
 
@@ -332,6 +332,11 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
         Log.d("waterTakeMl", waterTakeMl);
         recDurationTime = recommendedDurationInMins;
         Log.d("recDurationTime", recDurationTime);
+        if (isPalnSelected) {
+            ivSelRecommendedPlan.setVisibility(View.GONE);
+            ivRecommendedPlan.setVisibility(View.VISIBLE);
+        }
+
     }
 
    /* @Override

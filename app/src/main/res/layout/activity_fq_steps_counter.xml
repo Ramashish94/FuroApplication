@@ -107,7 +107,7 @@
                         android:textColor="#2F2F2F"
                         android:textSize="@dimen/sp_12"
                         android:textStyle="bold"
-                        tools:text=" Of 38000 Steps" />
+                        tools:text="Of 38000 Steps" />
                 </LinearLayout>
 
                 <LinearLayout

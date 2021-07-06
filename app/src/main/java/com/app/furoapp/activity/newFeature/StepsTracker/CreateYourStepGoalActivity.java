@@ -28,10 +28,10 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
     List<AgeModelTest> ageModelTest = new ArrayList<>();
     public RecyclerView rvStepsCount;
     public ImageView ivContinue;
-    public TextView ivBack;
+    public TextView ivBack, tvRecommendedText;
     AgeAdapter ageAdapter;
     StepsCountAdapter stepsCountAdapter;
-    private String selectNumber;
+    private int selectNumber;
     int adapterCurrentPos = 0;
     private NumberPicker picker1;
     private String[] pickerVals;
@@ -74,6 +74,7 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
         ivContinue = findViewById(R.id.ivContinue);
         ivBack = findViewById(R.id.ivBack);
         picker1 = findViewById(R.id.numberpicker_main_picker);
+        tvRecommendedText = findViewById(R.id.tvRecommendedText);
 
     }
 
@@ -84,7 +85,7 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
         rvStepsCount.setItemAnimator(new DefaultItemAnimator());
         rvStepsCount.setAdapter(stepsCountAdapter);
         List<AgeModelTest> ageModelTestArrayList = new ArrayList<>();
-        for (int i = 3000; i <= 20000; i = i + 100) {
+        for (int i = 1000; i <= 30000; i = i + 100) {
             AgeModelTest ageModelTest = new AgeModelTest();
             // ageModelTest.setAge(String.valueOf(Color.parseColor("#000000")));
             ageModelTest.setAge("" + i);
@@ -100,10 +101,10 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
         ivContinue.setOnClickListener(v -> {
             if (isSelectedCustomGoal) {
                 Intent intent = new Intent(getApplicationContext(), FqStepsCounterActivity.class);
-                intent.putExtra("selectNumber", selectNumber);
+                intent.putExtra("selectNumber", String.valueOf(selectNumber));
                 startActivity(intent);
-
-            }else {
+                finish();
+            } else {
                 Toast.makeText(this, "Please select your goal !", Toast.LENGTH_SHORT).show();
             }
         });
@@ -121,9 +122,18 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
     public void stepSelectItem(int position, String number) {
         isSelectedCustomGoal = true;
         adapterCurrentPos = position;
-        selectNumber = String.valueOf(number);
-        Log.d("selectNumber", selectNumber);
+        selectNumber = Integer.parseInt(number);
+        Log.d("selectNumber", String.valueOf(selectNumber));
         Log.d(TAG, "stepSelectItem() called with: position = [" + position + "], selectNumber = [" + selectNumber + "]");
+
+        if (selectNumber < 5000) {
+            tvRecommendedText.setText("Your step count is under 5000. This may not be enough. Increase the number of steps !");
+        } else if (selectNumber >= 5000 && selectNumber <= 12000) {
+            tvRecommendedText.setText("Great! You are good to go !");
+        } else if (selectNumber >= 12100) {
+            tvRecommendedText.setText("Your step count is exceeding 12,000 steps.This may result into exhaustion. Decrease the number of steps !");
+        }
+
     }
 
 

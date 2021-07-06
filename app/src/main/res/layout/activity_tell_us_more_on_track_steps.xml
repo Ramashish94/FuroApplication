@@ -29,12 +29,21 @@
                     android:layout_marginTop="@dimen/dp_10"
                     android:src="@drawable/tell_us" />
 
-                <ImageView
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fill in more details for us to understand your body, track your progress and assess your requirements.  "
+                    android:textColor="@color/text_color"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="22dp"
+                    android:textStyle="italic"/>
+
+            <!--  <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:layout_gravity="start"
                     android:layout_marginTop="@dimen/dp_25"
-                    android:src="@drawable/tell_us_title" />
+                    android:src="@drawable/tell_us_title" />-->
             </LinearLayout>
 
             <LinearLayout

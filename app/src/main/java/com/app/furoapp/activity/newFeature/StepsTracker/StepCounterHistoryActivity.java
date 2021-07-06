@@ -667,7 +667,7 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
 //            mpLineChart.setPinchZoom(false);
             mpLineChart.setScaleEnabled(true);
             mpLineChart.animateY(1000);
-            mpLineChart.getXAxis().setGranularity(1.0f);
+            mpLineChart.getXAxis().setGranularity(100.0f);
             mpLineChart.getXAxis().setAxisMinimum(1);
             mpLineChart.getXAxis().setLabelRotationAngle(-20);
             //   mpLineChart.getXAxis().setEnabled(false);

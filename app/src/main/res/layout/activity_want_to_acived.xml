@@ -22,7 +22,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -34,6 +35,18 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/dp_20"
                     android:textStyle="italic" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:layout_marginRight="22dp"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:text="Our aim is keep you healthy and active. Select a goal and kick-start your journey ! "
+                    android:textColor="@color/vertical_line_color"
+                    android:textStyle="italic" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -85,8 +98,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dp_10"
                             android:layout_weight="1"
-                            android:gravity="center_horizontal"
                             android:fontFamily="@font/bebas_neue_bold"
+                            android:gravity="center_horizontal"
                             android:text="Loose weight"
                             android:textColor="@color/white"
                             android:textStyle="italic" />
@@ -129,12 +142,11 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dp_10"
                             android:layout_weight="1"
-                            android:gravity="center_horizontal"
                             android:fontFamily="@font/bebas_neue_bold"
+                            android:gravity="center_horizontal"
                             android:text="Stay healthy"
                             android:textColor="@color/white"
                             android:textStyle="italic" />
-
 
 
                     </LinearLayout>
@@ -237,8 +249,9 @@
             android:gravity="center"
             android:text="continue  "
             android:textColor="@color/black_color"
-            android:textStyle="italic"-->
-            />
+            android:textStyle="italic"/>-->
+
+
         <TextView
             android:id="@+id/ivSkip"
             android:layout_width="match_parent"
@@ -247,7 +260,7 @@
             android:background="@drawable/select_custom_goal_bg"
             android:fontFamily="@font/bebas_neue_bold"
             android:gravity="center"
-            android:text="Custom Goal  "
+            android:text=" Set Custom Goals  "
             android:textColor="@color/white"
             android:textStyle="italic" />
         <!--

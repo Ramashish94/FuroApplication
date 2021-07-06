@@ -55,13 +55,13 @@ import retrofit2.Response;
 
 public class FqStepsCounterActivity extends AppCompatActivity {
     public ImageView ivBackIcon, ivSetting, ivLeadBord, ivModified, ivHistory;
-    public TextView tvCountsSteps, tvTotNumberOfSteps, tvTimes, tvCalories, tvDistance, tvActivateStepsCounter, tvDiActivate, tvMarkLap, tvStop,tvPrizmTips;
+    public TextView tvCountsSteps, tvTotNumberOfSteps, tvTimes, tvCalories, tvDistance, tvActivateStepsCounter, tvDiActivate, tvMarkLap, tvStop, tvPrizmTips;
     public View includeCongratsStepsTrack, incudeAlertDialog;
     public double magnitudePrevious = 0;
     private Integer stepCount = -1;
     public SensorManager sensorManager;
     public Sensor sensorAcceleroMeter;
-    public static final String TAG = "FqStepsCounterActivity";
+    public static final String TAG = "AddNewSlotActivity";
     private float getDistanceMiAndKm;
     private Handler customHandler = new Handler();
     private Handler tipsHandler = new Handler();
@@ -178,7 +178,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         tvModified = findViewById(R.id.tvModified);
         //llModifiedAlert=findViewById(R.id.llModifiedAlert);
         swBtnInKm = findViewById(R.id.swBtnInKm);
-        tvPrizmTips=findViewById(R.id.tvPrizmTips);
+        tvPrizmTips = findViewById(R.id.tvPrizmTips);
         isServiceStopped = true;
     }
 
@@ -215,8 +215,9 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         // ___ unregister receiver & stop service ___ \\
         tvDiActivate.setOnClickListener(v -> {
             tvActivateStepsCounter.setVisibility(View.GONE);
-            llMarkLapAndStop.setVisibility(View.VISIBLE);
+            llMarkLapAndStop.setVisibility(View.GONE);
             tvDiActivate.setVisibility(View.GONE);
+            tvActivateStepsCounter.setVisibility(View.VISIBLE);
             customHandler.removeCallbacks(updateTimerThread);
 
             if (!isServiceStopped) {
@@ -457,7 +458,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         countedStep = intentData.getStringExtra("Counted_Step");
         DetectedStep = intentData.getStringExtra("Detected_Step");
         Log.d(TAG, String.valueOf(countedStep));
-        tvCountsSteps.setText("" + DetectedStep);
+        tvCountsSteps.setText("" + DetectedStep + " ");
         Log.d(TAG, String.valueOf(DetectedStep));
 
         getCountSteps = Integer.valueOf(countedStep);
@@ -525,7 +526,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
                 if (tipsStart == (tipsListSize - 1)) {
                     tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph());
                     tipsStart = 0;
-                }else {
+                } else {
                     tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph());
                     tipsStart++;
                 }

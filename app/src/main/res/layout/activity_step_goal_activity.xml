@@ -30,29 +30,54 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/dp_25"
+                        android:fontFamily="@font/bebase_font_family_regular"
                         android:text="create your step goals   "
                         android:textColor="@color/black_color"
                         android:textSize="@dimen/sp_20"
-                        android:fontFamily="@font/bebase_font_family_regular"
-                        android:textStyle="italic"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/dp_25"/>
+                        android:textStyle="italic" />
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_marginRight="22dp"
+                        android:gravity="center"
+                        android:text="And never look back !"
+                        android:textColor="@color/black_btn"
+                        android:textStyle="normal" />
 
-                    <ImageView
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginTop="@dimen/dp_15"
+                        android:layout_marginRight="22dp"
+                        android:gravity="center"
+                        android:text="Set your daily step target to stay active and fit throughout the day !"
+                        android:textColor="@color/black_btn"
+                        android:textStyle="normal" />
+
+                    <!--<ImageView
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:layout_gravity="start"
                         android:layout_marginTop="@dimen/dp_25"
                         android:src="@drawable/stepsgoal_containt" />
-
+-->
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="270dp"
                     android:layout_gravity="center"
-                    android:layout_margin="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginRight="32dp"
+                    android:layout_marginTop="32dp"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -60,14 +85,14 @@
                         android:id="@+id/numberpicker_main_picker"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        android:gravity="center"
-                        android:layout_gravity="center"
-                        android:visibility="gone"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
                     <FrameLayout
@@ -78,7 +103,7 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rvStepsCount"
                             android:layout_width="@dimen/dp_150"
-                            android:layout_height="@dimen/dp_300"
+                            android:layout_height="280dp"
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:textAlignment="center" />
@@ -145,17 +170,23 @@
                                     android:background="@drawable/viewline" />
                             </LinearLayout>
                         </LinearLayout>
-
-
                     </FrameLayout>
 
 
-
-
-
-
-
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvRecommendedText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginRight="32dp"
+                    android:layout_marginTop="32dp"
+                    android:gravity="center"
+                    tools:text="Set your daily step target to stay active and fit throughout the day !"
+                    android:textColor="@color/black_color"
+                    android:textStyle="bold" />
 
 
             </LinearLayout>
@@ -186,10 +217,9 @@
                 android:layout_gravity="bottom"
                 android:layout_marginTop="@dimen/dp_10"
                 android:background="@drawable/back_btn_bg"
-                android:text="Back"
                 android:gravity="center"
-                android:textColor="@color/light_blue"
-                />
+                android:text="Back"
+                android:textColor="@color/light_blue" />
 
         </LinearLayout>
     </FrameLayout>

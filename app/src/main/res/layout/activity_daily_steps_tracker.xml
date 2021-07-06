@@ -30,23 +30,65 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="130dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <ImageView
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginTop="?actionBarSize"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bebase_font_family_regular"
+                        android:gravity="center_vertical"
+                        android:text="FQ "
+                        android:textColor="@color/light_blue"
+                        android:textSize="@dimen/dp_30"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:layout_width="294dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bebase_neue"
+                        android:text=" STEP Tracker"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/dp_30"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="294dp"
+                    android:layout_height="@dimen/dp_50"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:gravity="center_vertical"
+                    android:text="Step Counter will track your steps and analyse your progress. "
+                    android:textColor="@color/white"
+                    android:textStyle="italic"
+                    android:layout_marginBottom="@dimen/dp_30"/>
+
+                <!--<ImageView
                     android:layout_width="294dp"
                     android:layout_height="48dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="?actionBarSize"
                     android:src="@drawable/trck_your_steps" />
 
-                <ImageView
-                    android:layout_width="294dp"
-                    android:layout_height="@dimen/dp_50"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/dp_5"
-                    android:src="@drawable/track_content" />
+                  <ImageView
+                      android:layout_width="294dp"
+                      android:layout_height="@dimen/dp_50"
+                      android:layout_gravity="center_horizontal"
+                      android:layout_marginTop="@dimen/dp_5"
+                      android:src="@drawable/track_content" />-->
             </LinearLayout>
 
         </LinearLayout>
@@ -57,7 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_45"
             android:layout_gravity="bottom|center"
-            android:layout_marginBottom="@dimen/dp_45"
+            android:layout_marginBottom="@dimen/dp_30"
             android:src="@drawable/startjounary" />
 
         <include

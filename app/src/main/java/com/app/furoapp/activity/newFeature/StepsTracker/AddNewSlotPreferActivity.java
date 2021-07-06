@@ -3,6 +3,7 @@ package com.app.furoapp.activity.newFeature.StepsTracker;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,11 +27,14 @@ import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.deleteSlot.De
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.deleteSlot.DeleteSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.Datum;
 import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.FetchAllSlotResponse;
+import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.DataItem;
+import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.TipsResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.historyAdapter.WeeklyHistoryAdapter;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
+import com.app.furoapp.utils.Utils;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -45,6 +49,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AddNewSlotPreferActivity extends Activity implements FetchAllSlotAdapter.DeleteSlotClickCallBack {
+    private static final String TAG = "AddNewSlotPreferActivity";
     public ImageView ivContinue, ivSkip, ivAddNewSlot;
     Intent intent;
     FetchAllSlotAdapter fetchAllSlotAdapter;
@@ -52,7 +57,7 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllSlotAd
     public RecyclerView rvSlotTime;
     public String getAccessToken;
     public TimePicker tpSlotTime;
-    public TextView tvCreateSlot;
+    public TextView tvCreateSlot, tvAddNewSlot, tvPrizmTips;
     private String getTimeHours;
     private boolean isTimeSlotSelected;
     private View includePopMenuOfAddTimeSlot;
@@ -60,7 +65,14 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllSlotAd
     public GoogleSignInClient mGoogleSignInClient;
     public AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
-
+    private Handler tipsHandler = new Handler();
+    private List<DataItem> tipsList;
+    private int tipsListSize = 0;
+    private int tipsStart = 0;
+    long timeInMilliseconds = 0L;
+    long updatedTime = 0L;
+    private long startTime = 0L;
+    long timeSwapBuff = 0L;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,19 +99,21 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllSlotAd
     private void findViews() {
         ivContinue = findViewById(R.id.ivContinue);
         ivSkip = findViewById(R.id.ivSkip);
-        ivAddNewSlot = findViewById(R.id.ivAddNewSlot);
+        tvAddNewSlot = findViewById(R.id.tvAddNewSlot);
         rvSlotTime = findViewById(R.id.rvSlotTime);
         tpSlotTime = findViewById(R.id.tpSlotTime);
         tvCreateSlot = findViewById(R.id.tvCreateSlot);
         includePopMenuOfAddTimeSlot = findViewById(R.id.includePopMenuOfAddTimeSlot);
         llAddNewPreferSlot = findViewById(R.id.llAddNewPreferSlot);
         llClosedIcon = findViewById(R.id.llClosedIcon);
+        tvPrizmTips = findViewById(R.id.tvPrizmTips);
     }
 
     private void clicklistner() {
-        ivAddNewSlot.setOnClickListener(v -> {
+        tvAddNewSlot.setOnClickListener(v -> {
             includePopMenuOfAddTimeSlot.setVisibility(View.VISIBLE);
             llAddNewPreferSlot.setClickable(false);
+            callTipsApi();
         });
         llClosedIcon.setOnClickListener(v -> {
             includePopMenuOfAddTimeSlot.setVisibility(View.GONE);
@@ -160,7 +174,7 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllSlotAd
             public void onResponse(Call<AddNewSlotResponse> call, Response<AddNewSlotResponse> response) {
                 if (response.code() == 200) {
                     if (response.body() != null) {
-                        Toast.makeText(AddNewSlotPreferActivity.this, "New TimeSlot Created Successfully!", Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(AddNewSlotPreferActivity.this, "New TimeSlot Created Successfully!", Toast.LENGTH_SHORT).show();
                         callFetchAllPlanApi();
                     }
                 } else if (response.code() == 500) {
@@ -230,7 +244,7 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllSlotAd
             public void onResponse(Call<DeleteSlotResponse> call, Response<DeleteSlotResponse> response) {
                 if (response.code() == 200) {
                     if (response.body().getData() != null) {
-                        Toast.makeText(AddNewSlotPreferActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(AddNewSlotPreferActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         callFetchAllPlanApi();
                     }
                 }
@@ -242,6 +256,53 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllSlotAd
             }
         });
     }
+
+    private void callTipsApi() {
+        if (Util.isInternetConnected(getApplicationContext())) {
+            Utils.showProgressDialogBar(getApplicationContext());
+            RestClient.getAllTipsData(getAccessToken, new Callback<TipsResponse>() {
+                @Override
+                public void onResponse(Call<TipsResponse> call, Response<TipsResponse> response) {
+                    Util.dismissProgressDialog();
+                    if (response.code() == 200) {
+                     //   Log.d(TAG, "onResponse() called with: , response = [" + response.body() + "]");
+                        tipsList = response.body().getData().getData();
+                        tipsListSize = tipsList.size();
+                        tipsHandler.postDelayed(tipsRunnable, 0);
+                    } else {
+                        if (response.code() == 500) {
+                            Toast.makeText(getApplicationContext(), "Internal server error !", Toast.LENGTH_SHORT).show();
+                        }
+                        if (response.code() == 403) {
+                            // Toast.makeText(this, response.code() + "Session expire Please login again", Toast.LENGTH_SHORT).show();
+                            getAlertTokenDialog();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<TipsResponse> call, Throwable t) {
+                    Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+
+    private Runnable tipsRunnable = new Runnable() {
+        public void run() {
+            if (tipsList != null || tipsList.size() > 0) {
+                if (tipsStart == (tipsListSize - 1)) {
+                    tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph());
+                    tipsStart = 0;
+                } else {
+                    tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph());
+                    tipsStart++;
+                }
+            }
+            tipsHandler.postDelayed(this, 5000);
+        }
+    };
 
 
     private void getAlertTokenDialog() {

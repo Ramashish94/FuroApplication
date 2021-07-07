@@ -1,5 +1,6 @@
 package com.app.furoapp.activity.newFeature.waterIntakeCalculator;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -9,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -18,6 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.furoapp.R;
+import com.app.furoapp.activity.LoginTutorialScreen;
+import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.DataItem;
+import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.TipsResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.adapter.SelectCupSizeAdapter;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.ChangeGlassSizeRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.UserChangeGlassSizeResponse;
@@ -43,6 +49,11 @@ import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 import com.app.furoapp.utils.Utils;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -59,10 +70,10 @@ import retrofit2.Response;
 public class WaterIntakeCounterActivity extends AppCompatActivity implements SelectCupSizeAdapter.GlassClickCallBack {
     public ImageView ivAddCup, ivAddCustomSizeQuntity, ivCancel, ivSetting, ivBackIcon, ivChangeCupSize, ivUpArrow, ivDownArrow;
     private String getAccessToken;
-    public TextView tvNosGlassCount, tvTakingWater, tvAddCustomSize, tvRecommendedReamingWater, tvGlassSize, tvChangeCupSize,
+    public TextView tvNosGlassCount, tvTakingWater, tvAddCustomSize, tvRecommendedReamingWater, tvGlassSize, tvChangeCupSize, tvChangeCupSizeAndCustomSize,
             tvTotAmountDrunk, tvNosOfGlasses, tvRecommendedNosOfGlasses, tvDateWithDay;
-    public TextView tvRecommendedNosOfWaterGlasses, tvTotWaterAmountDrunk, tvCountNosOfGlass, tvDateWithDays;
-    public LinearLayout llCongratsClosedIcon;
+    public TextView tvRecommendedNosOfWaterGlasses, tvTotWaterAmountDrunk, tvCountNosOfGlass, tvDateWithDays, tvPrizmTips, tvRecommendedWaterIntake;
+    public LinearLayout llCongratsClosedIcon, llHistory;
     public View includePopMenuOfSelectCupSize, includeCongratsPopMenu;
     public RecyclerView rvSelectCupSize;
     public SelectCupSizeAdapter selectCupSizeAdapter;
@@ -88,7 +99,17 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
     public int totRecommendedWater;
     public int takenWaterInPercent;
     public int getWaterPercent;
-
+    private Handler tipsHandler = new Handler();
+    private List<DataItem> tipsList;
+    private int tipsListSize = 0;
+    private int tipsStart = 0;
+    long timeInMilliseconds = 0L;
+    long updatedTime = 0L;
+    private long startTime = 0L;
+    long timeSwapBuff = 0L;
+    public GoogleSignInClient mGoogleSignInClient;
+    public AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +121,13 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         initViews();
         callDailyWaterIntakeUpdatePlanApi();
         clickEvent();
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
+
     }
 
     private void initViews() {
@@ -116,9 +144,9 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         ivSetting = findViewById(R.id.ivSetting);
         clWaterIntakeCounter = findViewById(R.id.clWaterIntakeCounter);
         ivBackIcon = findViewById(R.id.ivBackIcon);
-        switchBtnWeekly = findViewById(R.id.switchBtnWeekly);
-        switchBtnMontly = findViewById(R.id.switchBtnMonthly);
-        switchBtnAllType = findViewById(R.id.switchBtnAlType);
+//        switchBtnWeekly = findViewById(R.id.switchBtnWeekly);
+//        switchBtnMontly = findViewById(R.id.switchBtnMonthly);
+//        switchBtnAllType = findViewById(R.id.switchBtnAlType);
         ivChangeCupSize = findViewById(R.id.ivChangeCupSize);
         tvChangeCupSize = findViewById(R.id.tvChangeCupSize);
         tvTotAmountDrunk = findViewById(R.id.tvTotAmountDrunk);
@@ -127,22 +155,25 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         tvNosOfGlasses = findViewById(R.id.tvNosOfGlasses);
         scProgressBar = findViewById(R.id.scProgressBar);
         ivUpArrow = findViewById(R.id.ivUpArrow);
-        ivDownArrow = findViewById(R.id.ivDownArrow);
+        //ivDownArrow = findViewById(R.id.ivDownArrow);
         rvOfDailyWeeklyAllTime = findViewById(R.id.rvOfDailyWeeklyAllTime);
-        includePopMenuOfWaterIntakeCounter = findViewById(R.id.includePopMenuOfWaterIntakeCounter);
-
+        // includePopMenuOfWaterIntakeCounter = findViewById(R.id.includePopMenuOfWaterIntakeCounter);
+        // tvPrizmTips = findViewById(R.id.tvPrizmTips);
+        llHistory = findViewById(R.id.llHistory);
         tvRecommendedNosOfWaterGlasses = findViewById(R.id.tvRecommendedNosOfWaterGlasses);
         tvTotWaterAmountDrunk = findViewById(R.id.tvTotWaterAmountDrunk);
         tvCountNosOfGlass = findViewById(R.id.tvCountNosOfGlass);
         tvDateWithDays = findViewById(R.id.tvDateWithDays);
         includeCongratsPopMenu = findViewById(R.id.includeCongratsPopMenu);
+        tvRecommendedWaterIntake = findViewById(R.id.tvRecommendedWaterIntake);
         llCongratsClosedIcon = findViewById(R.id.llCongratsClosedIcon);
+        tvChangeCupSizeAndCustomSize = findViewById(R.id.tvChangeCupSizeAndCustomSize);
     }
 
     private void callDailyWaterIntakeUpdatePlanApi() {
 
         WaterIntakeUpdatePlanRequest waterIntakeUpdatePlanRequest = new WaterIntakeUpdatePlanRequest();
-        if (planId!=null) {
+        if (planId != null) {
             waterIntakeUpdatePlanRequest.setPlan_id(planId);
             Util.showProgressDialog(getApplicationContext());
             RestClient.getWaterIntakeUpdatePlan(getAccessToken, waterIntakeUpdatePlanRequest, new Callback<WaterIntakeUpdatePlanResponse>() {
@@ -217,11 +248,11 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             scProgressBar.setPercent(takenWaterInPercent);     // set percent on progress bar
             if (takingWater == totRecommendedWater || takenWaterInPercent >= 99) {
                 includeCongratsPopMenu.setVisibility(View.VISIBLE);
+                tvRecommendedWaterIntake.setText("" + totRecommendedWater + "  ml");
                 clWaterIntakeCounter.setClickable(false);
             }/* else {
             Toast.makeText(this, "Selected plan will be Null", Toast.LENGTH_SHORT).show();
         }*/
-
 
         }
 
@@ -260,6 +291,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             public void onClick(View v) {
                 includePopMenuOfSelectCupSize.setVisibility(View.VISIBLE);
                 clWaterIntakeCounter.setClickable(false);
+                tvChangeCupSizeAndCustomSize.setText("What is general glass size/quantity that you consume every time you ? ");
                 operateRacyData();
                 callFetchGlassApi();
             }
@@ -272,6 +304,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 clWaterIntakeCounter.setClickable(false);
                 tvChangeCupSize.setVisibility(View.VISIBLE);
                 tvAddCustomSize.setVisibility(View.GONE);
+                tvChangeCupSizeAndCustomSize.setText("Customize the size of your glass. ");
                 operateRacyData();
                 callFetchGlassApi();
             }
@@ -307,10 +340,13 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         });
 
 
-        ivUpArrow.setOnClickListener(new View.OnClickListener() {
+        llHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                includePopMenuOfWaterIntakeCounter.setVisibility(View.VISIBLE);
+                Intent intent = new Intent(getApplicationContext(), WaterIntakeHistoryActivity.class);
+                startActivity(intent);
+
+              /*  includePopMenuOfWaterIntakeCounter.setVisibility(View.VISIBLE);
                 clWaterIntakeCounter.setClickable(false);
 
                 switchBtnWeekly.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -349,17 +385,17 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                         }
                     }
                 });
-
                 callRestorePlanApi();
+                callTipsApi();*/
             }
         });
 
-        ivDownArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                includePopMenuOfWaterIntakeCounter.setVisibility(View.GONE);
-            }
-        });
+//        ivDownArrow.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                includePopMenuOfWaterIntakeCounter.setVisibility(View.GONE);
+//            }
+//        });
 
         llCongratsClosedIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -383,7 +419,8 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 } else if (response.code() == 500) {
                     Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 403) {
-                    Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
+                    getAlertTokenDialog();
                 }
             }
 
@@ -411,7 +448,8 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 } else if (response.code() == 500) {
                     Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 403) {
-                    Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
+                    getAlertTokenDialog();
                 }
             }
 
@@ -445,7 +483,8 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 } else if (response.code() == 500) {
                     Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 403) {
-                    Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
+                    getAlertTokenDialog();
                 }
             }
 
@@ -496,7 +535,8 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 } else if (response.code() == 500) {
                     Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 403) {
-                    Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
+                    getAlertTokenDialog();
                 }
             }
 
@@ -506,7 +546,6 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             }
         });
     }
-
 
     public void callRestorePlanApi() {
         Util.showProgressDialog(getApplicationContext());
@@ -524,7 +563,8 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 } else if (response.code() == 500) {
                     Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 403) {
-                    Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
+                    getAlertTokenDialog();
                 }
             }
 
@@ -577,7 +617,8 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 } else if (response.code() == 500) {
                     Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 403) {
-                    Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
+                    getAlertTokenDialog();
                 }
             }
 
@@ -586,8 +627,6 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 Toast.makeText(WaterIntakeCounterActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
     private void setMonthlyData(String monthly, MonthlyData monthlyData) {
@@ -618,6 +657,119 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 tvRecommendedNosOfWaterGlasses.setText("/" + allTimeData.getAllTimeRecommendedGlassOfWater().toString() + " Glasses");
             }
         }
-
     }
+
+    private void callTipsApi() {
+        if (Util.isInternetConnected(getApplicationContext())) {
+            Utils.showProgressDialogBar(getApplicationContext());
+            RestClient.getAllTipsData(getAccessToken, new Callback<TipsResponse>() {
+                @Override
+                public void onResponse(Call<TipsResponse> call, Response<TipsResponse> response) {
+                    Util.dismissProgressDialog();
+                    if (response.code() == 200) {
+                        //   Log.d(TAG, "onResponse() called with: , response = [" + response.body() + "]");
+                        tipsList = response.body().getData().getData();
+                        tipsListSize = tipsList.size();
+                        tipsHandler.postDelayed(tipsRunnable, 0);
+                    } else {
+                        if (response.code() == 500) {
+                            Toast.makeText(getApplicationContext(), "Internal server error !", Toast.LENGTH_SHORT).show();
+                        }
+                        if (response.code() == 403) {
+                            // Toast.makeText(this, response.code() + "Session expire Please login again", Toast.LENGTH_SHORT).show();
+                            getAlertTokenDialog();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<TipsResponse> call, Throwable t) {
+                    Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+
+    private Runnable tipsRunnable = new Runnable() {
+        public void run() {
+            if (tipsList != null || tipsList.size() > 0) {
+                if (tipsStart == (tipsListSize - 1)) {
+                    tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph());
+                    tipsStart = 0;
+                } else {
+                    tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph());
+                    tipsStart++;
+                }
+            }
+            tipsHandler.postDelayed(this, 5000);
+        }
+    };
+
+
+    private void getAlertTokenDialog() {
+        if (getAccessToken != null) {
+            dialogBuilder = new AlertDialog.Builder(this);
+            LayoutInflater inflater = this.getLayoutInflater();
+            View dialogView = inflater.inflate(R.layout.session_expired_layout, null);
+            dialogBuilder.setView(dialogView);
+            dialog = dialogBuilder.create();
+            ImageView btn_Cancel = dialogView.findViewById(R.id.btn_cancel);
+            TextView text_logout = dialogView.findViewById(R.id.text_logout);
+            TextView noiwanttocontinue = dialogView.findViewById(R.id.noiwanttocontinuee);
+            LinearLayout llLogOut = dialogView.findViewById(R.id.llLogOut);
+
+            btn_Cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+            noiwanttocontinue.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+            text_logout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FuroPrefs.clear(getApplicationContext());
+                    googleSignOut();
+                    Intent intent = new Intent(getApplicationContext(), LoginTutorialScreen.class);
+                    startActivity(intent);
+                    finishAffinity();
+                }
+            });
+            dialog.show();
+        } else {
+
+        }
+    }
+
+    public void googleSignOut() {
+
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(Task<Void> task) {
+                        // Toast.makeText(ActivityMain.this, "Google Sign Out done.", Toast.LENGTH_SHORT).show();
+                        revokeAccess();
+                    }
+                });
+    }
+
+    private void revokeAccess() {
+        mGoogleSignInClient.revokeAccess()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(Task<Void> task) {
+                        // Toast.makeText(ActivityMain.this, "Google access revoked.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+
 }

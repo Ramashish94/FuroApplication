@@ -84,7 +84,7 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
         } else {
             if (!TextUtils.isEmpty(datum.getImage())) {
                 holder.ivPlaybutton.setVisibility(View.GONE);
-                Picasso.with(context).load(datum.getImage()).into(holder.ivImageCategoryall);
+                Picasso.with(context).load(datum.getImageUrl()).into(holder.ivImageCategoryall);
 
                 holder.ivImageCategoryall.setOnClickListener(new View.OnClickListener() {
                     @Override

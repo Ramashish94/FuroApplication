@@ -413,7 +413,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             public void onResponse(Call<UserChangeGlassSizeResponse> call, Response<UserChangeGlassSizeResponse> response) {
                 if (response.code() == 200) {
                     if (response.body() != null) {
-                        Toast.makeText(WaterIntakeCounterActivity.this, "Cup size change successfully", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(WaterIntakeCounterActivity.this, "Cup size change successfully", Toast.LENGTH_SHORT).show();
                         callDailyWaterIntakeUpdatePlanApi();
                     }
                 } else if (response.code() == 500) {
@@ -441,7 +441,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 Util.dismissProgressDialog();
                 if (response.code() == 200) {
                     if (response.body() != null) {
-                        Toast.makeText(WaterIntakeCounterActivity.this, "Cup created successfully", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(WaterIntakeCounterActivity.this, "Cup created successfully", Toast.LENGTH_SHORT).show();
                         callDailyWaterIntakeUpdatePlanApi();
                         // setData(response.body().getAddUserCup());
                     }
@@ -529,7 +529,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 Util.dismissProgressDialog();
                 if (response.code() == 200) {
                     if (response.body() != null) {
-                        Toast.makeText(WaterIntakeCounterActivity.this, "Custom cup size created successfully", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(WaterIntakeCounterActivity.this, "Custom cup size created successfully", Toast.LENGTH_SHORT).show();
                         callCupCreateApi();
                     }
                 } else if (response.code() == 500) {

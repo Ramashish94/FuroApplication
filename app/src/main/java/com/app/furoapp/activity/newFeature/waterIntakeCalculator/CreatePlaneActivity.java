@@ -229,14 +229,12 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
         ivRecommendedPlan.setOnClickListener(v -> {
             ivRecommendedPlan.setVisibility(View.GONE);
             ivSelRecommendedPlan.setVisibility(View.VISIBLE);
-//            if (isPalnSelected){
-//                ivRecommendedPlan.setBackgroundResource(R.drawable.bluecircle);
-//            }
-
+            allPlanAdapter.setNotifyData(allPlanAdapter);
         });
         ivSelRecommendedPlan.setOnClickListener(v -> {
             ivRecommendedPlan.setVisibility(View.VISIBLE);
             ivSelRecommendedPlan.setVisibility(View.GONE);
+
         });
 
 

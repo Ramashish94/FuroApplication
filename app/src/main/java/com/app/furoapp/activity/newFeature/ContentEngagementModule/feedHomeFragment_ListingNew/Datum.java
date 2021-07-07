@@ -47,6 +47,9 @@ public class Datum {
     @Expose
     private String icon;
     /*added by me*/
+    @SerializedName("image_url")
+    @Expose
+    private String imageUrl;
     @SerializedName("total_likes")
     @Expose
     private Integer totalLikes;
@@ -171,6 +174,13 @@ public class Datum {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Integer getTotalLikes() {

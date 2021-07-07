@@ -70,6 +70,11 @@ public class AllPlanAdapter extends RecyclerView.Adapter<AllPlanAdapter.MyViewHo
         }
     }
 
+    public void setNotifyData(AllPlanAdapter allPlanAdapter) {
+
+    }
+
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tvDurationTime, tvWaterTake;
         public LinearLayout llAllPlan;

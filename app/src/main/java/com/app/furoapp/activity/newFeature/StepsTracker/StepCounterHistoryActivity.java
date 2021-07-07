@@ -103,6 +103,8 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
     public LinearLayout llHistoryDetailsLayout, llWeeklyDays, llYearMonth;
     private String getWeekIndex;
     private float weekVal;
+    ImageView ivHistoryCross;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,6 +175,7 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
         tvFilterByWeek = findViewById(R.id.tvFilterByWeek);
         tvFilterByMonth = findViewById(R.id.tvFilterByMonth);
         tvFilterByYear = findViewById(R.id.tvFilterByYear);
+        ivHistoryCross = findViewById(R.id.ivHistoryCross);
 
         llWeeklyDays = findViewById(R.id.llWeeklyDays);
         tvDays1 = findViewById(R.id.tvDays1);
@@ -245,6 +248,10 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
             ivFilterMonthUpArrow.setVisibility(View.GONE);
             ivFilterWeekDownArrow.setVisibility(View.VISIBLE);
             ivFilterWeekUpArrow.setVisibility(View.GONE);
+        });
+
+        ivHistoryCross.setOnClickListener(v -> {
+            finish();
         });
     }
 

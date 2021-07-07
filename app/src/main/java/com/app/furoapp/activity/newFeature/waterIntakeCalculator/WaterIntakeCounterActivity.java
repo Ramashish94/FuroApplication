@@ -70,10 +70,10 @@ import retrofit2.Response;
 public class WaterIntakeCounterActivity extends AppCompatActivity implements SelectCupSizeAdapter.GlassClickCallBack {
     public ImageView ivAddCup, ivAddCustomSizeQuntity, ivCancel, ivSetting, ivBackIcon, ivChangeCupSize, ivUpArrow, ivDownArrow;
     private String getAccessToken;
-    public TextView tvNosGlassCount, tvTakingWater, tvAddCustomSize, tvRecommendedReamingWater, tvGlassSize, tvChangeCupSize,
+    public TextView tvNosGlassCount, tvTakingWater, tvAddCustomSize, tvRecommendedReamingWater, tvGlassSize, tvChangeCupSize, tvChangeCupSizeAndCustomSize,
             tvTotAmountDrunk, tvNosOfGlasses, tvRecommendedNosOfGlasses, tvDateWithDay;
-    public TextView tvRecommendedNosOfWaterGlasses, tvTotWaterAmountDrunk, tvCountNosOfGlass, tvDateWithDays, tvPrizmTips;
-    public LinearLayout llCongratsClosedIcon;
+    public TextView tvRecommendedNosOfWaterGlasses, tvTotWaterAmountDrunk, tvCountNosOfGlass, tvDateWithDays, tvPrizmTips, tvRecommendedWaterIntake;
+    public LinearLayout llCongratsClosedIcon, llHistory;
     public View includePopMenuOfSelectCupSize, includeCongratsPopMenu;
     public RecyclerView rvSelectCupSize;
     public SelectCupSizeAdapter selectCupSizeAdapter;
@@ -144,9 +144,9 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         ivSetting = findViewById(R.id.ivSetting);
         clWaterIntakeCounter = findViewById(R.id.clWaterIntakeCounter);
         ivBackIcon = findViewById(R.id.ivBackIcon);
-        switchBtnWeekly = findViewById(R.id.switchBtnWeekly);
-        switchBtnMontly = findViewById(R.id.switchBtnMonthly);
-        switchBtnAllType = findViewById(R.id.switchBtnAlType);
+//        switchBtnWeekly = findViewById(R.id.switchBtnWeekly);
+//        switchBtnMontly = findViewById(R.id.switchBtnMonthly);
+//        switchBtnAllType = findViewById(R.id.switchBtnAlType);
         ivChangeCupSize = findViewById(R.id.ivChangeCupSize);
         tvChangeCupSize = findViewById(R.id.tvChangeCupSize);
         tvTotAmountDrunk = findViewById(R.id.tvTotAmountDrunk);
@@ -155,17 +155,19 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         tvNosOfGlasses = findViewById(R.id.tvNosOfGlasses);
         scProgressBar = findViewById(R.id.scProgressBar);
         ivUpArrow = findViewById(R.id.ivUpArrow);
-        ivDownArrow = findViewById(R.id.ivDownArrow);
+        //ivDownArrow = findViewById(R.id.ivDownArrow);
         rvOfDailyWeeklyAllTime = findViewById(R.id.rvOfDailyWeeklyAllTime);
-        includePopMenuOfWaterIntakeCounter = findViewById(R.id.includePopMenuOfWaterIntakeCounter);
-        tvPrizmTips = findViewById(R.id.tvPrizmTips);
-
+        // includePopMenuOfWaterIntakeCounter = findViewById(R.id.includePopMenuOfWaterIntakeCounter);
+        // tvPrizmTips = findViewById(R.id.tvPrizmTips);
+        llHistory = findViewById(R.id.llHistory);
         tvRecommendedNosOfWaterGlasses = findViewById(R.id.tvRecommendedNosOfWaterGlasses);
         tvTotWaterAmountDrunk = findViewById(R.id.tvTotWaterAmountDrunk);
         tvCountNosOfGlass = findViewById(R.id.tvCountNosOfGlass);
         tvDateWithDays = findViewById(R.id.tvDateWithDays);
         includeCongratsPopMenu = findViewById(R.id.includeCongratsPopMenu);
+        tvRecommendedWaterIntake = findViewById(R.id.tvRecommendedWaterIntake);
         llCongratsClosedIcon = findViewById(R.id.llCongratsClosedIcon);
+        tvChangeCupSizeAndCustomSize = findViewById(R.id.tvChangeCupSizeAndCustomSize);
     }
 
     private void callDailyWaterIntakeUpdatePlanApi() {
@@ -246,11 +248,11 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             scProgressBar.setPercent(takenWaterInPercent);     // set percent on progress bar
             if (takingWater == totRecommendedWater || takenWaterInPercent >= 99) {
                 includeCongratsPopMenu.setVisibility(View.VISIBLE);
+                tvRecommendedWaterIntake.setText("" + totRecommendedWater + "  ml");
                 clWaterIntakeCounter.setClickable(false);
             }/* else {
             Toast.makeText(this, "Selected plan will be Null", Toast.LENGTH_SHORT).show();
         }*/
-
 
         }
 
@@ -289,6 +291,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             public void onClick(View v) {
                 includePopMenuOfSelectCupSize.setVisibility(View.VISIBLE);
                 clWaterIntakeCounter.setClickable(false);
+                tvChangeCupSizeAndCustomSize.setText("What is general glass size/quantity that you consume every time you ? ");
                 operateRacyData();
                 callFetchGlassApi();
             }
@@ -301,6 +304,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 clWaterIntakeCounter.setClickable(false);
                 tvChangeCupSize.setVisibility(View.VISIBLE);
                 tvAddCustomSize.setVisibility(View.GONE);
+                tvChangeCupSizeAndCustomSize.setText("Customize the size of your glass. ");
                 operateRacyData();
                 callFetchGlassApi();
             }
@@ -336,10 +340,13 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         });
 
 
-        ivUpArrow.setOnClickListener(new View.OnClickListener() {
+        llHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                includePopMenuOfWaterIntakeCounter.setVisibility(View.VISIBLE);
+                Intent intent = new Intent(getApplicationContext(), WaterIntakeHistoryActivity.class);
+                startActivity(intent);
+
+              /*  includePopMenuOfWaterIntakeCounter.setVisibility(View.VISIBLE);
                 clWaterIntakeCounter.setClickable(false);
 
                 switchBtnWeekly.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -378,17 +385,17 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                         }
                     }
                 });
-                callTipsApi();
                 callRestorePlanApi();
+                callTipsApi();*/
             }
         });
 
-        ivDownArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                includePopMenuOfWaterIntakeCounter.setVisibility(View.GONE);
-            }
-        });
+//        ivDownArrow.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                includePopMenuOfWaterIntakeCounter.setVisibility(View.GONE);
+//            }
+//        });
 
         llCongratsClosedIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -540,7 +547,6 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         });
     }
 
-
     public void callRestorePlanApi() {
         Util.showProgressDialog(getApplicationContext());
         RestClient.getRestorePlan(getAccessToken, new Callback<RestorePlanResponse>() {
@@ -621,8 +627,6 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 Toast.makeText(WaterIntakeCounterActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
     private void setMonthlyData(String monthly, MonthlyData monthlyData) {

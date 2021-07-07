@@ -70,14 +70,18 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tvChangeCupSizeAndCustomSize"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_16"
                     android:layout_marginTop="@dimen/dp_16"
                     android:layout_marginRight="@dimen/dp_16"
+                    android:layout_marginBottom="@dimen/dp_5"
                     android:gravity="center"
-                    android:text="What is general glass size/quantity that you consume every time you ?"
+                    tools:text="Customize the size of your glass."
                     android:textColor="@color/black_color" />
+                <!--                    android:text="What is general glass size/quantity that you consume every time you ?"
+-->
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvSelectCupSize"
@@ -126,7 +130,7 @@
                 android:background="@drawable/btn_next_shape"
                 android:fontFamily="@font/bebase_neue"
                 android:gravity="center"
-                android:text="Add Custom Size"
+                android:text="Change cup Size"
                 android:textColor="@color/white"
                 android:textStyle="italic" />
 

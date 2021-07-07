@@ -219,7 +219,7 @@ public class WakeUpTimeActivity extends AppCompatActivity implements FetchGlassA
                 Util.dismissProgressDialog();
                 if (response.code() == 200) {
                     if (response.body() != null && response.body().getStatus() != null) {
-                        Toast.makeText(WakeUpTimeActivity.this, "Data Saved SuccessFully !", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(WakeUpTimeActivity.this, "Data Saved SuccessFully !", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), CreatePlaneActivity.class);
                         startActivity(intent);
                         finish();

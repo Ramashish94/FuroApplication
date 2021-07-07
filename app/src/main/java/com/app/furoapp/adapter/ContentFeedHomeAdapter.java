@@ -30,8 +30,7 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
     int indexPosition;
     private ContentFeedCallback feedCallback;
 
-    public ContentFeedHomeAdapter(List<Datum> datumList, Context context, ContentFeedCallback feedCallback) {
-        this.datumList = datumList;
+    public ContentFeedHomeAdapter(Context context, ContentFeedCallback feedCallback) {
         this.context = context;
         this.feedCallback = feedCallback;
     }
@@ -74,11 +73,11 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
             final String videoNewId = videoid;
             holder.ivPlaybutton.setOnClickListener(view -> {
                 FuroPrefs.putString(context, "Youtube_Video_Id", videoNewId);
-                feedCallback.contentFeedItem(position,holder.getAdapterPosition());
+                feedCallback.contentFeedItem(position, holder.getAdapterPosition());
             });
             /*............*/
             holder.ivImageCategoryall.setOnClickListener(view -> {
-                feedCallback.contentFeedItem2(position,datum.getId());
+                feedCallback.contentFeedItem2(position, datum.getId());
             });
             /*............*/
 
@@ -90,7 +89,7 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
                 holder.ivImageCategoryall.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        feedCallback.contentFeedItem2(position,datum.getId());
+                        feedCallback.contentFeedItem2(position, datum.getId());
                     }
                 });
             }
@@ -101,12 +100,12 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
         });
         if (datum.getUserLike() != null)
             if (datum.getUserLike().equals("0")) {
-                    //clicked = false;
+                //clicked = false;
                 holder.ivLikeUnlikeImg.setImageResource(R.drawable.thumb_unlike);
                 holder.tvCountLike.setTextColor(Color.BLACK);
                 holder.tvLiketxt.setTextColor(Color.BLACK);
             } else {
-                   //clicked = true;
+                //clicked = true;
                 holder.ivLikeUnlikeImg.setImageResource(R.drawable.thumb_like);
                 holder.tvCountLike.setTextColor(Color.parseColor("#19CFE6"));
                 holder.tvLiketxt.setTextColor(Color.parseColor("#19CFE6"));
@@ -183,6 +182,17 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
         notifyDataSetChanged();
     }
 
+    public void setUpdatedList(List<Datum> datumList, boolean isLoadMore) {
+        if (isLoadMore) {
+            int pos = this.datumList.size();
+            this.datumList.addAll(pos, datumList);
+            notifyItemInserted(pos);
+        }else {
+            this.datumList = datumList;
+        }
+        notifyDataSetChanged();
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public ImageView ivImageCategoryall, ivPlaybutton, actIcon;
         public TextView tvTextAll, tvTitleAll, tvCountLike, tvLiketxt, tvCountsCmnt, tvComntsTxt, tvCountViews, tvView;
@@ -218,9 +228,9 @@ public class ContentFeedHomeAdapter extends RecyclerView.Adapter<ContentFeedHome
     }
 
     public interface ContentFeedCallback {
-        void contentFeedItem(int pos,int videoId);
+        void contentFeedItem(int pos, int videoId);
 
-        void contentFeedItem2(int pos,int id);
+        void contentFeedItem2(int pos, int id);
 
         void onClickLike(int pos, Datum data);
 

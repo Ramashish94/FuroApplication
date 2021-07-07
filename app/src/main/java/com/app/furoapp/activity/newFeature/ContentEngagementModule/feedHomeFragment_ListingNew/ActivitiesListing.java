@@ -1,7 +1,6 @@
 
 package com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragment_ListingNew;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -9,16 +8,16 @@ public class ActivitiesListing {
 
     @SerializedName("data")
     @Expose
-    private List<Datum> data = null;
+    private PaginationData data ;
     @SerializedName("status")
     @Expose
     private String status;
 
-    public List<Datum> getData() {
+    public PaginationData getData() {
         return data;
     }
 
-    public void setData(List<Datum> data) {
+    public void setData(PaginationData data) {
         this.data = data;
     }
 

@@ -2,7 +2,15 @@ package com.app.furoapp.retrofit;
 
 
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.activityDetailsNew.ActivityDetailsResponse;
+import com.app.furoapp.activity.newFeature.ContentEngagementModule.addComments.AddCommentRequest;
+import com.app.furoapp.activity.newFeature.ContentEngagementModule.addComments.AddCommentResponse;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragment_ListingNew.ActivitiesListing;
+import com.app.furoapp.activity.newFeature.ContentEngagementModule.like.LikeRequest;
+import com.app.furoapp.activity.newFeature.ContentEngagementModule.like.LikeResponse;
+import com.app.furoapp.activity.newFeature.ContentEngagementModule.saveBookmark.SavedRequest;
+import com.app.furoapp.activity.newFeature.ContentEngagementModule.saveBookmark.SavedResponse;
+import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsRequest;
+import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotTimeRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.deleteSlot.DeleteSlotResponse;
@@ -18,32 +26,24 @@ import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.Modifi
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalResponse;
+import com.app.furoapp.activity.newFeature.bmiCalculator.fetchBmiDataModel.FetchUserWiseDataResponse;
 import com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel.BmiStoreDataRequest;
 import com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel.BmiStoreDataResponse;
-import com.app.furoapp.activity.newFeature.bmiCalculator.fetchBmiDataModel.FetchUserWiseDataResponse;
 import com.app.furoapp.activity.newFeature.healthCare.healthCentermodel.HealthCenterResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListResponse;
-import com.app.furoapp.activity.newFeature.ContentEngagementModule.addComments.AddCommentRequest;
-import com.app.furoapp.activity.newFeature.ContentEngagementModule.addComments.AddCommentResponse;
-import com.app.furoapp.activity.newFeature.ContentEngagementModule.like.LikeRequest;
-import com.app.furoapp.activity.newFeature.ContentEngagementModule.like.LikeResponse;
-import com.app.furoapp.activity.newFeature.ContentEngagementModule.saveBookmark.SavedRequest;
-import com.app.furoapp.activity.newFeature.ContentEngagementModule.saveBookmark.SavedResponse;
-import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsRequest;
-import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
 import com.app.furoapp.activity.newFeature.notification.allNotificationModal.NotificationResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.ChangeGlassSizeRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.UserChangeGlassSizeResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.cupCreate.CupCreateResponse;
-import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchAllPlan.FetchAllPlanResponse;
-import com.app.furoapp.activity.newFeature.waterIntakeCalculator.restorePlanModel.RestorePlanResponse;
-import com.app.furoapp.activity.newFeature.waterIntakeCalculator.selectCustomSizeGlass.SelectCustomGlassSizeRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.dailyWaterIntake.DailyWaterIntakeRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.dailyWaterIntake.DailyWaterIntakeResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchAllPlan.FetchAllPlanResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchGlass.GlassFetchResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.PlaneCreateRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.PlaneCreateResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.restorePlanModel.RestorePlanResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.selectCustomSizeGlass.SelectCustomGlassSizeRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.selectCustomSizeGlass.SelectCustomSizeGlassResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.waterIntakeCounter.WaterIntakeUpdatePlanRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.waterIntakeCounter.WaterIntakeUpdatePlanResponse;
@@ -141,6 +141,8 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
@@ -438,8 +440,9 @@ public interface ApiInterface {
 
 
     // New api calling for AllActivity Content feed  Content feed home fragment landing page
-    @POST("all-activity-listings-new")
-    Call<ActivitiesListing> ActivitiesListing(@Header(TOKEN_KEY) String token);
+    @FormUrlEncoded
+    @POST("all-activity-listings-new-paginate")
+    Call<ActivitiesListing> ActivitiesListing(@Header(TOKEN_KEY) String token, @Field("type") String type, @Field("page") int page);
 
     //api calling for contentFeddDetail
     @POST("activity-details-new")
@@ -562,7 +565,6 @@ public interface ApiInterface {
     /*user/step-goal*/
     @GET("user/all-trips ")
     Call<TipsResponse> ALL_TIPS_RESPONSE_CALL(@Header(TOKEN_KEY) String token);
-
 
 
 }

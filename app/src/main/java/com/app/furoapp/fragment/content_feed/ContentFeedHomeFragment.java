@@ -37,17 +37,16 @@ import com.app.furoapp.activity.HomeMainActivity;
 import com.app.furoapp.activity.YoutubePlayerActivity;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragment_ListingNew.ActivitiesListing;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragment_ListingNew.Datum;
-import com.app.furoapp.activity.newFeature.healthCare.Days21FitnessChallangeActivity;
-import com.app.furoapp.activity.newFeature.likeAndSaved.LikedAndSavedActivity;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.like.LikeRequest;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.like.LikeResponse;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.saveBookmark.SavedRequest;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.saveBookmark.SavedResponse;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsRequest;
 import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.ViewsResponse;
+import com.app.furoapp.activity.newFeature.healthCare.Days21FitnessChallangeActivity;
+import com.app.furoapp.activity.newFeature.likeAndSaved.LikedAndSavedActivity;
 import com.app.furoapp.adapter.ContentFeedHomeAdapter;
 import com.app.furoapp.databinding.FragmentContentFeedsListBinding;
-import com.app.furoapp.activity.newFeature.ContentEngagementModule.feedHomeFragment_ListingNew.ActivityFilterData;
 import com.app.furoapp.model.updateToken.UdateTokenResponse;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
@@ -66,7 +65,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import lal.adhish.gifprogressbar.GifView;
@@ -87,7 +85,7 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
     HomeMainActivity homeMainActivity;
     RecyclerView recyclerView;
     SwitchButton switchButtonVideo, switchButtonArticle;
-    String type = "", newToken, unique_id, loginuserid;
+    String type = "all data", newToken, unique_id, loginuserid;
     GifView pGif;
     TextView textView;
     Datum datum;
@@ -98,7 +96,34 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
     private String getAccessToken;
     public Integer id;
     int adapterCurrentPos = 0;
+    private int currentPageNumber = 1;
+    private int totalPageNumber;
+    private boolean isLoadMore = false;
+    private int totalCount;
 
+    private RecyclerView.OnScrollListener recyclerViewOnScrollListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+        }
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+            int visibleItemCount = recyclerView.getLayoutManager().getChildCount();
+            int totalItemCount = recyclerView.getLayoutManager().getItemCount();
+            int firstVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
+
+//            if (!isLoading && !isLastPage) {
+            if (!isLoadMore && (visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                    && firstVisibleItemPosition >= 0 && totalItemCount >= 20 && currentPageNumber < totalPageNumber) {
+                currentPageNumber++;
+                isLoadMore = true;
+                getDataAll(type);
+            }
+//            }
+        }
+    };
 
     @Override
     public void onAttach(Context context) {
@@ -139,41 +164,41 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
 
         //  Toast.makeText(homeMainActivity, "uniqueid" + unique_id + "" + "fcmtoken" + newToken + "" + "userid" + loginuserid, Toast.LENGTH_LONG).show();
 
-        switchButtonVideo.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                if (isChecked) {
-                    type = "Video";
-                    switchButtonArticle.setChecked(false);
-                    getDataAll(type);
+        switchButtonVideo.setOnCheckedChangeListener((view1, isChecked) -> {
+            if (isChecked) {
+                type = "video";
+                switchButtonArticle.setChecked(false);
+                currentPageNumber = 1;
+                getDataAll(type);
+            } else {
+                if ((switchButtonArticle.isChecked())) {
+                    currentPageNumber = 1;
+                    getDataAll("article");
                 } else {
-                    if ((switchButtonArticle.isChecked()))
-                        getDataAll("Article");
-                    else {
-                        getDataAll("");
-                    }
+                    currentPageNumber = 1;
+                    getDataAll("all data");
                 }
             }
         });
 
 
-        switchButtonArticle.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                if (isChecked) {
-                    type = "Article";
-                    switchButtonVideo.setChecked(false);
-                    getDataAll(type);
+        switchButtonArticle.setOnCheckedChangeListener((view12, isChecked) -> {
+            if (isChecked) {
+                type = "article";
+                switchButtonVideo.setChecked(false);
+                currentPageNumber = 1;
+                getDataAll(type);
+            } else {
+                if ((switchButtonVideo.isChecked())) {
+                    currentPageNumber = 1;
+                    getDataAll("video");
                 } else {
-                    if ((switchButtonVideo.isChecked()))
-                        getDataAll("Video");
-                    else {
-                        getDataAll("");
-                    }
+                    currentPageNumber = 1;
+                    getDataAll("all data");
                 }
             }
         });
-
+        setContentFeedHomeAdapter();
         getDataAll(type);
         updateTokenDetails();
 
@@ -184,7 +209,7 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
     private void getDataAll(String type) {
         if (Util.isInternetConnected(getActivity())) {
             Util.showProgressDialog(getActivity());
-            RestClient.myContentfeedAllActivity(getAccessToken, new Callback<ActivitiesListing>() {
+            RestClient.myContentfeedAllActivity(getAccessToken, type, currentPageNumber, new Callback<ActivitiesListing>() {
                 @Override
                 public void onResponse(Call<ActivitiesListing> call, Response<ActivitiesListing> response) {
                     Util.dismissProgressDialog();
@@ -192,58 +217,70 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
                     if (response.body() != null) {
                         ActivitiesListing activitiesListing = response.body();
                         if (activitiesListing != null && activitiesListing.getData() != null) {
-                            List<Datum> datumList = activitiesListing.getData();
-                            if (datumList != null && datumList.size() > 0) {
-                                Log.d(TAG, "" + datumList.size());
-                                data.clear();
-                                if (type.equalsIgnoreCase("video")) {
-                                    for (int i = 0; i < datumList.size(); i++) {
-                                        if (datumList.get(i).getVideo() != null) {
-                                            ActivityFilterData filterData = new ActivityFilterData();
-                                            filterData.setDatum(datumList.get(i));
-                                            datum = filterData.getDatum();
-                                            datum.setVideo("" + datumList.get(i).getVideo());
-                                            datum.setId(datumList.get(i).getId());
-                                            datum.setIcon(datumList.get(i).getIcon());
-                                            datum.setType("" + datumList.get(i).getType());
-//                                        datum.setType("" + datumList.get(i).getType());
-                                            datum.setDescription("" + datumList.get(i).getDescription());
-
-                                            Log.d(TAG, "Add DatumList");
-                                            data.addAll(Collections.singleton(datum));
-                                        }
-                                    }
-                                    setContentFeedHomeAdapter(data);
-                                }
-                                if (type.equalsIgnoreCase("Article")) {
-                                    for (int i = 0; i < datumList.size(); i++) {
-                                        if (datumList.get(i).getVideo() == null) {
-                                            ActivityFilterData filterData = new ActivityFilterData();
-                                            filterData.setDatum(datumList.get(i));
-                                            datum = filterData.getDatum();
-                                            datum.setImage("" + datumList.get(i).getImage());
-                                            datum.setId(datumList.get(i).getId());
-                                            datum.setIcon(datumList.get(i).getIcon());
-                                            datum.setType("" + datumList.get(i).getType());
-//                                        datum.setType("" + datumList.get(i).getType());
-                                            datum.setDescription("" + datumList.get(i).getDescription());
-                                            data.addAll(Collections.singleton(datum));
-                                        }
-
-                                    }
-                                    setContentFeedHomeAdapter(data);
-                                }
+                            List<Datum> datumList = activitiesListing.getData().getData();
+                            id = datumList.get(0).getId();
+                            FuroPrefs.putString(getContext(), "activity_id", String.valueOf(id));
+                            FuroPrefs.putString(getApplicationContext(), Constants.ACTIVITY_Id, String.valueOf(id));
+                            totalPageNumber = activitiesListing.getData().getLastPage();
+                            totalCount = activitiesListing.getData().getTotal();
+                            if (isLoadMore) {
+                                contentFeedHomeAdapter.setUpdatedList(datumList, true);
+                                isLoadMore = false;
+                            } else {
+                                contentFeedHomeAdapter.setUpdatedList(datumList, false);
                             }
 
-                            if (type.equalsIgnoreCase("")) {
-                                if (datumList != null && datumList.size() > 0) {
-                                    id = datumList.get(0).getId();
-                                    FuroPrefs.putString(getContext(), "activity_id", String.valueOf(id));
-                                    FuroPrefs.putString(getApplicationContext(), Constants.ACTIVITY_Id, String.valueOf(id));
-                                    setContentFeedHomeAdapter(datumList);
-                                    //recyclerView.setAdapter(contentFeedHomeAdapter);
-                                }
-                            }
+//                            if (datumList != null && datumList.size() > 0) {
+//                                Log.d(TAG, "" + datumList.size());
+//                                data.clear();
+//                                if (type.equalsIgnoreCase("video")) {
+//                                    for (int i = 0; i < datumList.size(); i++) {
+//                                        if (datumList.get(i).getVideo() != null) {
+//                                            ActivityFilterData filterData = new ActivityFilterData();
+//                                            filterData.setDatum(datumList.get(i));
+//                                            datum = filterData.getDatum();
+//                                            datum.setVideo("" + datumList.get(i).getVideo());
+//                                            datum.setId(datumList.get(i).getId());
+//                                            datum.setIcon(datumList.get(i).getIcon());
+//                                            datum.setType("" + datumList.get(i).getType());
+////                                        datum.setType("" + datumList.get(i).getType());
+//                                            datum.setDescription("" + datumList.get(i).getDescription());
+//
+//                                            Log.d(TAG, "Add DatumList");
+//                                            data.addAll(Collections.singleton(datum));
+//                                        }
+//                                    }
+//                                    setContentFeedHomeAdapter(data);
+//                                }
+//                                if (type.equalsIgnoreCase("Article")) {
+//                                    for (int i = 0; i < datumList.size(); i++) {
+//                                        if (datumList.get(i).getVideo() == null) {
+//                                            ActivityFilterData filterData = new ActivityFilterData();
+//                                            filterData.setDatum(datumList.get(i));
+//                                            datum = filterData.getDatum();
+//                                            datum.setImage("" + datumList.get(i).getImage());
+//                                            datum.setId(datumList.get(i).getId());
+//                                            datum.setIcon(datumList.get(i).getIcon());
+//                                            datum.setType("" + datumList.get(i).getType());
+////                                        datum.setType("" + datumList.get(i).getType());
+//                                            datum.setDescription("" + datumList.get(i).getDescription());
+//                                            data.addAll(Collections.singleton(datum));
+//                                        }
+//
+//                                    }
+//                                    setContentFeedHomeAdapter(data);
+//                                }
+//                            }
+//
+//                            if (type.equalsIgnoreCase("")) {
+//                                if (datumList != null && datumList.size() > 0) {
+//                                    id = datumList.get(0).getId();
+//                                    FuroPrefs.putString(getContext(), "activity_id", String.valueOf(id));
+//                                    FuroPrefs.putString(getApplicationContext(), Constants.ACTIVITY_Id, String.valueOf(id));
+//                                    setContentFeedHomeAdapter(datumList);
+//                                    //recyclerView.setAdapter(contentFeedHomeAdapter);
+//                                }
+//                            }
                         }
                     }
                 }
@@ -257,14 +294,16 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
         }
     }
 
-    private void setContentFeedHomeAdapter(List<Datum> list) {
-        contentFeedHomeAdapter = new ContentFeedHomeAdapter(list, getContext(), this);
+    private void setContentFeedHomeAdapter() {
+        contentFeedHomeAdapter = new ContentFeedHomeAdapter(getContext(), this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(contentFeedHomeAdapter);
-
         recyclerView.scrollToPosition(adapterCurrentPos);   // scroll to current position in android
+        recyclerView.addOnScrollListener(recyclerViewOnScrollListener);
+
     }
 
 
@@ -509,6 +548,7 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
     @Override
     public void onResume() {
         super.onResume();
+        currentPageNumber = 1;
         getDataAll(type);
     }
 

@@ -4,141 +4,148 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bmi_back_ground_theam"
     android:orientation="vertical"
+    android:background="@drawable/track_bmi_bg"
     tools:context=".activity.newFeature.bmiCalculator.SelectGenderAndAgeActivity">
 
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bmi_back_ground_theam"
+        android:orientation="vertical">
 
-        <LinearLayout
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="27dp"
-                android:layout_marginTop="80dp"
-                android:src="@drawable/gender" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="42dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginRight="42dp"
-                android:src="@drawable/in_order_to_share_copy" />
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="27dp"
+                    android:layout_marginTop="80dp"
+                    android:src="@drawable/gender" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="42dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginRight="42dp"
+                    android:src="@drawable/in_order_to_share_copy" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/ivMaleIcon"
-                        android:layout_width="114dp"
-                        android:layout_height="114dp"
-                        android:layout_marginLeft="@dimen/dp_60"
-                        android:layout_marginTop="33dp"
-                        android:background="@drawable/male_sunselected_icon_______" />
-
-                    <TextView
-                        android:id="@+id/tvMale"
-                        android:layout_width="114dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:inputType="textCapWords"
-                        android:text="Male"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:layout_marginTop="@dimen/dp_10"
-                        android:layout_marginStart="@dimen/dp_60"
-                        android:textColor="#C4C4C4"
-                        android:textSize="20sp"/>
+                        android:orientation="vertical">
 
-                    <!-- -->  </LinearLayout>
+                        <ImageView
+                            android:id="@+id/ivMaleIcon"
+                            android:layout_width="114dp"
+                            android:layout_height="114dp"
+                            android:layout_marginLeft="@dimen/dp_60"
+                            android:layout_marginTop="33dp"
+                            android:background="@drawable/male_sunselected_icon_______" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="@dimen/dp_50"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/tvMale"
+                            android:layout_width="114dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_60"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:inputType="textCapWords"
+                            android:text="Male"
+                            android:textColor="#C4C4C4"
+                            android:textSize="20sp" />
 
-                    <ImageView
-                        android:id="@+id/ivFemaleIcon"
-                        android:layout_width="114dp"
-                        android:layout_height="114dp"
-                        android:layout_marginTop="33dp"
+                        <!-- -->
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/dp_10"
-                        android:background="@drawable/unselected_female_icon" />
-
-                    <TextView
-                        android:id="@+id/tvFemale"
-                        android:layout_width="114dp"
-                        android:layout_height="24dp"
+                        android:layout_marginRight="@dimen/dp_50"
                         android:layout_weight="1"
-                        android:text="Female"
-                        android:gravity="center"
-                        android:textAlignment="center"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_marginTop="@dimen/dp_10"
-                        android:textColor="#C4C4C4"
-                        android:textSize="@dimen/sp_20"/>
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/ivFemaleIcon"
+                            android:layout_width="114dp"
+                            android:layout_height="114dp"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:layout_marginTop="33dp"
+                            android:background="@drawable/unselected_female_icon" />
+
+                        <TextView
+                            android:id="@+id/tvFemale"
+                            android:layout_width="114dp"
+                            android:layout_height="24dp"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="Female"
+                            android:textAlignment="center"
+                            android:textColor="#C4C4C4"
+                            android:textSize="@dimen/sp_20" />
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
 
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="27dp"
+                    android:layout_marginTop="55dp"
+                    android:fontFamily="@font/bebase_neue"
+                    android:gravity="center"
+                    android:text="Age"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textStyle="italic" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvAge"
+                    android:layout_width="312dp"
+                    android:layout_height="111dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/age_rectange_background" />
+
+
+                <Button
+                    android:id="@+id/btnStartJanury"
+                    android:layout_width="312dp"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_70"
+                    android:background="@drawable/btn_next_shape"
+                    android:fontFamily="@font/bebase_neue"
+                    android:text="Start Jounary"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textStyle="italic" />
 
             </LinearLayout>
 
 
+        </androidx.core.widget.NestedScrollView>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="27dp"
-                android:layout_marginTop="55dp"
-                android:fontFamily="@font/bebase_neue"
-                android:gravity="center"
-                android:text="Age"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textStyle="italic" />
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvAge"
-                android:layout_width="312dp"
-                android:layout_height="111dp"
-                android:layout_gravity="center"
-                android:background="@drawable/age_rectange_background" />
-
-
-            <Button
-                android:id="@+id/btnStartJanury"
-                android:layout_width="312dp"
-                android:layout_height="@dimen/dp_40"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dp_70"
-                android:background="@drawable/btn_next_shape"
-                android:fontFamily="@font/bebase_neue"
-                android:text="Start Jounary"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textStyle="italic" />
-
-        </LinearLayout>
-
-
-    </androidx.core.widget.NestedScrollView>
-
+    </LinearLayout>
 
 </LinearLayout>

@@ -169,53 +169,61 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllSlotAd
     private void callAddNewSlotApi() {
         AddNewSlotTimeRequest addNewSlotTimeRequest = new AddNewSlotTimeRequest();
         addNewSlotTimeRequest.setTimeslot(getTimeHours);
-        RestClient.getAddNewSlotTime(getAccessToken, addNewSlotTimeRequest, new Callback<AddNewSlotResponse>() {
-            @Override
-            public void onResponse(Call<AddNewSlotResponse> call, Response<AddNewSlotResponse> response) {
-                if (response.code() == 200) {
-                    if (response.body() != null) {
-                        // Toast.makeText(AddNewSlotPreferActivity.this, "New TimeSlot Created Successfully!", Toast.LENGTH_SHORT).show();
-                        callFetchAllPlanApi();
+        if (Util.isInternetConnected(getApplicationContext())) {
+            RestClient.getAddNewSlotTime(getAccessToken, addNewSlotTimeRequest, new Callback<AddNewSlotResponse>() {
+                @Override
+                public void onResponse(Call<AddNewSlotResponse> call, Response<AddNewSlotResponse> response) {
+                    if (response.code() == 200) {
+                        if (response.body() != null) {
+                            // Toast.makeText(AddNewSlotPreferActivity.this, "New TimeSlot Created Successfully!", Toast.LENGTH_SHORT).show();
+                            callFetchAllPlanApi();
+                        }
+                    } else if (response.code() == 500) {
+                        Toast.makeText(AddNewSlotPreferActivity.this, "Internal server error!", Toast.LENGTH_SHORT).show();
+                    } else if (response.code() == 403) {
+                        Toast.makeText(AddNewSlotPreferActivity.this, "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
+                        getAlertTokenDialog();
                     }
-                } else if (response.code() == 500) {
-                    Toast.makeText(AddNewSlotPreferActivity.this, "Internal server error!", Toast.LENGTH_SHORT).show();
-                } else if (response.code() == 403) {
-                    Toast.makeText(AddNewSlotPreferActivity.this, "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
-                    getAlertTokenDialog();
                 }
-            }
 
-            @Override
-            public void onFailure(Call<AddNewSlotResponse> call, Throwable t) {
-                Toast.makeText(AddNewSlotPreferActivity.this, "Something went wrong !", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailure(Call<AddNewSlotResponse> call, Throwable t) {
+                    Toast.makeText(AddNewSlotPreferActivity.this, "Something went wrong !", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else {
+            Toast.makeText(this, "Please check internet connection !", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void callFetchAllPlanApi() {
         Util.showProgressDialog(getApplicationContext());
         Util.showProgressDialog(getApplicationContext());
-        RestClient.getFetchAllSlot(getAccessToken, new Callback<FetchAllSlotResponse>() {
-            @Override
-            public void onResponse(Call<FetchAllSlotResponse> call, Response<FetchAllSlotResponse> response) {
-                Util.dismissProgressDialog();
-                if (response.code() == 200) {
-                    if (response.body() != null) {
-                        notifyFetchAllSlotTime(response.body().getData());
+        if (Util.isInternetConnected(getApplicationContext())) {
+            RestClient.getFetchAllSlot(getAccessToken, new Callback<FetchAllSlotResponse>() {
+                @Override
+                public void onResponse(Call<FetchAllSlotResponse> call, Response<FetchAllSlotResponse> response) {
+                    Util.dismissProgressDialog();
+                    if (response.code() == 200) {
+                        if (response.body() != null) {
+                            notifyFetchAllSlotTime(response.body().getData());
+                        }
+                    } else if (response.code() == 500) {
+                        Toast.makeText(AddNewSlotPreferActivity.this, "Internal server error!", Toast.LENGTH_SHORT).show();
+                    } else if (response.code() == 403) {
+                        Toast.makeText(AddNewSlotPreferActivity.this, "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
+                        getAlertTokenDialog();
                     }
-                } else if (response.code() == 500) {
-                    Toast.makeText(AddNewSlotPreferActivity.this, "Internal server error!", Toast.LENGTH_SHORT).show();
-                } else if (response.code() == 403) {
-                    Toast.makeText(AddNewSlotPreferActivity.this, "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
-                    getAlertTokenDialog();
                 }
-            }
 
-            @Override
-            public void onFailure(Call<FetchAllSlotResponse> call, Throwable t) {
-                Toast.makeText(AddNewSlotPreferActivity.this, "Something went wrong !", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailure(Call<FetchAllSlotResponse> call, Throwable t) {
+                    Toast.makeText(AddNewSlotPreferActivity.this, "Something went wrong !", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else {
+            Toast.makeText(this, "Please check internet connection ! ", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void notifyFetchAllSlotTime(List<Datum> data) {
@@ -239,22 +247,26 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllSlotAd
     }
 
     private void callDeleteApi(Integer getId) {
-        RestClient.deleteSlot(getAccessToken, getId, new Callback<DeleteSlotResponse>() {
-            @Override
-            public void onResponse(Call<DeleteSlotResponse> call, Response<DeleteSlotResponse> response) {
-                if (response.code() == 200) {
-                    if (response.body().getData() != null) {
-                        // Toast.makeText(AddNewSlotPreferActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        callFetchAllPlanApi();
+        if (Util.isInternetConnected(getApplicationContext())) {
+            RestClient.deleteSlot(getAccessToken, getId, new Callback<DeleteSlotResponse>() {
+                @Override
+                public void onResponse(Call<DeleteSlotResponse> call, Response<DeleteSlotResponse> response) {
+                    if (response.code() == 200) {
+                        if (response.body().getData() != null) {
+                            // Toast.makeText(AddNewSlotPreferActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                            callFetchAllPlanApi();
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<DeleteSlotResponse> call, Throwable t) {
-
-            }
-        });
+                @Override
+                public void onFailure(Call<DeleteSlotResponse> call, Throwable t) {
+                    Toast.makeText(AddNewSlotPreferActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else {
+            Toast.makeText(this, "Please check internet connection", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void callTipsApi() {
@@ -265,7 +277,7 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllSlotAd
                 public void onResponse(Call<TipsResponse> call, Response<TipsResponse> response) {
                     Util.dismissProgressDialog();
                     if (response.code() == 200) {
-                     //   Log.d(TAG, "onResponse() called with: , response = [" + response.body() + "]");
+                        //   Log.d(TAG, "onResponse() called with: , response = [" + response.body() + "]");
                         tipsList = response.body().getData().getData();
                         tipsListSize = tipsList.size();
                         tipsHandler.postDelayed(tipsRunnable, 0);
@@ -285,6 +297,8 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllSlotAd
                     Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_SHORT).show();
                 }
             });
+        }else {
+            Toast.makeText(this, "Please check internet connection !", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -369,5 +383,15 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllSlotAd
                 });
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        callFetchAllPlanApi();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        callFetchAllPlanApi();
+    }
 }

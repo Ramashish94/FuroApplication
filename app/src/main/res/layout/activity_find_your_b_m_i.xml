@@ -4,216 +4,224 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bmi_back_ground_theam"
     android:orientation="vertical"
+    android:background="@drawable/track_bmi_bg"
     tools:context=".activity.newFeature.bmiCalculator.FindYourBmiActivity">
 
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:layout_weight="1">
-
-         <ImageView
-             android:layout_width="25dp"
-             android:layout_height="15dp"
-             android:layout_gravity="bottom"
-             android:layout_marginLeft="80dp"
-             android:src="@drawable/bmi_white" />
-     </LinearLayout>
-
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:layout_weight="1"
-         android:orientation="vertical">
-
-         <ImageView
-             android:layout_width="100dp"
-             android:layout_height="100dp"
-             android:layout_marginLeft="42dp"
-             android:layout_marginTop="5dp"
-             android:src="@drawable/bmi_icon" />
-
-         <ImageView
-             android:layout_width="227dp"
-             android:layout_height="48dp"
-             android:layout_marginLeft="42dp"
-             android:layout_marginTop="30dp"
-             android:src="@drawable/are_you_sure_you_wan" />
-
-         <ImageView
-             android:layout_width="227dp"
-             android:layout_height="48dp"
-             android:layout_marginLeft="42dp"
-             android:layout_marginTop="10dp"
-             android:src="@drawable/progess_will_be_save" />
-
-     </LinearLayout>
-
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:layout_marginTop="20dp"
-         android:layout_weight="1"
-         android:orientation="vertical">
-
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:layout_weight="1"
-             android:orientation="horizontal">
-
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:layout_weight="1">
-
-                 <LinearLayout
-                     android:id="@+id/llFindUrs"
-                     android:layout_width="match_parent"
-                     android:layout_height="@dimen/dp_40"
-                     android:layout_gravity="bottom"
-                     android:layout_marginLeft="30dp"
-                     android:layout_marginBottom="@dimen/dp_15"
-                     android:layout_marginRight="@dimen/dp_5"
-                     android:background="@drawable/find_yours_others">
-
-                     <TextView
-                         android:id="@+id/tvFindYours"
-                         android:layout_width="match_parent"
-                         android:layout_height="match_parent"
-                         android:layout_gravity="center"
-                         android:gravity="center"
-                         android:text="Find yours"
-                         android:textAllCaps="true"
-                         android:textColor="@color/white"
-                         android:textStyle="italic" />
-                 </LinearLayout>
-
-             </LinearLayout>
-
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:layout_weight="1">
-
-                 <LinearLayout
-                     android:id="@+id/llFindForOthers"
-                     android:layout_width="match_parent"
-                     android:layout_height="@dimen/dp_40"
-                     android:layout_gravity="bottom"
-                     android:layout_marginBottom="@dimen/dp_15"
-                     android:layout_marginLeft="@dimen/dp_5"
-                     android:layout_marginRight="@dimen/dp_30"
-                     android:background="@drawable/find_yours_others">
-
-                     <TextView
-                         android:id="@+id/tvFidForOthers"
-                         android:layout_width="match_parent"
-                         android:layout_height="match_parent"
-                         android:layout_gravity="center"
-                         android:gravity="center"
-                         android:text="Find for others"
-                         android:textAllCaps="true"
-                         android:textColor="@color/white"
-                         android:textStyle="italic" />
-
-                 </LinearLayout>
-
-             </LinearLayout>
-
-
-         </LinearLayout>
-
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:layout_weight="1">
-
-             <TextView
-                 android:id="@+id/tvRecordedScores"
-                 android:layout_width="match_parent"
-                 android:layout_height="?actionBarSize"
-                 android:layout_gravity="bottom"
-                 android:background="@drawable/rectangl77"
-                 android:gravity="center"
-                 android:text="recorded scores"
-                 android:textAllCaps="true"
-                 android:textColor="@color/white"
-                 android:textStyle="bold" />
-
-
-         </LinearLayout>
-
-
-     </LinearLayout>
-
-
- <!--   <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="550dp"
-        android:weightSum="2">
-
-        <LinearLayout
-            android:id="@+id/llFindUrs"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_40"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="@dimen/dp_5"
-            android:layout_weight="1"
-            android:background="@drawable/find_yours_others">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="Find yours"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textStyle="italic" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llFindYoursOthers"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_40"
-            android:layout_marginLeft="@dimen/dp_5"
-            android:layout_marginRight="@dimen/dp_30"
-            android:layout_weight="1"
-            android:background="@drawable/find_yours_others">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="Find for others"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textStyle="italic" />
-
-        </LinearLayout>
-
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bmi_back_ground_theam"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvRecordedScores"
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:layout_gravity="bottom"
-            android:background="@drawable/rectangl77"
-            android:gravity="center"
-            android:text="recorded scores"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
-    </LinearLayout>-->
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="15dp"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="80dp"
+                android:src="@drawable/bmi_white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="42dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/bmi_icon" />
+
+            <ImageView
+                android:layout_width="227dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="42dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/are_you_sure_you_wan" />
+
+            <ImageView
+                android:layout_width="227dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="42dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/progess_will_be_save" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:id="@+id/llFindUrs"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_40"
+                        android:layout_gravity="bottom"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="@dimen/dp_5"
+                        android:layout_marginBottom="@dimen/dp_15"
+                        android:background="@drawable/find_yours_others">
+
+                        <TextView
+                            android:id="@+id/tvFindYours"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="Find yours"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textStyle="italic" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:id="@+id/llFindForOthers"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_40"
+                        android:layout_gravity="bottom"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:layout_marginRight="@dimen/dp_30"
+                        android:layout_marginBottom="@dimen/dp_15"
+                        android:background="@drawable/find_yours_others">
+
+                        <TextView
+                            android:id="@+id/tvFidForOthers"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="Find for others"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textStyle="italic" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tvRecordedScores"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/rectangl77"
+                    android:gravity="center"
+                    android:text="recorded scores"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <!--   <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_marginTop="550dp"
+               android:weightSum="2">
+
+               <LinearLayout
+                   android:id="@+id/llFindUrs"
+                   android:layout_width="match_parent"
+                   android:layout_height="@dimen/dp_40"
+                   android:layout_marginLeft="30dp"
+                   android:layout_marginRight="@dimen/dp_5"
+                   android:layout_weight="1"
+                   android:background="@drawable/find_yours_others">
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:layout_gravity="center"
+                       android:gravity="center"
+                       android:text="Find yours"
+                       android:textAllCaps="true"
+                       android:textColor="@color/white"
+                       android:textStyle="italic" />
+               </LinearLayout>
+
+               <LinearLayout
+                   android:id="@+id/llFindYoursOthers"
+                   android:layout_width="match_parent"
+                   android:layout_height="@dimen/dp_40"
+                   android:layout_marginLeft="@dimen/dp_5"
+                   android:layout_marginRight="@dimen/dp_30"
+                   android:layout_weight="1"
+                   android:background="@drawable/find_yours_others">
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:layout_gravity="center"
+                       android:gravity="center"
+                       android:text="Find for others"
+                       android:textAllCaps="true"
+                       android:textColor="@color/white"
+                       android:textStyle="italic" />
+
+               </LinearLayout>
+
+           </LinearLayout>
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent">
+
+               <TextView
+                   android:id="@+id/tvRecordedScores"
+                   android:layout_width="match_parent"
+                   android:layout_height="?actionBarSize"
+                   android:layout_gravity="bottom"
+                   android:background="@drawable/rectangl77"
+                   android:gravity="center"
+                   android:text="recorded scores"
+                   android:textAllCaps="true"
+                   android:textColor="@color/white"
+                   android:textStyle="bold" />
+           </LinearLayout>-->
+
+    </LinearLayout>
 
 </LinearLayout>

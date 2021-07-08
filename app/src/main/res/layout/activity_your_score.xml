@@ -4,266 +4,276 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bmi_back_ground_theam"
     android:orientation="vertical"
+    android:background="@drawable/track_bmi_bg"
     tools:context=".activity.newFeature.bmiCalculator.YourScoreActivity">
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:background="@drawable/bmi_back_ground_theam"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="23dp"
-            android:layout_weight="80">
-
-            <ImageView
-                android:id="@+id/ivBackArrow"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/dp_24"
-                android:src="@drawable/back_icon" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="20">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginRight="@dimen/dp_60"
-                android:fontFamily="@font/bebase_neue"
-                android:gravity="center"
-                android:text="Your score"
-                android:textColor="@color/white"
-                android:textSize="27sp"
-                android:textStyle="italic" />
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="88dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="30dp"
-                android:background="@drawable/bmi_score_bg"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:layout_marginLeft="23dp"
+                android:layout_weight="80">
+
+                <ImageView
+                    android:id="@+id/ivBackArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/dp_24"
+                    android:src="@drawable/back_icon" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="20">
 
                 <TextView
-                    android:layout_width="45dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="@dimen/dp_60"
                     android:fontFamily="@font/bebase_neue"
-                    android:gravity="center_vertical"
-                    android:paddingRight="@dimen/dp_10"
-                    android:text="BMI"
+                    android:gravity="center"
+                    android:text="Your score"
                     android:textColor="@color/white"
-                    android:textSize="22sp"
+                    android:textSize="27sp"
                     android:textStyle="italic" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/rectangle79"
-                    android:gravity="center">
+                    android:layout_height="88dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/bmi_score_bg"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="45dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:fontFamily="@font/bebase_neue"
+                        android:gravity="center_vertical"
+                        android:paddingRight="@dimen/dp_10"
+                        android:text="BMI"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        android:textStyle="italic" />
 
                     <LinearLayout
-                        android:layout_width="65dp"
-                        android:layout_height="25dp"
-                        android:background="@drawable/rectangle80">
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/rectangle79"
+                        android:gravity="center">
 
-                        <TextView
-                            android:id="@+id/tvYourBmiScore"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:fontFamily="@font/bebase_neue"
-                            android:gravity="center"
-                            android:text="22.4"
-                            android:textColor="@color/black_color"
-                            android:textStyle="italic" />
+                        <LinearLayout
+                            android:layout_width="65dp"
+                            android:layout_height="25dp"
+                            android:background="@drawable/rectangle80">
+
+                            <TextView
+                                android:id="@+id/tvYourBmiScore"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/bebase_neue"
+                                android:gravity="center"
+                                android:text="22.4"
+                                android:textColor="@color/black_color"
+                                android:textStyle="italic" />
+                        </LinearLayout>
+
                     </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="23dp"
-                android:layout_marginTop="27dp"
-                android:layout_marginRight="23dp">
-
-                <TextView
-                    android:id="@+id/tvShowBmiTxt"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="23dp"
+                    android:layout_marginTop="27dp"
+                    android:layout_marginRight="23dp">
+
+                    <TextView
+                        android:id="@+id/tvShowBmiTxt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/bebase_neue"
+                        android:gravity="center"
+                        android:text="Normal bmi"
+                        android:textColor="@color/white"
+                        android:textSize="27sp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="42dp"
+                    android:layout_marginTop="42dp"
+                    android:layout_marginRight="32dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="we need to ask you a few more details,so we ca structure content accordingly. like pace,calories,track your health and progress correctly. "
+                        android:textColor="@color/white"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="72dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/we_need_ask" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="42dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginRight="32dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/first_line" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/second_line" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/third_line" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/fourth_line" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="77dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/pinkbackground"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="21dp"
+                        android:layout_height="21dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="17dp"
+                        android:src="@drawable/pink_ovel" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="7dp"
+                        android:gravity="center_vertical"
+                        android:text="Water is crucial for healthy mind and body"
+                        android:textColor="@color/black_color"
+                        android:textStyle="normal" />
+
+                </LinearLayout>
+
+
+                <Button
+                    android:id="@+id/btnSaveData"
+                    android:layout_width="320dp"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="94dp"
+                    android:background="@drawable/btn_next_shape"
                     android:fontFamily="@font/bebase_neue"
-                    android:gravity="center"
-                    android:text="Normal bmi"
+                    android:text="Save"
+                    android:textAllCaps="true"
                     android:textColor="@color/white"
-                    android:textSize="27sp"
-                    android:textStyle="italic" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="42dp"
-                android:layout_marginTop="42dp"
-                android:layout_marginRight="32dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="we need to ask you a few more details,so we ca structure content accordingly. like pace,calories,track your health and progress correctly. "
-                    android:textColor="@color/white"
+                    android:textStyle="italic"
                     android:visibility="gone" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="72dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/we_need_ask" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="42dp"
-                android:layout_marginTop="35dp"
-                android:layout_marginRight="32dp"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/first_line" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/second_line" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/third_line" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/fourth_line" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="77dp"
-                android:layout_marginRight="30dp"
-                android:background="@drawable/pinkbackground"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="21dp"
-                    android:layout_height="21dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="17dp"
-                    android:src="@drawable/pink_ovel" />
-
-                <TextView
+                <LinearLayout
+                    android:id="@+id/llDiscard"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="7dp"
-                    android:gravity="center_vertical"
-                    android:text="Water is crucial for healthy mind and body"
-                    android:textColor="@color/black_color"
-                    android:textStyle="normal" />
-
-            </LinearLayout>
-
-
-            <Button
-                android:id="@+id/btnSaveData"
-                android:layout_width="320dp"
-                android:layout_height="@dimen/dp_40"
-                android:layout_gravity="center"
-                android:layout_marginTop="94dp"
-                android:background="@drawable/btn_next_shape"
-                android:fontFamily="@font/bebase_neue"
-                android:text="Save"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textStyle="italic"
-                android:visibility="gone" />
-
-            <LinearLayout
-                android:id="@+id/llDiscard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_35"
-                android:layout_marginTop="30dp"
-                android:layout_marginRight="@dimen/dp_35"
-                android:layout_marginBottom="40dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="21dp"
-                    android:layout_height="21dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="17dp"
-                    android:src="@drawable/cross" />
-
-                <ImageView
-                    android:id="@+id/ivDiscard"
-                    android:layout_width="150dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="17dp"
-                    android:src="@drawable/discard_submission"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/tvBtnFindYourBmi"
-                    android:layout_width="150dp"
-                    android:layout_height="32dp"
-                    android:layout_marginLeft="17dp"
-                    android:text="Find your BMI"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_35"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="@dimen/dp_35"
+                    android:layout_marginBottom="40dp"
                     android:gravity="center"
-                    android:textColor="@color/white"/>
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="21dp"
+                        android:layout_height="21dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="17dp"
+                        android:src="@drawable/cross" />
+
+                    <ImageView
+                        android:id="@+id/ivDiscard"
+                        android:layout_width="150dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="17dp"
+                        android:src="@drawable/discard_submission"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tvBtnFindYourBmi"
+                        android:layout_width="150dp"
+                        android:layout_height="32dp"
+                        android:layout_marginLeft="17dp"
+                        android:gravity="center"
+                        android:text="Find your BMI"
+                        android:textColor="@color/white" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+
 </LinearLayout>

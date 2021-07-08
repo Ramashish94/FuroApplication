@@ -103,39 +103,42 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
     }
 
     private void callFetchAllPlanApi() {
-        Util.isInternetConnected(getApplicationContext());
-        Util.showProgressDialog(getApplicationContext());
-        RestClient.getFetchAllPlan(getAccessessToken, new Callback<FetchAllPlanResponse>() {
-            @Override
-            public void onResponse(Call<FetchAllPlanResponse> call, Response<FetchAllPlanResponse> response) {
-                Util.dismissProgressDialog();
-                if (response.code() == 200) {
-                    if (response.body() != null && response.body().getStatus() != null) {
-                        if (response.body().getAllPlans() != null && response.body().getAllPlans().size() > 0) {
-                            // getGlass size
-                            getGlassSize(response.body().getGlassSize());
-                            //recommended plan
-                            setRecommendedData(response.body().getAllPlans());
-                            //for all plan
-                            notifyAllPlanAdapter(response.body().getAllPlans());
+        if (Util.isInternetConnected(getApplicationContext())) {
+            Util.showProgressDialog(getApplicationContext());
+            RestClient.getFetchAllPlan(getAccessessToken, new Callback<FetchAllPlanResponse>() {
+                @Override
+                public void onResponse(Call<FetchAllPlanResponse> call, Response<FetchAllPlanResponse> response) {
+                    Util.dismissProgressDialog();
+                    if (response.code() == 200) {
+                        if (response.body() != null && response.body().getStatus() != null) {
+                            if (response.body().getAllPlans() != null && response.body().getAllPlans().size() > 0) {
+                                // getGlass size
+                                getGlassSize(response.body().getGlassSize());
+                                //recommended plan
+                                setRecommendedData(response.body().getAllPlans());
+                                //for all plan
+                                notifyAllPlanAdapter(response.body().getAllPlans());
+                            } else {
+                                Toast.makeText(CreatePlaneActivity.this, "No any plan will be available. Please create a plan !", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
-                            Toast.makeText(CreatePlaneActivity.this, "No any plan will be available. Please create a plan !", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CreatePlaneActivity.this, response.code(), Toast.LENGTH_SHORT).show();
                         }
-                    } else {
-                        Toast.makeText(CreatePlaneActivity.this, response.code(), Toast.LENGTH_SHORT).show();
+                    } else if (response.code() == 500) {
+                        Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
+                    } else if (response.code() == 403) {
+                        Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
                     }
-                } else if (response.code() == 500) {
-                    Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
-                } else if (response.code() == 403) {
-                    Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
                 }
-            }
 
-            @Override
-            public void onFailure(Call<FetchAllPlanResponse> call, Throwable t) {
-                Toast.makeText(CreatePlaneActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailure(Call<FetchAllPlanResponse> call, Throwable t) {
+                    Toast.makeText(CreatePlaneActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            Toast.makeText(this, "Please check internet connection ! ", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void getGlassSize(GlassSize glassSize) {
@@ -217,11 +220,15 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
         ivStartJourney.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(getApplicationContext(), WaterIntakeCounterActivity.class);
-                intent.putExtra("planId", planId);
-                startActivity(intent);
-
+                if (isPalnSelected) {
+                    Intent intent = new Intent(getApplicationContext(), WaterIntakeCounterActivity.class);
+                    intent.putExtra("planId", planId);
+                    isPalnSelected = false;
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(CreatePlaneActivity.this, "Please select plan !", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         /*            holder.ivCircle.setBackgroundResource(R.drawable.bluecircle);
@@ -297,28 +304,33 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
     private void callCreatePlanApi() {
         PlaneCreateRequest planeCreateRequest = new PlaneCreateRequest();
         planeCreateRequest.setWater_take_in_ml(String.valueOf(getWaterMlSize));
-        Util.showProgressDialog(getApplicationContext());
-        RestClient.getPlaneCreate(getAccessessToken, planeCreateRequest, new Callback<PlaneCreateResponse>() {
-            @Override
-            public void onResponse(Call<PlaneCreateResponse> call, Response<PlaneCreateResponse> response) {
-                Util.dismissProgressDialog();
-                if (response.code() == 200) {
-                    if (response.body() != null && response.body().getStatus() != null) {
-                        Toast.makeText(CreatePlaneActivity.this, "new plan created!", Toast.LENGTH_SHORT).show();
-                        callFetchAllPlanApi();
-                    }
-                } else if (response.code() == 500) {
-                    Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
-                } else if (response.code() == 403) {
-                    Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
-                }
-            }
+        if (Util.isInternetConnected(getApplicationContext())) {
 
-            @Override
-            public void onFailure(Call<PlaneCreateResponse> call, Throwable t) {
-                Toast.makeText(CreatePlaneActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
-            }
-        });
+            Util.showProgressDialog(getApplicationContext());
+            RestClient.getPlaneCreate(getAccessessToken, planeCreateRequest, new Callback<PlaneCreateResponse>() {
+                @Override
+                public void onResponse(Call<PlaneCreateResponse> call, Response<PlaneCreateResponse> response) {
+                    Util.dismissProgressDialog();
+                    if (response.code() == 200) {
+                        if (response.body() != null && response.body().getStatus() != null) {
+                            Toast.makeText(CreatePlaneActivity.this, "new plan created!", Toast.LENGTH_SHORT).show();
+                            callFetchAllPlanApi();
+                        }
+                    } else if (response.code() == 500) {
+                        Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
+                    } else if (response.code() == 403) {
+                        Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<PlaneCreateResponse> call, Throwable t) {
+                    Toast.makeText(CreatePlaneActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            Toast.makeText(this, "Please check internet connection !", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -349,5 +361,9 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
         callFetchAllPlanApi();
     }
 
-
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        callFetchAllPlanApi();
+    }
 }

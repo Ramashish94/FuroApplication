@@ -32,9 +32,9 @@
                     <ImageView
                         android:id="@+id/ivBackIcon"
                         android:layout_width="@dimen/dp_25"
-                        android:layout_height="@dimen/dp_25"
+                        android:layout_height="@dimen/dp_20"
                         android:layout_weight="25"
-                        android:src="@drawable/back_black_arrow" />
+                        android:src="@drawable/setting_back_icon" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -44,13 +44,13 @@
                         android:gravity="center"
                         android:text="water intake counter"
                         android:textColor="@color/black_color"
-                        android:textSize="@dimen/sp_24"
+                        android:textSize="@dimen/dp_20"
                         android:textStyle="italic" />
 
                     <ImageView
                         android:id="@+id/ivSetting"
                         android:layout_width="@dimen/dp_25"
-                        android:layout_height="@dimen/dp_25"
+                        android:layout_height="@dimen/dp_20"
                         android:layout_weight="25"
                         android:src="@drawable/ic_settings_black_24dp" />
 
@@ -188,13 +188,13 @@
                         android:gravity="bottom"
                         android:orientation="horizontal">
 
-                        <TextView
+                       <!-- <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_gravity="bottom"
                             android:layout_weight="80"
                             android:gravity="center"
-                            android:textColor="@color/vertical_line_color" />
+                            android:textColor="@color/vertical_line_color" />-->
 
                         <TextView
                             android:id="@+id/tvGlassSize"

@@ -91,7 +91,7 @@ public class YourScoreActivity extends AppCompatActivity {
 
         getBmi = (int) bmiScore;
         if (getBmi < 19) {
-            tvShowBmiTxt.setText("Under eight BMI");
+            tvShowBmiTxt.setText("Under Weight BMI");
         } else if (getBmi >= 19 && getBmi <= 24) {
             tvShowBmiTxt.setText("Healthy BMI");
         } else if (getBmi >= 25 && getBmi <= 29) {

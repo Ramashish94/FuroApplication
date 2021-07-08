@@ -220,15 +220,15 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
         ivStartJourney.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isPalnSelected) {
+               // if (isPalnSelected) {
                     Intent intent = new Intent(getApplicationContext(), WaterIntakeCounterActivity.class);
                     intent.putExtra("planId", planId);
-                    isPalnSelected = false;
+                   // isPalnSelected = false;
                     startActivity(intent);
                     finish();
-                } else {
+                /*} else {
                     Toast.makeText(CreatePlaneActivity.this, "Please select plan !", Toast.LENGTH_SHORT).show();
-                }
+                }*/
             }
         });
         /*            holder.ivCircle.setBackgroundResource(R.drawable.bluecircle);

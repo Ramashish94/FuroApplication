@@ -59,8 +59,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_16"
                     android:layout_marginLeft="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_16"
                     android:orientation="horizontal">
 
 
@@ -90,10 +90,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="1.5dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/dp_16"
                     android:layout_marginLeft="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_16"
                     android:layout_marginRight="@dimen/dp_16"
                     android:background="@drawable/viewline" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_sounds"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="5"
+                    tools:listitem="@layout/item_notification_sound" />
+
 
                 <LinearLayout
                     android:layout_width="match_parent"

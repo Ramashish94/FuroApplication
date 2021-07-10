@@ -1,7 +1,5 @@
 package com.app.furoapp.utils;
 
-import static android.provider.ContactsContract.Directory.PACKAGE_NAME;
-
 public class Constants {
 
     // public static final String ACCESS_TOKEN = "access_token";
@@ -69,6 +67,6 @@ public class Constants {
     public static final String FIND_TYPE = "typeBmiVal";
     public static final String GENDER_VAL = "genderVal";
     public static final String USER_AGE_SELECT = "user_age";
-
+    public static final String NOTIFICATION_SOUND_LIST_KEY = "NOTIFICATION_SOUND_LIST_KEY";
 
 }

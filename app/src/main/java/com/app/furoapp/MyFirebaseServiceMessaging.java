@@ -1,33 +1,27 @@
 package com.app.furoapp;
 
-import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
-import android.provider.Settings;
 import android.text.format.DateUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
-import androidx.core.util.DebugUtils;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.app.furoapp.activity.FriendsActivity;
 import com.app.furoapp.activity.SplashActivity;
 import com.app.furoapp.activity.challengeRecieve.ChallengeRecieveActivity;
 import com.app.furoapp.activity.challengeRecieveMap.ChallengeRecieveMapActivity;
 import com.app.furoapp.fragment.profileSection.ProfileHomeNewActivity;
-import com.app.furoapp.model.FriendModel.Friends;
+import com.app.furoapp.model.Settings.NotificationSound;
+import com.app.furoapp.utils.BaseUtil;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -36,9 +30,8 @@ import com.google.firebase.messaging.RemoteMessage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
 import java.util.Map;
-
-import static androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance;
 
 public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
 
@@ -49,8 +42,6 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
     Intent intent;
     int x, flag, content_id, challengeid, userid, checkflag;
     String friendsAct, type, message = "";
-
-
 
 
     @Override
@@ -173,18 +164,15 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
             } else if (type.equalsIgnoreCase("Challenge")) {
                 if (flag == 1) {
                     intent = new Intent(this, ChallengeRecieveMapActivity.class);
-                    intent.putExtra("challenegid", x);
                 } else {
                     intent = new Intent(this, ChallengeRecieveActivity.class);
-                    intent.putExtra("challenegid", x);
                 }
+                intent.putExtra("challenegid", x);
             } else if (type.equalsIgnoreCase("Content")) {
                 if (content_id == 0) {
                     intent = new Intent(this, SplashActivity.class);
-
                 } else {
                     intent = new Intent(this, com.app.furoapp.activity.ContentFeedDetailActivity.class);
-
                 }
             } else if (type.equalsIgnoreCase("Profile")) {
                 intent = new Intent(this, ProfileHomeNewActivity.class);
@@ -217,6 +205,15 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             NotificationCompat.Builder notificationBuilder;
+            int selectedId = FuroPrefs.getInt(this, Constants.NOTIFICATION_SOUND_LIST_KEY, 0);
+            List<NotificationSound> list = BaseUtil.getNotificationSoundList(this);
+            if (selectedId != 0) {
+                for (int selected = 0; selected < list.size(); selected++) {
+                    if (selectedId == list.get(selected).getId()) {
+                        defaultSoundUri = list.get(selected).getPath();
+                    }
+                }
+            }
 
             /*check for  oreo check  for notification builder */
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -237,7 +234,6 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
                     .setAutoCancel(true)
                     .addAction(new NotificationCompat.Action(R.mipmap.app_icon,
                             "Fitness Quotient by Furo Sports", pendingIntent))
-
                     .setSound(defaultSoundUri)
                     // set Style for large text notification
                     .setContentIntent(pendingIntent);
@@ -351,6 +347,10 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
  *
  * @param message A Map with key value pair that hold
  * information regarding pending Intent that navigate to corresponding  screen
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
  * <p>
  * Add notification small transparent icon
  * <p>

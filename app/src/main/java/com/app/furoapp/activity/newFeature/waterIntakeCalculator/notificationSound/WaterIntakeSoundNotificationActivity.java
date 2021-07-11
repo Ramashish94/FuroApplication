@@ -1,14 +1,14 @@
 package com.app.furoapp.activity.newFeature.waterIntakeCalculator.notificationSound;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.app.furoapp.R;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.CreatePlaneActivity;
@@ -16,6 +16,7 @@ import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
 public class WaterIntakeSoundNotificationActivity extends AppCompatActivity {
+
     public TabLayout tbSetting;
     public TabItem tab1NotificationSound, tab2SameAsDevice;
     public ViewPager viewPager;

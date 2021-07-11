@@ -1,29 +1,18 @@
 package com.app.furoapp.activity.newFeature.StepsTracker;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
-import com.app.furoapp.adapter.NotificationSoundAdapter;
-import com.app.furoapp.model.Settings.NotificationSound;
-import com.app.furoapp.utils.BaseUtil;
-import com.app.furoapp.utils.Constants;
-import com.app.furoapp.utils.FuroPrefs;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class StepCounterSettingsActivity extends AppCompatActivity implements NotificationSoundAdapter.Callback {
+public class StepCounterSettingsActivity extends AppCompatActivity /*implements NotificationSoundAdapter.Callback */{
     public ImageView ivBackIcon;
     private Intent intent;
-    private RecyclerView rvSounds;
-    private NotificationSoundAdapter notificationSoundAdapter;
+    //private RecyclerView rvSounds;
+   // private NotificationSoundAdapter notificationSoundAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +21,13 @@ public class StepCounterSettingsActivity extends AppCompatActivity implements No
 
         findViews();
         clickEvent();
+
     }
 
     private void findViews() {
         ivBackIcon = findViewById(R.id.ivBackIcon);
-        rvSounds = findViewById(R.id.rv_sounds);
-        setNotificationSoundAdapter();
+        //rvSounds = findViewById(R.id.rv_sounds);
+        //setNotificationSoundAdapter();
     }
 
     private void clickEvent() {
@@ -48,7 +38,8 @@ public class StepCounterSettingsActivity extends AppCompatActivity implements No
         });
     }
 
-    private void setNotificationSoundAdapter() {
+    /*notification sound*/
+   /* private void setNotificationSoundAdapter() {
         int selectedId = FuroPrefs.getInt(this, Constants.NOTIFICATION_SOUND_LIST_KEY, 0);
         List<NotificationSound> list = BaseUtil.getNotificationSoundList(this);
         if (selectedId != 0) {
@@ -65,7 +56,7 @@ public class StepCounterSettingsActivity extends AppCompatActivity implements No
         MediaPlayer mediaPlayer = MediaPlayer.create(this, notificationSound.getPath());
         mediaPlayer.start();
         notificationSoundAdapter.updateItem(pos);
-    }
+    }*/
 
     @Override
     public void onBackPressed() {

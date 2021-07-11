@@ -48,7 +48,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/dp_500"
             android:layout_margin="@dimen/dp_16"
             android:background="@drawable/white_bg_create_bg"
             android:orientation="vertical">
@@ -57,20 +57,19 @@
                 android:id="@+id/tbSetting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
-                app:tabSelectedTextColor="@color/colorAccent"
+                android:background="@color/white"
+                app:tabIndicatorColor="@color/light_blue"
+                app:tabSelectedTextColor="@color/light_blue"
+                app:tabIndicator="@null"
                 app:tabTextColor="@color/black_color">
-
-                <!--                app:tabIndicatorColor="@color/colorAccent"
--->
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tab1NotificationSound"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Notification Sound"/>
+                    android:text="Notification Sound" />
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tab2SameAsDevice"

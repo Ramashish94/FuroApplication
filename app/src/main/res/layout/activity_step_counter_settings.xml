@@ -95,14 +95,14 @@
                     android:layout_marginRight="@dimen/dp_16"
                     android:background="@drawable/viewline" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_sounds"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:itemCount="5"
-                    tools:listitem="@layout/item_notification_sound" />
+                <!-- <androidx.recyclerview.widget.RecyclerView
+                     android:id="@+id/rv_sounds"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:orientation="vertical"
+                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                     tools:itemCount="5"
+                     tools:listitem="@layout/item_notification_sound"/>-->
 
 
                 <LinearLayout

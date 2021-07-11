@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.furoapp.R;
+import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.weeklyResponse.CurrentWeekStepCounter;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.adapter.AllPlanAdapter;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.adapter.WaterInMlAdapter;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchAllPlan.AllPlan;
@@ -32,6 +33,7 @@ import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
+import com.github.mikephil.charting.data.Entry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -149,11 +151,19 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
 
     private void setRecommendedData(List<AllPlan> allPlans) {
         if (allPlans != null && allPlans.size() > 0) {
+            for (AllPlan allPlan : allPlans) {
+                if (allPlan.getIsRecomended() == 1) {
+                    tvEveryTime.setText("Every " + allPlan.getRecommendedDurationInMins() + " minutes");
+                    waterTakenInMl = Integer.parseInt(String.valueOf(allPlan.getWaterTakeInMl()));
+                    tvShowsMl.setText("" + waterTakenInMl + " ml");
+                    planId = String.valueOf(allPlan.getId());
 
-            tvEveryTime.setText("Every " + allPlans.get(0).getRecommendedDurationInMins() + " minutes");
-            waterTakenInMl = Integer.parseInt(String.valueOf(allPlans.get(0).getWaterTakeInMl()));
-            tvShowsMl.setText("" + waterTakenInMl + " ml");
-            planId = String.valueOf(allPlans.get(0).getId());
+                   /* tvEveryTime.setText("Every " + allPlans.get(0).getRecommendedDurationInMins() + " minutes");
+                    waterTakenInMl = Integer.parseInt(String.valueOf(allPlans.get(0).getWaterTakeInMl()));
+                    tvShowsMl.setText("" + waterTakenInMl + " ml");
+                    planId = String.valueOf(allPlans.get(0).getId());*/
+                }
+            }
         }
 
     }
@@ -221,12 +231,12 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
         ivStartJourney.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // if (isPalnSelected) {
-                    Intent intent = new Intent(getApplicationContext(), WaterIntakeCounterActivity.class);
-                    intent.putExtra("planId", planId);
-                   // isPalnSelected = false;
-                    startActivity(intent);
-                    finish();
+                // if (isPalnSelected) {
+                Intent intent = new Intent(getApplicationContext(), WaterIntakeCounterActivity.class);
+                intent.putExtra("planId", planId);
+                // isPalnSelected = false;
+                startActivity(intent);
+                finish();
                 /*} else {
                     Toast.makeText(CreatePlaneActivity.this, "Please select plan !", Toast.LENGTH_SHORT).show();
                 }*/

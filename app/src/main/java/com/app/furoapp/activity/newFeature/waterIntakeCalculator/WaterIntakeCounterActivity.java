@@ -111,6 +111,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
     public GoogleSignInClient mGoogleSignInClient;
     public AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -327,7 +328,8 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         ivSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), WaterIntakeSoundNotificationActivity.class);/*SettingWaterIntakeActivity*/
+                //Intent intent = new Intent(getApplicationContext(), WaterIntakeSoundNotificationActivity.class);/*SettingWaterIntakeActivity*/
+                Intent intent = new Intent(getApplicationContext(), SettingWaterIntakeActivity.class);/**/
                 startActivity(intent);
                 finish();
             }
@@ -336,6 +338,8 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         ivBackIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                intent = new Intent(getApplicationContext(), CreatePlaneActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -442,7 +446,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 Util.dismissProgressDialog();
                 if (response.code() == 200) {
                     if (response.body() != null) {
-                       // Toast.makeText(WaterIntakeCounterActivity.this, "Cup created successfully", Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(WaterIntakeCounterActivity.this, "Cup created successfully", Toast.LENGTH_SHORT).show();
                         callDailyWaterIntakeUpdatePlanApi();
                         // setData(response.body().getAddUserCup());
                     }
@@ -530,7 +534,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 Util.dismissProgressDialog();
                 if (response.code() == 200) {
                     if (response.body() != null) {
-                       // Toast.makeText(WaterIntakeCounterActivity.this, "Custom cup size created successfully", Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(WaterIntakeCounterActivity.this, "Custom cup size created successfully", Toast.LENGTH_SHORT).show();
                         callCupCreateApi();
                     }
                 } else if (response.code() == 500) {
@@ -772,5 +776,12 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        intent = new Intent(getApplicationContext(), CreatePlaneActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
 }

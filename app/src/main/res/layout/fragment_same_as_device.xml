@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.newFeature.waterIntakeCalculator.notificationSound.SameAsDeviceFragment">
+
+  <!--  <View
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginRight="@dimen/dp_16"
+        android:background="@drawable/viewline" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_35"
+        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_16"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_20"
+            android:layout_gravity="bottom"
+            android:text="FQS "
+            android:textColor="@color/black_color"
+            android:textStyle="normal" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_35"
+            android:layout_marginRight="@dimen/dp_35"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_20"
+                android:layout_gravity="bottom"
+                android:text="Q1. What is this app useful to me ?  "
+                android:textColor="@color/black_color"
+                android:textStyle="normal" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_35"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_35"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_20"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:text="Find answer about course,Q and As and review "
+                android:textColor="@color/vertical_line_color" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_35"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginRight="@dimen/dp_35"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_20"
+                android:layout_gravity="bottom"
+                android:text="Q2. How i can fully utilise the app ?  "
+                android:textColor="@color/black_color"
+                android:textStyle="normal" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_35"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_35"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_20"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:text="Find answer about course,Q and As and review "
+                android:textColor="@color/vertical_line_color" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_35"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginRight="@dimen/dp_35"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_20"
+                android:layout_gravity="bottom"
+                android:text="Q3. How i can fully utilise the app ?"
+                android:textColor="@color/black_color"
+                android:textStyle="normal" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_35"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_35"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_20"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:text="Find answer about course,Q and As and review "
+                android:textColor="@color/vertical_line_color" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_35"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginRight="@dimen/dp_35"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_20"
+                android:layout_gravity="bottom"
+                android:text="Q4. How i can fully utilise the app ?  "
+                android:textColor="@color/black_color"
+                android:textStyle="normal" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_35"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_35"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_20"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:text="Find answer about course,Q and As and review "
+                android:textColor="@color/vertical_line_color" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_35"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginRight="@dimen/dp_35"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_20"
+                android:layout_gravity="bottom"
+                android:text="Q5. How i can fully utilise the app ?  "
+                android:textColor="@color/black_color"
+                android:textStyle="normal" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_35"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_35"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_20"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:text="Find answer about course,Q and As and review "
+                android:textColor="@color/vertical_line_color" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

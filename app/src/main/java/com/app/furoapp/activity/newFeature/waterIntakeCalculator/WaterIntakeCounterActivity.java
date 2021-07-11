@@ -29,6 +29,7 @@ import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.UserChangeGlassSizeResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.cupCreate.AddUserCup;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.cupCreate.CupCreateResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.notificationSound.WaterIntakeSoundNotificationActivity;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.restorePlanModel.AllTimeData;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.restorePlanModel.CurrentPlan;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.restorePlanModel.MonthlyData;
@@ -326,7 +327,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         ivSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SettingWaterIntakeActivity.class);
+                Intent intent = new Intent(getApplicationContext(), WaterIntakeSoundNotificationActivity.class);/*SettingWaterIntakeActivity*/
                 startActivity(intent);
                 finish();
             }

@@ -68,7 +68,7 @@ public class LikeListAdapter extends RecyclerView.Adapter<LikeListAdapter.MyView
             final String videoNewId = videoid;
             holder.ivPlayIcon.setOnClickListener(view -> {
                 FuroPrefs.putString(context, "Youtube_Video_Id", videoNewId);
-                contentLikeCallback.contentLikeItem(position,holder.getAdapterPosition());
+                contentLikeCallback.contentLikeItem(position, holder.getAdapterPosition());
             });
 
            /* holder.ivAllImage.setOnClickListener(view -> {
@@ -81,7 +81,7 @@ public class LikeListAdapter extends RecyclerView.Adapter<LikeListAdapter.MyView
                 holder.ivAllImage.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        contentLikeCallback.contentLikeItem2(position,likeOnPost.getPostId());
+                        contentLikeCallback.contentLikeItem2(position, likeOnPost.getPostId());
                     }
                 });
             }
@@ -105,6 +105,7 @@ public class LikeListAdapter extends RecyclerView.Adapter<LikeListAdapter.MyView
         }
         return "";
     }
+
     @Override
     public int getItemCount() {
         if (likeOnPostList != null && likeOnPostList.size() > 0) {
@@ -118,6 +119,7 @@ public class LikeListAdapter extends RecyclerView.Adapter<LikeListAdapter.MyView
         public ImageView ivAllImage, ivTopIcon, ivPlayIcon;
         public YouTubePlayerView youtubebe_player;
         public TextView tvTopTitel, tvBottomTittal;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             ivAllImage = itemView.findViewById(R.id.ivAllImage);
@@ -129,9 +131,9 @@ public class LikeListAdapter extends RecyclerView.Adapter<LikeListAdapter.MyView
     }
 
     public interface ContentLikeCallback {
-        void contentLikeItem(int pos,int videoId);
+        void contentLikeItem(int pos, int videoId);
 
-        void contentLikeItem2(int pos,int id);
+        void contentLikeItem2(int pos, int id);
 
     }
 }

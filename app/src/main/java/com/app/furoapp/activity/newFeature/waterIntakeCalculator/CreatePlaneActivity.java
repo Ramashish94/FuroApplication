@@ -149,6 +149,7 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
 
     private void setRecommendedData(List<AllPlan> allPlans) {
         if (allPlans != null && allPlans.size() > 0) {
+
             tvEveryTime.setText("Every " + allPlans.get(0).getRecommendedDurationInMins() + " minutes");
             waterTakenInMl = Integer.parseInt(String.valueOf(allPlans.get(0).getWaterTakeInMl()));
             tvShowsMl.setText("" + waterTakenInMl + " ml");

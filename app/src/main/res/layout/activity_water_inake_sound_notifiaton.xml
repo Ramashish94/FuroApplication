@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg13"
+    tools:context=".activity.newFeature.waterIntakeCalculator.notificationSound.WaterIntakeSoundNotificationActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_3"
+        android:layout_marginRight="@dimen/dp_3"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_marginTop="@dimen/dp_12"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ivBackIcon"
+                android:layout_width="@dimen/dp_25"
+                android:layout_height="@dimen/dp_20"
+                android:layout_weight="25"
+                android:src="@drawable/setting_back_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:fontFamily="@font/bebase_neue"
+                android:gravity="center"
+                android:text="Settings"
+                android:textColor="@color/black_color"
+                android:textSize="@dimen/dp_20"
+                android:textStyle="italic" />
+
+            <ImageView
+                android:id="@+id/ivSetting"
+                android:layout_width="@dimen/dp_25"
+                android:layout_height="@dimen/dp_25"
+                android:layout_weight="25" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dp_16"
+            android:background="@drawable/white_bg_create_bg"
+            android:orientation="vertical">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tbSetting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                app:tabSelectedTextColor="@color/colorAccent"
+                app:tabTextColor="@color/black_color">
+
+                <!--                app:tabIndicatorColor="@color/colorAccent"
+-->
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tab1NotificationSound"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Notification Sound"/>
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tab2SameAsDevice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Same as device " />
+            </com.google.android.material.tabs.TabLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_16"
+                android:background="@drawable/viewline" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dp_10" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

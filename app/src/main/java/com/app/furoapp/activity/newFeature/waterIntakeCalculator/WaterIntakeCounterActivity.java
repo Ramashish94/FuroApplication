@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.app.furoapp.R;
 import com.app.furoapp.activity.LoginTutorialScreen;
+import com.app.furoapp.activity.newFeature.StepsTracker.FqStepsCounterActivity;
 import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.DataItem;
 import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.TipsResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.adapter.SelectCupSizeAdapter;
@@ -293,7 +294,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             public void onClick(View v) {
                 includePopMenuOfSelectCupSize.setVisibility(View.VISIBLE);
                 clWaterIntakeCounter.setClickable(false);
-                tvChangeCupSizeAndCustomSize.setText("What is general glass size/quantity that you consume every time you ? ");
+                tvChangeCupSizeAndCustomSize.setText("What is the general glass size/quantity that you consume every time? ");
                 operateRacyData();
                 callFetchGlassApi();
             }
@@ -673,9 +674,14 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                     Util.dismissProgressDialog();
                     if (response.code() == 200) {
                         //   Log.d(TAG, "onResponse() called with: , response = [" + response.body() + "]");
-                        tipsList = response.body().getData().getData();
-                        tipsListSize = tipsList.size();
-                        tipsHandler.postDelayed(tipsRunnable, 0);
+                        if (response.body().getData() != null && response.body().getData().getData() != null && response.body().getData().getData().size() > 0) {
+                            tipsList = response.body().getData().getData();
+                            tipsListSize = tipsList.size();
+                            tipsHandler.postDelayed(tipsRunnable, 0);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "No tips data found ", Toast.LENGTH_SHORT).show();
+
+                        }
                     } else {
                         if (response.code() == 500) {
                             Toast.makeText(getApplicationContext(), "Internal server error !", Toast.LENGTH_SHORT).show();
@@ -698,13 +704,15 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
 
     private Runnable tipsRunnable = new Runnable() {
         public void run() {
-            if (tipsList != null || tipsList.size() > 0) {
+            if (tipsList != null && tipsList.size() > 0) {
                 if (tipsStart == (tipsListSize - 1)) {
                     tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph());
                     tipsStart = 0;
                 } else {
-                    tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph());
-                    tipsStart++;
+                    if (tipsList != null && tipsList.size() > 0) {
+                        tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph());
+                        tipsStart++;
+                    }
                 }
             }
             tipsHandler.postDelayed(this, 5000);

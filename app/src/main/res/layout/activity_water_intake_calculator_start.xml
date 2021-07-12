@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/water_intake_backgrond"
+    android:background="@drawable/water_intake_bag_new"
     android:orientation="vertical"
     tools:context=".activity.newFeature.waterIntakeCalculator.WaterIntakeStartActivity">
 <!--waterintake_new_back-->

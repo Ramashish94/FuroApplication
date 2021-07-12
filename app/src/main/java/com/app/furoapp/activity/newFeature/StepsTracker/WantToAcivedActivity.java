@@ -105,6 +105,7 @@ public class WantToAcivedActivity extends AppCompatActivity {
                 intent = new Intent(getApplicationContext(), FqStepsCounterActivity.class);
                 intent.putExtra("getAchievedVal", getAchievedVal);
                 startActivity(intent);
+                finish();
             } else {
                 Toast.makeText(this, "Please select which you want to achieved !", Toast.LENGTH_SHORT).show();
             }
@@ -114,7 +115,6 @@ public class WantToAcivedActivity extends AppCompatActivity {
             intent = new Intent(getApplicationContext(), CreateYourStepGoalActivity.class);
             startActivity(intent);
             finish();
-
         });
 
     }
@@ -125,5 +125,4 @@ public class WantToAcivedActivity extends AppCompatActivity {
         llStayActive.setBackgroundResource(R.drawable.bg_view_clip);
         selectedView.setBackgroundResource(R.drawable.white_bg_for_what_we_achived);
     }
-
 }

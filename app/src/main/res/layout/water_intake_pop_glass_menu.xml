@@ -48,7 +48,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="What is general glass size/quantity that you consume every time you ?"
+                    android:text="What is the general glass size/quantity that you consume every time?"
                     android:textColor="@color/black_color"
                     android:gravity="center"
                     android:layout_marginTop="25dp"
@@ -78,7 +78,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Dont worry you will als have an option to add custom quantities in the daily dashboard."
+                android:text="Don't worry you will also have an option to add custom quantities in the daily dashboard."
                 android:textColor="@color/vertical_line_color"
                 android:gravity="center"
                 android:layout_marginTop="@dimen/dp_5"

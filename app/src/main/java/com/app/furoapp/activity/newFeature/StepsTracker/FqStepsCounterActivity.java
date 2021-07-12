@@ -274,8 +274,8 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         });
         tvModified.setOnClickListener(v -> {
             incudeAlertDialog.setVisibility(View.GONE);
-           /* Intent intent = new Intent(getApplicationContext(),WantToAcivedActivity.class);
-            startActivity(intent);*/
+            intent = new Intent(getApplicationContext(), WantToAcivedActivity.class);
+            startActivity(intent);
             finish();
         });
 
@@ -522,13 +522,17 @@ public class FqStepsCounterActivity extends AppCompatActivity {
 
     private Runnable tipsRunnable = new Runnable() {
         public void run() {
-            if (tipsList != null || tipsList.size() > 0) {
+            if (tipsList != null && tipsList.size() > 0) {
+                tvPrizmTips.setVisibility(View.VISIBLE);
                 if (tipsStart == (tipsListSize - 1)) {
                     tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph());
                     tipsStart = 0;
                 } else {
-                    tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph());
-                    tipsStart++;
+                    if (tipsList != null && tipsList.size() > 0) {
+                        tvPrizmTips.setVisibility(View.VISIBLE);
+                        tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph());
+                        tipsStart++;
+                    }
                 }
             }
             tipsHandler.postDelayed(this, 5000);
@@ -545,9 +549,13 @@ public class FqStepsCounterActivity extends AppCompatActivity {
                     Util.dismissProgressDialog();
                     if (response.code() == 200) {
                         Log.d(TAG, "onResponse() called with: , response = [" + response.body() + "]");
-                        tipsList = response.body().getData().getData();
-                        tipsListSize = tipsList.size();
-                        tipsHandler.postDelayed(tipsRunnable, 0);
+                        if (response.body().getData() != null && response.body().getData().getData() != null && response.body().getData().getData().size() > 0) {
+                            tipsList = response.body().getData().getData();
+                            tipsListSize = tipsList.size();
+                            tipsHandler.postDelayed(tipsRunnable, 0);
+                        } else {
+                            Toast.makeText(FqStepsCounterActivity.this, "No tips data found", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         if (response.code() == 500) {
                             Toast.makeText(FqStepsCounterActivity.this, "Internal server error !", Toast.LENGTH_SHORT).show();
@@ -614,5 +622,11 @@ public class FqStepsCounterActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        intent = new Intent(getApplicationContext(), WantToAcivedActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

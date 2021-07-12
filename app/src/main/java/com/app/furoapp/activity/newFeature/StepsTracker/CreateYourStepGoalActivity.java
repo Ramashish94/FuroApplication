@@ -105,7 +105,7 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
                 startActivity(intent);
                 finish();
             } else {
-                Toast.makeText(this, "Please select your goal !", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please select your goal!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -127,11 +127,11 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
         Log.d(TAG, "stepSelectItem() called with: position = [" + position + "], selectNumber = [" + selectNumber + "]");
 
         if (selectNumber < 5000) {
-            tvRecommendedText.setText("Your step count is under 5000. This may not be enough. Increase the number of steps !");
+            tvRecommendedText.setText("Your step count is under 5000. This may not be enough. Increase the number of steps!");
         } else if (selectNumber >= 5000 && selectNumber <= 12000) {
-            tvRecommendedText.setText("Great! You are good to go !");
+            tvRecommendedText.setText("Great! You are good to go!");
         } else if (selectNumber >= 12100) {
-            tvRecommendedText.setText("Your step count is exceeding 12,000 steps.This may result into exhaustion. Decrease the number of steps !");
+            tvRecommendedText.setText("Your step count is exceeding 12,000 steps.This may result into exhaustion. Decrease the number of steps!");
         }
 
     }

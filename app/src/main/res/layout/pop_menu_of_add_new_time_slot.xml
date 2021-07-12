@@ -81,7 +81,7 @@
                     android:layout_marginTop="@dimen/dp_40"
                     android:layout_marginRight="22dp"
                     android:gravity="center"
-                    android:text="When do you prefer to go out for walks ? Set an alarm and never miss your workout session again ! "
+                    android:text="When do you prefer to go out for walks? Set an alarm and never miss your workout session again! "
                     android:textColor="@color/vertical_line_color"
                     android:textStyle="italic" />
 

@@ -31,7 +31,7 @@
                     android:layout_marginLeft="@dimen/dp_10"
                     android:fontFamily="@font/bebas_neue_bold"
                     android:gravity="center_vertical"
-                    android:text="What do you want to achieve ?"
+                    android:text="What do you want to achieve?"
                     android:textColor="@color/white"
                     android:textSize="@dimen/dp_20"
                     android:textStyle="italic" />
@@ -43,7 +43,7 @@
                     android:layout_marginTop="@dimen/dp_30"
                     android:layout_marginRight="22dp"
                     android:layout_marginLeft="@dimen/dp_10"
-                    android:text="Our aim is keep you healthy and active. Select a goal and kick-start your journey ! "
+                    android:text="Our aim is to keep you healthy and active. Select a goal and kick-start your journey! "
                     android:textColor="@color/vertical_line_color"
                     android:textStyle="italic" />
 
@@ -100,7 +100,7 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/bebas_neue_bold"
                             android:gravity="center_horizontal"
-                            android:text="Loose weight"
+                            android:text="Lose weight"
                             android:textColor="@color/white"
                             android:textStyle="italic" />
 

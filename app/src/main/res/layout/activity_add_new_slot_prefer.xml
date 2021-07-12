@@ -39,11 +39,12 @@
                         android:src="@drawable/prefertext" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:layout_marginTop="22dp"
-                        android:text="Good habits build healthy lifestyle. Enjoy a power - packed run !  "
+                        android:gravity="center"
+                        android:text="Good habits build healthy lifestyle. Enjoy a \n power-packed run!  "
                         android:textColor="@color/text_color"
                         android:textStyle="italic" />
 

@@ -300,7 +300,7 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="tips"
+                            tools:text="tips"
                             android:textColor="@color/black_color" />
 
                     </LinearLayout>

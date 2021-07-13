@@ -237,22 +237,22 @@ public class FqStepsCounterActivity extends AppCompatActivity {
             startActivity(intent);
 
         });
-        tvMarkLap.setOnClickListener(v -> {
-            stepCounterTime();// step counter functionality implimentation
-            // start Service.
-            startService(new Intent(getBaseContext(), StepCountingServiceFuro.class));
-            // register our BroadcastReceiver by passing in an IntentFilter. * identifying the message that is broadcasted by using static string "BROADCAST_ACTION".
-            registerReceiver(broadcastReceiver, new IntentFilter(StepCountingServiceFuro.BROADCAST_ACTION));
-            isServiceStopped = false;
+//        tvMarkLap.setOnClickListener(v -> {
+//            stepCounterTime();// step counter functionality implimentation
+//            // start Service.
+//            startService(new Intent(getBaseContext(), StepCountingServiceFuro.class));
+//            // register our BroadcastReceiver by passing in an IntentFilter. * identifying the message that is broadcasted by using static string "BROADCAST_ACTION".
+//            registerReceiver(broadcastReceiver, new IntentFilter(StepCountingServiceFuro.BROADCAST_ACTION));
+//            isServiceStopped = false;
+//
+//            llMarkLapAndStop.setVisibility(View.GONE);
+//            tvDiActivate.setVisibility(View.VISIBLE);
+//        });
 
-            llMarkLapAndStop.setVisibility(View.GONE);
-            tvDiActivate.setVisibility(View.VISIBLE);
-        });
-
-        tvStop.setOnClickListener(v -> {
-            customHandler.removeCallbacks(updateTimerThread);
-            finish();
-        });
+//        tvStop.setOnClickListener(v -> {
+//            customHandler.removeCallbacks(updateTimerThread);
+//            finish();
+//        });
 
         llCongratsClosedIcon.setOnClickListener(v -> {
             includeCongratsStepsTrack.setVisibility(View.GONE);
@@ -523,13 +523,11 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     private Runnable tipsRunnable = new Runnable() {
         public void run() {
             if (tipsList != null && tipsList.size() > 0) {
-                tvPrizmTips.setVisibility(View.VISIBLE);
                 if (tipsStart == (tipsListSize - 1)) {
                     tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph());
                     tipsStart = 0;
                 } else {
                     if (tipsList != null && tipsList.size() > 0) {
-                        tvPrizmTips.setVisibility(View.VISIBLE);
                         tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph());
                         tipsStart++;
                     }
@@ -614,11 +612,15 @@ public class FqStepsCounterActivity extends AppCompatActivity {
                 finish();
               /*  finishAffinity();
                 System.exit(0);*/
-
-
             }
         });
         dialog.show();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
     }
 

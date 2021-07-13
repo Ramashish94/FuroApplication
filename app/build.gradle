@@ -7,10 +7,10 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.app.furoapp"
-        minSdkVersion 21
+        minSdkVersion 26
         targetSdkVersion 29
-        versionCode 50/*48*/
-        versionName "2.1.29"/*2.1.27*/
+        versionCode 51/*50 48*/
+        versionName "2.1.70"/*2.1.27.70*/
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="?actionBarSize"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="32dp">
 
         <LinearLayout
@@ -40,7 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:layout_marginTop="@dimen/dp_30"
+                    android:layout_marginTop="@dimen/dp_25"
                     android:layout_marginRight="22dp"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:text="Our aim is to keep you healthy and active. Select a goal and kick-start your journey! "
@@ -53,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginTop="@dimen/dp_35"
+                android:layout_marginTop="@dimen/dp_30"
                 android:layout_marginRight="@dimen/dp_10"
                 android:orientation="vertical">
 
@@ -228,7 +228,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
-        android:layout_margin="42dp"
+        android:layout_marginLeft="42dp"
+        android:layout_marginRight="42dp"
         android:layout_marginBottom="32dp"
         android:gravity="bottom"
         android:orientation="vertical">

@@ -159,7 +159,21 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllSlotAd
                 // display a toast with changed values of time picker
                 // Toast.makeText(getApplicationContext(), hourOfDay + "  " + minute, Toast.LENGTH_SHORT).show();
                 //  time.setText("Time is :: " + hourOfDay + " : " + minute); // set the current time in text view
-                getTimeHours = hourOfDay + ":" + minute;
+                String min = "";
+                if (minute < 10) {
+                    min = "0" + minute;
+                } else {
+                    min = String.valueOf(minute);
+                }
+
+                String hrs = "";
+                if (hourOfDay < 10) {
+                    hrs = "0" + hourOfDay;
+                } else {
+                    hrs = String.valueOf(hourOfDay);
+                }
+
+                getTimeHours = hrs + ":" + min;
                 Log.d("Morning Time", getTimeHours);
                 isTimeSlotSelected = true;
             }

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +29,7 @@ import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -54,6 +56,8 @@ public class WakeUpTimeActivity extends AppCompatActivity implements FetchGlassA
     private int getExerciseTimeInMin;
     // public int ConvTime = 60;
     private boolean isWakeUpTimeSelected, isBedTimeSelected;
+//    private int hour;
+//    private int minutes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +99,24 @@ public class WakeUpTimeActivity extends AppCompatActivity implements FetchGlassA
                 // display a toast with changed values of time picker
                 // Toast.makeText(getApplicationContext(), hourOfDay + "  " + minute, Toast.LENGTH_SHORT).show();
                 //  time.setText("Time is :: " + hourOfDay + " : " + minute); // set the current time in text view
-                getMrngHours = hourOfDay + ":" + minute;
+              /*  SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                String str = sdf.format(new Date());*/
+
+                String min = "";
+                if (minute < 10) {
+                    min = "0" + minute;
+                } else {
+                    min = String.valueOf(minute);
+                }
+
+                String hrs = "";
+                if (hourOfDay < 10) {
+                    hrs = "0" + hourOfDay;
+                } else {
+                    hrs = String.valueOf(hourOfDay);
+                }
+
+                getMrngHours = hrs + ":" + min;
                 Log.d("Morning Time", getMrngHours);
                 isWakeUpTimeSelected = true;
             }
@@ -108,12 +129,26 @@ public class WakeUpTimeActivity extends AppCompatActivity implements FetchGlassA
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
                 // display a toast with changed values of time picker
                 //  time.setText("Time is :: " + hourOfDay + " : " + minute); // set the current time in text view
-                getEveningBedHours = hourOfDay + ":" + minute;
+
+                String min = "";
+                if (minute < 10) {
+                    min = "0" + minute;
+                } else {
+                    min = String.valueOf(minute);
+                }
+
+                String hrs = "";
+                if (hourOfDay < 10) {
+                    hrs = "0" + hourOfDay;
+                } else {
+                    hrs = String.valueOf(hourOfDay);
+                }
+
+                getEveningBedHours = hrs + ":" + min;
                 Log.d("Bed Time", getEveningBedHours);
                 isBedTimeSelected = true;
             }
         });
-
     }
 
     private void clickListener() {

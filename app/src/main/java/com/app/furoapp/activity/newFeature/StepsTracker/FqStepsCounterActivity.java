@@ -552,7 +552,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
             getDistanceMiAndKm = (float) (getDetectedSteps * 78) / (float) 100;
             tvDistance.setText("" + getDistanceMiAndKm + " m");
         }
-      
+
 
 
     }

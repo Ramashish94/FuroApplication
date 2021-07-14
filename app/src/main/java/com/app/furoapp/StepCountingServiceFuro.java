@@ -5,6 +5,7 @@ package com.app.furoapp;
  */
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -15,6 +16,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -25,6 +27,8 @@ import android.widget.Toast;
 import androidx.core.app.NotificationCompat;
 
 import com.app.furoapp.R;
+import com.app.furoapp.activity.newFeature.ContentEngagementModule.userView.View;
+import com.app.furoapp.activity.newFeature.StepsTracker.FqStepsCounterActivity;
 
 import java.util.Date;
 
@@ -58,7 +62,9 @@ public class StepCountingServiceFuro extends Service implements SensorEventListe
     int counter = 0;
     // ___________________________________________________________________________ \\
 
-    /** Called when the service is being created. */
+    /**
+     * Called when the service is being created.
+     */
     @Override
     public void onCreate() {
         super.onCreate();
@@ -70,10 +76,13 @@ public class StepCountingServiceFuro extends Service implements SensorEventListe
         // ___________________________________________________________________________ \\
     }
 
-    /** The service is starting, due to a call to startService() */
+    /**
+     * The service is starting, due to a call to startService()
+     */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.v("Service", "Start");
+        //startForeground(1001, getNotification());
 
         showNotification();
 
@@ -109,13 +118,17 @@ public class StepCountingServiceFuro extends Service implements SensorEventListe
         return START_STICKY;
     }
 
-    /** A client is binding to the service with bindService() */
+    /**
+     * A client is binding to the service with bindService()
+     */
     @Override
     public IBinder onBind(Intent intent) {
         return null;
     }
 
-    /** Called when The service is no longer used and is being destroyed */
+    /**
+     * Called when The service is no longer used and is being destroyed
+     */
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -126,7 +139,9 @@ public class StepCountingServiceFuro extends Service implements SensorEventListe
         dismissNotification();
     }
 
-    /** Called when the overall system is running low on memory, and actively running processes should trim their memory usage. */
+    /**
+     * Called when the overall system is running low on memory, and actively running processes should trim their memory usage.
+     */
     @Override
     public void onLowMemory() {
         super.onLowMemory();
@@ -154,7 +169,7 @@ public class StepCountingServiceFuro extends Service implements SensorEventListe
                 stepCounter = (int) event.values[0]; // Assign the StepCounter Sensor event value to it.
             }
             newStepCounter = countSteps - stepCounter; // By subtracting the stepCounter variable from the Sensor event value - We start a new counting sequence from 0. Where the Sensor event value will increase, and stepCounter value will be only initialised once.
-           // Toast.makeText(this, "FQ_counter - " + String.valueOf(newStepCounter), Toast.LENGTH_LONG).show();
+            // Toast.makeText(this, "FQ_counter - " + String.valueOf(newStepCounter), Toast.LENGTH_LONG).show();
 
         }
 
@@ -163,7 +178,7 @@ public class StepCountingServiceFuro extends Service implements SensorEventListe
         if (event.sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
             int detectSteps = (int) event.values[0];
             currentStepsDetected += detectSteps; //steps = steps + detectSteps; // This variable will be initialised with the STEP_DETECTOR event value (1), and will be incremented by itself (+1) for as long as steps are detected.
-          //  Toast.makeText(this, "FQ_counter - " + String.valueOf(currentStepsDetected), Toast.LENGTH_LONG).show();
+            //  Toast.makeText(this, "FQ_counter - " + String.valueOf(currentStepsDetected), Toast.LENGTH_LONG).show();
 
         }
 
@@ -181,7 +196,6 @@ public class StepCountingServiceFuro extends Service implements SensorEventListe
     // _ Manage notification. _
     private void showNotification() {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
-        notificationBuilder.setContentTitle("Pedometer");
         notificationBuilder.setContentText("Pedometer session is running in the background.");
         notificationBuilder.setSmallIcon(R.mipmap.app_icon);
         notificationBuilder.setColor(Color.parseColor("#6600cc"));
@@ -191,13 +205,54 @@ public class StepCountingServiceFuro extends Service implements SensorEventListe
         notificationBuilder.setPriority(Notification.PRIORITY_HIGH);
         notificationBuilder.setOngoing(true);
 
-        //Intent resultIntent = new Intent(this, MainActivity.class);
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, new Intent(), 0);
+        Intent resultIntent = new Intent(this, FqStepsCounterActivity.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0,resultIntent/*new Intent()*/, 0);
         notificationBuilder.setContentIntent(resultPendingIntent);
 
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(0, notificationBuilder.build());
 
+    }
+
+    private Notification getNotification() {
+        NotificationCompat.Builder notificationBuilder = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "test";
+            String description = "test2";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("default-channel", name, importance);
+            channel.setDescription(description);
+            // Don't see these lines in your code...
+            NotificationManager notificationManager = this.getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        notificationBuilder = new NotificationCompat.Builder(getApplicationContext(),
+                "default-channel")
+                .setContentTitle("Pedometer")
+                .setContentText("Pedometer session is running in the background.")
+                .setSmallIcon(R.mipmap.app_icon)
+                .setVibrate(null)
+                .setAutoCancel(true)
+                .setColor(Color.parseColor("#19CFE6"));
+        int colorLED = Color.argb(255, 0, 255, 0);
+        notificationBuilder.setLights(colorLED, 500, 500);
+        // To  make sure that the Notification LED is triggered.
+        notificationBuilder.setPriority(Notification.PRIORITY_HIGH);
+        notificationBuilder.setOngoing(true);
+
+        Intent resultIntent = new Intent(this, FqStepsCounterActivity.class);
+
+        resultIntent.putExtra("Counted_Step_Int", newStepCounter);
+        resultIntent.putExtra("Counted_Step", String.valueOf(newStepCounter));
+        // add step detector to intent.
+        resultIntent.putExtra("Detected_Step_Int", currentStepsDetected);
+        resultIntent.putExtra("Detected_Step", String.valueOf(currentStepsDetected));
+
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent/*new Intent()*/, 0);
+        notificationBuilder.setContentIntent(resultPendingIntent);
+
+        return notificationBuilder.build();
     }
 
     private void dismissNotification() {

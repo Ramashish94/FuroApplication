@@ -345,7 +345,6 @@ public class FqStepsCounterActivity extends AppCompatActivity {
             tvTotNumberOfSteps.setText("Of " + selectNumberAchievedVal + " Steps");
         }
         int goal = FuroPrefs.getInt(getApplicationContext(),"achivedSteps",0);
-        Toast.makeText(this, ""+goal, Toast.LENGTH_SHORT).show();
         tvTotNumberOfSteps.setText("/"+goal);
     }
 

@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="wrap_content"
     android:padding="8dp">
+
+
+
 
     <RelativeLayout
         android:id="@+id/icon_container"
@@ -10,24 +14,40 @@
         android:gravity="center"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/big_icon"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
 
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:paddingBottom="1dp"
-            android:background="@drawable/pedometer"
-            android:paddingLeft="4dp"
-            android:paddingRight="6dp"
-            />
+            <ImageView
+                android:id="@+id/big_icon"
 
-        <ImageView
-            android:id="@+id/small_icon"
-            android:layout_width="18.2dp"
-            android:layout_height="18.2dp"
-            android:layout_alignBottom="@id/big_icon"
-            android:layout_alignRight="@id/big_icon"
-            />
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+              
+                android:background="@mipmap/app_icon_new"
+                android:paddingLeft="4dp"
+                android:paddingRight="6dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:textColor="@color/black_btn"
+                android:hint="0"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:textSize="@dimen/dp_10"
+
+                android:layout_height="wrap_content"
+                android:text="Furo sports"
+                />
+
+
+        </LinearLayout>
+
+
+
+
+
 
     </RelativeLayout>
 
@@ -42,8 +62,11 @@
         android:orientation="horizontal"
         android:paddingLeft="6dp">
 
+
+
         <LinearLayout
             android:layout_width="0dp"
+            android:layout_marginLeft="@dimen/dp_25"
 
             android:layout_weight="1"
             android:orientation="vertical"
@@ -116,4 +139,4 @@
 
       />
 
-</RelativeLayout>
+</LinearLayout>

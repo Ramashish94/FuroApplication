@@ -21,6 +21,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> -->
     <!-- <uses-permission android:name="android.permission.WAKE_LOCK"  /> -->
@@ -547,8 +548,22 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".StepCountingServiceFuro" />
-        <service android:name=".services.SensorBackgroundService" />
+
+
+        <receiver
+            android:name=".activity.newFeature.StepsTracker.userStepsGoalModel.Restarter"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="restartservice" />
+            </intent-filter>
+        </receiver>
+        <service android:name=".StepCountingServiceFuro"
+            android:enabled="true"
+
+
+
+            />
     </application>
 
 </manifest>

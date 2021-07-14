@@ -125,7 +125,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
             String userCount = String.valueOf(intentq.getIntExtra("counter_s", 0));
             String userCal = String.valueOf(intentq.getFloatExtra("calo", 0.0f));
             boolean isActivate = intentq.getBooleanExtra("hideActivateButton", false);
-            String time= intentq.getStringExtra("time");
+            String time = intentq.getStringExtra("time");
 
             if (isActivate == true) {
                 tvActivateStepsCounter.setVisibility(View.INVISIBLE);
@@ -134,9 +134,9 @@ public class FqStepsCounterActivity extends AppCompatActivity {
             }
 
 
-
             tvCalories.setText("" + userCal);
             tvTimes.setText(time);
+
             tvCountsSteps.setText(userCount);
         }
 
@@ -247,15 +247,19 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         tvActivateStepsCounter.setOnClickListener(v -> {
             tvDiActivate.setVisibility(View.VISIBLE);
             tvActivateStepsCounter.setVisibility(View.GONE);
-            FuroPrefs.putFloat(this, "colories", 0.0f);
-            FuroPrefs.putInt(this, "step_Count", 0);
+
 
             stepCounterTime();// step counter functionality implimentation
             // start Service.
+            FuroPrefs.putFloat(this, "colories", 0);
+            FuroPrefs.putString(getApplication(), "time", "0");
+            FuroPrefs.putInt(this, "step_Count", 0);
             startService(new Intent(getBaseContext(), StepCountingServiceFuro.class));
             // register our BroadcastReceiver by passing in an IntentFilter. * identifying the message that is broadcasted by using static string "BROADCAST_ACTION".
             registerReceiver(broadcastReceiver, new IntentFilter(StepCountingServiceFuro.BROADCAST_ACTION));
             isServiceStopped = false;
+
+
         });
 
 
@@ -274,6 +278,10 @@ public class FqStepsCounterActivity extends AppCompatActivity {
                 // stop Service.
                 stopService(new Intent(getBaseContext(), StepCountingServiceFuro.class));
                 isServiceStopped = true;
+                FuroPrefs.putFloat(this, "colories", 0.0f);
+                FuroPrefs.putInt(this, "step_Count", 0);
+
+
             }
 
             callUserStepGoalApi();
@@ -336,6 +344,9 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         } else {
             tvTotNumberOfSteps.setText("Of " + selectNumberAchievedVal + " Steps");
         }
+        int goal = FuroPrefs.getInt(getApplicationContext(),"achivedSteps",0);
+        Toast.makeText(this, ""+goal, Toast.LENGTH_SHORT).show();
+        tvTotNumberOfSteps.setText("/"+goal);
     }
 
     public void stepCounterTime() {
@@ -506,6 +517,8 @@ public class FqStepsCounterActivity extends AppCompatActivity {
 
     // ___ retrieve data from intent & set data to textviews __ \\
     private void updateViews(Intent intentData) {
+
+
         // retrieve data out of the intent.
         countedStep = intentData.getStringExtra("Counted_Step");
         DetectedStep = intentData.getStringExtra("Detected_Step");
@@ -518,9 +531,12 @@ public class FqStepsCounterActivity extends AppCompatActivity {
 
         /*added*/
         getCalculateCalories = (float) (getDetectedSteps * 0.045);
+
         tvCalories.setText("" + getCalculateCalories + " Cal");
         FuroPrefs.putFloat(this, "colories", getCalculateCalories);
+
         int steps = Integer.parseInt(countedStep);
+
         FuroPrefs.putInt(this, "step_Count", steps);
         Log.d(TAG, "onSensorChanged() called with: Calories = [" + calculateCalories((long) getCalculateCalories) + "]");
 
@@ -552,7 +568,6 @@ public class FqStepsCounterActivity extends AppCompatActivity {
             getDistanceMiAndKm = (float) (getDetectedSteps * 78) / (float) 100;
             tvDistance.setText("" + getDistanceMiAndKm + " m");
         }
-
 
 
     }

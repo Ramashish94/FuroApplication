@@ -48,7 +48,7 @@ public class SplashActivity extends AppCompatActivity  {
 
         UpdateApiCall();
 
-       /* FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(SplashActivity.this, new OnSuccessListener<InstanceIdResult>() {
+       FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(SplashActivity.this, new OnSuccessListener<InstanceIdResult>() {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
                 String newToken = instanceIdResult.getToken();
@@ -58,7 +58,6 @@ public class SplashActivity extends AppCompatActivity  {
 
             }
         });
-*/
 
     }
 

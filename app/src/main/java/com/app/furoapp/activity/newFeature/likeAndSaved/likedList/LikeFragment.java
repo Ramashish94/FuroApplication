@@ -112,6 +112,8 @@ public class LikeFragment extends Fragment implements LikeListAdapter.ContentLik
         likeOnPostList.addAll(saved);
         if (likeOnPostList != null && likeOnPostList.size() > 0) {
             likeListAdapter.notifyDataSetChanged();
+        }else {
+            Toast.makeText(getApplicationContext(), "No likes records founds ", Toast.LENGTH_SHORT).show();
         }
     }
 

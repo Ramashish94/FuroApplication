@@ -52,7 +52,6 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
         if (remoteMessage.getData().size() > 0) {
             Log.d("payload", "Message data payload: " + remoteMessage.getData());
 
-
             try {
                 //  String type = remoteMessage.getData().get("Type");
 
@@ -127,8 +126,13 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
                         checkflag = obj.getInt("check_flag");
                         sendBackgroundForegroundNotification(remoteMessage.getData(), message);
                         break;
-                }
 
+                    /*added by me*/
+                   /* case Constants.title:
+                        Log.d(TAG, remoteMessage.getData().toString() + "From: " + remoteMessage.getFrom());
+                        Log.d("title", remoteMessage.getData().toString());
+                        message = obj.getString("message");*/
+                }
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -204,6 +208,9 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             NotificationCompat.Builder notificationBuilder;
+
+            /*added */
+            //if (type.equalsIgnoreCase("NOTIFICATION_SOUND_LIST_KEY"))
             int selectedId = FuroPrefs.getInt(this, Constants.NOTIFICATION_SOUND_LIST_KEY, 0);
             List<NotificationSound> list = BaseUtil.getNotificationSoundList(this);
             if (selectedId != 0) {
@@ -213,6 +220,7 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
                     }
                 }
             }
+            Log.d("defaultSoundUri", String.valueOf(defaultSoundUri));
 
             /*check for  oreo check  for notification builder */
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -346,6 +354,12 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
  *
  * @param message A Map with key value pair that hold
  * information regarding pending Intent that navigate to corresponding  screen
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
  * <p>
  * Add notification small transparent icon
  * <p>

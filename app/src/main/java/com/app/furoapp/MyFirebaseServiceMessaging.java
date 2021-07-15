@@ -16,6 +16,7 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 
 import com.app.furoapp.activity.FriendsActivity;
+import com.app.furoapp.activity.HomeMainActivity;
 import com.app.furoapp.activity.SplashActivity;
 import com.app.furoapp.activity.challengeRecieve.ChallengeRecieveActivity;
 import com.app.furoapp.activity.challengeRecieveMap.ChallengeRecieveMapActivity;
@@ -42,6 +43,7 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
     Intent intent;
     int x, flag, content_id, challengeid, userid, checkflag;
     String friendsAct, type, message = "";
+    private NotificationManager notificationManager;
 
 
     @Override
@@ -128,10 +130,10 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
                         break;
 
                     /*added by me*/
-                   /* case Constants.title:
-                        Log.d(TAG, remoteMessage.getData().toString() + "From: " + remoteMessage.getFrom());
-                        Log.d("title", remoteMessage.getData().toString());
-                        message = obj.getString("message");*/
+                    case Constants.WATER_INTAKE:
+                        message = obj.getString("message");
+                        sendBackgroundForegroundNotification(remoteMessage.getData(), message);
+                        break;
                 }
 
             } catch (JSONException e) {
@@ -157,9 +159,9 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
      */
     private void sendBackgroundForegroundNotification(Map<String, String> message, String body) {
 
-
-        /*Shown notification only when you have data object model*/
-
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder;
 
         try {
             if (type.equalsIgnoreCase("Friend")) {
@@ -198,29 +200,26 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
             } else if (type.equalsIgnoreCase("Pendingfriend")) {
                 intent = new Intent(this, FriendsActivity.class);
 
+            }else if (type.equalsIgnoreCase(Constants.WATER_INTAKE)){
+                intent=new Intent(this, HomeMainActivity.class);
+                int selectedId = FuroPrefs.getInt(this, Constants.NOTIFICATION_SOUND_LIST_KEY, 0);
+                List<NotificationSound> list = BaseUtil.getNotificationSoundList(this);
+                if (selectedId != 0) {
+                    for (int selected = 0; selected < list.size(); selected++) {
+                        if (selectedId == list.get(selected).getId()) {
+                            defaultSoundUri = list.get(selected).getPath();
+                        }
+                    }
+                }
+                Log.d(TAG, "sendBackgroundForegroundNotification() called with: selectedId = [" + selectedId +"]");
             }
 
 
-            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+           intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
 
-            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            NotificationCompat.Builder notificationBuilder;
 
-            /*added */
-            //if (type.equalsIgnoreCase("NOTIFICATION_SOUND_LIST_KEY"))
-            int selectedId = FuroPrefs.getInt(this, Constants.NOTIFICATION_SOUND_LIST_KEY, 0);
-            List<NotificationSound> list = BaseUtil.getNotificationSoundList(this);
-            if (selectedId != 0) {
-                for (int selected = 0; selected < list.size(); selected++) {
-                    if (selectedId == list.get(selected).getId()) {
-                        defaultSoundUri = list.get(selected).getPath();
-                    }
-                }
-            }
-            Log.d("defaultSoundUri", String.valueOf(defaultSoundUri));
 
             /*check for  oreo check  for notification builder */
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -354,6 +353,14 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
  *
  * @param message A Map with key value pair that hold
  * information regarding pending Intent that navigate to corresponding  screen
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
  * <p>
  * Add notification small transparent icon
  * <p>

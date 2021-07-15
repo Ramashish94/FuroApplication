@@ -68,7 +68,7 @@ public class Constants {
     public static final String GENDER_VAL = "genderVal";
     public static final String USER_AGE_SELECT = "user_age";
     public static final String NOTIFICATION_SOUND_LIST_KEY = "NOTIFICATION_SOUND_LIST_KEY";
-    public static final String title = "timeslotnotify";
-    public static final String waterIntakeTime = "waterIntakeTime";
+    public static final String TIME_SLOT_NOTIFY = "timeslotnotify";
+    public static final String WATER_INTAKE = "Water Intake";
 
 }

@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.app.furoapp.R;
 import com.app.furoapp.activity.newFeature.StepsTracker.padometer.PedoMeterMainActivity;
+import com.app.furoapp.utils.FuroPrefs;
 
 public class WantToAcivedActivity extends AppCompatActivity {
     public ImageView ivContinue, ivAddNewSlot;
@@ -104,6 +105,7 @@ public class WantToAcivedActivity extends AppCompatActivity {
                 //intent = new Intent(getApplicationContext(), PedoMeterMainActivity.class);
                 intent = new Intent(getApplicationContext(), FqStepsCounterActivity.class);
                 intent.putExtra("getAchievedVal", getAchievedVal);
+                FuroPrefs.putInt(getApplicationContext(),"achivedSteps", Integer.parseInt(getAchievedVal));
                 startActivity(intent);
                 finish();
             } else {

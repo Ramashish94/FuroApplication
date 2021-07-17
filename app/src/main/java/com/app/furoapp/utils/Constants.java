@@ -70,5 +70,6 @@ public class Constants {
     public static final String NOTIFICATION_SOUND_LIST_KEY = "NOTIFICATION_SOUND_LIST_KEY";
     public static final String TIME_SLOT_NOTIFY = "timeslotnotify";
     public static final String WATER_INTAKE = "Water Intake";
+    public static final String WATER_INTAKE_PLAN = "planId";
 
 }

@@ -20,6 +20,7 @@ import com.app.furoapp.activity.HomeMainActivity;
 import com.app.furoapp.activity.SplashActivity;
 import com.app.furoapp.activity.challengeRecieve.ChallengeRecieveActivity;
 import com.app.furoapp.activity.challengeRecieveMap.ChallengeRecieveMapActivity;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.WaterIntakeCounterActivity;
 import com.app.furoapp.fragment.profileSection.ProfileHomeNewActivity;
 import com.app.furoapp.model.Settings.NotificationSound;
 import com.app.furoapp.utils.BaseUtil;
@@ -43,7 +44,7 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
     Intent intent;
     int x, flag, content_id, challengeid, userid, checkflag;
     String friendsAct, type, message = "";
-    private NotificationManager notificationManager;
+    public Uri defaultSoundUri;
 
 
     @Override
@@ -160,7 +161,7 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
     private void sendBackgroundForegroundNotification(Map<String, String> message, String body) {
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder;
 
         try {
@@ -201,7 +202,6 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
                 intent = new Intent(this, FriendsActivity.class);
 
             }else if (type.equalsIgnoreCase(Constants.WATER_INTAKE)){
-                intent=new Intent(this, HomeMainActivity.class);
                 int selectedId = FuroPrefs.getInt(this, Constants.NOTIFICATION_SOUND_LIST_KEY, 0);
                 List<NotificationSound> list = BaseUtil.getNotificationSoundList(this);
                 if (selectedId != 0) {
@@ -211,6 +211,7 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
                         }
                     }
                 }
+                intent=new Intent(this, WaterIntakeCounterActivity.class);
                 Log.d(TAG, "sendBackgroundForegroundNotification() called with: selectedId = [" + selectedId +"]");
             }
 
@@ -218,7 +219,6 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
-
 
 
             /*check for  oreo check  for notification builder */

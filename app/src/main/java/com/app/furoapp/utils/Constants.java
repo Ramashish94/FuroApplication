@@ -71,5 +71,6 @@ public class Constants {
     public static final String NOTIFICATION_STEP_TRACKER_SELECTED_SOUND_KEY = "NOTIFICATION_STEP_TRACKER_SELECTED_SOUND_KEY";
     public static final String TIME_SLOT_NOTIFY = "timeslotnotify";
     public static final String WATER_INTAKE = "Water Intake";
+    public static final String WATER_INTAKE_PLAN = "planId";
 
 }

@@ -233,7 +233,8 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
             public void onClick(View v) {
                 // if (isPalnSelected) {
                 Intent intent = new Intent(getApplicationContext(), WaterIntakeCounterActivity.class);
-                intent.putExtra("planId", planId);
+                FuroPrefs.putString(getApplicationContext(), Constants.WATER_INTAKE_PLAN, planId);
+                // intent.putExtra("planId", planId);
                 // isPalnSelected = false;
                 startActivity(intent);
                 finish();

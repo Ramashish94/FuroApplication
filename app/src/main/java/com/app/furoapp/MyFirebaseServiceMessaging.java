@@ -403,6 +403,8 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
  * Add notification small transparent icon
  * <p>
  * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
  ***//*
 
     private void sendBackgroundForegroundNotification(Map<String, String> message) {

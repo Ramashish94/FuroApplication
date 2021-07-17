@@ -60,7 +60,7 @@ public class NotificationSoundFragment extends Fragment implements NotificationS
     }
 
     private void setNotificationSoundAdapter() {
-        int selectedId = FuroPrefs.getInt(getActivity(), Constants.NOTIFICATION_SOUND_LIST_KEY, 0);
+        int selectedId = FuroPrefs.getInt(getActivity(), Constants.NOTIFICATION_WATER_INTAKE_SELECTED_SOUND_KEY, 0);
         List<NotificationSound> list = BaseUtil.getNotificationSoundList(getActivity());
         if (selectedId != 0) {
             for (int selected = 0; selected < list.size(); selected++) {

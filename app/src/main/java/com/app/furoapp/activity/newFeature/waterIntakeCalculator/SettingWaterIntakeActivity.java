@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.StepsTracker.AddNewSlotPreferActivity;
 import com.app.furoapp.adapter.NotificationSoundAdapter;
 import com.app.furoapp.model.Settings.NotificationSound;
 import com.app.furoapp.utils.BaseUtil;
@@ -84,7 +83,7 @@ public class SettingWaterIntakeActivity extends AppCompatActivity implements Not
 
 
     private void setNotificationSoundAdapter() {
-        int selectedId = FuroPrefs.getInt(this, Constants.NOTIFICATION_SOUND_LIST_KEY, 0);
+        int selectedId = FuroPrefs.getInt(this, Constants.NOTIFICATION_WATER_INTAKE_SELECTED_SOUND_KEY, 0);
         List<NotificationSound> list = BaseUtil.getNotificationSoundList(this);
         if (selectedId != 0) {
             for (int selected = 0; selected < list.size(); selected++) {

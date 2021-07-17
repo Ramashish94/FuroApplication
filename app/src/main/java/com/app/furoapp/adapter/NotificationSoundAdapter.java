@@ -78,8 +78,9 @@ public class NotificationSoundAdapter extends RecyclerView.Adapter<NotificationS
         for (int change = 0; change < notificationSoundList.size(); change++) {
             notificationSoundList.get(change).setSelected(change == pos);
         }
-        FuroPrefs.putInt(context, Constants.NOTIFICATION_SOUND_LIST_KEY, notificationSoundList.get(pos).getId());
+        FuroPrefs.putInt(context, Constants.NOTIFICATION_WATER_INTAKE_SELECTED_SOUND_KEY, notificationSoundList.get(pos).getId());
         notifyDataSetChanged();
+
     }
 
     public interface Callback {

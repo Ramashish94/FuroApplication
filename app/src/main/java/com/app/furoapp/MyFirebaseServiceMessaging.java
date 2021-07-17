@@ -7,13 +7,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.text.format.DateUtils;
 import android.util.Log;
-
-import androidx.core.app.NotificationCompat;
 
 import com.app.furoapp.activity.FriendsActivity;
 import com.app.furoapp.activity.HomeMainActivity;
@@ -158,10 +157,10 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
      *                information regarding pending Intent that navigate to corresponding  screen
      */
     private void sendBackgroundForegroundNotification(Map<String, String> message, String body) {
-
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notificationBuilder;
+        Notification.Builder notificationBuilder;
 
         try {
             if (type.equalsIgnoreCase("Friend")) {
@@ -200,9 +199,10 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
             } else if (type.equalsIgnoreCase("Pendingfriend")) {
                 intent = new Intent(this, FriendsActivity.class);
 
-            }else if (type.equalsIgnoreCase(Constants.WATER_INTAKE)){
-                intent=new Intent(this, HomeMainActivity.class);
-                int selectedId = FuroPrefs.getInt(this, Constants.NOTIFICATION_SOUND_LIST_KEY, 0);
+            } else if (type.equalsIgnoreCase(Constants.WATER_INTAKE)) {
+                importance = NotificationManager.IMPORTANCE_LOW;
+                intent = new Intent(this, HomeMainActivity.class);
+                int selectedId = FuroPrefs.getInt(this, Constants.NOTIFICATION_WATER_INTAKE_SELECTED_SOUND_KEY, 0);
                 List<NotificationSound> list = BaseUtil.getNotificationSoundList(this);
                 if (selectedId != 0) {
                     for (int selected = 0; selected < list.size(); selected++) {
@@ -211,34 +211,29 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
                         }
                     }
                 }
-                Log.d(TAG, "sendBackgroundForegroundNotification() called with: selectedId = [" + selectedId +"]");
+                Log.d(TAG, "sendBackgroundForegroundNotification() called with: selectedId = [" + selectedId + "]");
             }
-
-
-           intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
 
-
-
             /*check for  oreo check  for notification builder */
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                int importance = NotificationManager.IMPORTANCE_DEFAULT;
                 NotificationChannel notificationChannel = new NotificationChannel("ID", "Name", importance);
                 notificationManager.createNotificationChannel(notificationChannel);
-                notificationBuilder = new NotificationCompat.Builder(this, notificationChannel.getId());
+                notificationBuilder = new Notification.Builder(this, notificationChannel.getId());
             } else
-                notificationBuilder = new NotificationCompat.Builder(this, (Notification) null);
+                notificationBuilder = new Notification.Builder(this, "Notification");
             //notificationBuilder=NotificationCompat.Builder(Context context, String channelId)
 
             notificationBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.app_icon))
                     .setContentTitle(getString(R.string.app_name))
                     .setStyle(new
-                            NotificationCompat.BigTextStyle().bigText(body))
+                            Notification.BigTextStyle().bigText(body))
                     // .setContentText(body).setColor(getResources().getColor(R.color.white))
                     .setSubText(DateUtils.getRelativeTimeSpanString(this, System.currentTimeMillis()))
                     .setAutoCancel(true)
-                    .addAction(new NotificationCompat.Action(R.mipmap.app_icon,
+                    .addAction(new Notification.Action(R.mipmap.app_icon,
                             "Fitness Quotient by Furo Sports", pendingIntent))
                     .setSound(defaultSoundUri)
                     // set Style for large text notification
@@ -256,7 +251,8 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
 
                 notificationManager.notify("My Voice Data", (int) System.currentTimeMillis()
                         /*ID of notification */, notificationBuilder.build());
-
+                MediaPlayer mediaPlayer = MediaPlayer.create(this, defaultSoundUri);
+                mediaPlayer.start();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -353,6 +349,18 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
  *
  * @param message A Map with key value pair that hold
  * information regarding pending Intent that navigate to corresponding  screen
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
  * <p>
  * Add notification small transparent icon
  * <p>

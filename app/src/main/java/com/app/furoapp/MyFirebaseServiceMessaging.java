@@ -7,15 +7,15 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.media.AudioAttributes;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.text.format.DateUtils;
 import android.util.Log;
 
-import androidx.core.app.NotificationCompat;
-
 import com.app.furoapp.activity.FriendsActivity;
+import com.app.furoapp.activity.HomeMainActivity;
 import com.app.furoapp.activity.SplashActivity;
 import com.app.furoapp.activity.challengeRecieve.ChallengeRecieveActivity;
 import com.app.furoapp.activity.challengeRecieveMap.ChallengeRecieveMapActivity;
@@ -32,6 +32,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
 
@@ -42,6 +43,7 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
     Intent intent;
     int x, flag, content_id, challengeid, userid, checkflag;
     String friendsAct, type, message = "";
+    private NotificationManager notificationManager;
 
 
     @Override
@@ -51,7 +53,6 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
 
         if (remoteMessage.getData().size() > 0) {
             Log.d("payload", "Message data payload: " + remoteMessage.getData());
-
 
             try {
                 //  String type = remoteMessage.getData().get("Type");
@@ -127,8 +128,13 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
                         checkflag = obj.getInt("check_flag");
                         sendBackgroundForegroundNotification(remoteMessage.getData(), message);
                         break;
-                }
 
+                    /*added by me*/
+                    case Constants.WATER_INTAKE:
+                        message = obj.getString("message");
+                        sendBackgroundForegroundNotification(remoteMessage.getData(), message);
+                        break;
+                }
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -152,10 +158,10 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
      *                information regarding pending Intent that navigate to corresponding  screen
      */
     private void sendBackgroundForegroundNotification(Map<String, String> message, String body) {
-
-
-        /*Shown notification only when you have data object model*/
-
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Notification.Builder notificationBuilder;
 
         try {
             if (type.equalsIgnoreCase("Friend")) {
@@ -194,44 +200,45 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
             } else if (type.equalsIgnoreCase("Pendingfriend")) {
                 intent = new Intent(this, FriendsActivity.class);
 
+            } else if (type.equalsIgnoreCase(Constants.WATER_INTAKE)) {
+//                importance = NotificationManager.IMPORTANCE_HIGH;
+                intent = new Intent(this, HomeMainActivity.class);
+                int selectedId = FuroPrefs.getInt(this, Constants.NOTIFICATION_WATER_INTAKE_SELECTED_SOUND_KEY, 0);
+                List<NotificationSound> list = BaseUtil.getNotificationSoundList(this);
+                if (selectedId != 0) {
+                    for (int selected = 0; selected < list.size(); selected++) {
+                        if (selectedId == list.get(selected).getId()) {
+                            defaultSoundUri = list.get(selected).getPath();
+                        }
+                    }
+                }
+                Log.d(TAG, "sendBackgroundForegroundNotification() called with: selectedId = [" + selectedId + "]");
             }
-
-
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                    .build();
             intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
 
-            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            NotificationCompat.Builder notificationBuilder;
-            int selectedId = FuroPrefs.getInt(this, Constants.NOTIFICATION_SOUND_LIST_KEY, 0);
-            List<NotificationSound> list = BaseUtil.getNotificationSoundList(this);
-            if (selectedId != 0) {
-                for (int selected = 0; selected < list.size(); selected++) {
-                    if (selectedId == list.get(selected).getId()) {
-                        defaultSoundUri = list.get(selected).getPath();
-                    }
-                }
-            }
-
             /*check for  oreo check  for notification builder */
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                int importance = NotificationManager.IMPORTANCE_DEFAULT;
-                NotificationChannel notificationChannel = new NotificationChannel("ID", "Name", importance);
+                NotificationChannel notificationChannel = new NotificationChannel(getString(R.string.default_notification_channel_id), type, importance);
+                notificationChannel.setSound(defaultSoundUri, audioAttributes);
                 notificationManager.createNotificationChannel(notificationChannel);
-                notificationBuilder = new NotificationCompat.Builder(this, notificationChannel.getId());
-            } else
-                notificationBuilder = new NotificationCompat.Builder(this, (Notification) null);
+            }
+            notificationBuilder = new Notification.Builder(this, getString(R.string.default_notification_channel_id));
             //notificationBuilder=NotificationCompat.Builder(Context context, String channelId)
 
             notificationBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.app_icon))
                     .setContentTitle(getString(R.string.app_name))
                     .setStyle(new
-                            NotificationCompat.BigTextStyle().bigText(body))
+                            Notification.BigTextStyle().bigText(body))
                     // .setContentText(body).setColor(getResources().getColor(R.color.white))
                     .setSubText(DateUtils.getRelativeTimeSpanString(this, System.currentTimeMillis()))
                     .setAutoCancel(true)
-                    .addAction(new NotificationCompat.Action(R.mipmap.app_icon,
+                    .addAction(new Notification.Action(R.mipmap.app_icon,
                             "Fitness Quotient by Furo Sports", pendingIntent))
                     .setSound(defaultSoundUri)
                     // set Style for large text notification
@@ -249,7 +256,8 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
 
                 notificationManager.notify("My Voice Data", (int) System.currentTimeMillis()
                         /*ID of notification */, notificationBuilder.build());
-
+//                MediaPlayer mediaPlayer = MediaPlayer.create(this, defaultSoundUri);
+//                mediaPlayer.start();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -346,6 +354,44 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
  *
  * @param message A Map with key value pair that hold
  * information regarding pending Intent that navigate to corresponding  screen
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
+ * <p>
+ * Add notification small transparent icon
  * <p>
  * Add notification small transparent icon
  * <p>

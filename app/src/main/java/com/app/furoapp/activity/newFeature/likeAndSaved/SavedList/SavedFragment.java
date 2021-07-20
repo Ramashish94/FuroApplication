@@ -112,6 +112,9 @@ public class SavedFragment extends Fragment implements SavedListAdapter.ContentS
         savedOnPostList.addAll(savedOnPost);
         if (savedOnPostList != null && savedOnPostList.size() > 0) {
             savedListAdapter.notifyDataSetChanged();
+        }else {
+            Toast.makeText(getApplicationContext(), "No saved records founds ", Toast.LENGTH_SHORT).show();
+
         }
     }
 

@@ -1,5 +1,16 @@
 package com.app.furoapp.activity.newFeature.waterIntakeCalculator;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
@@ -8,21 +19,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.app.furoapp.R;
 import com.app.furoapp.activity.LoginTutorialScreen;
-import com.app.furoapp.activity.newFeature.StepsTracker.FqStepsCounterActivity;
 import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.DataItem;
 import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.TipsResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.adapter.SelectCupSizeAdapter;
@@ -30,15 +28,14 @@ import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.UserChangeGlassSizeResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.cupCreate.AddUserCup;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.cupCreate.CupCreateResponse;
-import com.app.furoapp.activity.newFeature.waterIntakeCalculator.notificationSound.WaterIntakeSoundNotificationActivity;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchGlass.GlassFetchResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchGlass.UserGlassSize;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.restorePlanModel.AllTimeData;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.restorePlanModel.CurrentPlan;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.restorePlanModel.MonthlyData;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.restorePlanModel.RestorePlanResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.restorePlanModel.WeeklyData;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.selectCustomSizeGlass.SelectCustomGlassSizeRequest;
-import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchGlass.GlassFetchResponse;
-import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchGlass.UserGlassSize;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.selectCustomSizeGlass.SelectCustomSizeGlassResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.waterIntakeCounter.SelectedPlan;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.waterIntakeCounter.WaterIntakeUpdatePlanRequest;
@@ -119,7 +116,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_water_intake_counter);
         getAccessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
-        planId = getIntent().getStringExtra("planId");
+        // planId = getIntent().getStringExtra("planId");
 
         initViews();
         callDailyWaterIntakeUpdatePlanApi();
@@ -176,8 +173,8 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
     private void callDailyWaterIntakeUpdatePlanApi() {
 
         WaterIntakeUpdatePlanRequest waterIntakeUpdatePlanRequest = new WaterIntakeUpdatePlanRequest();
-        if (planId != null) {
-            waterIntakeUpdatePlanRequest.setPlan_id(planId);
+        if (FuroPrefs.getString(getApplicationContext(), Constants.WATER_INTAKE_PLAN) != null) {
+            waterIntakeUpdatePlanRequest.setPlan_id(FuroPrefs.getString(getApplicationContext(), Constants.WATER_INTAKE_PLAN));
             Util.showProgressDialog(getApplicationContext());
             RestClient.getWaterIntakeUpdatePlan(getAccessToken, waterIntakeUpdatePlanRequest, new Callback<WaterIntakeUpdatePlanResponse>() {
                 @Override

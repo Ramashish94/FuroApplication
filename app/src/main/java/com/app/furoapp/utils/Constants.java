@@ -67,6 +67,10 @@ public class Constants {
     public static final String FIND_TYPE = "typeBmiVal";
     public static final String GENDER_VAL = "genderVal";
     public static final String USER_AGE_SELECT = "user_age";
-    public static final String NOTIFICATION_SOUND_LIST_KEY = "NOTIFICATION_SOUND_LIST_KEY";
+    public static final String NOTIFICATION_WATER_INTAKE_SELECTED_SOUND_KEY = "NOTIFICATION_WATER_INTAKE_SELECTED_SOUND_KEY";
+    public static final String NOTIFICATION_STEP_TRACKER_SELECTED_SOUND_KEY = "NOTIFICATION_STEP_TRACKER_SELECTED_SOUND_KEY";
+    public static final String TIME_SLOT_NOTIFY = "timeslotnotify";
+    public static final String WATER_INTAKE = "Water Intake";
+    public static final String WATER_INTAKE_PLAN = "planId";
 
 }

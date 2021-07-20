@@ -4,6 +4,7 @@ package com.app.furoapp;
  * Service - for Counting the steps in the Background using Step Counter Sensor, and broadcasting Sensor values to Main Activity.
  */
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -155,6 +156,13 @@ public class StepCountingServiceFuro extends Service implements SensorEventListe
     public void onTaskRemoved(Intent rootIntent) {
         Intent intent = new Intent(this, Restarter.class);
         sendBroadcast(intent);
+
+        android.app.AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        Intent alarmIntent = new Intent(this, Restarter.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
+        alarmManager.setInexactRepeating(android.app.AlarmManager.RTC_WAKEUP, 0, 1, pendingIntent);
+
         super.onTaskRemoved(rootIntent);
     }
 

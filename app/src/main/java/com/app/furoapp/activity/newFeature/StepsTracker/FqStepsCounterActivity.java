@@ -712,14 +712,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    @Override
-    protected void onStop() {
-       Intent broadcastIntent = new Intent();
-        broadcastIntent.setAction("restartservice");
-        broadcastIntent.setClass(this, SensorRestarterBroadcastReceiver.class);
-        this.sendBroadcast(broadcastIntent);
-        super.onStop();
-    }
+
 
 
     @Override

@@ -9,6 +9,8 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.Sensor;
@@ -20,6 +22,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 
+import android.os.PowerManager;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
@@ -27,7 +30,9 @@ import android.widget.Toast;
 import androidx.core.app.NotificationCompat;
 
 import com.app.furoapp.R;
+import com.app.furoapp.activity.SensorRestarterBroadcastReceiver;
 import com.app.furoapp.activity.newFeature.StepsTracker.FqStepsCounterActivity;
+import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.Restarter;
 import com.app.furoapp.utils.FuroPrefs;
 
 import java.util.Date;
@@ -38,6 +43,7 @@ public class StepCountingServiceFuro extends Service implements SensorEventListe
     SensorManager sensorManager;
     Sensor stepCounterSensor;
     Sensor stepDetectorSensor;
+
 
     //int currentStepCount;
     int currentStepsDetected;
@@ -75,6 +81,13 @@ public class StepCountingServiceFuro extends Service implements SensorEventListe
         intent = new Intent(BROADCAST_ACTION);
         // _________________________ \\
     }
+    public StepCountingServiceFuro(Context applicationContext) {
+        super();
+        Log.i("HERE", "here I am!");
+    }
+
+    public StepCountingServiceFuro() {
+    }
 
     /** The service is starting, due to a call to startService() */
     @Override
@@ -84,7 +97,10 @@ public class StepCountingServiceFuro extends Service implements SensorEventListe
      count_Step = FuroPrefs.getInt(this, "step_Count", 0);
         float calories = FuroPrefs.getFloat(this, "colories");
         String timmmer = FuroPrefs.getString(getApplication(), "time");
-
+        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                "MyApp::MyWakelockTag");
+        wakeLock.acquire();
         showNotification(count_Step, calories, timmmer);
 
 //        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -129,11 +145,17 @@ public class StepCountingServiceFuro extends Service implements SensorEventListe
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.v("Service", "Stop");
 
-        serviceStopped = true;
+        Intent broadcastIntent = new Intent(this, SensorRestarterBroadcastReceiver.class);
+        sendBroadcast(broadcastIntent);
 
-       dismissNotification();
+    }
+
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
+        Intent intent = new Intent(this, Restarter.class);
+        sendBroadcast(intent);
+        super.onTaskRemoved(rootIntent);
     }
 
     /** Called when the overall system is running low on memory, and actively running processes should trim their memory usage. */
@@ -174,11 +196,10 @@ public class StepCountingServiceFuro extends Service implements SensorEventListe
             int detectSteps = (int) event.values[0];
             currentStepsDetected += detectSteps; //steps = steps + detectSteps; // This variable will be initialised with the STEP_DETECTOR event value (1), and will be incremented by itself (+1) for as long as steps are detected.
             //  Toast.makeText(this, "FQ_counter - " + String.valueOf(currentStepsDetected), Toast.LENGTH_LONG).show();
-         int   countStep = currentStepsDetected;
+            int   countStep = currentStepsDetected;
             Float colories = FuroPrefs.getFloat(getApplicationContext(), "colories");
             String timmmer = FuroPrefs.getString(getApplication(), "time");
             int stepCount = (currentStepsDetected + count_Step);
-
             showNotification(stepCount, colories,timmmer);
         }
 
@@ -286,5 +307,6 @@ public class StepCountingServiceFuro extends Service implements SensorEventListe
         sendBroadcast(intent);
     }
     // _________________________ \\
+
 
 }

@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -53,6 +54,7 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/app_icon_new_round"
         android:theme="@style/AppTheme"
+        android:supportsRtl="true"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".activity.newFeature.waterIntakeCalculator.notificationSound.WaterIntakeSoundNotificationActivity"
@@ -74,7 +76,7 @@
             android:clearTaskOnLaunch="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.newFeature.StepsTracker.FqStepsCounterActivity"
+            android:name=".activity.SplashActivity"
             android:clearTaskOnLaunch="true"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
@@ -490,7 +492,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.SplashActivity"
+            android:name=".activity.newFeature.StepsTracker.FqStepsCounterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -554,6 +556,17 @@
 
 
             />
+
+        <receiver
+            android:name=".activity.newFeature.StepsTracker.userStepsGoalModel.Restarter"
+            android:enabled="true"
+            android:exported="true"
+            android:label="RestartServiceWhenStopped">
+        </receiver>
+
+        <service android:name=".activity.GCMIntentService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
     </application>
 
 </manifest>

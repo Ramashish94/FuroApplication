@@ -19,6 +19,7 @@ import com.app.furoapp.activity.HomeMainActivity;
 import com.app.furoapp.activity.SplashActivity;
 import com.app.furoapp.activity.challengeRecieve.ChallengeRecieveActivity;
 import com.app.furoapp.activity.challengeRecieveMap.ChallengeRecieveMapActivity;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.WaterIntakeCounterActivity;
 import com.app.furoapp.fragment.profileSection.ProfileHomeNewActivity;
 import com.app.furoapp.model.Settings.NotificationSound;
 import com.app.furoapp.utils.BaseUtil;
@@ -202,7 +203,7 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
 
             } else if (type.equalsIgnoreCase(Constants.WATER_INTAKE)) {
 //                importance = NotificationManager.IMPORTANCE_HIGH;
-                intent = new Intent(this, HomeMainActivity.class);
+                intent = new Intent(this, WaterIntakeCounterActivity.class);
                 int selectedId = FuroPrefs.getInt(this, Constants.NOTIFICATION_WATER_INTAKE_SELECTED_SOUND_KEY, 0);
                 List<NotificationSound> list = BaseUtil.getNotificationSoundList(this);
                 if (selectedId != 0) {

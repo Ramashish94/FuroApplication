@@ -486,7 +486,7 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
             url = "http://www.youtube.com/watch?v=" + videoId;
             isArticle = false;
         } else {
-            url = data.getImage();
+            url = data.getImageUrl();
             isArticle = true;
         }
         if (isArticle) {

@@ -1,6 +1,7 @@
 package com.app.furoapp.activity.newFeature.StepsTracker;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,7 +30,9 @@ import androidx.work.impl.utils.ForceStopRunnable;
 
 import com.app.furoapp.R;
 import com.app.furoapp.StepCountingServiceFuro;
+import com.app.furoapp.activity.Globals;
 import com.app.furoapp.activity.LoginTutorialScreen;
+import com.app.furoapp.activity.SensorRestarterBroadcastReceiver;
 import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.DataItem;
 import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.TipsResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.Restarter;
@@ -62,6 +66,8 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     public View includeCongratsStepsTrack, incudeAlertDialog;
     public double magnitudePrevious = 0;
     private Integer stepCount = -1;
+    PowerManager.WakeLock wakeLock ;
+    PowerManager pm;
     public SensorManager sensorManager;
     Intent mServiceIntent;
     private StepCountingServiceFuro mYourService;
@@ -104,10 +110,14 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     private String distancetype;
     private boolean isSwitchedChecked;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fq_steps_counter);
+
+
         mYourService = new StepCountingServiceFuro();
         mServiceIntent = new Intent(this, mYourService.getClass());
         if (!isMyServiceRunning(mYourService.getClass())) {
@@ -694,19 +704,15 @@ public class FqStepsCounterActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+
+
         FuroPrefs.putFloat(this, "colories", 0.0f);
         FuroPrefs.putInt(this, "step_Count", 0);
+
         super.onDestroy();
     }
 
-    @Override
-    protected void onStop() {
-       /* Intent broadcastIntent = new Intent();
-        broadcastIntent.setAction("restartservice");
-        broadcastIntent.setClass(this, Restarter.class);
-        this.sendBroadcast(broadcastIntent);*/
-        super.onStop();
-    }
+
 
 
     @Override
@@ -718,6 +724,20 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         FuroPrefs.putInt(this, "step_Count", 0);
         finish();
     }
-
+    @SuppressLint("InvalidWakeLockTag")
+    public void acquirewakeLock() {
+        if(Globals.wakelock!=null){
+            Globals.wakelock.release();
+            Globals.wakelock=null;
+        }
+        pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                "TrackerService");
+        wakeLock.acquire();
+        Globals.wakelock=this.wakeLock;
+    }
+    public void releaseWakelock() {
+        wakeLock.release();
+    }
 
 }

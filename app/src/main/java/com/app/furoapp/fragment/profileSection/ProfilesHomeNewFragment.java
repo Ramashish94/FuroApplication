@@ -468,7 +468,7 @@ public class ProfilesHomeNewFragment extends BaseFragment {
         }
 
         BarDataSet bardataset = new BarDataSet(entries, "Cells");
-        BarData data = new BarData((IBarDataSet) labels, bardataset);
+        BarData data = new BarData(/*labels,*/ bardataset);
         barChart.setData(data); // set the data and list of labels into chart
         //barChart.setDescription("");  // set the description
         bardataset.setColors(ColorTemplate.COLORFUL_COLORS);

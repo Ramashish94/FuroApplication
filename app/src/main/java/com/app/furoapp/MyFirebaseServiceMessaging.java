@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.media.AudioAttributes;
+import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -211,7 +212,7 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
                 intent = new Intent(this, AddNewSlotPreferActivity.class);
 
             } else if (type.equalsIgnoreCase(Constants.WATER_INTAKE)) {
-//                importance = NotificationManager.IMPORTANCE_HIGH;
+//                importance = NotificationManager.IMPORTANCE_LOW;
                 intent = new Intent(this, WaterIntakeCounterActivity.class);
                 int selectedId = FuroPrefs.getInt(this, Constants.NOTIFICATION_WATER_INTAKE_SELECTED_SOUND_KEY, 0);
                 List<NotificationSound> list = BaseUtil.getNotificationSoundList(this);
@@ -237,7 +238,7 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
             /*check for  oreo check  for notification builder */
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 NotificationChannel notificationChannel = new NotificationChannel(getString(R.string.default_notification_channel_id), type, importance);
-                notificationChannel.setSound(defaultSoundUri, audioAttributes);
+//                notificationChannel.setSound(defaultSoundUri, audioAttributes);
                 notificationManager.createNotificationChannel(notificationChannel);
             }
             notificationBuilder = new Notification.Builder(this, getString(R.string.default_notification_channel_id));
@@ -265,8 +266,8 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
 
                 notificationManager.notify("My Voice Data", (int) System.currentTimeMillis()
                         /*ID of notification */, notificationBuilder.build());
-//                MediaPlayer mediaPlayer = MediaPlayer.create(this, defaultSoundUri);
-//                mediaPlayer.start();
+                MediaPlayer mediaPlayer = MediaPlayer.create(this, defaultSoundUri);
+                mediaPlayer.start();
             }
         } catch (Exception e) {
             e.printStackTrace();

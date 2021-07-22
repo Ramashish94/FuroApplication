@@ -158,7 +158,6 @@ public interface ApiInterface {
 
     // api calling for Activity Content feed
     @GET("all-activities")
-    //
     Call<ContentFeedModel> getActivities();
 
     // api calling for AllActivity Content feed  landing page

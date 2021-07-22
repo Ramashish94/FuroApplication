@@ -35,7 +35,7 @@ public class ContentFeedMotivationAdapter extends RecyclerView.Adapter<ContentFe
         Motivation motivation = motivationList.get(position);
         holder.motivationText.setText(motivation.getDescription());
         holder.motivationTitle.setText(motivation.getTitle());
-        Picasso.with(context).load(motivation.getImage())
+        Picasso.with(context).load(motivation.getImageUrl())
                 .into(holder.motivationImg);
 
         holder.motivationImg.setOnClickListener(new View.OnClickListener() {

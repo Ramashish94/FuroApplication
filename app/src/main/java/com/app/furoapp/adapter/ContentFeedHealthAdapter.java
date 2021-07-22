@@ -37,7 +37,7 @@ public class ContentFeedHealthAdapter extends RecyclerView.Adapter<ContentFeedHe
         Health health = healthList.get(position);
         holder.healthTitle.setText(health.getType());
         holder.healthText.setText(health.getDescription());
-        Picasso.with(context).load(health.getImage())
+        Picasso.with(context).load(health.getImageUrl())
                 .into(holder.healthImg);
 
         holder.healthImg.setOnClickListener(new View.OnClickListener() {

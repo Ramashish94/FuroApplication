@@ -45,6 +45,9 @@ public class Motivation {
     @SerializedName("icon")
     @Expose
     private String icon;
+    @SerializedName("image_url")
+    @Expose
+    private String imageUrl;
 
     public Integer getId() {
         return id;
@@ -149,5 +152,14 @@ public class Motivation {
     public void setIcon(String icon) {
         this.icon = icon;
     }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
 
 }

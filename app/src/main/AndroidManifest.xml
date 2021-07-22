@@ -59,7 +59,7 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".activity.newFeature.waterIntakeCalculator.notificationSound.WaterIntakeSoundNotificationActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".activity.newFeature.waterIntakeCalculator.WaterIntakeHistoryActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -76,10 +76,10 @@
             android:name=".activity.newFeature.StepsTracker.HistoryDetailsActivity"
             android:clearTaskOnLaunch="true"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
+       <!-- <activity
             android:name=".activity.SplashActivity"
             android:clearTaskOnLaunch="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.NoActionBar" />-->
         <activity
             android:name=".activity.newFeature.StepsTracker.CreateYourStepGoalActivity"
             android:clearTaskOnLaunch="true"
@@ -493,7 +493,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.newFeature.StepsTracker.FqStepsCounterActivity"
+            android:name=".activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

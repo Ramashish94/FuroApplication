@@ -24,6 +24,8 @@ public class FetchRecordAdapter extends RecyclerView.Adapter<FetchRecordAdapter.
     Context context;
     List<Bmi> bmiList;
     private Date date;
+    int feetPart = 0;
+    int inchesPart = 0;
 
     public FetchRecordAdapter(Context applicationContext, List<Bmi> bmiList) {
         this.context = applicationContext;
@@ -42,10 +44,6 @@ public class FetchRecordAdapter extends RecyclerView.Adapter<FetchRecordAdapter.
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Bmi bmi = bmiList.get(position);
-        holder.tvBmiScore.setText("" + bmi.getBmi());
-        holder.tvGender.setText("" + bmi.getGender());
-        holder.tvWaight.setText("" + bmi.getWeight()+" KG");
-        holder.tvHeight.setText("" + bmi.getHeight());
 
         DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
         try {
@@ -56,6 +54,21 @@ public class FetchRecordAdapter extends RecyclerView.Adapter<FetchRecordAdapter.
         DateFormat dateFormat1 = new SimpleDateFormat("dd/MM/yyyy");
         String getDate = dateFormat1.format(date);
         holder.tvDate.setText(getDate);
+
+        holder.tvBmiScore.setText("" + bmi.getBmi());
+        holder.tvGender.setText("" + bmi.getGender());
+        holder.tvWaight.setText("" + bmi.getWeight() + " KG");
+
+        double dCentimeter = Double.valueOf(bmi.getHeight());
+        feetPart = (int) Math.floor((dCentimeter / 2.54) / 12);
+        System.out.println((dCentimeter / 2.54) - (feetPart * 12));
+        inchesPart = (int) Math.ceil((dCentimeter / 2.54) - (feetPart * 12));
+        String feettt = String.valueOf(feetPart);
+        String inchesss = String.valueOf(inchesPart);
+        holder.tvHeight.setText("" + feettt + " ' " + inchesss + " '' ");
+        // holder.tvHeight.setText("" + bmi.getHeight()+" CM");
+
+
     }
 
     @Override

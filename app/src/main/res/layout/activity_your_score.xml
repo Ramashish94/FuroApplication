@@ -251,7 +251,8 @@
                         android:layout_height="21dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="17dp"
-                        android:src="@drawable/cross" />
+                        android:src="@drawable/cross"
+                        android:visibility="gone"/>
 
                     <ImageView
                         android:id="@+id/ivDiscard"

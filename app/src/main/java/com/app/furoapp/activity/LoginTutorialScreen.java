@@ -298,7 +298,7 @@ public class LoginTutorialScreen extends AppCompatActivity {
                                                     String Image = response.body().getUser().getImage();
                                                     String accessToken = response.body().getUser().getAccessToken();
                                                     FuroPrefs.putString(getApplicationContext(), "accessToken", accessToken);
-                                                    Toast.makeText(LoginTutorialScreen.this, ""+loginUserId, Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(LoginTutorialScreen.this, "" + loginUserId, Toast.LENGTH_SHORT).show();
                                                     FuroPrefs.putString(getApplicationContext(), "loginUserId", loginUserId);
                                                     FuroPrefs.putString(getApplicationContext(), "userimage", Image);
                                                     FuroPrefs.putString(getApplicationContext(), "loginUserNameNew", userNameee);
@@ -318,7 +318,7 @@ public class LoginTutorialScreen extends AppCompatActivity {
                                                     FuroPrefs.putString(getApplicationContext(), "userimage", Image);
                                                     FuroPrefs.putString(getApplicationContext(), "loginUserNameNew", userNameNew);
                                                     Intent intent = new Intent(getApplicationContext(), HomeMainActivity.class);
-                                                    intent.putExtra("contestpage","");
+                                                    intent.putExtra("contestpage", "");
                                                     startActivity(intent);
                                                 }
                                             }
@@ -407,7 +407,7 @@ public class LoginTutorialScreen extends AppCompatActivity {
                                                     FuroPrefs.putString(getApplicationContext(), "userimage", Image);
                                                     FuroPrefs.putString(getApplicationContext(), "loginUserNameNew", userNameNew);
                                                     Intent intent = new Intent(getApplicationContext(), HomeMainActivity.class);
-                                                    intent.putExtra("contestpage","");
+                                                    intent.putExtra("contestpage", "");
                                                     startActivity(intent);
 
                                                 }
@@ -463,6 +463,7 @@ public class LoginTutorialScreen extends AppCompatActivity {
         isGoogleSignIn = true;
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+
     }
 
     public void onProfileImageClickNew() {
@@ -472,7 +473,7 @@ public class LoginTutorialScreen extends AppCompatActivity {
                         Manifest.permission.ACCESS_FINE_LOCATION
 //                        Manifest.permission.READ_EXTERNAL_STORAGE,
 //                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                       )
+                )
                 .withListener(new MultiplePermissionsListener() {
                     @Override
                     public void onPermissionsChecked(MultiplePermissionsReport report) {

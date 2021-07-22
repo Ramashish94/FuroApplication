@@ -78,17 +78,19 @@ public class ViewAllActivityBy extends AppCompatActivity {
             @Override
             public void onResponse(Call<ChallengeByUserResponse> call, Response<ChallengeByUserResponse> response) {
                 gifView.setVisibility(View.GONE);
-                if (response != null) {
-                    if (response.body() != null && response.body().getSendChallenge().size() > 0) {
+                if (response.code() == 200) {
+                    if (response.body() != null && response.body().getSendChallenge() != null && response.body().getSendChallenge().size() > 0) {
 
                         List<SendChallenge> sendChallenges = response.body().getSendChallenge();
+                        if (sendChallenges!=null && sendChallenges.size()>0) {
+                            openAndChallengeCloseAdapter = new OpenAndChallengeCloseAdapter(sendChallenges, getApplicationContext());
+                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+                            recyclerView1.setLayoutManager(layoutManager);
+                            recyclerView1.setAdapter(openAndChallengeCloseAdapter);
+                        }else {
+                            Toast.makeText(homeMainActivity, "No records found", Toast.LENGTH_SHORT).show();
+                        }
 
-
-                        openAndChallengeCloseAdapter = new OpenAndChallengeCloseAdapter(sendChallenges, getApplicationContext());
-                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-                        recyclerView1.setLayoutManager(layoutManager);
-
-                        recyclerView1.setAdapter(openAndChallengeCloseAdapter);
                         openAndChallengeCloseAdapter.setChallengeByYouItemList(new OpenAndChallengeCloseAdapter.ChallengeByYouInterface() {
                             @Override
                             public void challengeForYouItem(String challengeId, int position) {

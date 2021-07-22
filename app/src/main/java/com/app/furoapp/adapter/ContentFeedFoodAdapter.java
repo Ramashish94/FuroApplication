@@ -39,7 +39,7 @@ public class ContentFeedFoodAdapter extends RecyclerView.Adapter<ContentFeedFood
 
         holder.foodTitle.setText(food.getType());
         holder.foodText.setText(food.getDescription());
-        Picasso.with(context).load(food.getImage())
+        Picasso.with(context).load(food.getImageUrl())
                 .into(holder.foodImg);
 
         holder.foodImg.setOnClickListener(new View.OnClickListener() {

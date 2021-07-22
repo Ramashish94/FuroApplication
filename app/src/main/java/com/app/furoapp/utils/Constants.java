@@ -72,5 +72,7 @@ public class Constants {
     public static final String TIME_SLOT_NOTIFY = "timeslotnotify";
     public static final String WATER_INTAKE = "Water Intake";
     public static final String WATER_INTAKE_PLAN = "planId";
+    public static final String STEP_COUNTER_REMINDER = "Step Counter Reminder";
+
 
 }

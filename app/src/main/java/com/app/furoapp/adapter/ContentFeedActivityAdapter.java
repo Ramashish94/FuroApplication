@@ -44,7 +44,7 @@ public class ContentFeedActivityAdapter extends RecyclerView.Adapter<ContentFeed
 
         holder.actTitle.setText(activity.getTitle());
         holder.actText.setText(activity.getDescription());
-        Picasso.with(context).load(activity.getImage())
+        Picasso.with(context).load(activity.getImageUrl())
                 .into(holder.activityImg);
 
         holder.activityImg.setOnClickListener(new View.OnClickListener() {

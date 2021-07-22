@@ -45,6 +45,10 @@ public class Health {
     @SerializedName("icon")
     @Expose
     private String icon;
+    @SerializedName("image_url")
+    @Expose
+    private String imageUrl;
+
 
     public Integer getId() {
         return id;
@@ -150,4 +154,11 @@ public class Health {
         this.icon = icon;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 }

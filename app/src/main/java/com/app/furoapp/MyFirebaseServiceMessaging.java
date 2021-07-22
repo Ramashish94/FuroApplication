@@ -19,6 +19,7 @@ import com.app.furoapp.activity.HomeMainActivity;
 import com.app.furoapp.activity.SplashActivity;
 import com.app.furoapp.activity.challengeRecieve.ChallengeRecieveActivity;
 import com.app.furoapp.activity.challengeRecieveMap.ChallengeRecieveMapActivity;
+import com.app.furoapp.activity.newFeature.StepsTracker.AddNewSlotPreferActivity;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.WaterIntakeCounterActivity;
 import com.app.furoapp.fragment.profileSection.ProfileHomeNewActivity;
 import com.app.furoapp.model.Settings.NotificationSound;
@@ -135,6 +136,11 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
                         message = obj.getString("message");
                         sendBackgroundForegroundNotification(remoteMessage.getData(), message);
                         break;
+
+                    case Constants.STEP_COUNTER_REMINDER:
+                        message = obj.getString("message");
+                        sendBackgroundForegroundNotification(remoteMessage.getData(), message);
+                        break;
                 }
 
             } catch (JSONException e) {
@@ -201,6 +207,9 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
             } else if (type.equalsIgnoreCase("Pendingfriend")) {
                 intent = new Intent(this, FriendsActivity.class);
 
+            }else if (type.equalsIgnoreCase(Constants.STEP_COUNTER_REMINDER)) {
+                intent = new Intent(this, AddNewSlotPreferActivity.class);
+
             } else if (type.equalsIgnoreCase(Constants.WATER_INTAKE)) {
 //                importance = NotificationManager.IMPORTANCE_HIGH;
                 intent = new Intent(this, WaterIntakeCounterActivity.class);
@@ -215,10 +224,12 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
                 }
                 Log.d(TAG, "sendBackgroundForegroundNotification() called with: selectedId = [" + selectedId + "]");
             }
+
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
                     .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                     .setUsage(AudioAttributes.USAGE_NOTIFICATION)
                     .build();
+
             intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
@@ -248,10 +259,7 @@ public class MyFirebaseServiceMessaging extends FirebaseMessagingService {
             /**
              * Add notification small transparent icon
              * ***/
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                notificationBuilder.setSmallIcon(R.mipmap.app_icon);
-            else
-                notificationBuilder.setSmallIcon(R.mipmap.app_icon);
+            notificationBuilder.setSmallIcon(R.mipmap.app_icon);
 
             if (notificationManager != null) {
 

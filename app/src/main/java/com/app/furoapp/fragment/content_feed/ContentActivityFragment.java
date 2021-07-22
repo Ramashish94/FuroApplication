@@ -3,6 +3,7 @@ package com.app.furoapp.fragment.content_feed;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -125,6 +126,7 @@ public class ContentActivityFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ContentFeedModel> call, Throwable t) {
+                Log.d("onFailure", String.valueOf(t));
                 Toast.makeText(homeMainActivity, "Something went wrong!", Toast.LENGTH_SHORT).show();
 
             }

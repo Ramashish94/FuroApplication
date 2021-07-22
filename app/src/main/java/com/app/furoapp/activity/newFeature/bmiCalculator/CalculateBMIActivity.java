@@ -83,6 +83,7 @@ public class CalculateBMIActivity extends AppCompatActivity {
         });
     }
 
+
     public String centimeterToFeet(String centimeter) {
         int feetPart = 0;
         int inchesPart = 0;

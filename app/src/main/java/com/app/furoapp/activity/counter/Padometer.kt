@@ -295,9 +295,16 @@ class Padometer : AppCompatActivity() {
 
 
                 val calendar = Calendar.getInstance()
-                calendar.timeInMillis = System.currentTimeMillis()
-                calendar[Calendar.HOUR_OF_DAY] = 11
-                calendar[Calendar.MINUTE] = 55
+                if (Build.VERSION.SDK_INT >= 23) {
+                    calendar[calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH], 23, 55] =
+                        0
+                } else {
+                    calendar[calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH], 23, 55] =
+                        0
+                }
+
+
+
                 setAlarm(calendar.timeInMillis, getCalculateCalories, steps, getDistanceMiAndKm)
 
             }

@@ -58,7 +58,6 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
 
@@ -435,7 +434,7 @@ public class ProfileHomeNewActivity extends AppCompatActivity {
         }
 
         BarDataSet bardataset = new BarDataSet(entries, "Cells");
-        BarData data = new BarData((IBarDataSet) labels, bardataset);
+        BarData data = new BarData(/*labels,*/ bardataset);
         barChart.setData(data);
         // set the data and list of labels into chart
         //  barChart.setDescription("");  // set the description
@@ -504,7 +503,7 @@ public class ProfileHomeNewActivity extends AppCompatActivity {
 
                         if (type.equals("week")) {
                             setListAdapter("week", profileModel);
-                            //setChartView(profileModel.getProfile().getGraph_weekly());
+                            setChartView(profileModel.getProfile().getGraph_weekly());
                             if (profileModel.getProfile().getClubsWeekly().size() > 0) {
 
                                 for (ClubsWeekly clubsWeekly : profileModel.getProfile().getClubsWeekly()) {
@@ -520,7 +519,7 @@ public class ProfileHomeNewActivity extends AppCompatActivity {
                             }
                         } else if (type.equals("all")) {
                             setListAdapter("all", profileModel);
-//                            setChartView(profileModel.getProfile().getGraph_alltime());
+                            setChartView(profileModel.getProfile().getGraph_alltime());
                             if (profileModel.getProfile().getClubsAllTime().size() > 0) {
 
                                 for (ClubsAllTime clubsAllTime : profileModel.getProfile().getClubsAllTime()) {
@@ -534,7 +533,7 @@ public class ProfileHomeNewActivity extends AppCompatActivity {
                             }
                         } else if (type.equals("monthly")) {
                             setListAdapter("monthly", profileModel);
-                          //  setChartView(profileModel.getProfile().getGraph_monthly());
+                            setChartView(profileModel.getProfile().getGraph_monthly());
                             if (profileModel.getProfile().getClubsMonthly().size() > 0) {
 
                                 for (ClubsMonthly clubsMonthly : profileModel.getProfile().getClubsMonthly()) {

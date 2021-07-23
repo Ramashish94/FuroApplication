@@ -1,10 +1,7 @@
 package com.app.furoapp.activity.counter
 
 import android.annotation.SuppressLint
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -12,16 +9,19 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
-import androidx.core.widget.TextViewCompat
 import com.app.furoapp.R
 import com.app.furoapp.activity.LoginTutorialScreen
 import com.app.furoapp.activity.newFeature.StepsTracker.FqStepsCounterActivity
+import com.app.furoapp.activity.newFeature.StepsTracker.LeaderBoardActivity
+import com.app.furoapp.activity.newFeature.StepsTracker.StepCounterHistoryActivity
+import com.app.furoapp.activity.newFeature.StepsTracker.StepCounterSettingsActivity
 import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.DataItem
 import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.TipsResponse
 import com.app.furoapp.retrofit.RestClient
@@ -43,6 +43,7 @@ import kotlinx.android.synthetic.main.alertt_dialog_modified_data_.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 enum class FitActionRequestCode {
     SUBSCRIBE,
@@ -68,6 +69,10 @@ class Padometer : AppCompatActivity() {
     private var tipsStart = 0
     private var getDistanceMiAndKm = 0f
     var getDetectedSteps: Int? = null
+    var stepsAchivedVal: String? = null
+    var selectNumberAchievedVal: String? = null
+
+    var isLogin: Boolean = false;
 
     private var getCalculateCalories = 0f
     private val fitnessOptions = FitnessOptions.builder()
@@ -80,37 +85,31 @@ class Padometer : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_fq_steps_coun)
+        setContentView(R.layout.activity_fq_steps_counter)
         getAccessToken = FuroPrefs.getString(applicationContext, Constants.Get_ACCESS_TOKEN)
-        /*val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+
+        //  clickEvent();
+        stepsAchivedVal = intent.getStringExtra("getAchievedVal")
+        selectNumberAchievedVal = intent.getStringExtra("selectNumber")
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
         mGoogleSignInClient = GoogleSignIn.getClient(applicationContext, gso)
-*/
+
         // This method sets up our custom logger, which will print all log messages to the device
         // screen, as well as to adb logcat.
+        var isLogin = FuroPrefs.getBoolean(applicationContext, "isAlreadyLoginForFitness")
 
-      initializeLogging()
+        if (isLogin == true) {
+            checkPermissionsAndRun(FitActionRequestCode.SUBSCRIBE)
+
+        }
+
+        clickListners()
 
 
-        checkPermissionsAndRun(FitActionRequestCode.SUBSCRIBE)
-
-    }
-    private fun initializeLogging() {
-        // Wraps Android's native log framework.
-        val logWrapper = LogWrapper()
-        // Using Log, front-end to the logging chain, emulates android.util.log method signatures.
-        Log.setLogNode(logWrapper)
-        // Filter strips out everything except the message text.
-        val msgFilter = MessageOnlyLogFilter()
-        logWrapper.next = msgFilter
-        // On screen logging via a customized TextView.
-        val logView = findViewById<View>(R.id.sample_logview) as LogView
-        TextViewCompat.setTextAppearance(logView, R.style.Log)
-        logView.setBackgroundColor(Color.WHITE)
-        msgFilter.next = logView
-        Log.i(TAG, "Ready")
     }
 
     fun googleSignOut() {
@@ -273,7 +272,10 @@ class Padometer : AppCompatActivity() {
                     else -> dataSet.dataPoints.first().getValue(Field.FIELD_STEPS).asInt()
                 }
                 Log.i(TAG, "Total steps: $total")
-                Toast.makeText(this, "" + total, Toast.LENGTH_SHORT).show()
+
+                tvActivateStepsCounter.isEnabled = false
+                tvActivateStepsCounter.isClickable = false
+                tvActivateStepsCounter.text = "Step counter already active"
 
                 getDetectedSteps = total
                 tvCountsSteps.text = getDetectedSteps.toString()
@@ -282,7 +284,21 @@ class Padometer : AppCompatActivity() {
                 /*added*/getCalculateCalories = (getDetectedSteps!! * 0.045).toFloat()
                 tvCalories.text = "$getCalculateCalories Cal"
 
+                var steps: Float = total.toFloat()
+
+                isLogin = true
+                FuroPrefs.putBoolean(applicationContext, "isAlreadyLoginForFitness", isLogin)
+
+                clickListner(steps)
+
                 showNotification(total)
+
+
+                val calendar = Calendar.getInstance()
+                calendar.timeInMillis = System.currentTimeMillis()
+                calendar[Calendar.HOUR_OF_DAY] = 11
+                calendar[Calendar.MINUTE] = 55
+                setAlarm(calendar.timeInMillis, getCalculateCalories, steps, getDistanceMiAndKm)
 
             }
             .addOnFailureListener { e ->
@@ -303,6 +319,43 @@ class Padometer : AppCompatActivity() {
             true
         }
         return approved
+    }
+
+
+    fun clickListners() {
+        ivBackIcon.setOnClickListener { v: View? -> finish() }
+
+        ivSetting.setOnClickListener { v: View? ->
+            val intent = Intent(
+                applicationContext,
+                StepCounterSettingsActivity::class.java
+            )
+            startActivity(intent)
+            finish()
+        }
+        ivLeadBord.setOnClickListener { v: View? ->
+            val intent = Intent(
+                applicationContext,
+                LeaderBoardActivity::class.java
+            )
+            startActivity(intent)
+        }
+        ivHistory.setOnClickListener { v: View? ->
+            //   Intent intent = new Intent(getApplicationContext(), HistoryDetailsActivity.class);
+            val intent = Intent(
+                applicationContext,
+                StepCounterHistoryActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        tvActivateStepsCounter.setOnClickListener { v: View? ->
+            //   Intent intent = new Intent(getApplicationContext(), HistoryDetailsActivity.class);
+
+            checkPermissionsAndRun(FitActionRequestCode.SUBSCRIBE)
+        }
+
+
     }
 
     private fun requestRuntimePermissions(requestCode: FitActionRequestCode) {
@@ -525,15 +578,15 @@ class Padometer : AppCompatActivity() {
         return (steps * 0.045).toFloat()
     }
 
-    fun clickListner() {
+    fun clickListner(stepCount: Float) {
         swBtnInKm.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 isSwitchedChecked = true
-                getDistanceMiAndKm = (getDetectedSteps?.times(78)) as Float / 100000.toFloat()
+                getDistanceMiAndKm = (stepCount?.times(78)) as Float / 100000.toFloat()
                 tvDistance.text = "$getDistanceMiAndKm km"
             } else {
                 isSwitchedChecked = false
-                getDistanceMiAndKm = (getDetectedSteps?.times(78)) as Float / 100.toFloat()
+                getDistanceMiAndKm = (stepCount?.times(78)) as Float / 100.toFloat()
                 tvDistance.text = "$getDistanceMiAndKm m"
             }
             //tvDistance.setText("" + getDistanceMiAndKm + " meter");
@@ -541,15 +594,33 @@ class Padometer : AppCompatActivity() {
 
 
         if (isSwitchedChecked) {
-            getDistanceMiAndKm = (getDetectedSteps?.times(78)) as Float / 100000.toFloat()
+            getDistanceMiAndKm = (stepCount?.times(78)) as Float / 100000.toFloat()
             tvDistance.text = "$getDistanceMiAndKm km"
         } else if (isSwitchedChecked == false) {
-            getDistanceMiAndKm = (getDetectedSteps?.times(78)) as Float / 100.toFloat()
+            getDistanceMiAndKm = (stepCount?.times(78)) as Float / 100.toFloat()
             tvDistance.text = "$getDistanceMiAndKm m"
         }
 
 
     }
 
+    private fun setAlarm(time: Long, calo: Float, step: Float, distance: Float) {
+        //getting the alarm manager
+        val am = getSystemService(ALARM_SERVICE) as AlarmManager
 
+        //creating a new intent specifying the broadcast receiver
+        val i = Intent(this, MyAlarm::class.java)
+        FuroPrefs.putFloat(applicationContext, "calories", calo)
+        FuroPrefs.putFloat(applicationContext, "steps", step)
+        FuroPrefs.putFloat(applicationContext, "distance", distance)
+        FuroPrefs.putString(applicationContext, "stepsAchivedVal", stepsAchivedVal)
+        FuroPrefs.putString(applicationContext, "selectNumberAchievedVal", selectNumberAchievedVal)
+
+
+        //creating a pending intent using the intent
+        val pi = PendingIntent.getBroadcast(this, 0, i, 0)
+
+        //setting the repeating alarm that will be fired every day
+        am.setRepeating(AlarmManager.RTC, time, AlarmManager.INTERVAL_DAY, pi)
+    }
 }

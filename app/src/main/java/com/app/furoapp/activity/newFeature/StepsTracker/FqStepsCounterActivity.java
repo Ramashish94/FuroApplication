@@ -406,6 +406,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     private void callUserStepGoalApi() {
         UserStepsGoalRequest userStepsGoalRequest = new UserStepsGoalRequest();
         userStepsGoalRequest.setTime(getTime);
+
         userStepsGoalRequest.setDistance(String.valueOf(getDistanceMiAndKm));
         userStepsGoalRequest.setCalories(String.valueOf(getCalculateCalories));
         userStepsGoalRequest.setCount_steps(String.valueOf(DetectedStep));

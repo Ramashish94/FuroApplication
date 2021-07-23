@@ -538,7 +538,7 @@ public interface ApiInterface {
 
     /*user/step-goal*/
     @POST("user/step-goal")
-    Call<UserStepsGoalResponse> USER_STEPS_GOAL_RESPONSE_CALL(@Header(TOKEN_KEY) String token, @Body UserStepsGoalRequest userStepsGoalRequest);
+    Call<UserStepsGoalResponse>USER_STEPS_GOAL_RESPONSE_CALL(@Header(TOKEN_KEY) String token, @Body UserStepsGoalRequest userStepsGoalRequest);
 
     /*user/history-step-counter*/
     @GET("user/history-step-counter")

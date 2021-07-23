@@ -253,8 +253,6 @@ public class StepCountingServiceFuro extends Service implements SensorEventListe
 
         String count = String.valueOf(counter);
         contentView.setTextViewText(R.id.content_title, count);
-        contentView.setTextViewText(R.id.content_colories, "" + colori);
-
 
         notificationBuilder.setSmallIcon(R.mipmap.app_icon);
         notificationBuilder.setColor(Color.parseColor("#6600cc"));

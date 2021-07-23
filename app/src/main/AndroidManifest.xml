@@ -495,7 +495,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.counter.Padometer"
+            android:name=".activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -518,6 +518,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.newFeature.StepsTracker.padometer.PedoMeterMainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+
+        <activity
+            android:name=".activity.counter.Padometer"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
@@ -574,6 +580,10 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".activity.counter.MyAlarm"
+            android:enabled="true"
+            android:exported="true" />
 
         <service android:name=".activity.GCMIntentService"
             android:exported="false"

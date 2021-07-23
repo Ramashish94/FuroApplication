@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.furoapp.R;
+import com.app.furoapp.activity.counter.Padometer;
 import com.app.furoapp.activity.newFeature.StepsTracker.padometer.PedoMeterMainActivity;
 import com.app.furoapp.utils.FuroPrefs;
 
@@ -103,7 +104,7 @@ public class WantToAcivedActivity extends AppCompatActivity {
         ivContinue.setOnClickListener(v -> {
             if (isAchievedSelected) {
                 //intent = new Intent(getApplicationContext(), PedoMeterMainActivity.class);
-                intent = new Intent(getApplicationContext(), FqStepsCounterActivity.class);
+                intent = new Intent(getApplicationContext(), Padometer.class);
                 intent.putExtra("getAchievedVal", getAchievedVal);
                 FuroPrefs.putInt(getApplicationContext(),"achivedSteps", Integer.parseInt(getAchievedVal));
                 startActivity(intent);

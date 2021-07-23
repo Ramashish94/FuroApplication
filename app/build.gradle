@@ -1,6 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 30
@@ -167,6 +170,8 @@ android {
         implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
         /*implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'*/
         implementation "androidx.recyclerview:recyclerview:1.2.1"
+        implementation("com.google.android.gms:play-services-fitness:20.0.0")
+        implementation("com.google.android.gms:play-services-auth:19.0.0")
     }
 
 

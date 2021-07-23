@@ -579,6 +579,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
         }
 
 
+
     }
 
     private void getDistance(String distancetype) {

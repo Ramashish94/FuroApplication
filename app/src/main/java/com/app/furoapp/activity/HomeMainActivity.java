@@ -29,6 +29,8 @@ import com.app.furoapp.R;
 import com.app.furoapp.activity.newFeature.StepsTracker.TrackYourStepsStartActivity;
 import com.app.furoapp.activity.newFeature.healthCare.HealthCenterDashboardActivity;
 import com.app.furoapp.activity.newFeature.bmiCalculator.FindYourBmiActivity;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.CreatePlaneActivity;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.WaterIntakeExistsUser.WaterIntakeExistsUserResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.WaterIntakeStartActivity;
 import com.app.furoapp.databinding.ActivityMainFramelayoutBinding;
 import com.app.furoapp.enums.EnumConstants;
@@ -70,6 +72,11 @@ import com.app.furoapp.model.updatefcmtoken.UpdateFcmTokenResponse;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -90,6 +97,10 @@ public class HomeMainActivity extends AppCompatActivity {
     Fragment contentFeedMainFragment;
     String contest;
     public LinearLayout llHealthCanterDashboard, llDailyStepTracker, llWaterIntakeCalculator, llTrackBMI, llCalculateCalories;
+
+    public GoogleSignInClient mGoogleSignInClient;
+    public AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
 
     private FirebaseAnalytics mFirebaseAnalytics;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -304,6 +315,14 @@ public class HomeMainActivity extends AppCompatActivity {
 
         fcmTokenUpdate();
         clickEvetntOnHealthItem();
+
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
+
 
 
     }
@@ -750,8 +769,7 @@ public class HomeMainActivity extends AppCompatActivity {
         llWaterIntakeCalculator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), WaterIntakeStartActivity.class);
-                startActivity(intent);
+                callWaterIntakeExistsUserApi();
 
             }
         });
@@ -777,6 +795,101 @@ public class HomeMainActivity extends AppCompatActivity {
         });
     }
 
+    private void callWaterIntakeExistsUserApi() {
+
+        RestClient.getWaterIntakeExistsUser(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), new Callback<WaterIntakeExistsUserResponse>() {
+            @Override
+            public void onResponse(Call<WaterIntakeExistsUserResponse> call, Response<WaterIntakeExistsUserResponse> response) {
+                if (response.code() == 200) {
+                    if (response.body() != null) {
+                        if (response.body().getIsWaterIntakeDataRequired() == 1) {
+                            Intent intent = new Intent(getApplicationContext(), CreatePlaneActivity.class);
+                            startActivity(intent);
+                        } else {
+                            if (response.body().getIsWaterIntakeDataRequired() == 0) {
+                                Intent intent = new Intent(getApplicationContext(), WaterIntakeStartActivity.class);
+                                startActivity(intent);
+                            }
+                        }
+                    }
+                } else if (response.code() == 500) {
+                    Toast.makeText(getApplicationContext(), response.code() + "Internal server error!", Toast.LENGTH_SHORT).show();
+                } else if (response.code() == 403) {
+                    getAlertTokenDialog();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<WaterIntakeExistsUserResponse> call, Throwable t) {
+                Toast.makeText(HomeMainActivity.this, "Something went wrong in water intake!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getAlertTokenDialog() {
+        if (FuroPrefs.getString(getApplicationContext(),Constants.Get_ACCESS_TOKEN) != null) {
+            dialogBuilder = new AlertDialog.Builder(this);
+            LayoutInflater inflater = this.getLayoutInflater();
+            View dialogView = inflater.inflate(R.layout.session_expired_layout, null);
+            dialogBuilder.setView(dialogView);
+            dialog = dialogBuilder.create();
+            ImageView btn_Cancel = dialogView.findViewById(R.id.btn_cancel);
+            TextView text_logout = dialogView.findViewById(R.id.text_logout);
+            TextView noiwanttocontinue = dialogView.findViewById(R.id.noiwanttocontinuee);
+            LinearLayout llLogOut = dialogView.findViewById(R.id.llLogOut);
+
+            btn_Cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+            noiwanttocontinue.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+            text_logout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FuroPrefs.clear(getApplicationContext());
+                    googleSignOut();
+                    Intent intent = new Intent(getApplicationContext(), LoginTutorialScreen.class);
+                    startActivity(intent);
+                    finishAffinity();
+                }
+            });
+            dialog.show();
+        } else {
+
+        }
+    }
+
+    public void googleSignOut() {
+
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(Task<Void> task) {
+                        // Toast.makeText(ActivityMain.this, "Google Sign Out done.", Toast.LENGTH_SHORT).show();
+                        revokeAccess();
+                    }
+                });
+    }
+
+    private void revokeAccess() {
+        mGoogleSignInClient.revokeAccess()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(Task<Void> task) {
+                        // Toast.makeText(ActivityMain.this, "Google access revoked.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 
 }
 

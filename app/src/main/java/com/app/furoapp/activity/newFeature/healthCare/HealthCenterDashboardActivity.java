@@ -20,6 +20,8 @@ import com.app.furoapp.activity.newFeature.healthCare.healthCentermodel.Bmi;
 import com.app.furoapp.activity.newFeature.healthCare.healthCentermodel.HealthCenterResponse;
 import com.app.furoapp.activity.newFeature.healthCare.healthCentermodel.StepCounter;
 import com.app.furoapp.activity.newFeature.healthCare.healthCentermodel.WaterIntake;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.CreatePlaneActivity;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.WaterIntakeExistsUser.WaterIntakeExistsUserResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.WaterIntakeStartActivity;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
@@ -56,7 +58,7 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
         initVies();
         ClickEvent();
 
-        getAccessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
+        //getAccessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
 
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -102,9 +104,11 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getApplicationContext(), WaterIntakeStartActivity.class);
+                callWaterIntakeExistsUserApi();
+
+                /*Intent intent = new Intent(getApplicationContext(), WaterIntakeStartActivity.class);
                 startActivity(intent);
-                finish();
+                finish();*/
 
             }
         });
@@ -136,7 +140,7 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
 
     private void callDashBoardApi() {
         Utils.showProgressDialogBar(getApplicationContext());
-        RestClient.getHealthCenter(getAccessToken, new Callback<HealthCenterResponse>() {
+        RestClient.getHealthCenter(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), new Callback<HealthCenterResponse>() {
             @Override
             public void onResponse(Call<HealthCenterResponse> call, Response<HealthCenterResponse> response) {
                 if (response.code() == 200) {
@@ -147,12 +151,13 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
                         setCounterIntake(response.body().getWaterIntake());
                         //set bmi data
                         setBmiData(response.body().getBmi());
+
                     }
                 } else if (response.code() == 500) {
                     Toast.makeText(HealthCenterDashboardActivity.this, "Internal server error !", Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 403) {
                     Toast.makeText(HealthCenterDashboardActivity.this, response.code() + " Session expire PLease login again ! ", Toast.LENGTH_SHORT).show();
-                    getTokenExpire();
+                    getAlertTokenDialog();
                 }
             }
 
@@ -204,11 +209,49 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
         }
     }
 
-    private void getTokenExpire() {
-        if (getAccessToken != null) {
+
+    private void callWaterIntakeExistsUserApi() {
+
+        RestClient.getWaterIntakeExistsUser(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), new Callback<WaterIntakeExistsUserResponse>() {
+            @Override
+            public void onResponse(Call<WaterIntakeExistsUserResponse> call, Response<WaterIntakeExistsUserResponse> response) {
+                if (response.code() == 200) {
+                    if (response.body() != null) {
+                        if (response.body().getIsWaterIntakeDataRequired() == 1) {
+                            Intent intent = new Intent(getApplicationContext(), CreatePlaneActivity.class);
+                            startActivity(intent);
+//                            finish();
+                        } else {
+                            if (response.body().getIsWaterIntakeDataRequired() == 0) {
+                                Intent intent = new Intent(getApplicationContext(), WaterIntakeStartActivity.class);
+                                startActivity(intent);
+//                                finish();
+                            }
+                        }
+                    }
+                } else if (response.code() == 500) {
+                    Toast.makeText(HealthCenterDashboardActivity.this, response.code() + "Internal server error!", Toast.LENGTH_SHORT).show();
+                } else if (response.code() == 403) {
+                    getAlertTokenDialog();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<WaterIntakeExistsUserResponse> call, Throwable t) {
+                Toast.makeText(HealthCenterDashboardActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
+
+    private void getAlertTokenDialog() {
+        if (FuroPrefs.getString(getApplicationContext(),Constants.Get_ACCESS_TOKEN) != null) {
             dialogBuilder = new AlertDialog.Builder(this);
             LayoutInflater inflater = this.getLayoutInflater();
-            View dialogView = inflater.inflate(R.layout.profile_alertdialog_logoutt_new, null);
+            View dialogView = inflater.inflate(R.layout.session_expired_layout, null);
             dialogBuilder.setView(dialogView);
             dialog = dialogBuilder.create();
             ImageView btn_Cancel = dialogView.findViewById(R.id.btn_cancel);
@@ -244,7 +287,6 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
         } else {
 
         }
-
     }
 
     public void googleSignOut() {

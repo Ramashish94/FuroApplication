@@ -33,6 +33,7 @@ import com.app.furoapp.activity.newFeature.healthCare.healthCentermodel.HealthCe
 import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
 import com.app.furoapp.activity.newFeature.notification.allNotificationModal.NotificationResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.WaterIntakeExistsUser.WaterIntakeExistsUserResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.ChangeGlassSizeRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.UserChangeGlassSizeResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.cupCreate.CupCreateResponse;
@@ -564,6 +565,10 @@ public interface ApiInterface {
     /*user/step-goal*/
     @GET("user/all-trips ")
     Call<TipsResponse> ALL_TIPS_RESPONSE_CALL(@Header(TOKEN_KEY) String token);
+
+    /*user/waterIntake/exists*/
+    @GET("user/waterIntake/exists ")
+    Call<WaterIntakeExistsUserResponse> WATER_INTAKE_EXISTS_USER_RESP_CALL(@Header(TOKEN_KEY) String token);
 
 
 }

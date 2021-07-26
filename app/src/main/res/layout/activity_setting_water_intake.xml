@@ -217,144 +217,144 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical">-->
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_35"
-                            android:layout_marginTop="@dimen/dp_16"
-                            android:layout_marginRight="@dimen/dp_35"
-                            android:orientation="horizontal">
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="@dimen/dp_35"-->
+<!--                            android:layout_marginTop="@dimen/dp_16"-->
+<!--                            android:layout_marginRight="@dimen/dp_35"-->
+<!--                            android:orientation="horizontal">-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="@dimen/dp_20"
-                                android:layout_gravity="bottom"
-                                android:text="Q3. How i can fully utilise the app ?"
-                                android:textColor="@color/black_color"
-                                android:textStyle="normal" />
-
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_35"
-                            android:layout_marginTop="@dimen/dp_5"
-                            android:layout_marginRight="@dimen/dp_35"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/dp_20"
-                                android:layout_gravity="bottom"
-                                android:layout_weight="1"
-                                android:text="Find answer about course,Q and As and review "
-                                android:textColor="@color/vertical_line_color" />
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="@dimen/dp_20"-->
+<!--                                android:layout_gravity="bottom"-->
+<!--                                android:text="Q3. How i can fully utilise the app ?"-->
+<!--                                android:textColor="@color/black_color"-->
+<!--                                android:textStyle="normal" />-->
 
 
-                        </LinearLayout>
+<!--                        </LinearLayout>-->
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="@dimen/dp_35"-->
+<!--                            android:layout_marginTop="@dimen/dp_5"-->
+<!--                            android:layout_marginRight="@dimen/dp_35"-->
+<!--                            android:orientation="horizontal">-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="@dimen/dp_20"-->
+<!--                                android:layout_gravity="bottom"-->
+<!--                                android:layout_weight="1"-->
+<!--                                android:text="Find answer about course,Q and As and review "-->
+<!--                                android:textColor="@color/vertical_line_color" />-->
 
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_35"
-                            android:layout_marginTop="@dimen/dp_16"
-                            android:layout_marginRight="@dimen/dp_35"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="@dimen/dp_20"
-                                android:layout_gravity="bottom"
-                                android:text="Q4. How i can fully utilise the app ?  "
-                                android:textColor="@color/black_color"
-                                android:textStyle="normal" />
+<!--                        </LinearLayout>-->
 
 
-                        </LinearLayout>
+<!--                    </LinearLayout>-->
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_35"
-                            android:layout_marginTop="@dimen/dp_5"
-                            android:layout_marginRight="@dimen/dp_35"
-                            android:orientation="horizontal">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical">-->
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/dp_20"
-                                android:layout_gravity="bottom"
-                                android:layout_weight="1"
-                                android:text="Find answer about course,Q and As and review "
-                                android:textColor="@color/vertical_line_color" />
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="@dimen/dp_35"-->
+<!--                            android:layout_marginTop="@dimen/dp_16"-->
+<!--                            android:layout_marginRight="@dimen/dp_35"-->
+<!--                            android:orientation="horizontal">-->
 
-
-                        </LinearLayout>
-
-
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_35"
-                            android:layout_marginTop="@dimen/dp_16"
-                            android:layout_marginRight="@dimen/dp_35"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="@dimen/dp_20"
-                                android:layout_gravity="bottom"
-                                android:text="Q5. How i can fully utilise the app ?  "
-                                android:textColor="@color/black_color"
-                                android:textStyle="normal" />
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="@dimen/dp_20"-->
+<!--                                android:layout_gravity="bottom"-->
+<!--                                android:text="Q4. How i can fully utilise the app ?  "-->
+<!--                                android:textColor="@color/black_color"-->
+<!--                                android:textStyle="normal" />-->
 
 
-                        </LinearLayout>
+<!--                        </LinearLayout>-->
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_35"
-                            android:layout_marginTop="@dimen/dp_5"
-                            android:layout_marginRight="@dimen/dp_35"
-                            android:orientation="horizontal">
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="@dimen/dp_35"-->
+<!--                            android:layout_marginTop="@dimen/dp_5"-->
+<!--                            android:layout_marginRight="@dimen/dp_35"-->
+<!--                            android:orientation="horizontal">-->
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/dp_20"
-                                android:layout_gravity="bottom"
-                                android:layout_weight="1"
-                                android:text="Find answer about course,Q and As and review "
-                                android:textColor="@color/vertical_line_color" />
-
-
-                        </LinearLayout>
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="@dimen/dp_20"-->
+<!--                                android:layout_gravity="bottom"-->
+<!--                                android:layout_weight="1"-->
+<!--                                android:text="Find answer about course,Q and As and review "-->
+<!--                                android:textColor="@color/vertical_line_color" />-->
 
 
-                    </LinearLayout>
+<!--                        </LinearLayout>-->
+
+
+<!--                    </LinearLayout>-->
+
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical">-->
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="@dimen/dp_35"-->
+<!--                            android:layout_marginTop="@dimen/dp_16"-->
+<!--                            android:layout_marginRight="@dimen/dp_35"-->
+<!--                            android:orientation="horizontal">-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="@dimen/dp_20"-->
+<!--                                android:layout_gravity="bottom"-->
+<!--                                android:text="Q5. How i can fully utilise the app ?  "-->
+<!--                                android:textColor="@color/black_color"-->
+<!--                                android:textStyle="normal" />-->
+
+
+<!--                        </LinearLayout>-->
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="@dimen/dp_35"-->
+<!--                            android:layout_marginTop="@dimen/dp_5"-->
+<!--                            android:layout_marginRight="@dimen/dp_35"-->
+<!--                            android:orientation="horizontal">-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="@dimen/dp_20"-->
+<!--                                android:layout_gravity="bottom"-->
+<!--                                android:layout_weight="1"-->
+<!--                                android:text="Find answer about course,Q and As and review "-->
+<!--                                android:textColor="@color/vertical_line_color" />-->
+
+
+<!--                        </LinearLayout>-->
+
+
+<!--                    </LinearLayout>-->
 
                 </LinearLayout>
 

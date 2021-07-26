@@ -20,6 +20,16 @@
 
 
 
+    <style name="Log" parent="AppTheme">
+        <item name="android:typeface">monospace</item>
+
+        <item name="android:padding">10dp</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:lineSpacingMultiplier">1.1</item>
+    </style>
+
+
+
 
     <style name="AppTheme2" parent="Base.Theme.AppCompat.Light.DarkActionBar">
 

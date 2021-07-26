@@ -33,6 +33,7 @@ import com.app.furoapp.activity.newFeature.healthCare.healthCentermodel.HealthCe
 import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
 import com.app.furoapp.activity.newFeature.notification.allNotificationModal.NotificationResponse;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.WaterIntakeExistsUser.WaterIntakeExistsUserResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.ChangeGlassSizeRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.UserChangeGlassSizeResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.cupCreate.CupCreateResponse;
@@ -507,6 +508,10 @@ public class RestClient {
 
     public static void getAllTipsData(String token, Callback<TipsResponse> callback) {
         RetrofitClient.getClient().ALL_TIPS_RESPONSE_CALL(token).enqueue(callback);
+    }
+
+    public static void getWaterIntakeExistsUser(String token, Callback<WaterIntakeExistsUserResponse> callback) {
+        RetrofitClient.getClient().WATER_INTAKE_EXISTS_USER_RESP_CALL(token).enqueue(callback);
     }
 
 }

@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginLeft="@dimen/dp_20"
-                    android:layout_marginTop="?actionBarSize"
+                    android:layout_marginTop="@dimen/sp_16"
                     android:gravity="center"
                     android:orientation="horizontal">
 

@@ -16,6 +16,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
+import androidx.core.view.isVisible
 import com.app.furoapp.R
 import com.app.furoapp.activity.LoginTutorialScreen
 import com.app.furoapp.activity.newFeature.StepsTracker.FqStepsCounterActivity
@@ -273,9 +274,8 @@ class Padometer : AppCompatActivity() {
                 }
                 Log.i(TAG, "Total steps: $total")
 
-                tvActivateStepsCounter.isEnabled = false
-                tvActivateStepsCounter.isClickable = false
-                tvActivateStepsCounter.text = "Step counter already active"
+
+
 
                 getDetectedSteps = total
                 tvCountsSteps.text = getDetectedSteps.toString()
@@ -329,6 +329,7 @@ class Padometer : AppCompatActivity() {
     }
 
 
+
     fun clickListners() {
         ivBackIcon.setOnClickListener { v: View? -> finish() }
 
@@ -360,8 +361,18 @@ class Padometer : AppCompatActivity() {
             //   Intent intent = new Intent(getApplicationContext(), HistoryDetailsActivity.class);
 
             checkPermissionsAndRun(FitActionRequestCode.SUBSCRIBE)
+            Toast.makeText(this, "Step Counter Activate!", Toast.LENGTH_SHORT)
+                .show()
+            tvActivateStepsCounter.isVisible = false
+            deactivate.isVisible = true
         }
 
+        deactivate.setOnClickListener {
+            googlefitDisabled()
+            tvActivateStepsCounter.isVisible = true
+            deactivate.isVisible = false
+
+        }
 
     }
 
@@ -629,5 +640,22 @@ class Padometer : AppCompatActivity() {
 
         //setting the repeating alarm that will be fired every day
         am.setRepeating(AlarmManager.RTC, time, AlarmManager.INTERVAL_DAY, pi)
+    }
+
+    fun googlefitDisabled(){
+
+        Fitness.getConfigClient(this,  GoogleSignIn.getAccountForExtension(this, fitnessOptions))
+            .disableFit()
+            .addOnSuccessListener {
+                Log.i(TAG,"Disabled Google Fit")
+                Toast.makeText(
+                    this,
+                    "Step Counter Deactivate!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG,"There was an error disabling Google Fit", e)
+            }
     }
 }

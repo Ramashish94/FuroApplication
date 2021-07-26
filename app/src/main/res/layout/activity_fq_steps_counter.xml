@@ -222,18 +222,40 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <Button
-                        android:id="@+id/tvActivateStepsCounter"
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_40"
-                        android:layout_marginTop="?actionBarSize"
-                        android:background="@drawable/btn_next_shape"
-                        android:fontFamily="@font/bebas_neue_bold"
-                        android:gravity="center"
-                        android:text="Activate step counter"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/sp_14"
-                        android:textStyle="italic" />
+                        android:layout_height="wrap_content">
+                        <Button
+                            android:id="@+id/tvActivateStepsCounter"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_40"
+                            android:layout_marginTop="?actionBarSize"
+                            android:background="@drawable/btn_next_shape"
+                            android:fontFamily="@font/bebas_neue_bold"
+                            android:gravity="center"
+                            android:text="Activate step counter"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp_14"
+                            android:textStyle="italic" />
+
+                        <Button
+                            android:visibility="gone"
+                            android:id="@+id/deactivate"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_40"
+                            android:layout_marginTop="?actionBarSize"
+                            android:background="@drawable/btn_next_shape"
+                            android:fontFamily="@font/bebas_neue_bold"
+                            android:gravity="center"
+                            android:text="Deactivate step counter"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp_14"
+                            android:textStyle="italic" />
+
+
+                    </FrameLayout>
+
+
 
                     <TextView
                         android:id="@+id/tvDiActivate"

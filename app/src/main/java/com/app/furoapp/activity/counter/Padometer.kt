@@ -88,7 +88,12 @@ class Padometer : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fq_steps_counter)
         getAccessToken = FuroPrefs.getString(applicationContext, Constants.Get_ACCESS_TOKEN)
+      var isActuvate =  FuroPrefs.getBoolean(applicationContext, "isAlreadyActivate" )
+        if(isActuvate == true){
+            tvActivateStepsCounter.isVisible = false
+            deactivate.isVisible = true
 
+        }
         //  clickEvent();
         stepsAchivedVal = intent.getStringExtra("getAchievedVal")
         selectNumberAchievedVal = intent.getStringExtra("selectNumber")
@@ -364,6 +369,9 @@ class Padometer : AppCompatActivity() {
             Toast.makeText(this, "Step Counter Activate!", Toast.LENGTH_SHORT)
                 .show()
             tvActivateStepsCounter.isVisible = false
+
+            var isAlreadyActivate  = true
+            FuroPrefs.putBoolean(applicationContext, "isAlreadyActivate",isAlreadyActivate )
             deactivate.isVisible = true
         }
 
@@ -371,6 +379,9 @@ class Padometer : AppCompatActivity() {
             googlefitDisabled()
             tvActivateStepsCounter.isVisible = true
             deactivate.isVisible = false
+            var isAlreadyActivate  = false
+            FuroPrefs.putBoolean(applicationContext, "isAlreadyActivate",isAlreadyActivate )
+            notificationManager!!.cancel(0)
 
         }
 

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.furoapp.R;
+import com.app.furoapp.activity.counter.Padometer;
 import com.app.furoapp.activity.newFeature.StepsTracker.adapter.StepsCountAdapter;
 import com.app.furoapp.activity.newFeature.bmiCalculator.adapter.AgeAdapter;
 import com.app.furoapp.activity.newFeature.bmiCalculator.AgeModelTest;
@@ -101,7 +102,7 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
     private void clickEvent() {
         ivContinue.setOnClickListener(v -> {
             if (isSelectedCustomGoal) {
-                Intent intent = new Intent(getApplicationContext(), FqStepsCounterActivity.class);
+                Intent intent = new Intent(getApplicationContext(), Padometer.class);
                 intent.putExtra("selectNumber", String.valueOf(selectNumber));
                 FuroPrefs.putInt(this,"achivedSteps", selectNumber);
                 startActivity(intent);

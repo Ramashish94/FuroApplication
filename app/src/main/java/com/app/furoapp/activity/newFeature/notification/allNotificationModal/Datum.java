@@ -56,7 +56,7 @@ public class Datum {
     private String updatedAt;
     @SerializedName("activity_detail")
     @Expose
-    private Object activityDetail;
+    private ActivityDetail activityDetail;
 
     public Integer getId() {
         return id;
@@ -186,11 +186,11 @@ public class Datum {
         this.updatedAt = updatedAt;
     }
 
-    public Object getActivityDetail() {
+    public ActivityDetail getActivityDetail() {
         return activityDetail;
     }
 
-    public void setActivityDetail(Object activityDetail) {
+    public void setActivityDetail(ActivityDetail activityDetail) {
         this.activityDetail = activityDetail;
     }
 

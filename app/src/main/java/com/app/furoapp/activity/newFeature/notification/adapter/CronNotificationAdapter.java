@@ -59,7 +59,7 @@ public class CronNotificationAdapter extends RecyclerView.Adapter<CronNotificati
             super(itemView);
             tvNtifictionTxt = itemView.findViewById(R.id.tvNtifictionTxt);
             tvTimeReadingTxt = itemView.findViewById(R.id.tvTimeReadingTxt);
-            ivNotificatonIcnImg = itemView.findViewById(R.id.ivNotificatonIcnImg);
+           // ivNotificatonIcnImg = itemView.findViewById(R.id.ivNotificatonIcnImg);
 
         }
     }

@@ -114,15 +114,7 @@ public class NotificationSectionActivity extends AppCompatActivity {
         if (dailyFeedNotificationList != null && dailyFeedNotificationList.size() > 0) {
             dailyFeedNotificationAdapter.notifyDataSetChanged();
         }
-
-//        dailyFeedNotificationAdapter = new DailyFeedNotificationAdapter(getApplicationContext(),data);
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-//        rvDailyReadNotification.setLayoutManager(layoutManager);
-//        rvDailyReadNotification.setItemAnimator(new DefaultItemAnimator());
-//        rvDailyReadNotification.setAdapter(dailyFeedNotificationAdapter);
-//        dailyFeedNotificationAdapter.notifyDataSetChanged();
-
-    }
+   }
 
     private void setChallangeNotificationRecyAdapter() {
         challangeNotificationAdapter = new ChallangeNotificationAdapter(getApplicationContext(), challengeNotificationList);
@@ -138,13 +130,6 @@ public class NotificationSectionActivity extends AppCompatActivity {
         if (challengeNotificationList != null && challengeNotificationList.size() > 0) {
             challangeNotificationAdapter.notifyDataSetChanged();
         }
-
-//        challangeNotificationAdapter = new ChallangeNotificationAdapter(getApplicationContext(), data);
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-//        rvChallangeNotification.setLayoutManager(layoutManager);
-//        rvChallangeNotification.setItemAnimator(new DefaultItemAnimator());
-//        rvChallangeNotification.setAdapter(challangeNotificationAdapter);
-//        challangeNotificationAdapter.notifyDataSetChanged();
     }
 
     private void setCronNotificationAdapter() {
@@ -161,13 +146,6 @@ public class NotificationSectionActivity extends AppCompatActivity {
         if (cronNotificationList != null && cronNotificationList.size() > 0) {
             cronNotificationAdapter.notifyDataSetChanged();
         }
-
-//        cronNotificationAdapter = new CronNotificationAdapter(getApplicationContext(), data);
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-//        rvCronNotification.setLayoutManager(layoutManager);
-//        rvCronNotification.setItemAnimator(new DefaultItemAnimator());
-//        rvCronNotification.setAdapter(cronNotificationAdapter);
-//        cronNotificationAdapter.notifyDataSetChanged();
     }
 
 }

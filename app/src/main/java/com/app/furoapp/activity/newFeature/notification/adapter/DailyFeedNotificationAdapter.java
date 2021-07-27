@@ -1,6 +1,7 @@
 package com.app.furoapp.activity.newFeature.notification.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
 import com.app.furoapp.activity.newFeature.notification.allNotificationModal.Datum;
+import com.mikhaellopez.circularimageview.CircularImageView;
+import com.squareup.picasso.Picasso;
 
+import java.net.MalformedURLException;
 import java.util.List;
 
 public class DailyFeedNotificationAdapter extends RecyclerView.Adapter<DailyFeedNotificationAdapter.MyViewHolder> {
@@ -37,12 +41,19 @@ public class DailyFeedNotificationAdapter extends RecyclerView.Adapter<DailyFeed
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Datum dailyFeedNotification = dailyFeedNotificationList.get(position);
         holder.tvNtifictionTxt.setText("" + dailyFeedNotification.getNotificationType());
-         //holder.tvTimeReadingTxt.setText("" + dailyFeedNotification.getContentTitle());
         String upperString = dailyFeedNotification.getContentTitle().substring(0, 1).toUpperCase() + dailyFeedNotification.getContentTitle().substring(1).toLowerCase();
         holder.tvTimeReadingTxt.setText("" + upperString);
-       /* if (dailyFeedNotification.getActivityDetail().get() != null) {
-            Picasso.with(context).load(dailyDataCount.getUser().getImage()).error(R.drawable.ic_userimageiconss).into(holder.ivUserImage);
-        }*/
+
+        try {
+            if (dailyFeedNotification.getActivityDetail().getImageUrl()!= null) {
+                holder.ivNotificatonImg.setVisibility(View.VISIBLE);
+                Picasso.with(context).load(dailyFeedNotification.getActivityDetail().getImageUrl()).error(R.drawable.ic_userimageiconss).into(holder.ivNotificatonImg);
+            }
+
+        } catch (NullPointerException e) {
+            holder.ivNotificatonImg.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
@@ -56,14 +67,13 @@ public class DailyFeedNotificationAdapter extends RecyclerView.Adapter<DailyFeed
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tvNtifictionTxt, tvTimeReadingTxt;
-        public ImageView ivNotificatonIcnImg;
+        public CircularImageView ivNotificatonImg;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tvNtifictionTxt = itemView.findViewById(R.id.tvNtifictionTxt);
             tvTimeReadingTxt = itemView.findViewById(R.id.tvTimeReadingTxt);
-            ivNotificatonIcnImg = itemView.findViewById(R.id.ivNotificatonIcnImg);
-
+            ivNotificatonImg = itemView.findViewById(R.id.ivNotificatonImg);
         }
     }
 }

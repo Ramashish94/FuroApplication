@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.notification.allNotificationModal.DailyFeedNotification;
 import com.app.furoapp.activity.newFeature.notification.allNotificationModal.Datum;
 
 import java.util.List;
@@ -38,7 +37,12 @@ public class DailyFeedNotificationAdapter extends RecyclerView.Adapter<DailyFeed
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Datum dailyFeedNotification = dailyFeedNotificationList.get(position);
         holder.tvNtifictionTxt.setText("" + dailyFeedNotification.getNotificationType());
-        holder.tvTimeReadingTxt.setText("" + dailyFeedNotification.getContentTitle());
+         //holder.tvTimeReadingTxt.setText("" + dailyFeedNotification.getContentTitle());
+        String upperString = dailyFeedNotification.getContentTitle().substring(0, 1).toUpperCase() + dailyFeedNotification.getContentTitle().substring(1).toLowerCase();
+        holder.tvTimeReadingTxt.setText("" + upperString);
+       /* if (dailyFeedNotification.getActivityDetail().get() != null) {
+            Picasso.with(context).load(dailyDataCount.getUser().getImage()).error(R.drawable.ic_userimageiconss).into(holder.ivUserImage);
+        }*/
     }
 
     @Override

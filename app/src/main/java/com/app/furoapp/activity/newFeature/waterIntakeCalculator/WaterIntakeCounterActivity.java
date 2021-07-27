@@ -163,7 +163,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         tvRecommendedNosOfWaterGlasses = findViewById(R.id.tvRecommendedNosOfWaterGlasses);
         tvTotWaterAmountDrunk = findViewById(R.id.tvTotWaterAmountDrunk);
         tvCountNosOfGlass = findViewById(R.id.tvCountNosOfGlass);
-        tvDateWithDays = findViewById(R.id.tvDateWithDays);
+//        tvDateWithDays = findViewById(R.id.tvDateWithDays);
         includeCongratsPopMenu = findViewById(R.id.includeCongratsPopMenu);
         tvRecommendedWaterIntake = findViewById(R.id.tvRecommendedWaterIntake);
         llCongratsClosedIcon = findViewById(R.id.llCongratsClosedIcon);
@@ -235,7 +235,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
 
                 DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
                 try {
-                    date = dateFormat.parse(selectedPlan.getCreatedAt());
+                    date = dateFormat.parse(selectedPlan.getUpdatedAt());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }

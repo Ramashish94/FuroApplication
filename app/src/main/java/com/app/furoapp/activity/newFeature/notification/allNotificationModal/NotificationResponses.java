@@ -4,7 +4,7 @@ package com.app.furoapp.activity.newFeature.notification.allNotificationModal;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class NotificationResponse {
+public class NotificationResponses {
 
     @SerializedName("dailyFeedNotification")
     @Expose

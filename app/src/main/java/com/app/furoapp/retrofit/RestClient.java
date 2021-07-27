@@ -32,7 +32,7 @@ import com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel.BmiStoreD
 import com.app.furoapp.activity.newFeature.healthCare.healthCentermodel.HealthCenterResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
-import com.app.furoapp.activity.newFeature.notification.allNotificationModal.NotificationResponse;
+import com.app.furoapp.activity.newFeature.notification.allNotificationModal.NotificationResponses;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.WaterIntakeExistsUser.WaterIntakeExistsUserResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.ChangeGlassSizeRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.UserChangeGlassSizeResponse;
@@ -374,7 +374,7 @@ public class RestClient {
 
     /*added new feature in FQ*/
     /*notification*/
-    public static void getNotificationData(String token, Callback<NotificationResponse> callback) {
+    public static void getNotificationData(String token, Callback<NotificationResponses> callback) {
         RetrofitClient.getClient().getNotification(token).enqueue(callback);
     }
    /* public static void getChallangeNotificationData(String token, Callback<ChallengeNotificationResp> callback) {

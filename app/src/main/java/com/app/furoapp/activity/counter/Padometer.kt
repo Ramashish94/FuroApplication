@@ -112,7 +112,7 @@ class Padometer : AppCompatActivity() {
             checkPermissionsAndRun(FitActionRequestCode.SUBSCRIBE)
 
         }
-
+        callTipsApi();
         clickListners()
 
 

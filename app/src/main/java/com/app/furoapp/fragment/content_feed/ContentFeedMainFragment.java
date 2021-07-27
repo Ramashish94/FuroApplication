@@ -27,7 +27,7 @@ import com.app.furoapp.activity.AboutContestChallengeActivity;
 import com.app.furoapp.activity.WelcomeActivityContentFeed;
 import com.app.furoapp.activity.newFeature.notification.NotificationSectionActivity;
 import com.app.furoapp.activity.newFeature.notification.allNotificationModal.DailyFeedNotification;
-import com.app.furoapp.activity.newFeature.notification.allNotificationModal.NotificationResponse;
+import com.app.furoapp.activity.newFeature.notification.allNotificationModal.NotificationResponses;
 import com.app.furoapp.adapter.BannerImageeAdapter;
 import com.app.furoapp.databinding.FragmentContentFeedMainBinding;
 import com.app.furoapp.model.Bannersecond.Banner;
@@ -228,9 +228,9 @@ public class ContentFeedMainFragment extends Fragment {
     }
 
     private void callNotificationApi() {
-        RestClient.getNotificationData(getAccessToken, new Callback<NotificationResponse>() {
+        RestClient.getNotificationData(getAccessToken, new Callback<NotificationResponses>() {
             @Override
-            public void onResponse(Call<NotificationResponse> call, Response<NotificationResponse> response) {
+            public void onResponse(Call<NotificationResponses> call, Response<NotificationResponses> response) {
                 if (response.code() == 200) {
                     if (response.body() != null) {
                         setNotificationCount(response.body().getDailyFeedNotification());
@@ -239,7 +239,7 @@ public class ContentFeedMainFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<NotificationResponse> call, Throwable t) {
+            public void onFailure(Call<NotificationResponses> call, Throwable t) {
                 Toast.makeText(getActivity(), "Some thing went wrong", Toast.LENGTH_SHORT).show();
 
             }

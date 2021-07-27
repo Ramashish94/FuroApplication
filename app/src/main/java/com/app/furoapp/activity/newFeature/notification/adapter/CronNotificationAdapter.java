@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.notification.allNotificationModal.Datum__1;
 import com.app.furoapp.activity.newFeature.notification.allNotificationModal.Datum__2;
 
 import java.util.List;
@@ -38,7 +37,9 @@ public class CronNotificationAdapter extends RecyclerView.Adapter<CronNotificati
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Datum__2 challengeNotification = cronNotificationList.get(position);
         holder.tvNtifictionTxt.setText("" + challengeNotification.getTitle());
-        holder.tvTimeReadingTxt.setText("" + challengeNotification.getBody());
+       holder.tvTimeReadingTxt.setText("" + challengeNotification.getBody());
+       /* String upperString = challengeNotification.getBody().substring(0, 1).toUpperCase() + challengeNotification.getBody().substring(1).toLowerCase();
+        holder.tvTimeReadingTxt.setText("" + upperString);*/
     }
 
     @Override

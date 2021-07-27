@@ -32,7 +32,7 @@ import com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel.BmiStoreD
 import com.app.furoapp.activity.newFeature.healthCare.healthCentermodel.HealthCenterResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
-import com.app.furoapp.activity.newFeature.notification.allNotificationModal.NotificationResponse;
+import com.app.furoapp.activity.newFeature.notification.allNotificationModal.NotificationResponses;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.WaterIntakeExistsUser.WaterIntakeExistsUserResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.ChangeGlassSizeRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.UserChangeGlassSizeResponse;
@@ -427,7 +427,7 @@ public interface ApiInterface {
     /*added new feature in Fq*/
 
     @GET("notification")
-    Call<NotificationResponse> getNotification(@Header(TOKEN_KEY) String token);
+    Call<NotificationResponses> getNotification(@Header(TOKEN_KEY) String token);
 
 //    @GET("all_challanges_notification")
 //    Call<ChallengeNotificationResp> CHALLANGE_NOTIFICATION_RESPONSE_CALL(@Header(TOKEN_KEY) String token);

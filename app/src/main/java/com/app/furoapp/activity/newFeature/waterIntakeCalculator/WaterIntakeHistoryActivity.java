@@ -243,7 +243,7 @@ public class WaterIntakeHistoryActivity extends AppCompatActivity {
     private void setDate(CurrentPlan currentPlan) {
         DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
         try {
-            date = dateFormat.parse(currentPlan.getCreatedAt());
+            date = dateFormat.parse(currentPlan.getUpdatedAt());
         } catch (ParseException e) {
             e.printStackTrace();
         }

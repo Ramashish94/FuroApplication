@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.notification.allNotificationModal.ChallengeNotification;
 import com.app.furoapp.activity.newFeature.notification.allNotificationModal.Datum__1;
 
 import java.util.List;
@@ -38,7 +37,14 @@ public class ChallangeNotificationAdapter extends RecyclerView.Adapter<Challange
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Datum__1 challengeNotification = challengeNotificationList.get(position);
         holder.tvNtifictionTxt.setText("" + challengeNotification.getTitle());
-        holder.tvTimeReadingTxt.setText("" + challengeNotification.getBody());
+       // holder.tvTimeReadingTxt.setText("" + challengeNotification.getBody());
+        String upperString = challengeNotification.getBody().substring(0, 1).toUpperCase() + challengeNotification.getBody().substring(1).toLowerCase();
+        holder.tvTimeReadingTxt.setText("" + upperString);
+        /*if (challengeNotification.getUsers().get.getImage() != null) {
+            Picasso.with(context).load(dailyDataCount.getUser().getImage()).error(R.drawable.ic_userimageiconss).into(holder.ivUserImage);
+        }
+*/
+
     }
 
     @Override

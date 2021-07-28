@@ -58,7 +58,7 @@
                         android:layout_width="294dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/bebase_neue"
-                        android:text=" STEP Tracker"
+                        android:text=" STEP Counter"
                         android:textColor="@color/white"
                         android:textSize="@dimen/dp_30"
                         android:textStyle="italic" />

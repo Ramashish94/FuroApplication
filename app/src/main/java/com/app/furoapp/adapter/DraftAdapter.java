@@ -54,7 +54,11 @@ public class DraftAdapter extends RecyclerView.Adapter<DraftAdapter.MyViewHolder
 
     @Override
     public int getItemCount() {
-        return draftChallengeList.size();
+        if (draftChallengeList != null && draftChallengeList.size() > 0) {
+            return draftChallengeList.size();
+        } else {
+            return 0;
+        }
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

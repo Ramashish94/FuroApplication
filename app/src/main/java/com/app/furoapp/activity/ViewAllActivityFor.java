@@ -31,7 +31,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-
 public class ViewAllActivityFor extends AppCompatActivity {
 
     LinearLayout linearLayout;
@@ -55,17 +54,12 @@ public class ViewAllActivityFor extends AppCompatActivity {
         recyclerView1 = findViewById(R.id.challengeForyouView);
         youHaveNotChallange = findViewById(R.id.youhavenotchallange);
 
-         userIdChallenge = FuroPrefs.getInt(getApplicationContext(), "challengefuroid", 0);
-
+        userIdChallenge = FuroPrefs.getInt(getApplicationContext(), "challengefuroid", 0);
 
 
         getDChallengeForYou();
 
     }
-
-
-
-
 
 
     public void getDChallengeForYou() {
@@ -86,11 +80,9 @@ public class ViewAllActivityFor extends AppCompatActivity {
 
                 if (response != null) {
 
-                    if (response.body() != null && response.body().getReceiveChallenge().size() > 0) {
-                        List<ReceiveChallenge> receiveChallenges = response.body().getReceiveChallenge();
-
-
-                        challangesForYouAdapter = new ChallangesForYouAdapter(receiveChallenges   , getApplicationContext());
+                    if (response.body() != null && response.body().getReceiveChallenge() != null && response.body().getReceiveChallenge().size() > 0) {
+                        //  List<ReceiveChallenge> receiveChallenges = response.body().getReceiveChallenge();
+                        challangesForYouAdapter = new ChallangesForYouAdapter(response.body().getReceiveChallenge(), getApplicationContext());
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
                         recyclerView1.setLayoutManager(layoutManager);
                         recyclerView1.setItemAnimator(new DefaultItemAnimator());

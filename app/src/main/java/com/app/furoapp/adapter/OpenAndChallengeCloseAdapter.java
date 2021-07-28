@@ -62,7 +62,11 @@ public class OpenAndChallengeCloseAdapter extends RecyclerView.Adapter<OpenAndCh
 
     @Override
     public int getItemCount() {
-        return sendChallengeslist.size();
+        if (sendChallengeslist != null && sendChallengeslist.size() > 0) {
+            return sendChallengeslist.size();
+        } else {
+            return 0;
+        }
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

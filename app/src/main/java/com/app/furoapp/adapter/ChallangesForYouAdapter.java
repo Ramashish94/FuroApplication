@@ -61,7 +61,11 @@ public class ChallangesForYouAdapter extends RecyclerView.Adapter<ChallangesForY
 
     @Override
     public int getItemCount() {
-        return receiveChallenges.size();
+        if (receiveChallenges != null && receiveChallenges.size() > 0) {
+            return receiveChallenges.size();
+        } else {
+            return 0;
+        }
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

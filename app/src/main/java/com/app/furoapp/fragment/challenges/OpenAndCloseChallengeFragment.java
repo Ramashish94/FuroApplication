@@ -167,7 +167,7 @@ public class OpenAndCloseChallengeFragment extends Fragment {
                 linearLayout.setVisibility(View.GONE);
                 if (response != null && response.body() != null) {
 
-                    if (response.body().getReceiveChallenge() != null && response.body().getReceiveChallenge().size() > 0) { /*>= 2*/
+                    if (response.body().getReceiveChallenge() != null && response.body().getReceiveChallenge().size() >= 2) {
 
                         List<ReceiveChallenge> sreceiveChallenges1 = response.body().getReceiveChallenge().subList(0, 2);
 
@@ -199,6 +199,8 @@ public class OpenAndCloseChallengeFragment extends Fragment {
 
 
                         });
+                    } else {
+
                     }
 
 
@@ -233,8 +235,8 @@ public class OpenAndCloseChallengeFragment extends Fragment {
             @Override
             public void onResponse(Call<ChallengeByUserResponse> call, Response<ChallengeByUserResponse> response) {
                 pGif.setVisibility(View.GONE);
-                if (response != null) {
-                    if (response.body() != null && response.body().getSendChallenge().size() >= 2) {
+                if (response != null && response.body() != null) {
+                    if (response.body().getSendChallenge() != null && response.body().getSendChallenge().size() >= 2) {
 
 
                         List<SendChallenge> sendChallenges1 = response.body().getSendChallenge().subList(0, 2);
@@ -272,10 +274,11 @@ public class OpenAndCloseChallengeFragment extends Fragment {
 
                     } else {
 
-                        youHaveNotChallange.setVisibility(View.VISIBLE);
-
 
                     }
+
+                } else {
+                    youHaveNotChallange.setVisibility(View.VISIBLE);
 
                 }
 
@@ -307,9 +310,9 @@ public class OpenAndCloseChallengeFragment extends Fragment {
             public void onResponse(Call<DraftResponse> call, Response<DraftResponse> response) {
                 pGif.setVisibility(View.GONE);
                 linearLayout.setVisibility(View.GONE);
-                if (response != null) {
+                if (response != null && response.body() != null) {
 
-                    if (response.body() != null && response.body().getDraftChallenges().size() >= 2) {
+                    if (response.body().getDraftChallenges() != null && response.body().getDraftChallenges().size() >= 2) {
                         List<DraftChallenge> draftChallenges = response.body().getDraftChallenges().subList(0, 2);
 
                         draftAdapter = new DraftAdapter(draftChallenges, getContext());
@@ -348,9 +351,11 @@ public class OpenAndCloseChallengeFragment extends Fragment {
 
 
                     } else {
-                        draft.setVisibility(View.VISIBLE);
+
                     }
 
+                } else {
+                    draft.setVisibility(View.VISIBLE);
 
                 }
             }

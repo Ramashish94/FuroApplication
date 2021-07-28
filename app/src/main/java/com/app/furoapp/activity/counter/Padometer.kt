@@ -6,6 +6,7 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -32,8 +33,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.fitness.Fitness
 import com.google.android.gms.fitness.FitnessOptions
-import com.google.android.gms.fitness.data.DataType
-import com.google.android.gms.fitness.data.Field
+import com.google.android.gms.fitness.data.*
+import com.google.android.gms.fitness.request.DataReadRequest
+import com.google.android.gms.fitness.result.DataReadResult
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_fq_steps_counter.*
@@ -41,7 +43,12 @@ import kotlinx.android.synthetic.main.alertt_dialog_modified_data_.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
 import java.util.*
+import java.util.concurrent.TimeUnit
+
 
 enum class FitActionRequestCode {
     SUBSCRIBE,
@@ -60,7 +67,7 @@ class Padometer : AppCompatActivity() {
     private var isSwitchedChecked = false
     var mGoogleSignInClient: GoogleSignInClient? = null
     private var getAccessToken: String? = null
-    private val tipsList: List<DataItem>? = null
+    private var tipsList: List<DataItem>? = null
     private var dialog: AlertDialog? = null
     private val tipsHandler = Handler()
     private var tipsListSize = 0
@@ -70,7 +77,7 @@ class Padometer : AppCompatActivity() {
     var stepsAchivedVal: String? = null
     var selectNumberAchievedVal: String? = null
 
-    var isLogin: Boolean = false;
+    var isLogin: Boolean = false
 
     private var getCalculateCalories = 0f
     private val fitnessOptions = FitnessOptions.builder()
@@ -98,10 +105,10 @@ class Padometer : AppCompatActivity() {
         /*added*/
         when {
             stepsAchivedVal != null -> {
-                tvTotNumberOfSteps.text = " of $stepsAchivedVal Steps";
+                tvTotNumberOfSteps.text = " of $stepsAchivedVal Steps"
             }
             selectNumberAchievedVal != null -> {
-                tvTotNumberOfSteps.text = " of $selectNumberAchievedVal Steps ";
+                tvTotNumberOfSteps.text = " of $selectNumberAchievedVal Steps "
             }
             else -> {
 
@@ -122,7 +129,7 @@ class Padometer : AppCompatActivity() {
             checkPermissionsAndRun(FitActionRequestCode.SUBSCRIBE)
 
         }
-        callTipsApi();
+        callTipsApi()
         clickListners()
 
 
@@ -281,6 +288,7 @@ class Padometer : AppCompatActivity() {
      */
     private fun readData() {
         Fitness.getHistoryClient(this, getGoogleAccount())
+//                .readData(queryFitnessData())
                 .readDailyTotal(DataType.TYPE_STEP_COUNT_DELTA)
                 .addOnSuccessListener { dataSet ->
                     val total = when {
@@ -327,8 +335,93 @@ class Padometer : AppCompatActivity() {
                     Log.w(TAG, "There was a problem getting the step count.", e)
                 }
     }
-
-
+/////////////////////////////////////////////////////////////////////////////
+//    private fun readFitnessData(){
+//        // Read the data that's been collected throughout the past week.
+//        val endTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
+//        val startTime = endTime.minusWeeks(1)
+//        val readRequest = DataReadRequest.Builder()
+//                .aggregate(DataType.AGGREGATE_CALORIES_EXPENDED)
+//                .bucketByActivityType(1, TimeUnit.SECONDS)
+//                .setTimeRange(startTime.toEpochSecond(), endTime.toEpochSecond(), TimeUnit.SECONDS)
+//                .build()
+//        Fitness.getHistoryClient(this,  getGoogleAccount())
+//                .readData(readRequest)
+//                .addOnSuccessListener { response ->
+//                    // The aggregate query puts datasets into buckets, so flatten into a
+//                    // single list of datasets
+//                    for (dataSet in response.buckets.flatMap { it.dataSets }) {
+//                        dumpDataSet(dataSet)
+//                    }
+//                }
+//                .addOnFailureListener { e ->
+//                    Log.w(TAG,"There was an error reading data from Google Fit", e)
+//                }
+//    }
+//
+//    fun dumpDataSet(dataSet: DataSet) {
+//        val TAG="Qwerty"
+//        Log.e(TAG, "Data returned for Data type: ${dataSet.dataType.name}")
+//        for (dp in dataSet.dataPoints) {
+//            Log.e(TAG,"Data point:")
+//            Log.e(TAG,"\tType: ${dp.dataType.name}")
+//            Log.e(TAG,"\tStart: ${dp.getStartTimeString()}")
+//            Log.e(TAG,"\tEnd: ${dp.getEndTimeString()}")
+//            for (field in dp.dataType.fields) {
+//                Log.e(TAG,"\tField: ${field.name} Value: ${dp.getValue(field)}")
+//            }
+//        }
+//    }
+//
+//    fun DataPoint.getStartTimeString() = Instant.ofEpochSecond(this.getStartTime(TimeUnit.SECONDS))
+//            .atZone(ZoneId.systemDefault())
+//            .toLocalDateTime().toString()
+//
+//    fun DataPoint.getEndTimeString() = Instant.ofEpochSecond(this.getEndTime(TimeUnit.SECONDS))
+//            .atZone(ZoneId.systemDefault())
+//            .toLocalDateTime().toString()
+//    fun queryFitnessData(): DataReadRequest {
+//        // [START build_read_data_request]
+//        // Setting a start and end date using a range of 1 week before this moment.
+//        val cal = Calendar.getInstance()
+//        val now = Date()
+//        cal.time = now
+//        val endTime = cal.timeInMillis
+//        cal[Calendar.HOUR_OF_DAY] = 0
+//        cal[Calendar.MINUTE] = 0
+//        cal[Calendar.SECOND] = 0
+//        val startTime = cal.timeInMillis
+//
+//        val ACTIVITY_SEGMENT = DataSource.Builder()
+//                .setDataType(DataType.TYPE_ACTIVITY_SEGMENT)
+//                .setType(DataSource.TYPE_DERIVED)
+//                .setStreamName("estimated_activity_segment")
+//                .setAppPackageName("com.google.android.gms")
+//                .build()
+//        // [END build_read_data_request]
+//        return DataReadRequest.Builder()
+//                .aggregate(ACTIVITY_SEGMENT, DataType.AGGREGATE_ACTIVITY_SUMMARY)
+//                .bucketByActivitySegment(1, TimeUnit.SECONDS)
+//                .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS)
+//                .build()
+//    }
+//
+//    fun printData(dataReadResult: DataReadResult) {
+//        // [START parse_read_data_result]
+//        // If the DataReadRequest object specified aggregated data, dataReadResult will be returned
+//        // as buckets containing DataSets, instead of just DataSets.
+//        if (dataReadResult.buckets.size > 0) {
+//            Log.i(TAG, "Number of returned buckets of DataSets is: "
+//                    + dataReadResult.buckets.size)
+//            for (bucket in dataReadResult.buckets) {
+//                Log.i(TAG, bucket.activity)
+//                val activeTime = bucket.getEndTime(TimeUnit.MINUTES) - bucket.getStartTime(TimeUnit.MINUTES)
+//                Log.i(TAG, "Active time $activeTime")
+//            }
+//        }
+//        // [END parse_read_data_result]
+//    }
+/////////////////////////////////////////////////////////////////////////////////
     /** Initializes a custom log class that outputs both to in-app targets and logcat.  */
 
     private fun permissionApproved(): Boolean {
@@ -405,7 +498,7 @@ class Padometer : AppCompatActivity() {
         }
 
         ivModified.setOnClickListener {
-            openModifiedAlertDialog();
+            openModifiedAlertDialog()
         }
 
     }
@@ -538,15 +631,11 @@ class Padometer : AppCompatActivity() {
                 ) {
                     Util.dismissProgressDialog()
                     if (response.code() == 200) {
-                        Log.d(
-                                FqStepsCounterActivity.TAG,
-                                "onResponse() called with: , response = [" + response.body() + "]"
-                        )
                         if (response.body()!!.data != null && response.body()!!.data.data != null && response.body()!!
                                         .data.data.size > 0
                         ) {
-                            val tipsList = response.body()!!.data.data
-                            tipsListSize = tipsList.size
+                            tipsList = response.body()!!.data.data
+                            tipsListSize = tipsList?.size?:0
                             tipsHandler.postDelayed(tipsRunnable, 0)
                         } else {
                             Toast.makeText(
@@ -586,13 +675,13 @@ class Padometer : AppCompatActivity() {
     // ___________________________________________________________________________ \\
     private val tipsRunnable: Runnable = object : Runnable {
         override fun run() {
-            if (tipsList != null && tipsList.size > 0) {
+            if (tipsList != null && !tipsList.isNullOrEmpty()) {
                 if (tipsStart == tipsListSize - 1) {
-                    tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph())
+                    tvPrizmTips.text = tipsList!![tipsStart].paragraph
                     tipsStart = 0
                 } else {
-                    if (tipsList != null && tipsList.size > 0) {
-                        tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph())
+                    if (tipsList != null && ! tipsList.isNullOrEmpty()) {
+                        tvPrizmTips.text = tipsList!![tipsStart].paragraph
                         tipsStart++
                     }
                 }
@@ -607,6 +696,10 @@ class Padometer : AppCompatActivity() {
         val dialogView = inflater.inflate(R.layout.alertt_dialog_modified_data_, null)
         dialogBuilder.setView(dialogView)
         val dialog = dialogBuilder.create()
+
+        val btn_cancel:ImageView  = dialogView.findViewById(R.id.btn_cancel)
+        val tvContinue:TextView = dialogView.findViewById(R.id.tvContinue)
+        val tvModified:TextView = dialogView.findViewById(R.id.tvModified)
 
         btn_cancel.setOnClickListener{ dialog.dismiss() }
         tvContinue.setOnClickListener { dialog.dismiss() }

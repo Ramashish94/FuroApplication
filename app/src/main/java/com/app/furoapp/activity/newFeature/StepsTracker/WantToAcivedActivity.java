@@ -108,7 +108,7 @@ public class WantToAcivedActivity extends AppCompatActivity {
                 intent.putExtra("getAchievedVal", getAchievedVal);
                 FuroPrefs.putInt(getApplicationContext(),"achivedSteps", Integer.parseInt(getAchievedVal));
                 startActivity(intent);
-                finish();
+//                finish();
             } else {
                 Toast.makeText(this, "Please select which you want to achieved !", Toast.LENGTH_SHORT).show();
             }
@@ -117,7 +117,7 @@ public class WantToAcivedActivity extends AppCompatActivity {
         ivSkip.setOnClickListener(v -> {
             intent = new Intent(getApplicationContext(), CreateYourStepGoalActivity.class);
             startActivity(intent);
-            finish();
+//            finish();
         });
 
     }

@@ -19,10 +19,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.view.isVisible
 import com.app.furoapp.R
 import com.app.furoapp.activity.LoginTutorialScreen
-import com.app.furoapp.activity.newFeature.StepsTracker.FqStepsCounterActivity
-import com.app.furoapp.activity.newFeature.StepsTracker.LeaderBoardActivity
-import com.app.furoapp.activity.newFeature.StepsTracker.StepCounterHistoryActivity
-import com.app.furoapp.activity.newFeature.StepsTracker.StepCounterSettingsActivity
+import com.app.furoapp.activity.newFeature.StepsTracker.*
 import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.DataItem
 import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.TipsResponse
 import com.app.furoapp.retrofit.RestClient
@@ -385,11 +382,13 @@ class Padometer : AppCompatActivity() {
             var isAlreadyActivate = true
             FuroPrefs.putBoolean(applicationContext, "isAlreadyActivate", isAlreadyActivate)
             deactivate.isVisible = true
+            ivModified.isVisible = false
         }
 
         deactivate.setOnClickListener {
             googlefitDisabled()
             tvActivateStepsCounter.isVisible = true
+            ivModified.isVisible = true
             deactivate.isVisible = false
             var isAlreadyActivate = false
             FuroPrefs.putBoolean(applicationContext, "isAlreadyActivate", isAlreadyActivate)
@@ -403,6 +402,10 @@ class Padometer : AppCompatActivity() {
                 }
             }
 
+        }
+
+        ivModified.setOnClickListener {
+            openModifiedAlertDialog();
         }
 
     }
@@ -605,17 +608,12 @@ class Padometer : AppCompatActivity() {
         dialogBuilder.setView(dialogView)
         val dialog = dialogBuilder.create()
 
-
-
-        llFqStepCounter.setClickable(false)
-        btn_cancel.setOnClickListener(View.OnClickListener { dialog.dismiss() })
-        tvContinue.setOnClickListener(View.OnClickListener { dialog.dismiss() })
-        tvModified.setOnClickListener(View.OnClickListener { // FqStepsCounterActivity.super.onBackPressed();
+        btn_cancel.setOnClickListener{ dialog.dismiss() }
+        tvContinue.setOnClickListener { dialog.dismiss() }
+        tvModified.setOnClickListener{
             dialog.dismiss()
             finish()
-            /*  finishAffinity();
-                System.exit(0);*/
-        })
+        }
         dialog.show()
     }
 
@@ -688,5 +686,15 @@ class Padometer : AppCompatActivity() {
                 .addOnFailureListener { e ->
                     Log.w(TAG, "There was an error disabling Google Fit", e)
                 }
+    }
+
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(
+                applicationContext,
+                WantToAcivedActivity::class.java
+        )
+        startActivity(intent)
     }
 }

@@ -393,7 +393,15 @@ class Padometer : AppCompatActivity() {
             deactivate.isVisible = false
             var isAlreadyActivate = false
             FuroPrefs.putBoolean(applicationContext, "isAlreadyActivate", isAlreadyActivate)
-            notificationManager!!.cancel(0)
+            //            notificationManager!!.cancel(0)
+            when {
+                notificationManager != null -> {
+                    notificationManager!!.cancel(0)
+                }
+                else -> {
+
+                }
+            }
 
         }
 

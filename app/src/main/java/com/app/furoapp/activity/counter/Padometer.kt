@@ -77,19 +77,19 @@ class Padometer : AppCompatActivity() {
 
     private var getCalculateCalories = 0f
     private val fitnessOptions = FitnessOptions.builder()
-        .addDataType(DataType.TYPE_STEP_COUNT_CUMULATIVE)
-        .addDataType(DataType.TYPE_STEP_COUNT_DELTA)
-        .build()
+            .addDataType(DataType.TYPE_STEP_COUNT_CUMULATIVE)
+            .addDataType(DataType.TYPE_STEP_COUNT_DELTA)
+            .build()
 
     private val runningQOrLater =
-        android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q
+            android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fq_steps_counter)
         getAccessToken = FuroPrefs.getString(applicationContext, Constants.Get_ACCESS_TOKEN)
-      var isActuvate =  FuroPrefs.getBoolean(applicationContext, "isAlreadyActivate" )
-        if(isActuvate == true){
+        var isActuvate = FuroPrefs.getBoolean(applicationContext, "isAlreadyActivate")
+        if (isActuvate == true) {
             tvActivateStepsCounter.isVisible = false
             deactivate.isVisible = true
 
@@ -98,10 +98,23 @@ class Padometer : AppCompatActivity() {
         stepsAchivedVal = intent.getStringExtra("getAchievedVal")
         selectNumberAchievedVal = intent.getStringExtra("selectNumber")
 
+        /*added*/
+        when {
+            stepsAchivedVal != null -> {
+                tvTotNumberOfSteps.text = " of $stepsAchivedVal Steps";
+            }
+            selectNumberAchievedVal != null -> {
+                tvTotNumberOfSteps.text = " of $selectNumberAchievedVal Steps ";
+            }
+            else -> {
+
+            }
+        }
+
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
         mGoogleSignInClient = GoogleSignIn.getClient(applicationContext, gso)
 
         // This method sets up our custom logger, which will print all log messages to the device
@@ -120,18 +133,18 @@ class Padometer : AppCompatActivity() {
 
     fun googleSignOut() {
         mGoogleSignInClient?.signOut()
-            ?.addOnCompleteListener(
-                this,
-                OnCompleteListener<Void?> { // Toast.makeText(ActivityMain.this, "Google Sign Out done.", Toast.LENGTH_SHORT).show();
-                    revokeAccess()
-                })
+                ?.addOnCompleteListener(
+                        this,
+                        OnCompleteListener<Void?> { // Toast.makeText(ActivityMain.this, "Google Sign Out done.", Toast.LENGTH_SHORT).show();
+                            revokeAccess()
+                        })
     }
 
     private fun revokeAccess() {
         mGoogleSignInClient?.revokeAccess()
-            ?.addOnCompleteListener(this, OnCompleteListener<Void?> {
-                // Toast.makeText(ActivityMain.this, "Google access revoked.", Toast.LENGTH_SHORT).show();
-            })
+                ?.addOnCompleteListener(this, OnCompleteListener<Void?> {
+                    // Toast.makeText(ActivityMain.this, "Google access revoked.", Toast.LENGTH_SHORT).show();
+                })
     }
 
 
@@ -152,8 +165,8 @@ class Padometer : AppCompatActivity() {
                 FuroPrefs.clear(applicationContext)
                 googleSignOut()
                 val intent = Intent(
-                    applicationContext,
-                    LoginTutorialScreen::class.java
+                        applicationContext,
+                        LoginTutorialScreen::class.java
                 )
                 startActivity(intent)
                 finishAffinity()
@@ -184,9 +197,9 @@ class Padometer : AppCompatActivity() {
         } else {
             requestCode.let {
                 GoogleSignIn.requestPermissions(
-                    this,
-                    requestCode.ordinal,
-                    getGoogleAccount(), fitnessOptions
+                        this,
+                        requestCode.ordinal,
+                        getGoogleAccount(), fitnessOptions
                 )
             }
         }
@@ -201,15 +214,15 @@ class Padometer : AppCompatActivity() {
      * @param requestCode The code corresponding to the action to perform.
      */
     private fun performActionForRequestCode(requestCode: FitActionRequestCode) =
-        when (requestCode) {
-            FitActionRequestCode.READ_DATA -> readData()
-            FitActionRequestCode.SUBSCRIBE -> subscribe()
-        }
+            when (requestCode) {
+                FitActionRequestCode.READ_DATA -> readData()
+                FitActionRequestCode.SUBSCRIBE -> subscribe()
+            }
 
 
     private fun oAuthPermissionsApproved() = GoogleSignIn.hasPermissions(
-        getGoogleAccount(),
-        fitnessOptions
+            getGoogleAccount(),
+            fitnessOptions
     )
 
     /**
@@ -254,15 +267,15 @@ class Padometer : AppCompatActivity() {
         // To create a subscription, invoke the Recording API. As soon as the subscription is
         // active, fitness data will start recording.
         Fitness.getRecordingClient(this, getGoogleAccount())
-            .subscribe(DataType.TYPE_STEP_COUNT_CUMULATIVE)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Log.i(TAG, "Successfully subscribed!")
-                    readData()
-                } else {
-                    Log.w(TAG, "There was a problem subscribing.", task.exception)
+                .subscribe(DataType.TYPE_STEP_COUNT_CUMULATIVE)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Log.i(TAG, "Successfully subscribed!")
+                        readData()
+                    } else {
+                        Log.w(TAG, "There was a problem subscribing.", task.exception)
+                    }
                 }
-            }
     }
 
     /**
@@ -271,51 +284,51 @@ class Padometer : AppCompatActivity() {
      */
     private fun readData() {
         Fitness.getHistoryClient(this, getGoogleAccount())
-            .readDailyTotal(DataType.TYPE_STEP_COUNT_DELTA)
-            .addOnSuccessListener { dataSet ->
-                val total = when {
-                    dataSet.isEmpty -> 0
-                    else -> dataSet.dataPoints.first().getValue(Field.FIELD_STEPS).asInt()
+                .readDailyTotal(DataType.TYPE_STEP_COUNT_DELTA)
+                .addOnSuccessListener { dataSet ->
+                    val total = when {
+                        dataSet.isEmpty -> 0
+                        else -> dataSet.dataPoints.first().getValue(Field.FIELD_STEPS).asInt()
+                    }
+                    Log.i(TAG, "Total steps: $total")
+
+
+
+
+                    getDetectedSteps = total
+                    tvCountsSteps.text = getDetectedSteps.toString()
+
+
+                    /*added*/getCalculateCalories = (getDetectedSteps!! * 0.045).toFloat()
+                    tvCalories.text = "$getCalculateCalories Cal"
+
+                    var steps: Float = total.toFloat()
+
+                    isLogin = true
+                    FuroPrefs.putBoolean(applicationContext, "isAlreadyLoginForFitness", isLogin)
+
+                    clickListner(steps)
+
+                    showNotification(total)
+
+
+                    val calendar = Calendar.getInstance()
+                    if (Build.VERSION.SDK_INT >= 23) {
+                        calendar[calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH], 23, 55] =
+                                0
+                    } else {
+                        calendar[calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH], 23, 55] =
+                                0
+                    }
+
+
+
+                    setAlarm(calendar.timeInMillis, getCalculateCalories, steps, getDistanceMiAndKm)
+
                 }
-                Log.i(TAG, "Total steps: $total")
-
-
-
-
-                getDetectedSteps = total
-                tvCountsSteps.text = getDetectedSteps.toString()
-
-
-                /*added*/getCalculateCalories = (getDetectedSteps!! * 0.045).toFloat()
-                tvCalories.text = "$getCalculateCalories Cal"
-
-                var steps: Float = total.toFloat()
-
-                isLogin = true
-                FuroPrefs.putBoolean(applicationContext, "isAlreadyLoginForFitness", isLogin)
-
-                clickListner(steps)
-
-                showNotification(total)
-
-
-                val calendar = Calendar.getInstance()
-                if (Build.VERSION.SDK_INT >= 23) {
-                    calendar[calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH], 23, 55] =
-                        0
-                } else {
-                    calendar[calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH], 23, 55] =
-                        0
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "There was a problem getting the step count.", e)
                 }
-
-
-
-                setAlarm(calendar.timeInMillis, getCalculateCalories, steps, getDistanceMiAndKm)
-
-            }
-            .addOnFailureListener { e ->
-                Log.w(TAG, "There was a problem getting the step count.", e)
-            }
     }
 
 
@@ -324,8 +337,8 @@ class Padometer : AppCompatActivity() {
     private fun permissionApproved(): Boolean {
         val approved = if (runningQOrLater) {
             PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.ACTIVITY_RECOGNITION
+                    this,
+                    android.Manifest.permission.ACTIVITY_RECOGNITION
             )
         } else {
             true
@@ -334,30 +347,29 @@ class Padometer : AppCompatActivity() {
     }
 
 
-
     fun clickListners() {
         ivBackIcon.setOnClickListener { v: View? -> finish() }
 
         ivSetting.setOnClickListener { v: View? ->
             val intent = Intent(
-                applicationContext,
-                StepCounterSettingsActivity::class.java
+                    applicationContext,
+                    StepCounterSettingsActivity::class.java
             )
             startActivity(intent)
             finish()
         }
         ivLeadBord.setOnClickListener { v: View? ->
             val intent = Intent(
-                applicationContext,
-                LeaderBoardActivity::class.java
+                    applicationContext,
+                    LeaderBoardActivity::class.java
             )
             startActivity(intent)
         }
         ivHistory.setOnClickListener { v: View? ->
             //   Intent intent = new Intent(getApplicationContext(), HistoryDetailsActivity.class);
             val intent = Intent(
-                applicationContext,
-                StepCounterHistoryActivity::class.java
+                    applicationContext,
+                    StepCounterHistoryActivity::class.java
             )
             startActivity(intent)
         }
@@ -367,11 +379,11 @@ class Padometer : AppCompatActivity() {
 
             checkPermissionsAndRun(FitActionRequestCode.SUBSCRIBE)
             Toast.makeText(this, "Step Counter Activate!", Toast.LENGTH_SHORT)
-                .show()
+                    .show()
             tvActivateStepsCounter.isVisible = false
 
-            var isAlreadyActivate  = true
-            FuroPrefs.putBoolean(applicationContext, "isAlreadyActivate",isAlreadyActivate )
+            var isAlreadyActivate = true
+            FuroPrefs.putBoolean(applicationContext, "isAlreadyActivate", isAlreadyActivate)
             deactivate.isVisible = true
         }
 
@@ -379,8 +391,8 @@ class Padometer : AppCompatActivity() {
             googlefitDisabled()
             tvActivateStepsCounter.isVisible = true
             deactivate.isVisible = false
-            var isAlreadyActivate  = false
-            FuroPrefs.putBoolean(applicationContext, "isAlreadyActivate",isAlreadyActivate )
+            var isAlreadyActivate = false
+            FuroPrefs.putBoolean(applicationContext, "isAlreadyActivate", isAlreadyActivate)
             notificationManager!!.cancel(0)
 
         }
@@ -389,10 +401,10 @@ class Padometer : AppCompatActivity() {
 
     private fun requestRuntimePermissions(requestCode: FitActionRequestCode) {
         val shouldProvideRationale =
-            ActivityCompat.shouldShowRequestPermissionRationale(
-                this,
-                android.Manifest.permission.ACTIVITY_RECOGNITION
-            )
+                ActivityCompat.shouldShowRequestPermissionRationale(
+                        this,
+                        android.Manifest.permission.ACTIVITY_RECOGNITION
+                )
 
         // Provide an additional rationale to the user. This would happen if the user denied the
         // request previously, but didn't check the "Don't ask again" checkbox.
@@ -400,36 +412,36 @@ class Padometer : AppCompatActivity() {
             if (shouldProvideRationale) {
                 Log.i(TAG, "Displaying permission rationale to provide additional context.")
                 Snackbar.make(
-                    findViewById(R.id.llFqStepCounter),
-                    "",
-                    Snackbar.LENGTH_INDEFINITE
+                        findViewById(R.id.llFqStepCounter),
+                        "",
+                        Snackbar.LENGTH_INDEFINITE
                 )
-                    .setAction("") {
-                        // Request permission
-                        ActivityCompat.requestPermissions(
-                            this,
-                            arrayOf(android.Manifest.permission.ACTIVITY_RECOGNITION),
-                            requestCode.ordinal
-                        )
-                    }
-                    .show()
+                        .setAction("") {
+                            // Request permission
+                            ActivityCompat.requestPermissions(
+                                    this,
+                                    arrayOf(android.Manifest.permission.ACTIVITY_RECOGNITION),
+                                    requestCode.ordinal
+                            )
+                        }
+                        .show()
             } else {
                 Log.i(TAG, "Requesting permission")
                 // Request permission. It's possible this can be auto answered if device policy
                 // sets the permission in a given state or the user denied the permission
                 // previously and checked "Never ask again".
                 ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(android.Manifest.permission.ACTIVITY_RECOGNITION),
-                    requestCode.ordinal
+                        this,
+                        arrayOf(android.Manifest.permission.ACTIVITY_RECOGNITION),
+                        requestCode.ordinal
                 )
             }
         }
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<String>,
-        grantResults: IntArray
+            requestCode: Int, permissions: Array<String>,
+            grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when {
@@ -475,7 +487,7 @@ class Padometer : AppCompatActivity() {
             // Create the PendingIntent
 
             notifyPendingIntent = PendingIntent.getActivity(
-                this, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT
+                    this, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT
             )
         }
         val contentView = RemoteViews(this.packageName, R.layout.collapsenotification)
@@ -510,41 +522,41 @@ class Padometer : AppCompatActivity() {
             Utils.showProgressDialogBar(applicationContext)
             RestClient.getAllTipsData(getAccessToken, object : Callback<TipsResponse> {
                 override fun onResponse(
-                    call: Call<TipsResponse>,
-                    response: Response<TipsResponse>
+                        call: Call<TipsResponse>,
+                        response: Response<TipsResponse>
                 ) {
                     Util.dismissProgressDialog()
                     if (response.code() == 200) {
                         Log.d(
-                            FqStepsCounterActivity.TAG,
-                            "onResponse() called with: , response = [" + response.body() + "]"
+                                FqStepsCounterActivity.TAG,
+                                "onResponse() called with: , response = [" + response.body() + "]"
                         )
                         if (response.body()!!.data != null && response.body()!!.data.data != null && response.body()!!
-                                .data.data.size > 0
+                                        .data.data.size > 0
                         ) {
                             val tipsList = response.body()!!.data.data
                             tipsListSize = tipsList.size
                             tipsHandler.postDelayed(tipsRunnable, 0)
                         } else {
                             Toast.makeText(
-                                this@Padometer,
-                                "No tips data found",
-                                Toast.LENGTH_SHORT
+                                    this@Padometer,
+                                    "No tips data found",
+                                    Toast.LENGTH_SHORT
                             ).show()
                         }
                     } else {
                         if (response.code() == 500) {
                             Toast.makeText(
-                                this@Padometer,
-                                "Internal server error !",
-                                Toast.LENGTH_SHORT
+                                    this@Padometer,
+                                    "Internal server error !",
+                                    Toast.LENGTH_SHORT
                             ).show()
                         }
                         if (response.code() == 403) {
                             Toast.makeText(
-                                this@Padometer,
-                                response.code().toString() + "Session expire Please login again",
-                                Toast.LENGTH_SHORT
+                                    this@Padometer,
+                                    response.code().toString() + "Session expire Please login again",
+                                    Toast.LENGTH_SHORT
                             ).show()
                             getAlertTokenExpire()
                         }
@@ -553,7 +565,7 @@ class Padometer : AppCompatActivity() {
 
                 override fun onFailure(call: Call<TipsResponse>, t: Throwable) {
                     Toast.makeText(this@Padometer, "Failure", Toast.LENGTH_SHORT)
-                        .show()
+                            .show()
                 }
             })
         }
@@ -653,20 +665,20 @@ class Padometer : AppCompatActivity() {
         am.setRepeating(AlarmManager.RTC, time, AlarmManager.INTERVAL_DAY, pi)
     }
 
-    fun googlefitDisabled(){
+    fun googlefitDisabled() {
 
-        Fitness.getConfigClient(this,  GoogleSignIn.getAccountForExtension(this, fitnessOptions))
-            .disableFit()
-            .addOnSuccessListener {
-                Log.i(TAG,"Disabled Google Fit")
-                Toast.makeText(
-                    this,
-                    "Step Counter Deactivate!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-            .addOnFailureListener { e ->
-                Log.w(TAG,"There was an error disabling Google Fit", e)
-            }
+        Fitness.getConfigClient(this, GoogleSignIn.getAccountForExtension(this, fitnessOptions))
+                .disableFit()
+                .addOnSuccessListener {
+                    Log.i(TAG, "Disabled Google Fit")
+                    Toast.makeText(
+                            this,
+                            "Step Counter Deactivate!",
+                            Toast.LENGTH_SHORT
+                    ).show()
+                }
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "There was an error disabling Google Fit", e)
+                }
     }
 }

@@ -94,7 +94,7 @@
                         android:id="@+id/tvCountsSteps"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0000 "
+                        android:text="0000"
                         android:textColor="@color/light_blue"
                         android:textSize="28sp"
                         android:textStyle="bold" />
@@ -172,10 +172,10 @@
 
                             <androidx.appcompat.widget.SwitchCompat
                                 android:id="@+id/swBtnInKm"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:checked="false"
-                                android:text="  (in km) "
+                                android:text="  (in km)  "
                                 android:textColor="#2A2929"
                                 android:theme="@style/SCBSwitch" />
                         </LinearLayout>

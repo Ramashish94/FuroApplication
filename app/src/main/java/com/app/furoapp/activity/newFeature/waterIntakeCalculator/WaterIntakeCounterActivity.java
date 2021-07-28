@@ -183,9 +183,9 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                     if (response.code() == 200) {
                         if (response.body() != null && response.body().getStatus() != null) {
                             // set today progress data
-                            setGlassSize(response.body());
+                            setWaterIntakeCounterData(response.body());
 
-                            setTodayProgressData(response.body().getSelectedPlan());
+//                            setTodayProgressData(response.body().getSelectedPlan());
 
                         }
                     } else if (response.code() == 500) {
@@ -204,9 +204,73 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         }
     }
 
-    private void setGlassSize(WaterIntakeUpdatePlanResponse body) {
-        tvGlassSize.setText("( " + body.getGlassSize() + "ml )");
+    private void setWaterIntakeCounterData(WaterIntakeUpdatePlanResponse body) {
+        if (body.getGlassSize() != null) {
+            tvGlassSize.setText("( " + body.getGlassSize() + "ml )");
+        } else {
+            Toast.makeText(this, "No such record found of GlassSize!", Toast.LENGTH_SHORT).show();
+        }
+        if (body.getSelectedPlan() != null) {
+            if (body.getSelectedPlan().getTakenGlassOfWater() != null) {
+                tvNosGlassCount.setText("" + Integer.parseInt(body.getSelectedPlan().getTakenGlassOfWater().toString()));
+            } else {
+//                Toast.makeText(this, "No such record found of takenGlassOfWater!", Toast.LENGTH_SHORT).show();
+            }
+            if (body.getSelectedPlan().getTakenWaterInMl() != null) {
+                takingWater = Integer.parseInt(body.getSelectedPlan().getTakenWaterInMl().toString());   //for percent
+                tvTakingWater.setText("" + takingWater);
+            } else {
+//                Toast.makeText(this, "No such record found of TakenWaterInMl!", Toast.LENGTH_SHORT).show();
+            }
+            if (body.getSelectedPlan().getWaterTakeInMl() != null) {
+                totRecommendedWater = Integer.parseInt(body.getSelectedPlan().getWaterTakeInMl().toString());    //for percent
+                tvRecommendedReamingWater.setText("of " + totRecommendedWater + " ml");
+            } else {
+//                Toast.makeText(this, "No such record found of WaterTakeInMl!", Toast.LENGTH_SHORT).show();
+            }
+            if (body.getSelectedPlan().getTakenWaterInMl() != null) {
+                tvTotAmountDrunk.setText("" + body.getSelectedPlan().getTakenWaterInMl().toString() + " ml");
+            } else {
+//                Toast.makeText(this, "No such record found of TakenWaterInMl!", Toast.LENGTH_SHORT).show();
+            }
+            if (body.getSelectedPlan().getTakenGlassOfWater() != null) {
+                tvNosOfGlasses.setText("" + body.getSelectedPlan().getTakenGlassOfWater().toString());
+            } else {
+//                Toast.makeText(this, "No such record found of TakenGlassOfWater!", Toast.LENGTH_SHORT).show();
+            }
+            if (body.getSelectedPlan().getRecommendedGlassOfWater() != null) {
+                tvRecommendedNosOfGlasses.setText("/" + body.getSelectedPlan().getRecommendedGlassOfWater().toString());
+            } else {
+//                Toast.makeText(this, "No such record found of RecommendedGlassOfWater!", Toast.LENGTH_SHORT).show();
+            }
+
+            if (body.getSelectedPlan().getCreatedAt() != null) {
+
+                DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
+                try {
+                    date = dateFormat.parse(body.getSelectedPlan().getUpdatedAt());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                DateFormat dateFormat1 = new SimpleDateFormat("dd MMM, EEE");
+                String getDate = dateFormat1.format(date);
+                tvDateWithDay.setText(getDate);
+            } else {
+            }
+
+            /*Update progress percent*/
+            takenWaterInPercent = (takingWater * 100 / totRecommendedWater);
+            scProgressBar.setPercent(takenWaterInPercent);     // set percent on progress bar
+            if (takingWater == totRecommendedWater || takenWaterInPercent >= 99) {
+                includeCongratsPopMenu.setVisibility(View.VISIBLE);
+                tvRecommendedWaterIntake.setText("" + totRecommendedWater + "  ml");
+                clWaterIntakeCounter.setClickable(false);
+            } else {
+//                Toast.makeText(this, "Selected plan will be Null", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
+
 
     private void setTodayProgressData(SelectedPlan selectedPlan) {
         if (selectedPlan != null) {
@@ -230,7 +294,6 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             if (selectedPlan.getRecommendedGlassOfWater() != null) {
                 tvRecommendedNosOfGlasses.setText("/" + selectedPlan.getRecommendedGlassOfWater().toString());
             }
-
             if (selectedPlan.getCreatedAt() != null) {
 
                 DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
@@ -243,7 +306,6 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 String getDate = dateFormat1.format(date);
                 tvDateWithDay.setText(getDate);
             }
-
             /*Update progress percent*/
             takenWaterInPercent = (takingWater * 100 / totRecommendedWater);
             scProgressBar.setPercent(takenWaterInPercent);     // set percent on progress bar
@@ -251,9 +313,9 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 includeCongratsPopMenu.setVisibility(View.VISIBLE);
                 tvRecommendedWaterIntake.setText("" + totRecommendedWater + "  ml");
                 clWaterIntakeCounter.setClickable(false);
-            }/* else {
-            Toast.makeText(this, "Selected plan will be Null", Toast.LENGTH_SHORT).show();
-        }*/
+            } else {
+//            Toast.makeText(this, "Selected plan will be Null", Toast.LENGTH_SHORT).show();
+            }
 
         }
 
@@ -790,4 +852,9 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         finish();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        callDailyWaterIntakeUpdatePlanApi();
+    }
 }

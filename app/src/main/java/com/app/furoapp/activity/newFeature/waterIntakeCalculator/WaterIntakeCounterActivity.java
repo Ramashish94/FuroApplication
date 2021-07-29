@@ -598,7 +598,8 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 if (response.code() == 200) {
                     if (response.body() != null) {
                         // Toast.makeText(WaterIntakeCounterActivity.this, "Custom cup size created successfully", Toast.LENGTH_SHORT).show();
-                        callCupCreateApi();
+                        //callCupCreateApi();
+                        callDailyWaterIntakeUpdatePlanApi();
                     }
                 } else if (response.code() == 500) {
                     Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();

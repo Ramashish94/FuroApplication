@@ -121,7 +121,7 @@
                 android:background="@drawable/viewline" />
 
             <TextView
-                android:id="@+id/tvAddCustomSize"
+                android:id="@+id/tvChangeCupSize"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_40"
                 android:layout_marginLeft="28dp"
@@ -135,7 +135,7 @@
                 android:textStyle="italic" />
 
             <TextView
-                android:id="@+id/tvChangeCupSize"
+                android:id="@+id/tvAddCustomSize"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_35"
                 android:layout_marginLeft="28dp"

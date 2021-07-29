@@ -354,6 +354,8 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             public void onClick(View v) {
                 includePopMenuOfSelectCupSize.setVisibility(View.VISIBLE);
                 clWaterIntakeCounter.setClickable(false);
+                tvChangeCupSize.setVisibility(View.GONE);
+                tvAddCustomSize.setVisibility(View.VISIBLE);
                 tvChangeCupSizeAndCustomSize.setText("What is the general glass size/quantity that you consume every time? ");
                 operateRacyData();
                 callFetchGlassApi();

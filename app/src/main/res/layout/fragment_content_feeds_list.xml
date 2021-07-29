@@ -18,7 +18,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -33,10 +33,10 @@
 
                 <TextView
                     android:id="@+id/tvVideoText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="8dp"
                     android:text="Videos"
                     android:textColor="@color/black_btn"
                     android:textSize="@dimen/sp_12"
@@ -50,7 +50,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginStart="@dimen/dp_5"
                 android:layout_weight="1">
 
                 <com.app.furoapp.widget.SwitchButton
@@ -64,7 +64,7 @@
 
                 <TextView
                     android:id="@+id/tvArticleText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="8dp"

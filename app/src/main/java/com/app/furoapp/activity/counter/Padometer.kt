@@ -336,8 +336,29 @@ class Padometer : AppCompatActivity() {
                 }
     }
 /////////////////////////////////////////////////////////////////////////////
+
+//    private class VerifyDataTask : AsyncTask<Void?, Void?, Void?>() {
+//        protected override fun doInBackground(vararg params: Void?): Void? {
+//            // Begin by creating the query.
+//            val readRequest: DataReadRequest = queryFitnessData()
+//
+//            // [START read_dataset]
+//            // Invoke the History API to fetch the data with the query and await the result of
+//            // the read request.
+//            val dataReadResult = Fitness.HistoryApi.readData(mClient, readRequest).await(1, TimeUnit.MINUTES)
+//            // [END read_dataset]
+//
+//            // For the sake of the sample, we'll print the data so we can see what we just added.
+//            // In general, logging fitness information should be avoided for privacy reasons.
+//            printData(dataReadResult)
+//            return null
+//        }
+//
+//    }
+//
+//
+//
 //    private fun readFitnessData(){
-//        // Read the data that's been collected throughout the past week.
 //        val endTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
 //        val startTime = endTime.minusWeeks(1)
 //        val readRequest = DataReadRequest.Builder()
@@ -380,6 +401,7 @@ class Padometer : AppCompatActivity() {
 //    fun DataPoint.getEndTimeString() = Instant.ofEpochSecond(this.getEndTime(TimeUnit.SECONDS))
 //            .atZone(ZoneId.systemDefault())
 //            .toLocalDateTime().toString()
+//
 //    fun queryFitnessData(): DataReadRequest {
 //        // [START build_read_data_request]
 //        // Setting a start and end date using a range of 1 week before this moment.

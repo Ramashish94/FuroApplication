@@ -164,7 +164,7 @@
                         android:id="@+id/tvCountLike"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_5"
+                        android:layout_marginLeft="3dp"
                         android:text=""
                         android:textColor="@color/black_color" />
 
@@ -180,7 +180,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="@dimen/dp_10"
-                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginLeft="5dp"
                     android:background="@color/vertical_line_color" />
 
                 <LinearLayout
@@ -188,7 +188,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginLeft="5dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -202,7 +202,7 @@
                         android:id="@+id/tvCountsCmnt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_5"
+                        android:layout_marginLeft="3dp"
                         android:text=" "
                         android:textColor="@color/black_color" />
 
@@ -210,7 +210,7 @@
                         android:id="@+id/tvComntsTxt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_5"
+                        android:layout_marginLeft="3dp"
                         android:text="comments"
                         android:textColor="@color/black_color" />
 
@@ -219,7 +219,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="@dimen/dp_10"
-                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginLeft="5dp"
                     android:background="@color/vertical_line_color" />
 
                 <LinearLayout
@@ -227,7 +227,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginLeft="5dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -241,7 +241,7 @@
                         android:id="@+id/tvCountViews"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_5"
+                        android:layout_marginLeft="3dp"
                         android:text=" "
                         android:textColor="@color/black_color" />
 
@@ -249,7 +249,7 @@
                         android:id="@+id/tvView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_5"
+                        android:layout_marginLeft="3dp"
                         android:text="views"
                         android:textColor="@color/black_color" />
                 </LinearLayout>

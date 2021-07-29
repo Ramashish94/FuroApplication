@@ -140,5 +140,11 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent= new Intent(getApplicationContext(),WantToAcivedActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

@@ -475,13 +475,13 @@ class Padometer : AppCompatActivity() {
             var isAlreadyActivate = true
             FuroPrefs.putBoolean(applicationContext, "isAlreadyActivate", isAlreadyActivate)
             deactivate.isVisible = true
-            ivModified.isVisible = false
+            ivModified.isClickable = false
         }
 
         deactivate.setOnClickListener {
             googlefitDisabled()
             tvActivateStepsCounter.isVisible = true
-            ivModified.isVisible = true
+            ivModified.isClickable = true
             deactivate.isVisible = false
             var isAlreadyActivate = false
             FuroPrefs.putBoolean(applicationContext, "isAlreadyActivate", isAlreadyActivate)
@@ -635,7 +635,7 @@ class Padometer : AppCompatActivity() {
                                         .data.data.size > 0
                         ) {
                             tipsList = response.body()!!.data.data
-                            tipsListSize = tipsList?.size?:0
+                            tipsListSize = tipsList?.size ?: 0
                             tipsHandler.postDelayed(tipsRunnable, 0)
                         } else {
                             Toast.makeText(
@@ -680,7 +680,7 @@ class Padometer : AppCompatActivity() {
                     tvPrizmTips.text = tipsList!![tipsStart].paragraph
                     tipsStart = 0
                 } else {
-                    if (tipsList != null && ! tipsList.isNullOrEmpty()) {
+                    if (tipsList != null && !tipsList.isNullOrEmpty()) {
                         tvPrizmTips.text = tipsList!![tipsStart].paragraph
                         tipsStart++
                     }
@@ -697,14 +697,17 @@ class Padometer : AppCompatActivity() {
         dialogBuilder.setView(dialogView)
         val dialog = dialogBuilder.create()
 
-        val btn_cancel:ImageView  = dialogView.findViewById(R.id.btn_cancel)
-        val tvContinue:TextView = dialogView.findViewById(R.id.tvContinue)
-        val tvModified:TextView = dialogView.findViewById(R.id.tvModified)
+        val btn_cancel: ImageView = dialogView.findViewById(R.id.btn_cancel)
+        val tvContinue: TextView = dialogView.findViewById(R.id.tvContinue)
+        val tvModified: TextView = dialogView.findViewById(R.id.tvModified)
 
-        btn_cancel.setOnClickListener{ dialog.dismiss() }
+        btn_cancel.setOnClickListener { dialog.dismiss() }
         tvContinue.setOnClickListener { dialog.dismiss() }
-        tvModified.setOnClickListener{
-            dialog.dismiss()
+        tvModified.setOnClickListener {
+            val intent = Intent(
+                    this,
+                    WantToAcivedActivity::class.java)
+            startActivity(intent)
             finish()
         }
         dialog.show()

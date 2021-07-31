@@ -261,7 +261,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             /*Update progress percent*/
             takenWaterInPercent = (takingWater * 100 / totRecommendedWater);
             scProgressBar.setPercent(takenWaterInPercent);     // set percent on progress bar
-            if (takingWater == totRecommendedWater || takenWaterInPercent >= 99) {
+            if (takingWater == totRecommendedWater || takenWaterInPercent >= 99/*|| body.getSelectedPlan().getTakenGlassOfWater() == body.getSelectedPlan().getRecommendedGlassOfWater()*/) {
                 includeCongratsPopMenu.setVisibility(View.VISIBLE);
                 tvRecommendedWaterIntake.setText("" + totRecommendedWater + "  ml");
                 clWaterIntakeCounter.setClickable(false);
@@ -468,6 +468,9 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         llCongratsClosedIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                includeCongratsPopMenu.setVisibility(View.GONE);
+                intent = new Intent(getApplicationContext(), CreatePlaneActivity.class);
+                startActivity(intent);
                 finish();
             }
         });

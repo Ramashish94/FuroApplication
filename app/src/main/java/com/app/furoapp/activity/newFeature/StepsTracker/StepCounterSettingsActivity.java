@@ -32,7 +32,7 @@ public class StepCounterSettingsActivity extends AppCompatActivity /*implements 
 
     private void clickEvent() {
         ivBackIcon.setOnClickListener(v -> {
-            intent = new Intent(getApplicationContext(), AddNewSlotPreferActivity.class);
+            intent = new Intent(getApplicationContext(), WantToAcivedActivity.class);
             startActivity(intent);
             finish();
         });

@@ -2,11 +2,9 @@ package com.app.furoapp.activity.counter
 
 import android.annotation.SuppressLint
 import android.app.*
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -19,6 +17,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.view.isVisible
 import com.app.furoapp.R
+import com.app.furoapp.activity.HomeMainActivity
 import com.app.furoapp.activity.LoginTutorialScreen
 import com.app.furoapp.activity.newFeature.StepsTracker.*
 import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.DataItem
@@ -34,21 +33,20 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.fitness.Fitness
 import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.gms.fitness.data.*
-import com.google.android.gms.fitness.request.DataReadRequest
-import com.google.android.gms.fitness.result.DataReadResult
+import com.google.android.gms.fitness.request.DataDeleteRequest
+import com.google.android.gms.fitness.request.SessionReadRequest
+import com.google.android.gms.fitness.result.DataReadResponse
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_fq_steps_counter.*
 import kotlinx.android.synthetic.main.alertt_dialog_modified_data_.*
+import kotlinx.android.synthetic.main.item_fancycoverflow.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneId
+import java.text.DecimalFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
-
 
 enum class FitActionRequestCode {
     SUBSCRIBE,
@@ -61,6 +59,23 @@ enum class FitActionRequestCode {
  * authenticate a user with Google Play Services.
  */
 class Padometer : AppCompatActivity() {
+
+    private val TAG = "FIT_TAG"
+
+    private val REQUEST_OAUTH_REQUEST_CODE = 1
+    private val REQUEST_PERMISSIONS_REQUEST_CODE = 34
+    private var sessionsRequest: SessionReadRequest? = null
+
+    var goalDist: TextView? = null
+    var goalDistance = 0.0
+    var data = ""
+    var distance = 0.0
+    var fitData: TextView? = null
+    var steps = 0.0
+    var calories = 0.0
+    var decimalFormat = DecimalFormat("0.00")
+
+
     var notifyPendingIntent: PendingIntent? = null
     var dialogBuilder: AlertDialog.Builder? = null
     var notificationManager: NotificationManager? = null
@@ -77,7 +92,7 @@ class Padometer : AppCompatActivity() {
     var stepsAchivedVal: String? = null
     var selectNumberAchievedVal: String? = null
 
-    var isLogin: Boolean = false
+    var isLogin: Boolean = false;
 
     private var getCalculateCalories = 0f
     private val fitnessOptions = FitnessOptions.builder()
@@ -91,6 +106,7 @@ class Padometer : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fq_steps_counter)
+        fitData = findViewById(R.id.fit_Data)
         getAccessToken = FuroPrefs.getString(applicationContext, Constants.Get_ACCESS_TOKEN)
         var isActuvate = FuroPrefs.getBoolean(applicationContext, "isAlreadyActivate")
         if (isActuvate == true) {
@@ -98,6 +114,8 @@ class Padometer : AppCompatActivity() {
             deactivate.isVisible = true
 
         }
+
+
         //  clickEvent();
         stepsAchivedVal = intent.getStringExtra("getAchievedVal")
         selectNumberAchievedVal = intent.getStringExtra("selectNumber")
@@ -125,6 +143,7 @@ class Padometer : AppCompatActivity() {
         // screen, as well as to adb logcat.
         var isLogin = FuroPrefs.getBoolean(applicationContext, "isAlreadyLoginForFitness")
 
+
         if (isLogin == true) {
             checkPermissionsAndRun(FitActionRequestCode.SUBSCRIBE)
 
@@ -133,6 +152,48 @@ class Padometer : AppCompatActivity() {
         clickListners()
 
 
+    }
+
+    override fun onResume() {
+        var isActuvate = FuroPrefs.getBoolean(applicationContext, "isAlreadyActivate")
+        if (isActuvate == true) {
+            tvActivateStepsCounter.isVisible = false
+            deactivate.isVisible = true
+
+        }
+        super.onResume()
+    }
+
+    private fun hasOAuthPermission(): Boolean {
+        val fitnessOptions: FitnessOptions = getFitnessSignInOptions()!!
+        return GoogleSignIn.hasPermissions(
+                GoogleSignIn.getLastSignedInAccount(this),
+                fitnessOptions
+        )
+    }
+
+    /**
+     * Launches the Google SignIn activity to request OAuth permission for the user.
+     * Keep
+     */
+    private fun requestOAuthPermission() {
+        val fitnessOptions: FitnessOptions = getFitnessSignInOptions()!!
+        GoogleSignIn.requestPermissions(
+                this,
+                REQUEST_OAUTH_REQUEST_CODE,
+                GoogleSignIn.getLastSignedInAccount(this),
+                fitnessOptions
+        )
+    }
+
+    private fun getFitnessSignInOptions(): FitnessOptions? {
+        return FitnessOptions.builder()
+                .addDataType(DataType.TYPE_ACTIVITY_SEGMENT, FitnessOptions.ACCESS_READ)
+                .addDataType(DataType.TYPE_DISTANCE_DELTA, FitnessOptions.ACCESS_READ)
+                .addDataType(DataType.AGGREGATE_DISTANCE_DELTA, FitnessOptions.ACCESS_READ)
+                .addDataType(DataType.TYPE_STEP_COUNT_CUMULATIVE, FitnessOptions.ACCESS_READ)
+                .addDataType(DataType.TYPE_CALORIES_EXPENDED, FitnessOptions.ACCESS_READ)
+                .build()
     }
 
     fun googleSignOut() {
@@ -249,6 +310,7 @@ class Padometer : AppCompatActivity() {
                 val postSignInAction = FitActionRequestCode.values()[requestCode]
                 postSignInAction.let {
                     performActionForRequestCode(postSignInAction)
+                    /*insertAndReadData()*/
                 }
             }
             else -> oAuthErrorMsg(requestCode, resultCode)
@@ -288,33 +350,46 @@ class Padometer : AppCompatActivity() {
      */
     private fun readData() {
         Fitness.getHistoryClient(this, getGoogleAccount())
-//                .readData(queryFitnessData())
                 .readDailyTotal(DataType.TYPE_STEP_COUNT_DELTA)
+
                 .addOnSuccessListener { dataSet ->
                     val total = when {
                         dataSet.isEmpty -> 0
                         else -> dataSet.dataPoints.first().getValue(Field.FIELD_STEPS).asInt()
                     }
                     Log.i(TAG, "Total steps: $total")
-
-
+                    var isAlreadyActivate = true
+                    FuroPrefs.putBoolean(applicationContext, "isAlreadyActivate", isAlreadyActivate)
+                    deactivate.isVisible = true
+                    tvActivateStepsCounter.isVisible = false
 
 
                     getDetectedSteps = total
-                    tvCountsSteps.text = getDetectedSteps.toString()
+
+                    var stepsGoodleDisabled =
+                            FuroPrefs.getInt(applicationContext, "stepsWhenGoogleDisabled", 0)
+
+                    var userStep = (getDetectedSteps!! - stepsGoodleDisabled)
 
 
-                    /*added*/getCalculateCalories = (getDetectedSteps!! * 0.045).toFloat()
-                    tvCalories.text = "$getCalculateCalories Cal"
+                    val duration = userStep / 64
 
-                    var steps: Float = total.toFloat()
+                    splashCall(duration, userStep)
+
+
+                    /*added*/getCalculateCalories = (userStep!! * 0.045).toFloat()
+
+
+                    var steps: Float = userStep.toFloat()
 
                     isLogin = true
                     FuroPrefs.putBoolean(applicationContext, "isAlreadyLoginForFitness", isLogin)
+                    splashCallDistance(steps)
 
-                    clickListner(steps)
 
                     showNotification(total)
+
+                    // Read the data that's been collected throughout the past week.
 
 
                     val calendar = Calendar.getInstance()
@@ -331,119 +406,10 @@ class Padometer : AppCompatActivity() {
                     setAlarm(calendar.timeInMillis, getCalculateCalories, steps, getDistanceMiAndKm)
 
                 }
-                .addOnFailureListener { e ->
-                    Log.w(TAG, "There was a problem getting the step count.", e)
-                }
-    }
-/////////////////////////////////////////////////////////////////////////////
 
-//    private class VerifyDataTask : AsyncTask<Void?, Void?, Void?>() {
-//        protected override fun doInBackground(vararg params: Void?): Void? {
-//            // Begin by creating the query.
-//            val readRequest: DataReadRequest = queryFitnessData()
-//
-//            // [START read_dataset]
-//            // Invoke the History API to fetch the data with the query and await the result of
-//            // the read request.
-//            val dataReadResult = Fitness.HistoryApi.readData(mClient, readRequest).await(1, TimeUnit.MINUTES)
-//            // [END read_dataset]
-//
-//            // For the sake of the sample, we'll print the data so we can see what we just added.
-//            // In general, logging fitness information should be avoided for privacy reasons.
-//            printData(dataReadResult)
-//            return null
-//        }
-//
-//    }
-//
-//
-//
-//    private fun readFitnessData(){
-//        val endTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
-//        val startTime = endTime.minusWeeks(1)
-//        val readRequest = DataReadRequest.Builder()
-//                .aggregate(DataType.AGGREGATE_CALORIES_EXPENDED)
-//                .bucketByActivityType(1, TimeUnit.SECONDS)
-//                .setTimeRange(startTime.toEpochSecond(), endTime.toEpochSecond(), TimeUnit.SECONDS)
-//                .build()
-//        Fitness.getHistoryClient(this,  getGoogleAccount())
-//                .readData(readRequest)
-//                .addOnSuccessListener { response ->
-//                    // The aggregate query puts datasets into buckets, so flatten into a
-//                    // single list of datasets
-//                    for (dataSet in response.buckets.flatMap { it.dataSets }) {
-//                        dumpDataSet(dataSet)
-//                    }
-//                }
-//                .addOnFailureListener { e ->
-//                    Log.w(TAG,"There was an error reading data from Google Fit", e)
-//                }
-//    }
-//
-//    fun dumpDataSet(dataSet: DataSet) {
-//        val TAG="Qwerty"
-//        Log.e(TAG, "Data returned for Data type: ${dataSet.dataType.name}")
-//        for (dp in dataSet.dataPoints) {
-//            Log.e(TAG,"Data point:")
-//            Log.e(TAG,"\tType: ${dp.dataType.name}")
-//            Log.e(TAG,"\tStart: ${dp.getStartTimeString()}")
-//            Log.e(TAG,"\tEnd: ${dp.getEndTimeString()}")
-//            for (field in dp.dataType.fields) {
-//                Log.e(TAG,"\tField: ${field.name} Value: ${dp.getValue(field)}")
-//            }
-//        }
-//    }
-//
-//    fun DataPoint.getStartTimeString() = Instant.ofEpochSecond(this.getStartTime(TimeUnit.SECONDS))
-//            .atZone(ZoneId.systemDefault())
-//            .toLocalDateTime().toString()
-//
-//    fun DataPoint.getEndTimeString() = Instant.ofEpochSecond(this.getEndTime(TimeUnit.SECONDS))
-//            .atZone(ZoneId.systemDefault())
-//            .toLocalDateTime().toString()
-//
-//    fun queryFitnessData(): DataReadRequest {
-//        // [START build_read_data_request]
-//        // Setting a start and end date using a range of 1 week before this moment.
-//        val cal = Calendar.getInstance()
-//        val now = Date()
-//        cal.time = now
-//        val endTime = cal.timeInMillis
-//        cal[Calendar.HOUR_OF_DAY] = 0
-//        cal[Calendar.MINUTE] = 0
-//        cal[Calendar.SECOND] = 0
-//        val startTime = cal.timeInMillis
-//
-//        val ACTIVITY_SEGMENT = DataSource.Builder()
-//                .setDataType(DataType.TYPE_ACTIVITY_SEGMENT)
-//                .setType(DataSource.TYPE_DERIVED)
-//                .setStreamName("estimated_activity_segment")
-//                .setAppPackageName("com.google.android.gms")
-//                .build()
-//        // [END build_read_data_request]
-//        return DataReadRequest.Builder()
-//                .aggregate(ACTIVITY_SEGMENT, DataType.AGGREGATE_ACTIVITY_SUMMARY)
-//                .bucketByActivitySegment(1, TimeUnit.SECONDS)
-//                .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS)
-//                .build()
-//    }
-//
-//    fun printData(dataReadResult: DataReadResult) {
-//        // [START parse_read_data_result]
-//        // If the DataReadRequest object specified aggregated data, dataReadResult will be returned
-//        // as buckets containing DataSets, instead of just DataSets.
-//        if (dataReadResult.buckets.size > 0) {
-//            Log.i(TAG, "Number of returned buckets of DataSets is: "
-//                    + dataReadResult.buckets.size)
-//            for (bucket in dataReadResult.buckets) {
-//                Log.i(TAG, bucket.activity)
-//                val activeTime = bucket.getEndTime(TimeUnit.MINUTES) - bucket.getStartTime(TimeUnit.MINUTES)
-//                Log.i(TAG, "Active time $activeTime")
-//            }
-//        }
-//        // [END parse_read_data_result]
-//    }
-/////////////////////////////////////////////////////////////////////////////////
+    }
+
+
     /** Initializes a custom log class that outputs both to in-app targets and logcat.  */
 
     private fun permissionApproved(): Boolean {
@@ -488,26 +454,34 @@ class Padometer : AppCompatActivity() {
 
         tvActivateStepsCounter.setOnClickListener { v: View? ->
             //   Intent intent = new Intent(getApplicationContext(), HistoryDetailsActivity.class);
-
+            FuroPrefs.putBoolean(applicationContext, "isGoogleFitDisabled", false)
             checkPermissionsAndRun(FitActionRequestCode.SUBSCRIBE)
             Toast.makeText(this, "Step Counter Activate!", Toast.LENGTH_SHORT)
                     .show()
             tvActivateStepsCounter.isVisible = false
-
-            var isAlreadyActivate = true
-            FuroPrefs.putBoolean(applicationContext, "isAlreadyActivate", isAlreadyActivate)
             deactivate.isVisible = true
             ivModified.isClickable = false
         }
 
         deactivate.setOnClickListener {
+
             googlefitDisabled()
+            if (getDetectedSteps == null) {
+
+
+            }else{
+                FuroPrefs.putInt(applicationContext,"stepsWhenGoogleDisabled", getDetectedSteps!!)
+
+            }
+
+
             tvActivateStepsCounter.isVisible = true
-            ivModified.isClickable = true
             deactivate.isVisible = false
+            ivModified.isClickable = true
             var isAlreadyActivate = false
             FuroPrefs.putBoolean(applicationContext, "isAlreadyActivate", isAlreadyActivate)
             //            notificationManager!!.cancel(0)
+            /*added by ramashish*/
             when {
                 notificationManager != null -> {
                     notificationManager!!.cancel(0)
@@ -516,14 +490,141 @@ class Padometer : AppCompatActivity() {
 
                 }
             }
-
         }
-
         ivModified.setOnClickListener {
             openModifiedAlertDialog()
         }
-
     }
+
+    private fun insertFitnessData(): DataSet? {
+        Log.i(TAG, "Creating a new data insert request.")
+
+        // [START build_insert_data_request]
+        // Set a start and end time for our data, using a start time of 1 hour before this moment.
+        val cal = Calendar.getInstance()
+        val now = Date()
+        cal.time = now
+        val endTime = cal.timeInMillis
+        cal.add(Calendar.HOUR_OF_DAY, -1)
+        val startTime = cal.timeInMillis
+
+        // Create a data source
+        val dataSource = DataSource.Builder()
+                .setAppPackageName(this)
+                .setDataType(DataType.TYPE_STEP_COUNT_DELTA)
+                .setStreamName(TAG + " - step count")
+                .setType(DataSource.TYPE_RAW)
+                .build()
+
+        // Create a data set
+        val stepCountDelta = 0
+        val dataSet = DataSet.create(dataSource)
+        // For each data point, specify a start time, end time, and the data value -- in this case,
+        // the number of new steps.
+        val dataPoint =
+                dataSet.createDataPoint().setTimeInterval(startTime, endTime, TimeUnit.MILLISECONDS)
+        dataPoint.getValue(Field.FIELD_STEPS).setInt(stepCountDelta)
+        dataSet.add(dataPoint)
+        // [END build_insert_data_request]
+        return dataSet
+    }
+
+    /*  private fun insertData(): Task<Void?>? {
+          // Create a new dataset and insertion request.
+          val dataSet: DataSet = insertFitnessData()!!
+
+          // Then, invoke the History API to insert the data.
+          Log.i(MainActivity.TAG, "Inserting the dataset in the History API.")
+          return Fitness.getHistoryClient(this, GoogleSignIn.getLastSignedInAccount(this))
+              .insertData(dataSet)
+              .addOnCompleteListener { task ->
+                  if (task.isSuccessful) {
+                      // At this point, the data has been inserted and can be read.
+                      Log.i(TAG, "Data insert was successful!")
+                  } else {
+                      Log.e(
+                          TAG,
+                          "There was a problem inserting the dataset.",
+                          task.exception
+                      )
+                  }
+              }
+      }
+
+  */
+
+    /* private fun insertAndReadData() {
+         insertData()
+             ?.continueWithTask<DataReadResponse>(
+                 Continuation<Void?, Task<DataReadResponse?>?> { readHistoryData() })
+     }*/
+
+    /*  private fun readHistoryData(): Task<DataReadResponse?>? {
+          // Begin by creating the query.
+          val readRequest = MainActivity.queryFitnessData()
+
+          // Invoke the History API to fetch the data with the query
+          return Fitness.getHistoryClient(this, GoogleSignIn.getLastSignedInAccount(this))
+              .readData(readRequest)
+              .addOnSuccessListener { dataReadResponse -> // For the sake of the sample, we'll print the data so we can see what we just
+                  // added. In general, logging fitness information should be avoided for privacy
+                  // reasons.
+                  printData(dataReadResponse)
+              }
+              .addOnFailureListener { e ->
+                  Log.e(
+                      TAG,
+                      "There was a problem reading the data.",
+                      e
+                  )
+              }
+      }*/
+
+    fun printData(dataReadResult: DataReadResponse) {
+        // [START parse_read_data_result]
+        // If the DataReadRequest object specified aggregated data, dataReadResult will be returned
+        // as buckets containing DataSets, instead of just DataSets.
+        if (dataReadResult.buckets.size > 0) {
+            Log.i(
+                    TAG,
+                    "Number of returned buckets of DataSets is: " + dataReadResult.buckets.size
+            )
+            for (bucket in dataReadResult.buckets) {
+                val dataSets = bucket.dataSets
+                for (dataSet in dataSets) {
+                    /*dumpDataSet(dataSet)*/
+                }
+            }
+        } else if (dataReadResult.dataSets.size > 0) {
+            Log.i(
+                    TAG,
+                    "Number of returned DataSets is: " + dataReadResult.dataSets.size
+            )
+            for (dataSet in dataReadResult.dataSets) {
+                /*dumpDataSet(dataSet)*/
+            }
+        }
+        // [END parse_read_data_result]
+    }
+
+    /*  private fun dumpDataSet(dataSet: DataSet) {
+          Log.i(MainActivity.TAG, "Data returned for Data type: " + dataSet.dataType.name)
+          val dateFormat = DateFormat.getTimeInstance()
+          for (dp in dataSet.dataPoints) {
+              Log.i(TAG, "Data point:")
+              Log.i(TAG, "\tType: " + dp.dataType.name)
+              Log.i(
+                 TAG,
+                  "\tStart: " + dateFormat.format(dp.getStartTime(TimeUnit.MINUTES))
+              )
+              Log.i(TAG, "\tEnd: " + dateFormat.format(dp.getEndTime(TimeUnit.MINUTES)))
+              for (field in dp.dataType.fields) {
+                  Log.i(MainActivity.TAG, "\tField: " + field.name + " Value: " + dp.getValue(field))
+
+
+              }
+          }
+      }*/
 
     private fun requestRuntimePermissions(requestCode: FitActionRequestCode) {
         val shouldProvideRationale =
@@ -601,7 +702,7 @@ class Padometer : AppCompatActivity() {
         }
     }
 
-    // _________________________ \\
+    // _________ \\
     @SuppressLint("RemoteViewLayout")
     private fun showNotification(counter: Int) {
         if (counter == 0) {
@@ -653,6 +754,10 @@ class Padometer : AppCompatActivity() {
                 ) {
                     Util.dismissProgressDialog()
                     if (response.code() == 200) {
+                        Log.d(
+                                FqStepsCounterActivity.TAG,
+                                "onResponse() called with: , response = [" + response.body() + "]"
+                        )
                         if (response.body()!!.data != null && response.body()!!.data.data != null && response.body()!!
                                         .data.data.size > 0
                         ) {
@@ -743,31 +848,6 @@ class Padometer : AppCompatActivity() {
         return (steps * 0.045).toFloat()
     }
 
-    fun clickListner(stepCount: Float) {
-        swBtnInKm.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                isSwitchedChecked = true
-                getDistanceMiAndKm = (stepCount?.times(78)) as Float / 100000.toFloat()
-                tvDistance.text = "$getDistanceMiAndKm km"
-            } else {
-                isSwitchedChecked = false
-                getDistanceMiAndKm = (stepCount?.times(78)) as Float / 100.toFloat()
-                tvDistance.text = "$getDistanceMiAndKm m"
-            }
-            //tvDistance.setText("" + getDistanceMiAndKm + " meter");
-        }
-
-
-        if (isSwitchedChecked) {
-            getDistanceMiAndKm = (stepCount?.times(78)) as Float / 100000.toFloat()
-            tvDistance.text = "$getDistanceMiAndKm km"
-        } else if (isSwitchedChecked == false) {
-            getDistanceMiAndKm = (stepCount?.times(78)) as Float / 100.toFloat()
-            tvDistance.text = "$getDistanceMiAndKm m"
-        }
-
-
-    }
 
     private fun setAlarm(time: Long, calo: Float, step: Float, distance: Float) {
         //getting the alarm manager
@@ -800,12 +880,90 @@ class Padometer : AppCompatActivity() {
                             "Step Counter Deactivate!",
                             Toast.LENGTH_SHORT
                     ).show()
+
+                    FuroPrefs.putBoolean(applicationContext, "isGoogleFitDisabled", true)
                 }
                 .addOnFailureListener { e ->
                     Log.w(TAG, "There was an error disabling Google Fit", e)
                 }
     }
 
+
+    /*  // [END parse_dataset]
+      private fun deleteData() {
+          Log.i(TAG, "Deleting today's step count data.")
+
+          // [START delete_dataset]
+          // Set a start and end time for our data, using a start time of 1 day before this moment.
+          val cal = Calendar.getInstance()
+          val now = Date()
+          cal.time = now
+          val endTime = cal.timeInMillis
+          Log.i(TAG, "endTime" + endTime)
+
+          cal.add(Calendar.DAY_OF_YEAR, -1)
+          val startTime = cal.timeInMillis
+          Log.i(TAG, "startTime" + startTime)
+          //  Create a delete request object, providing a data type and a time interval
+          val request = DataDeleteRequest.Builder()
+              .setTimeInterval(startTime, endTime, TimeUnit.MILLISECONDS)
+              .addDataType(DataType.TYPE_STEP_COUNT_DELTA)
+              .build()
+
+          // Invoke the History API with the HistoryClient object and delete request, and then
+          // specify a callback that will check the result.
+          Fitness.getHistoryClient(this, GoogleSignIn.getLastSignedInAccount(this))
+              .deleteData(request)
+              .addOnCompleteListener { task ->
+                  if (task.isSuccessful) {
+                      Log.i(TAG, "Successfully deleted today's step count data.")
+                  } else {
+                      Log.e(
+                          TAG,
+                          "Failed to delete today's step count data.",
+                          task.exception
+                      )
+                  }
+              }
+      }*/
+
+    private val SPLASH_DISPLAY_LENGTH = 10000
+    fun splashCall(dura: Int, userStep: Int) {
+        Handler().postDelayed({
+            tvCalories.text = "$getCalculateCalories Cal"
+            tbduration.text = ("" + dura)
+            tvCountsSteps.text = userStep.toString()
+
+        }, SPLASH_DISPLAY_LENGTH.toLong())
+    }
+
+    private val SPLASH_DISPLAY_LENGTH_DISTANCE = 10000
+    fun splashCallDistance(stepCount: Float) {
+        Handler().postDelayed({
+            swBtnInKm.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (isChecked) {
+                    isSwitchedChecked = true
+                    getDistanceMiAndKm = (stepCount?.times(78)) as Float / 100000.toFloat()
+                    tvDistance.text = "$getDistanceMiAndKm km"
+                } else {
+                    isSwitchedChecked = false
+                    getDistanceMiAndKm = (stepCount?.times(78)) as Float / 100.toFloat()
+                    tvDistance.text = "$getDistanceMiAndKm m"
+                }
+                //tvDistance.setText("" + getDistanceMiAndKm + " meter");
+            }
+
+
+            if (isSwitchedChecked) {
+                getDistanceMiAndKm = (stepCount?.times(78)) as Float / 100000.toFloat()
+                tvDistance.text = "$getDistanceMiAndKm km"
+            } else if (isSwitchedChecked == false) {
+                getDistanceMiAndKm = (stepCount?.times(78)) as Float / 100.toFloat()
+                tvDistance.text = "$getDistanceMiAndKm m"
+            }
+
+        }, SPLASH_DISPLAY_LENGTH_DISTANCE.toLong())
+    }
 
     override fun onBackPressed() {
         super.onBackPressed()

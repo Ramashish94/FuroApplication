@@ -1,6 +1,7 @@
 package com.app.furoapp.activity.newFeature.StepsTracker;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,18 +10,27 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.furoapp.R;
+import com.app.furoapp.activity.LoginTutorialScreen;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataResponse;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.kevalpatel2106.rulerpicker.RulerValuePicker;
 import com.kevalpatel2106.rulerpicker.RulerValuePickerListener;
 
@@ -38,7 +48,11 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
     private String userAge;
     private String genderVal;
     private String getAccessToken;
-
+    AlertDialog.Builder builder;
+    private AlertDialog alertDialog;
+    public GoogleSignInClient mGoogleSignInClient;
+    public AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +63,12 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
         clickEvent();
 
         getAccessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
     }
 
     private void initViews() {
@@ -176,7 +196,9 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
                             } else if (response.code() == 500) {
                                 Toast.makeText(TellUsMoreOnTrackStepsActivity.this, "Internal server error!", Toast.LENGTH_SHORT).show();
                             } else if (response.code() == 403) {
-                                Toast.makeText(TellUsMoreOnTrackStepsActivity.this, "Token expire pls login again !", Toast.LENGTH_SHORT).show();
+                                getAlertTokenExpire();
+                                //Toast.makeText(TellUsMoreOnTrackStepsActivity.this, "Token expire pls login again !", Toast.LENGTH_SHORT).show();
+
                             }
                         }
 
@@ -193,5 +215,75 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
             Toast.makeText(this, "Please provided Age !", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void getAlertTokenExpire() {
+
+        if (getAccessToken != null) {
+            dialogBuilder = new AlertDialog.Builder(this);
+            LayoutInflater inflater = this.getLayoutInflater();
+            View dialogView = inflater.inflate(R.layout.session_expired_layout, null);
+            dialogBuilder.setView(dialogView);
+            dialog = dialogBuilder.create();
+            ImageView btn_Cancel = dialogView.findViewById(R.id.btn_cancel);
+            TextView text_logout = dialogView.findViewById(R.id.text_logout);
+            TextView noiwanttocontinue = dialogView.findViewById(R.id.noiwanttocontinuee);
+            LinearLayout llLogOut = dialogView.findViewById(R.id.llLogOut);
+
+            btn_Cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+            noiwanttocontinue.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+            text_logout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FuroPrefs.clear(getApplicationContext());
+                    googleSignOut();
+                    Intent intent = new Intent(getApplicationContext(), LoginTutorialScreen.class);
+                    startActivity(intent);
+                    finishAffinity();
+                }
+            });
+            dialog.show();
+        } else {
+
+        }
+
+    }
+
+    public void googleSignOut() {
+
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(Task<Void> task) {
+                        // Toast.makeText(ActivityMain.this, "Google Sign Out done.", Toast.LENGTH_SHORT).show();
+                        revokeAccess();
+                    }
+                });
+    }
+
+    private void revokeAccess() {
+        mGoogleSignInClient.revokeAccess()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(Task<Void> task) {
+                        // Toast.makeText(ActivityMain.this, "Google access revoked.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+
+
+
 
 }

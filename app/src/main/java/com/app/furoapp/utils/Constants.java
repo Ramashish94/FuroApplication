@@ -60,6 +60,8 @@ public class Constants {
     public static final String GENDER = "gender";
     public static final String USER_HEIGHT_IN_CM = "userHeightInCm";
     public static final String USER_WEIGHT_IN_KG = "userWeightInKg";
+    public static final String ACHIVED_VAL = "getAchievedVal";
+    public static final String SELECTD_NUMBER = "selectNumber";
     /* added*/
     public static String Get_ACCESS_TOKEN = "access_token";
     public static String ACTIVITY_Id = "id";
@@ -73,6 +75,5 @@ public class Constants {
     public static final String WATER_INTAKE = "Water Intake";
     public static final String WATER_INTAKE_PLAN = "planId";
     public static final String STEP_COUNTER_REMINDER = "Step Counter Reminder";
-
 
 }

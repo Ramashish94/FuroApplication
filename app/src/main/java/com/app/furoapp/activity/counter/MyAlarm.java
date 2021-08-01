@@ -69,6 +69,7 @@ public class MyAlarm extends BroadcastReceiver {
                     Util.dismissProgressDialog();
                     if (response.code() == 200) {
                         Log.d("Api succeed", "success");
+                        FuroPrefs.putInt(context,"stepsWhenGoogleDisabled",0);
 
                         Toast.makeText(context, "Data saved Successfully !", Toast.LENGTH_SHORT).show();
 

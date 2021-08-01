@@ -20,6 +20,7 @@ import com.app.furoapp.activity.counter.Padometer;
 import com.app.furoapp.activity.newFeature.StepsTracker.adapter.StepsCountAdapter;
 import com.app.furoapp.activity.newFeature.bmiCalculator.adapter.AgeAdapter;
 import com.app.furoapp.activity.newFeature.bmiCalculator.AgeModelTest;
+import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 
 import java.util.ArrayList;
@@ -103,6 +104,7 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
         ivContinue.setOnClickListener(v -> {
             if (isSelectedCustomGoal) {
                 Intent intent = new Intent(getApplicationContext(), Padometer.class);
+                FuroPrefs.putString(getApplicationContext(), Constants.SELECTD_NUMBER, String.valueOf(selectNumber));
                 intent.putExtra("selectNumber", String.valueOf(selectNumber));
                 FuroPrefs.putInt(this,"achivedSteps", selectNumber);
                 startActivity(intent);

@@ -17,7 +17,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.view.isVisible
 import com.app.furoapp.R
-import com.app.furoapp.activity.HomeMainActivity
 import com.app.furoapp.activity.LoginTutorialScreen
 import com.app.furoapp.activity.newFeature.StepsTracker.*
 import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.DataItem
@@ -33,7 +32,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.fitness.Fitness
 import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.gms.fitness.data.*
-import com.google.android.gms.fitness.request.DataDeleteRequest
 import com.google.android.gms.fitness.request.SessionReadRequest
 import com.google.android.gms.fitness.result.DataReadResponse
 import com.google.android.gms.tasks.OnCompleteListener
@@ -74,6 +72,7 @@ class Padometer : AppCompatActivity() {
     var steps = 0.0
     var calories = 0.0
     var decimalFormat = DecimalFormat("0.00")
+
 
 
     var notifyPendingIntent: PendingIntent? = null
@@ -123,18 +122,22 @@ class Padometer : AppCompatActivity() {
         stepsAchivedVal = intent.getStringExtra("getAchievedVal")
         selectNumberAchievedVal = intent.getStringExtra("selectNumber")
 
+
         /*added by ramashish*/
         when {
-            stepsAchivedVal != null -> {
-                tvTotNumberOfSteps.text = " of $stepsAchivedVal Steps"
+            FuroPrefs.getString(applicationContext, Constants.ACHIVED_VAL) != null -> {
+                tvTotNumberOfSteps.text = " of ${FuroPrefs.getString(applicationContext,Constants.ACHIVED_VAL)} Steps"
             }
             selectNumberAchievedVal != null -> {
-                tvTotNumberOfSteps.text = " of $selectNumberAchievedVal Steps "
+                tvTotNumberOfSteps.text = " of ${FuroPrefs.getString(applicationContext,Constants.SELECTD_NUMBER)} Steps "
             }
             else -> {
 
             }
         }
+
+
+
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -362,14 +365,14 @@ class Padometer : AppCompatActivity() {
                     getDetectedSteps = total
                     var fullsteps: Float = getDetectedSteps!!.toFloat()
 
-                    var stepsGoodleDisabled = FuroPrefs.getInt(applicationContext,"stepsWhenGoogleDisabled",0)
+                    var stepsGoodleDisabled = FuroPrefs.getInt(applicationContext, "stepsWhenGoogleDisabled", 0)
 
                     var userStep =(getDetectedSteps!! -stepsGoodleDisabled)
 
 
                     val duration = userStep / 64
 
-                    splashCall(duration,userStep)
+                    splashCall(duration, userStep)
 
 
 
@@ -451,7 +454,7 @@ class Padometer : AppCompatActivity() {
 
         tvActivateStepsCounter.setOnClickListener { v: View? ->
             //   Intent intent = new Intent(getApplicationContext(), HistoryDetailsActivity.class);
-            FuroPrefs.putBoolean(applicationContext, "isGoogleFitDisabled",false)
+            FuroPrefs.putBoolean(applicationContext, "isGoogleFitDisabled", false)
             checkPermissionsAndRun(FitActionRequestCode.SUBSCRIBE)
             Toast.makeText(this, "Step Counter Activate!", Toast.LENGTH_SHORT)
                     .show()
@@ -470,7 +473,7 @@ class Padometer : AppCompatActivity() {
             googlefitDisabled()
             /*added by ramashish*/
             if (getDetectedSteps!=null){
-                FuroPrefs.putInt(applicationContext,"stepsWhenGoogleDisabled", getDetectedSteps!!)
+                FuroPrefs.putInt(applicationContext, "stepsWhenGoogleDisabled", getDetectedSteps!!)
             }else{
 
             }
@@ -481,7 +484,7 @@ class Padometer : AppCompatActivity() {
             ivModified.isClickable = true
             var isAlreadyActivate = false
             FuroPrefs.putBoolean(applicationContext, "isAlreadyActivate", isAlreadyActivate)
-            //            notificationManager!!.cancel(0)
+            // notificationManager!!.cancel(0)
             /*added by ramashish*/
             when {
                 notificationManager != null -> {
@@ -531,7 +534,7 @@ class Padometer : AppCompatActivity() {
         // [END build_insert_data_request]
         return dataSet
     }
-
+ /*added by ramashish*/
     /*  private fun insertData(): Task<Void?>? {
           // Create a new dataset and insertion request.
           val dataSet: DataSet = insertFitnessData()!!
@@ -609,7 +612,7 @@ class Padometer : AppCompatActivity() {
         }
         // [END parse_read_data_result]
     }
-
+/*ramashish*/
     /*  private fun dumpDataSet(dataSet: DataSet) {
           Log.i(MainActivity.TAG, "Data returned for Data type: " + dataSet.dataType.name)
           val dateFormat = DateFormat.getTimeInstance()
@@ -708,18 +711,17 @@ class Padometer : AppCompatActivity() {
     // _________ \\
     @SuppressLint("RemoteViewLayout")
     private fun showNotification(counter: Int) {
-        if (counter == 0) {
-        } else {
-            val notifyIntent = Intent(this, Padometer::class.java)
-            // Set the Activity to start in a new, empty task
-            notifyIntent.flags = (Intent.FLAG_ACTIVITY_NEW_TASK
-                    or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            // Create the PendingIntent
 
-            notifyPendingIntent = PendingIntent.getActivity(
-                    this, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT
-            )
-        }
+        val notifyIntent = Intent(this, Padometer::class.java)
+        // Set the Activity to start in a new, empty task
+        notifyIntent.flags = (Intent.FLAG_ACTIVITY_NEW_TASK
+                or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        // Create the PendingIntent
+
+        notifyPendingIntent = PendingIntent.getActivity(
+                this, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
         val contentView = RemoteViews(this.packageName, R.layout.collapsenotification)
         val mNotificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         val notificationBuilder = NotificationCompat.Builder(this, "")
@@ -819,7 +821,7 @@ class Padometer : AppCompatActivity() {
             tipsHandler.postDelayed(this, 5000)
         }
     }
-
+/*added by ramashish */
     private fun openModifiedAlertDialog() {
         val dialogBuilder = AlertDialog.Builder(this)
         val inflater = this.layoutInflater
@@ -932,7 +934,7 @@ class Padometer : AppCompatActivity() {
       }*/
 
     private val SPLASH_DISPLAY_LENGTH = 5000
-    fun splashCall( dura : Int,userStep : Int) {
+    fun splashCall(dura: Int, userStep: Int) {
         Handler().postDelayed({
             tvCalories.text = "$getCalculateCalories Cal"
             tbduration.text = ("" + dura)
@@ -941,7 +943,7 @@ class Padometer : AppCompatActivity() {
         }, SPLASH_DISPLAY_LENGTH.toLong())
     }
     private val SPLASH_DISPLAY_LENGTH_DISTANCE = 5000
-    fun splashCallDistance( stepCount: Float) {
+    fun splashCallDistance(stepCount: Float) {
         Handler().postDelayed({
             swBtnInKm.setOnCheckedChangeListener { buttonView, isChecked ->
                 if (isChecked) {

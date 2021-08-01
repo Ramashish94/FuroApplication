@@ -113,6 +113,9 @@ class Padometer : AppCompatActivity() {
             tvActivateStepsCounter.isVisible = false
             deactivate.isVisible = true
 
+        }else{
+            tvActivateStepsCounter.isVisible = true
+            deactivate.isVisible = false
         }
 
 
@@ -120,7 +123,7 @@ class Padometer : AppCompatActivity() {
         stepsAchivedVal = intent.getStringExtra("getAchievedVal")
         selectNumberAchievedVal = intent.getStringExtra("selectNumber")
 
-        /*added*/
+        /*added by ramashish*/
         when {
             stepsAchivedVal != null -> {
                 tvTotNumberOfSteps.text = " of $stepsAchivedVal Steps"
@@ -148,19 +151,14 @@ class Padometer : AppCompatActivity() {
             checkPermissionsAndRun(FitActionRequestCode.SUBSCRIBE)
 
         }
-        callTipsApi()
+        callTipsApi()      // added by ramashish
         clickListners()
 
 
     }
 
     override fun onResume() {
-        var isActuvate = FuroPrefs.getBoolean(applicationContext, "isAlreadyActivate")
-        if (isActuvate == true) {
-            tvActivateStepsCounter.isVisible = false
-            deactivate.isVisible = true
 
-        }
         super.onResume()
     }
 
@@ -358,23 +356,22 @@ class Padometer : AppCompatActivity() {
                         else -> dataSet.dataPoints.first().getValue(Field.FIELD_STEPS).asInt()
                     }
                     Log.i(TAG, "Total steps: $total")
-                    var isAlreadyActivate = true
-                    FuroPrefs.putBoolean(applicationContext, "isAlreadyActivate", isAlreadyActivate)
-                    deactivate.isVisible = true
-                    tvActivateStepsCounter.isVisible = false
+
 
 
                     getDetectedSteps = total
+                    var fullsteps: Float = getDetectedSteps!!.toFloat()
 
-                    var stepsGoodleDisabled =
-                            FuroPrefs.getInt(applicationContext, "stepsWhenGoogleDisabled", 0)
+                    var stepsGoodleDisabled = FuroPrefs.getInt(applicationContext,"stepsWhenGoogleDisabled",0)
 
-                    var userStep = (getDetectedSteps!! - stepsGoodleDisabled)
+                    var userStep =(getDetectedSteps!! -stepsGoodleDisabled)
 
 
                     val duration = userStep / 64
 
-                    splashCall(duration, userStep)
+                    splashCall(duration,userStep)
+
+
 
 
                     /*added*/getCalculateCalories = (userStep!! * 0.045).toFloat()
@@ -403,7 +400,7 @@ class Padometer : AppCompatActivity() {
 
 
 
-                    setAlarm(calendar.timeInMillis, getCalculateCalories, steps, getDistanceMiAndKm)
+                    setAlarm(calendar.timeInMillis, getCalculateCalories, fullsteps, getDistanceMiAndKm)
 
                 }
 
@@ -454,26 +451,30 @@ class Padometer : AppCompatActivity() {
 
         tvActivateStepsCounter.setOnClickListener { v: View? ->
             //   Intent intent = new Intent(getApplicationContext(), HistoryDetailsActivity.class);
-            FuroPrefs.putBoolean(applicationContext, "isGoogleFitDisabled", false)
+            FuroPrefs.putBoolean(applicationContext, "isGoogleFitDisabled",false)
             checkPermissionsAndRun(FitActionRequestCode.SUBSCRIBE)
             Toast.makeText(this, "Step Counter Activate!", Toast.LENGTH_SHORT)
                     .show()
-            tvActivateStepsCounter.isVisible = false
+            var isAlreadyActivate = true
+            FuroPrefs.putBoolean(applicationContext, "isAlreadyActivate", isAlreadyActivate)
             deactivate.isVisible = true
+            tvActivateStepsCounter.isVisible = false
             ivModified.isClickable = false
+
+
+
         }
 
         deactivate.setOnClickListener {
 
             googlefitDisabled()
-            if (getDetectedSteps == null) {
-
-
-            }else{
+            /*added by ramashish*/
+            if (getDetectedSteps!=null){
                 FuroPrefs.putInt(applicationContext,"stepsWhenGoogleDisabled", getDetectedSteps!!)
+            }else{
 
             }
-
+//            FuroPrefs.putInt(applicationContext,"stepsWhenGoogleDisabled", getDetectedSteps!!)
 
             tvActivateStepsCounter.isVisible = true
             deactivate.isVisible = false
@@ -490,10 +491,12 @@ class Padometer : AppCompatActivity() {
 
                 }
             }
+            finish()
         }
         ivModified.setOnClickListener {
             openModifiedAlertDialog()
         }
+
     }
 
     private fun insertFitnessData(): DataSet? {
@@ -849,6 +852,7 @@ class Padometer : AppCompatActivity() {
     }
 
 
+
     private fun setAlarm(time: Long, calo: Float, step: Float, distance: Float) {
         //getting the alarm manager
         val am = getSystemService(ALARM_SERVICE) as AlarmManager
@@ -927,8 +931,8 @@ class Padometer : AppCompatActivity() {
               }
       }*/
 
-    private val SPLASH_DISPLAY_LENGTH = 10000
-    fun splashCall(dura: Int, userStep: Int) {
+    private val SPLASH_DISPLAY_LENGTH = 5000
+    fun splashCall( dura : Int,userStep : Int) {
         Handler().postDelayed({
             tvCalories.text = "$getCalculateCalories Cal"
             tbduration.text = ("" + dura)
@@ -936,9 +940,8 @@ class Padometer : AppCompatActivity() {
 
         }, SPLASH_DISPLAY_LENGTH.toLong())
     }
-
-    private val SPLASH_DISPLAY_LENGTH_DISTANCE = 10000
-    fun splashCallDistance(stepCount: Float) {
+    private val SPLASH_DISPLAY_LENGTH_DISTANCE = 5000
+    fun splashCallDistance( stepCount: Float) {
         Handler().postDelayed({
             swBtnInKm.setOnCheckedChangeListener { buttonView, isChecked ->
                 if (isChecked) {

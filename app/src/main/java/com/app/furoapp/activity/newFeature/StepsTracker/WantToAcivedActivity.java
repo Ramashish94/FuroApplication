@@ -106,11 +106,11 @@ public class WantToAcivedActivity extends AppCompatActivity {
             if (isAchievedSelected) {
                 //intent = new Intent(getApplicationContext(), PedoMeterMainActivity.class);
                 intent = new Intent(getApplicationContext(), Padometer.class);
-                FuroPrefs.putString(getApplicationContext(), Constants.ACHIVED_VAL,getAchievedVal);
+                FuroPrefs.putInt(getApplicationContext(), Constants.ACHIVED_VAL, Integer.parseInt(getAchievedVal));
                 intent.putExtra("getAchievedVal", getAchievedVal);
                 FuroPrefs.putInt(getApplicationContext(),"achivedSteps", Integer.parseInt(getAchievedVal));
                 startActivity(intent);
-               finish();
+                finish();
             } else {
                 Toast.makeText(this, "Please select which you want to achieved !", Toast.LENGTH_SHORT).show();
             }

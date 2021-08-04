@@ -1,6 +1,5 @@
 package com.app.furoapp.activity.counter
 
-import android.R.id.button1
 import android.annotation.SuppressLint
 import android.app.*
 import android.content.Intent
@@ -25,6 +24,8 @@ import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.TipsResponse
 import com.app.furoapp.retrofit.RestClient
 import com.app.furoapp.utils.Constants
 import com.app.furoapp.utils.FuroPrefs
+import com.app.furoapp.utils.FuroPrefs.getInt
+import com.app.furoapp.utils.FuroPrefs.getString
 import com.app.furoapp.utils.Util
 import com.app.furoapp.utils.Utils
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -38,6 +39,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_fq_steps_counter.*
 import kotlinx.android.synthetic.main.alertt_dialog_modified_data_.*
+import kotlinx.android.synthetic.main.congrats_popup_menu_og_step_tracker.*
 import kotlinx.android.synthetic.main.item_fancycoverflow.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -93,6 +95,7 @@ class Padometer : AppCompatActivity() {
 
     var isLogin: Boolean = false;
     var includeCongratsStepsTrack: View? = null
+    var llCongratsClosedIcon: LinearLayout? = null
 
     private var getCalculateCalories = 0f
     private val fitnessOptions = FitnessOptions.builder()
@@ -108,8 +111,9 @@ class Padometer : AppCompatActivity() {
         setContentView(R.layout.activity_fq_steps_counter)
         fitData = findViewById(R.id.fit_Data)
         includeCongratsStepsTrack = findViewById(R.id.incudeCongratsStepsTrack)
+        llCongratsClosedIcon=findViewById(R.id.llCongratsClosedIcon)
 
-        getAccessToken = FuroPrefs.getString(applicationContext, Constants.Get_ACCESS_TOKEN)
+        getAccessToken = getString(applicationContext, Constants.Get_ACCESS_TOKEN)
         var isActuvate = FuroPrefs.getBoolean(applicationContext, "isAlreadyActivate")
         if (isActuvate == true) {
             tvActivateStepsCounter.isVisible = false
@@ -121,28 +125,11 @@ class Padometer : AppCompatActivity() {
         }
 
 
-        goals = FuroPrefs.getInt(applicationContext, Constants.ACHIVED_VAL,0)
-        tvTotNumberOfSteps.text = "/"+goals
+        goals = getInt(applicationContext, Constants.ACHIVED_VAL, 0)
+        tvTotNumberOfSteps.text = " of $goals Steps"
         //  clickEvent();
         stepsAchivedVal = intent.getStringExtra("getAchievedVal")
         selectNumberAchievedVal = intent.getStringExtra("selectNumber")
-
-
-        /*added by ramashish*/
-        when {
-            FuroPrefs.getString(applicationContext, Constants.ACHIVED_VAL) != null -> {
-                tvTotNumberOfSteps.text = " of ${FuroPrefs.getString(applicationContext,Constants.ACHIVED_VAL)} Steps"
-            }
-            selectNumberAchievedVal != null -> {
-                tvTotNumberOfSteps.text = " of ${FuroPrefs.getString(applicationContext,Constants.SELECTD_NUMBER)} Steps "
-            }
-            else -> {
-
-            }
-        }
-
-
-
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -309,9 +296,9 @@ class Padometer : AppCompatActivity() {
                             }
                             Log.i(TAG, "Total steps: $total")
                             var isDeactivateClickTrue = FuroPrefs.getBoolean(applicationContext, "isDeactivateClicked")
-                            if(isDeactivateClickTrue == true){
+                            if (isDeactivateClickTrue == true) {
 
-                            }else{
+                            } else {
                                 FuroPrefs.putInt(applicationContext, "stepsWhenGoogleDisabled", total!!)
                             }
 
@@ -320,15 +307,14 @@ class Padometer : AppCompatActivity() {
                             var fullsteps: Float = getDetectedSteps!!.toFloat()
 
 
-
                             var stepsGoodleDisabled =
                                     FuroPrefs.getInt(applicationContext, "stepsWhenGoogleDisabled", 0)
 
                             var userStep = (getDetectedSteps!! - stepsGoodleDisabled)
-                            if(userStep!! >= goals){
+                            if (userStep!! >= goals) {
                                 includeCongratsStepsTrack!!.setVisibility(View.VISIBLE);
 
-                            }else{
+                            } else {
 
                             }
 
@@ -496,9 +482,6 @@ class Padometer : AppCompatActivity() {
             deactivate.isVisible = true
             tvActivateStepsCounter.isVisible = false
             ivModified.isClickable = false
-
-
-
         }
 
         deactivate.setOnClickListener {
@@ -532,6 +515,12 @@ class Padometer : AppCompatActivity() {
         ivModified.setOnClickListener {
             openModifiedAlertDialog()
         }
+
+        llCongratsClosedIcon?.setOnClickListener{
+            includeCongratsStepsTrack!!.visibility = View.GONE
+//            finish()
+        }
+
     }
 
 

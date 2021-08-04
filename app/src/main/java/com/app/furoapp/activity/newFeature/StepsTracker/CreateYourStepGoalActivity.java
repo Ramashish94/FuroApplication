@@ -104,9 +104,8 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
         ivContinue.setOnClickListener(v -> {
             if (isSelectedCustomGoal) {
                 Intent intent = new Intent(getApplicationContext(), Padometer.class);
-                FuroPrefs.putString(getApplicationContext(), Constants.SELECTD_NUMBER, String.valueOf(selectNumber));
                 intent.putExtra("selectNumber", String.valueOf(selectNumber));
-                FuroPrefs.putInt(this,"achivedSteps", selectNumber);
+                FuroPrefs.putInt(getApplicationContext(), Constants.ACHIVED_VAL, (selectNumber));
                 startActivity(intent);
                 Toast.makeText(this, ""+selectNumber, Toast.LENGTH_SHORT).show();
                 finish();
@@ -142,11 +141,5 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
 
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent= new Intent(getApplicationContext(),WantToAcivedActivity.class);
-        startActivity(intent);
-        finish();
-    }
+
 }

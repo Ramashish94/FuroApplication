@@ -26,7 +26,7 @@ public class PrivacyPolicyActivity extends AppCompatActivity {
 
         webView = (WebView) findViewById(R.id.webView1);
             webView.getSettings().setJavaScriptEnabled(true);
-            webView.loadUrl("https://furoapi.tk/privacy-policy");
+            webView.loadUrl("https://api.fitnessquotient.in/privacy-policy");/*https://furoapi.tk/privacy-policy*/
 
         }
 

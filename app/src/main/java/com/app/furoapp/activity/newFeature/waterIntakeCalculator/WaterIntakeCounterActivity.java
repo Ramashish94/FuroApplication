@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -110,6 +111,8 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
     public AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private Intent intent;
+    private ProgressBar loadingProgressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,6 +171,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         tvRecommendedWaterIntake = findViewById(R.id.tvRecommendedWaterIntake);
         llCongratsClosedIcon = findViewById(R.id.llCongratsClosedIcon);
         tvChangeCupSizeAndCustomSize = findViewById(R.id.tvChangeCupSizeAndCustomSize);
+        loadingProgressBar = findViewById(R.id.loadingProgressBar);
     }
 
     private void callDailyWaterIntakeUpdatePlanApi() {
@@ -175,11 +179,13 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         WaterIntakeUpdatePlanRequest waterIntakeUpdatePlanRequest = new WaterIntakeUpdatePlanRequest();
         if (FuroPrefs.getString(getApplicationContext(), Constants.WATER_INTAKE_PLAN) != null) {
             waterIntakeUpdatePlanRequest.setPlan_id(FuroPrefs.getString(getApplicationContext(), Constants.WATER_INTAKE_PLAN));
-            Util.showProgressDialog(getApplicationContext());
+           // Util.showProgressDialog(getApplicationContext());
+            loadingProgressBar.setVisibility(View.VISIBLE);
             RestClient.getWaterIntakeUpdatePlan(getAccessToken, waterIntakeUpdatePlanRequest, new Callback<WaterIntakeUpdatePlanResponse>() {
                 @Override
                 public void onResponse(Call<WaterIntakeUpdatePlanResponse> call, Response<WaterIntakeUpdatePlanResponse> response) {
-                    Util.dismissProgressDialog();
+          //          Util.dismissProgressDialog();
+                    loadingProgressBar.setVisibility(View.GONE);
                     if (response.code() == 200) {
                         if (response.body() != null && response.body().getStatus() != null) {
                             // set today progress data

@@ -627,7 +627,15 @@
             layout="@layout/congrats_pop_up"
             android:visibility="gone" />
 
-
+        <ProgressBar
+            android:id="@+id/loadingProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:elevation="@dimen/dp_50"
+            />
     </FrameLayout>
 
 

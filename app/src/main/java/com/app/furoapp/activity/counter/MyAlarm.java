@@ -35,19 +35,24 @@ public class MyAlarm extends BroadcastReceiver {
         //but you can do any task here that you want to be done at a specific time everyday
         Log.d("MyAlarmBelal", "Alarm just fired");
 
-        Float calories =   FuroPrefs.getFloat(context, "calories");
-        Float steps =  FuroPrefs.getFloat(context, "steps");
+        Float calories = FuroPrefs.getFloat(context, "calories");
+        Float steps = FuroPrefs.getFloat(context, "steps");
         Float distance = FuroPrefs.getFloat(context, "distance");
         String stepsAchivedVal = FuroPrefs.getString(context, "stepsAchivedVal");
-        Float selectNumberAchievedVal =FuroPrefs.getFloat(context, "steps");
+        Float selectNumberAchievedVal = FuroPrefs.getFloat(context, "steps");
 
-
-        callUserStepGoalApi(context, steps, calories, distance,stepsAchivedVal,selectNumberAchievedVal);
+        boolean isActuvate = FuroPrefs.getBoolean(context, "isAlreadyActivate");
+        if (isActuvate == true) {
+            FuroPrefs.putInt(context, "stepsWhenGoogleDisabled", 0);
+            callUserStepGoalApi(context, steps, calories, distance, stepsAchivedVal, selectNumberAchievedVal);
+        }else{
+            FuroPrefs.putInt(context, "stepsWhenGoogleDisabled", 0);
+        }
 
 
     }
 
-    private void callUserStepGoalApi(Context context, Float step, Float calories, Float distance,String stepsAchivedVal,Float selectNumberAchievedVal) {
+    private void callUserStepGoalApi(Context context, Float step, Float calories, Float distance, String stepsAchivedVal, Float selectNumberAchievedVal) {
         getAccessToken = FuroPrefs.getString(context, Constants.Get_ACCESS_TOKEN);
 
         UserStepsGoalRequest userStepsGoalRequest = new UserStepsGoalRequest();
@@ -62,14 +67,14 @@ public class MyAlarm extends BroadcastReceiver {
         }
 
         if (Util.isInternetConnected(context)) {
-            Utils.showProgressDialogBar(context);
+
             RestClient.getUserStepsGoal(getAccessToken, userStepsGoalRequest, new Callback<UserStepsGoalResponse>() {
                 @Override
                 public void onResponse(Call<UserStepsGoalResponse> call, Response<UserStepsGoalResponse> response) {
-                    Util.dismissProgressDialog();
+
                     if (response.code() == 200) {
                         Log.d("Api succeed", "success");
-                        FuroPrefs.putInt(context,"stepsWhenGoogleDisabled",0);
+                        FuroPrefs.putInt(context, "stepsWhenGoogleDisabled", 0);
 
                         Toast.makeText(context, "Data saved Successfully !", Toast.LENGTH_SHORT).show();
 

@@ -2,6 +2,7 @@ package com.app.furoapp.activity.counter
 
 import android.annotation.SuppressLint
 import android.app.*
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -18,16 +19,18 @@ import androidx.core.app.NotificationCompat
 import androidx.core.view.isVisible
 import com.app.furoapp.R
 import com.app.furoapp.activity.LoginTutorialScreen
-import com.app.furoapp.activity.newFeature.StepsTracker.*
+import com.app.furoapp.activity.newFeature.StepsTracker.FqStepsCounterActivity
+import com.app.furoapp.activity.newFeature.StepsTracker.LeaderBoardActivity
+import com.app.furoapp.activity.newFeature.StepsTracker.StepCounterHistoryActivity
+import com.app.furoapp.activity.newFeature.StepsTracker.StepCounterSettingsActivity
 import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.DataItem
 import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.TipsResponse
+import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalRequest
+import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalResponse
 import com.app.furoapp.retrofit.RestClient
 import com.app.furoapp.utils.Constants
 import com.app.furoapp.utils.FuroPrefs
-import com.app.furoapp.utils.FuroPrefs.getInt
-import com.app.furoapp.utils.FuroPrefs.getString
 import com.app.furoapp.utils.Util
-import com.app.furoapp.utils.Utils
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -39,7 +42,6 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_fq_steps_counter.*
 import kotlinx.android.synthetic.main.alertt_dialog_modified_data_.*
-import kotlinx.android.synthetic.main.congrats_popup_menu_og_step_tracker.*
 import kotlinx.android.synthetic.main.item_fancycoverflow.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -83,7 +85,7 @@ class Padometer : AppCompatActivity() {
     private var isSwitchedChecked = false
     var mGoogleSignInClient: GoogleSignInClient? = null
     private var getAccessToken: String? = null
-    private var tipsList: List<DataItem>? = null
+    private val tipsList: List<DataItem>? = null
     private var dialog: AlertDialog? = null
     private val tipsHandler = Handler()
     private var tipsListSize = 0
@@ -95,7 +97,6 @@ class Padometer : AppCompatActivity() {
 
     var isLogin: Boolean = false;
     var includeCongratsStepsTrack: View? = null
-    var llCongratsClosedIcon: LinearLayout? = null
 
     private var getCalculateCalories = 0f
     private val fitnessOptions = FitnessOptions.builder()
@@ -111,9 +112,8 @@ class Padometer : AppCompatActivity() {
         setContentView(R.layout.activity_fq_steps_counter)
         fitData = findViewById(R.id.fit_Data)
         includeCongratsStepsTrack = findViewById(R.id.incudeCongratsStepsTrack)
-        llCongratsClosedIcon=findViewById(R.id.llCongratsClosedIcon)
 
-        getAccessToken = getString(applicationContext, Constants.Get_ACCESS_TOKEN)
+        getAccessToken = FuroPrefs.getString(applicationContext, Constants.Get_ACCESS_TOKEN)
         var isActuvate = FuroPrefs.getBoolean(applicationContext, "isAlreadyActivate")
         if (isActuvate == true) {
             tvActivateStepsCounter.isVisible = false
@@ -125,8 +125,8 @@ class Padometer : AppCompatActivity() {
         }
 
 
-        goals = getInt(applicationContext, Constants.ACHIVED_VAL, 0)
-        tvTotNumberOfSteps.text = " of $goals Steps"
+        goals = FuroPrefs.getInt(applicationContext, Constants.ACHIVED_VAL, 0)
+        tvTotNumberOfSteps.text = "/" + goals
         //  clickEvent();
         stepsAchivedVal = intent.getStringExtra("getAchievedVal")
         selectNumberAchievedVal = intent.getStringExtra("selectNumber")
@@ -146,15 +146,15 @@ class Padometer : AppCompatActivity() {
             checkPermissionsAndRun(FitActionRequestCode.SUBSCRIBE)
 
         }
-        callTipsApi()      // added by ramashish
+
         clickListners()
 
 
     }
 
     override fun onResume() {
-
         super.onResume()
+        callTipsApi()
     }
 
     private fun hasOAuthPermission(): Boolean {
@@ -281,7 +281,7 @@ class Padometer : AppCompatActivity() {
             }
 
 
-    fun handler(){
+    fun handler() {
         val ha = Handler()
         ha.postDelayed(object : Runnable {
             override fun run() {
@@ -315,7 +315,7 @@ class Padometer : AppCompatActivity() {
                                 includeCongratsStepsTrack!!.setVisibility(View.VISIBLE);
 
                             } else {
-
+                                includeCongratsStepsTrack!!.setVisibility(View.GONE);
                             }
 
                             val duration = userStep / 64
@@ -323,7 +323,7 @@ class Padometer : AppCompatActivity() {
                             splashCall(duration, userStep)
 
 
-                            /*added*/getCalculateCalories = (userStep!! * 0.045).toFloat()
+                            getCalculateCalories = (userStep!! * 0.045).toFloat()
 
 
                             var steps: Float = userStep.toFloat()
@@ -333,7 +333,10 @@ class Padometer : AppCompatActivity() {
                             splashCallDistance(steps)
 
 
-                            showNotification(total)
+                            val isActuvate = FuroPrefs.getBoolean(this@Padometer, "isAlreadyActivate") // add by pankaj on 4-aug-2021
+                            if (isActuvate == true) {
+                                showNotification(total)
+                            }
 
                             // Read the data that's been collected throughout the past week.
 
@@ -382,7 +385,7 @@ class Padometer : AppCompatActivity() {
                 val postSignInAction = FitActionRequestCode.values()[requestCode]
                 postSignInAction.let {
                     performActionForRequestCode(postSignInAction)
-                    /*insertAndReadData()*/
+
                 }
             }
             else -> oAuthErrorMsg(requestCode, resultCode)
@@ -481,27 +484,29 @@ class Padometer : AppCompatActivity() {
             FuroPrefs.putBoolean(applicationContext, "isAlreadyActivate", isAlreadyActivate)
             deactivate.isVisible = true
             tvActivateStepsCounter.isVisible = false
-            ivModified.isClickable = false
+
+
         }
 
         deactivate.setOnClickListener {
 
             FuroPrefs.putBoolean(applicationContext, "isDeactivateClicked", true)
-            googlefitDisabled()
-            if(getDetectedSteps == null){
 
-            }else{
+            googlefitDisabled()
+            if (getDetectedSteps == null) {
+
+            } else {
                 FuroPrefs.putInt(applicationContext, "stepsWhenGoogleDisabled", getDetectedSteps!!)
 
             }
 
             tvActivateStepsCounter.isVisible = true
             deactivate.isVisible = false
-            ivModified.isClickable = true
             var isAlreadyActivate = false
             FuroPrefs.putBoolean(applicationContext, "isAlreadyActivate", isAlreadyActivate)
-            // notificationManager!!.cancel(0)
-            /*added by ramashish*/
+
+            //            notificationManager!!.cancel(0)
+            //
             when {
                 notificationManager != null -> {
                     notificationManager!!.cancel(0)
@@ -510,19 +515,11 @@ class Padometer : AppCompatActivity() {
 
                 }
             }
-            finish()
-        }
-        ivModified.setOnClickListener {
-            openModifiedAlertDialog()
-        }
+            callServicetoSetGoals(this)
 
-        llCongratsClosedIcon?.setOnClickListener{
-            includeCongratsStepsTrack!!.visibility = View.GONE
-//            finish()
         }
 
     }
-
 
 
     private fun requestRuntimePermissions(requestCode: FitActionRequestCode) {
@@ -644,13 +641,13 @@ class Padometer : AppCompatActivity() {
 
     private fun callTipsApi() {
         if (Util.isInternetConnected(applicationContext)) {
-            Utils.showProgressDialogBar(applicationContext)
+//            Utils.showProgressDialogBar(applicationContext)
             RestClient.getAllTipsData(getAccessToken, object : Callback<TipsResponse> {
                 override fun onResponse(
                         call: Call<TipsResponse>,
                         response: Response<TipsResponse>
                 ) {
-                    Util.dismissProgressDialog()
+//                    Util.dismissProgressDialog()
                     if (response.code() == 200) {
                         Log.d(
                                 FqStepsCounterActivity.TAG,
@@ -659,9 +656,27 @@ class Padometer : AppCompatActivity() {
                         if (response.body()!!.data != null && response.body()!!.data.data != null && response.body()!!
                                         .data.data.size > 0
                         ) {
-                            tipsList = response.body()!!.data.data
-                            tipsListSize = tipsList?.size ?: 0
-                            tipsHandler.postDelayed(tipsRunnable, 0)
+                            val tipsList = response.body()!!.data.data
+                            tipsListSize = tipsList.size
+
+                            tipsHandler.postDelayed(object : Runnable {
+                                override fun run() {
+                                    if (tipsList != null && tipsList.size > 0) {
+                                        if (tipsStart == tipsListSize - 1) {
+                                            tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph())
+                                            tipsStart = 0
+                                        } else {
+                                            if (tipsList != null && tipsList.size > 0) {
+                                                tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph())
+                                                tipsStart++
+                                            }
+                                        }
+                                    }
+
+                                    tipsHandler.postDelayed(this, 5000)
+                                }
+                            }, 5000)
+
                         } else {
                             Toast.makeText(
                                     this@Padometer,
@@ -697,24 +712,23 @@ class Padometer : AppCompatActivity() {
     }
 
 
-    // ___________________________________________________________________________ \\
-    private val tipsRunnable: Runnable = object : Runnable {
-        override fun run() {
-            if (tipsList != null && !tipsList.isNullOrEmpty()) {
-                if (tipsStart == tipsListSize - 1) {
-                    tvPrizmTips.text = tipsList!![tipsStart].paragraph
-                    tipsStart = 0
-                } else {
-                    if (tipsList != null && !tipsList.isNullOrEmpty()) {
-                        tvPrizmTips.text = tipsList!![tipsStart].paragraph
-                        tipsStart++
-                    }
-                }
-            }
-            tipsHandler.postDelayed(this, 5000)
-        }
-    }
-/*added by ramashish */
+//    private val tipsRunnable: Runnable = object : Runnable {
+//        override fun run() {
+//            if (tipsList != null && tipsList.size > 0) {
+//                if (tipsStart == tipsListSize - 1) {
+//                    tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph())
+//                    tipsStart = 0
+//                } else {
+//                    if (tipsList != null && tipsList.size > 0) {
+//                        tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph())
+//                        tipsStart++
+//                    }
+//                }
+//            }
+//            tipsHandler.postDelayed(this, 5000)
+//        }
+//    }
+
     private fun openModifiedAlertDialog() {
         val dialogBuilder = AlertDialog.Builder(this)
         val inflater = this.layoutInflater
@@ -722,19 +736,17 @@ class Padometer : AppCompatActivity() {
         dialogBuilder.setView(dialogView)
         val dialog = dialogBuilder.create()
 
-        val btn_cancel: ImageView = dialogView.findViewById(R.id.btn_cancel)
-        val tvContinue: TextView = dialogView.findViewById(R.id.tvContinue)
-        val tvModified: TextView = dialogView.findViewById(R.id.tvModified)
 
-        btn_cancel.setOnClickListener { dialog.dismiss() }
-        tvContinue.setOnClickListener { dialog.dismiss() }
-        tvModified.setOnClickListener {
-            val intent = Intent(
-                    this,
-                    WantToAcivedActivity::class.java)
-            startActivity(intent)
+
+        llFqStepCounter.setClickable(false)
+        btn_cancel.setOnClickListener(View.OnClickListener { dialog.dismiss() })
+        tvContinue.setOnClickListener(View.OnClickListener { dialog.dismiss() })
+        tvModified.setOnClickListener(View.OnClickListener { // FqStepsCounterActivity.super.onBackPressed();
+            dialog.dismiss()
             finish()
-        }
+            /*  finishAffinity();
+                System.exit(0);*/
+        })
         dialog.show()
     }
 
@@ -745,7 +757,6 @@ class Padometer : AppCompatActivity() {
     fun calculateCalories(steps: Long): Float {
         return (steps * 0.045).toFloat()
     }
-
 
 
     private fun setAlarm(time: Long, calo: Float, step: Float, distance: Float) {
@@ -835,6 +846,7 @@ class Padometer : AppCompatActivity() {
 
         }, SPLASH_DISPLAY_LENGTH.toLong())
     }
+
     private val SPLASH_DISPLAY_LENGTH_DISTANCE = 5000
     fun splashCallDistance(stepCount: Float) {
         Handler().postDelayed({
@@ -863,12 +875,56 @@ class Padometer : AppCompatActivity() {
         }, SPLASH_DISPLAY_LENGTH_DISTANCE.toLong())
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        val intent = Intent(
-                applicationContext,
-                WantToAcivedActivity::class.java
-        )
-        startActivity(intent)
+    fun callServicetoSetGoals(context: Context) {
+        val calories = FuroPrefs.getFloat(context, "calories")
+        val steps = FuroPrefs.getFloat(context, "steps")
+        val distance = FuroPrefs.getFloat(context, "distance")
+        val stepsAchivedVal = FuroPrefs.getString(context, "stepsAchivedVal")
+        val selectNumberAchievedVal = FuroPrefs.getFloat(context, "steps")
+
+
+        callUserStepGoalApi(context, steps, calories, distance, stepsAchivedVal, selectNumberAchievedVal)
     }
+
+    // add by pankaj kataria on 4-aug-2021 for sending step counters to backend
+    private fun callUserStepGoalApi(context: Context, step: Float, calories: Float, distance: Float, stepsAchivedVal: String?, selectNumberAchievedVal: Float) {
+        getAccessToken = FuroPrefs.getString(applicationContext, Constants.Get_ACCESS_TOKEN)
+        val userStepsGoalRequest = UserStepsGoalRequest()
+        userStepsGoalRequest.time = tbduration.text.toString()
+        userStepsGoalRequest.distance = tvDistance.text.toString()
+        userStepsGoalRequest.calories = tvCalories.text.toString()
+        userStepsGoalRequest.count_steps = tvCountsSteps.text.toString()
+        if (stepsAchivedVal != null) {
+            userStepsGoalRequest.total_steps = stepsAchivedVal
+        } else {
+            userStepsGoalRequest.total_steps = selectNumberAchievedVal.toString()
+        }
+        if (Util.isInternetConnected(context)) {
+//            Utils.showProgressDialogBar(context)
+            RestClient.getUserStepsGoal(getAccessToken, userStepsGoalRequest, object : Callback<UserStepsGoalResponse?> {
+                override fun onResponse(call: Call<UserStepsGoalResponse?>, response: Response<UserStepsGoalResponse?>) {
+//                    Util.dismissProgressDialog()
+                    if (response.code() == 200) {
+                        Log.d("Api succeed", "success")
+//                        FuroPrefs.putInt(context, "stepsWhenGoogleDisabled", 0)
+                        Toast.makeText(context, "Data saved Successfully !", Toast.LENGTH_SHORT).show()
+//                        finish()
+                    } else {
+                        if (response.code() == 500) {
+                            Toast.makeText(context, "Internal server error !", Toast.LENGTH_SHORT).show()
+                        }
+                        if (response.code() == 403) {
+                            Toast.makeText(context, response.code().toString() + "Session expire Please login again", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<UserStepsGoalResponse?>, t: Throwable) {
+                    Toast.makeText(context, "Failure", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+    }
+
+
 }

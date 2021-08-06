@@ -98,6 +98,14 @@
                         android:textColor="@color/light_blue"
                         android:textSize="28sp"
                         android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/sp_14"
+                        android:fontFamily="@font/din_alter_nate_bold"
+                        android:textStyle="bold"
+                        android:textColor="#2F2F2F"
+                        android:text=" / " />
 
                     <TextView
                         android:id="@+id/tvTotNumberOfSteps"
@@ -107,7 +115,7 @@
                         android:textColor="#2F2F2F"
                         android:textSize="@dimen/sp_12"
                         android:textStyle="bold"
-                        tools:text="Of 38000 Steps" />
+                        tools:text="38000" /><!--tools:text="Of 38000 Steps"-->
                 </LinearLayout>
 
                 <TextView
@@ -133,7 +141,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/dp_15"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="invisible">
 
                     <ImageView
                         android:id="@+id/ivModified"

@@ -562,7 +562,7 @@ public interface ApiInterface {
     @GET("user/leader-board")
     Call<LeaderBoardResponse> LEADER_BOARD_RESPONSE_CALL(@Header(TOKEN_KEY) String token);
 
-    /*user/step-goal*/
+    /*user/all-trips*/
     @GET("user/all-trips ")
     Call<TipsResponse> ALL_TIPS_RESPONSE_CALL(@Header(TOKEN_KEY) String token);
 

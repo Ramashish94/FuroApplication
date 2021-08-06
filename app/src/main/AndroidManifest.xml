@@ -581,7 +581,10 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
-
+        <!--<receiver
+            android:name=".activity.counter.MyAlarm"
+            android:enabled="true"
+            android:exported="true" />-->
         <service android:name=".activity.GCMIntentService"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE"/>

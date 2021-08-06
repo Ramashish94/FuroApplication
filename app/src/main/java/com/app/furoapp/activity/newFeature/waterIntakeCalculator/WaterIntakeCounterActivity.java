@@ -111,7 +111,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
     public AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private Intent intent;
-    private ProgressBar loadingProgressBar;
+    private ProgressBar loadingProgressBar, loadingProgressBar2;
 
 
     @Override
@@ -172,6 +172,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         llCongratsClosedIcon = findViewById(R.id.llCongratsClosedIcon);
         tvChangeCupSizeAndCustomSize = findViewById(R.id.tvChangeCupSizeAndCustomSize);
         loadingProgressBar = findViewById(R.id.loadingProgressBar);
+        loadingProgressBar2 = findViewById(R.id.loadingProgressBar2);
     }
 
     private void callDailyWaterIntakeUpdatePlanApi() {
@@ -179,12 +180,12 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         WaterIntakeUpdatePlanRequest waterIntakeUpdatePlanRequest = new WaterIntakeUpdatePlanRequest();
         if (FuroPrefs.getString(getApplicationContext(), Constants.WATER_INTAKE_PLAN) != null) {
             waterIntakeUpdatePlanRequest.setPlan_id(FuroPrefs.getString(getApplicationContext(), Constants.WATER_INTAKE_PLAN));
-           // Util.showProgressDialog(getApplicationContext());
+            // Util.showProgressDialog(getApplicationContext());
             loadingProgressBar.setVisibility(View.VISIBLE);
             RestClient.getWaterIntakeUpdatePlan(getAccessToken, waterIntakeUpdatePlanRequest, new Callback<WaterIntakeUpdatePlanResponse>() {
                 @Override
                 public void onResponse(Call<WaterIntakeUpdatePlanResponse> call, Response<WaterIntakeUpdatePlanResponse> response) {
-          //          Util.dismissProgressDialog();
+                    //          Util.dismissProgressDialog();
                     loadingProgressBar.setVisibility(View.GONE);
                     if (response.code() == 200) {
                         if (response.body() != null && response.body().getStatus() != null) {
@@ -545,11 +546,12 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
     }
 
     private void callFetchGlassApi() {
-        Util.showProgressDialog(getApplicationContext());
         Util.isInternetConnected(getApplicationContext());
+        loadingProgressBar2.setVisibility(View.VISIBLE);
         RestClient.getUserGlassFetch(getAccessToken, new Callback<GlassFetchResponse>() {
             @Override
             public void onResponse(Call<GlassFetchResponse> call, Response<GlassFetchResponse> response) {
+                loadingProgressBar2.setVisibility(View.GONE);
                 if (response.code() == 200) {
                     if (response.body() != null) {
 

@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -66,6 +67,8 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
     public RadioButton rdBtnRecommendedPlan;
     private int waterTakenInMl;
     private boolean isPalnSelected;
+    private ProgressBar loadingProgressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,16 +104,17 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
         ivSelRecommendedPlan = findViewById(R.id.ivSelRecommendedPlan);
         rdbt_group = findViewById(R.id.rdbt_group);
         rdBtnRecommendedPlan = findViewById(R.id.rdBtnRecommendedPlan);
+        loadingProgressBar = findViewById(R.id.loadingProgressBar);
 
     }
 
     private void callFetchAllPlanApi() {
         if (Util.isInternetConnected(getApplicationContext())) {
-            Util.showProgressDialog(getApplicationContext());
+            loadingProgressBar.setVisibility(View.VISIBLE);
             RestClient.getFetchAllPlan(getAccessessToken, new Callback<FetchAllPlanResponse>() {
                 @Override
                 public void onResponse(Call<FetchAllPlanResponse> call, Response<FetchAllPlanResponse> response) {
-                    Util.dismissProgressDialog();
+                    loadingProgressBar.setVisibility(View.GONE);
                     if (response.code() == 200) {
                         if (response.body() != null && response.body().getStatus() != null) {
                             if (response.body().getAllPlans() != null && response.body().getAllPlans().size() > 0) {

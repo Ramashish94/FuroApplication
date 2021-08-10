@@ -776,7 +776,7 @@ class Padometer : AppCompatActivity() {
         val pi = PendingIntent.getBroadcast(this, 0, i, 0)
 
         //setting the repeating alarm that will be fired every day
-        am.setRepeating(AlarmManager.RTC, time, AlarmManager.INTERVAL_DAY, pi)
+        am.setRepeating(AlarmManager.RTC_WAKEUP, time, AlarmManager.INTERVAL_DAY, pi)
     }
 
     fun googlefitDisabled() {

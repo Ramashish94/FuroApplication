@@ -60,11 +60,13 @@ public class MyAlarm extends BroadcastReceiver {
         userStepsGoalRequest.setDistance(String.valueOf(distance));
         userStepsGoalRequest.setCalories(String.valueOf(calories));
         userStepsGoalRequest.setCount_steps(String.valueOf(step));
-        if (stepsAchivedVal != null) {
-            userStepsGoalRequest.setTotal_steps(stepsAchivedVal);
-        } else {
-            userStepsGoalRequest.setTotal_steps(String.valueOf(selectNumberAchievedVal));
-        }
+        userStepsGoalRequest.setTotal_steps("12000");
+
+//        if (stepsAchivedVal != null) {
+//            userStepsGoalRequest.setTotal_steps(stepsAchivedVal);
+//        } else {
+//            userStepsGoalRequest.setTotal_steps(String.valueOf(selectNumberAchievedVal));
+//        }
 
         if (Util.isInternetConnected(context)) {
 

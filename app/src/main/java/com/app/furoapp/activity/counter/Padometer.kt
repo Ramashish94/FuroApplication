@@ -126,7 +126,7 @@ class Padometer : AppCompatActivity() {
 
 
         goals = FuroPrefs.getInt(applicationContext, Constants.ACHIVED_VAL, 0)
-        tvTotNumberOfSteps.text = "/" + goals
+        tvTotNumberOfSteps.text = goals.toString()
         //  clickEvent();
         stepsAchivedVal = intent.getStringExtra("getAchievedVal")
         selectNumberAchievedVal = intent.getStringExtra("selectNumber")
@@ -894,16 +894,16 @@ class Padometer : AppCompatActivity() {
         userStepsGoalRequest.distance = tvDistance.text.toString()
         userStepsGoalRequest.calories = tvCalories.text.toString()
         userStepsGoalRequest.count_steps = tvCountsSteps.text.toString()
-        if (stepsAchivedVal != null) {
-            userStepsGoalRequest.total_steps = stepsAchivedVal
-        } else {
-            userStepsGoalRequest.total_steps = selectNumberAchievedVal.toString()
-        }
+        userStepsGoalRequest.total_steps = tvTotNumberOfSteps.text.toString()/*added*/
+
+//        if (stepsAchivedVal != null) {
+//            userStepsGoalRequest.total_steps = stepsAchivedVal
+//        } else {
+//            userStepsGoalRequest.total_steps = selectNumberAchievedVal.toString()
+//        }
         if (Util.isInternetConnected(context)) {
-//            Utils.showProgressDialogBar(context)
             RestClient.getUserStepsGoal(getAccessToken, userStepsGoalRequest, object : Callback<UserStepsGoalResponse?> {
                 override fun onResponse(call: Call<UserStepsGoalResponse?>, response: Response<UserStepsGoalResponse?>) {
-//                    Util.dismissProgressDialog()
                     if (response.code() == 200) {
                         Log.d("Api succeed", "success")
 //                        FuroPrefs.putInt(context, "stepsWhenGoogleDisabled", 0)

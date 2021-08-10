@@ -375,7 +375,7 @@
                                     android:gravity="bottom"
                                     android:orientation="horizontal"
                                     android:paddingTop="@dimen/dp_5"
-                                    android:layout_marginLeft="@dimen/dp_15"
+                                    android:layout_marginLeft="@dimen/dp_5"
                                     android:paddingBottom="@dimen/dp_5">
 
                                     <TextView

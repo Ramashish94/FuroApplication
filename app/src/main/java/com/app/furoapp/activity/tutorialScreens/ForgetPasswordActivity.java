@@ -79,33 +79,35 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                     public void onResponse(Call<EmailVerifiedResponse> call, Response<EmailVerifiedResponse> response) {
                         linearLayout.setVisibility(View.GONE);
                         progressBar.setVisibility(View.GONE);
-                        if (response != null) {
-                            if (response.body() != null) {
-                                if (response.body().getStatus().equalsIgnoreCase("3")) {
-                                    Intent intent = new Intent(ForgetPasswordActivity.this,PasswordChangeActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                    /*tutorialScreen.setDisplayFragment(EnumConstants.PASSWORD_CHANGE_FRAGMENT, null);*/
-                                    Toast.makeText(ForgetPasswordActivity.this, "OTP is sent to the registered email address ", Toast.LENGTH_SHORT).show();
+                        if (response.code() == 200) {
+                            if (response != null) {
+                                if (response.body() != null) {
+                                    if (response.body().getStatus().equalsIgnoreCase("3")) {
+                                        Intent intent = new Intent(ForgetPasswordActivity.this, PasswordChangeActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                        /*tutorialScreen.setDisplayFragment(EnumConstants.PASSWORD_CHANGE_FRAGMENT, null);*/
+                                        Toast.makeText(ForgetPasswordActivity.this, "OTP is sent to the registered email address ", Toast.LENGTH_SHORT).show();
 
                                     /*String userOtp = String.valueOf(response.body().getOtp());
                                     FuroPrefs.putString(getApplicationContext(), "user_otp", userOtp);*/
                                     FuroPrefs.putString(getApplicationContext(), "user_mail", email_verified);
 
-
-                                } else if (response.body().getStatus().equalsIgnoreCase("0")) {
-                                    Toast.makeText(ForgetPasswordActivity.this, " email doesn't exist", Toast.LENGTH_SHORT).show();
-
-
+                                    } else if (response.body().getStatus().equalsIgnoreCase("0")) {
+                                        Toast.makeText(ForgetPasswordActivity.this, " email doesn't exist", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-
                             }
+                        } else if (response.code() == 500) {
+                            Toast.makeText(ForgetPasswordActivity.this,response.code() +" Internal Server Error", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(ForgetPasswordActivity.this, "Error", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<EmailVerifiedResponse> call, Throwable t) {
-
+                        Toast.makeText(context, "Something went wrong!", Toast.LENGTH_SHORT).show();
                     }
                 });
 

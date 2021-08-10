@@ -45,16 +45,16 @@
                     android:src="@drawable/furonewlogoformap" />
 
 
-                <com.google.android.material.card.MaterialCardView
+                <androidx.cardview.widget.CardView
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:theme="@style/Theme.MaterialComponents.Light"
                     android:layout_marginLeft="@dimen/dp_40"
                     android:layout_marginRight="@dimen/dp_40"
                     android:orientation="vertical"
-
                     app:cardCornerRadius="@dimen/dp_16">
+                <!--com.google.android.material.card.MaterialCardView
+                 android:theme="@style/Theme.MaterialComponents.Light"-->
 
 
                     <com.app.furoapp.widget.RoundRectCornerImageView
@@ -209,7 +209,7 @@
                                     android:textColor="@color/white"
                                     android:textSize="@dimen/dp_16"
                                     android:maxLength="6"
-                                    android:textStyle="bold"></TextView>
+                                    android:textStyle="bold"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -220,7 +220,7 @@
                                     android:text="m"
                                     android:textColor="@color/white"
                                     android:textSize="20dp"
-                                    android:textStyle="bold"></TextView>
+                                    android:textStyle="bold"/>
 
                                 <ImageView
                                     android:id="@+id/ivIn"
@@ -379,7 +379,7 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </com.google.android.material.card.MaterialCardView>
+                </androidx.cardview.widget.CardView>
 
                 <FrameLayout
                     android:layout_width="match_parent"

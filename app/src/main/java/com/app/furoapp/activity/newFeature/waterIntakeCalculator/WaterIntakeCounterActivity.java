@@ -245,8 +245,8 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             } else {
 //                Toast.makeText(this, "No such record found of TakenGlassOfWater!", Toast.LENGTH_SHORT).show();
             }
-            if (body.getSelectedPlan().getRecommendedGlassOfWater() != null) {
-                tvRecommendedNosOfGlasses.setText("/" + body.getSelectedPlan().getRecommendedGlassOfWater().toString());
+            if (body.getSelectedPlan().getTotalGlass() != null) {
+                tvRecommendedNosOfGlasses.setText("/" + body.getSelectedPlan().getTotalGlass().toString());/*getRecommendedGlassOfWater()*/
             } else {
 //                Toast.makeText(this, "No such record found of RecommendedGlassOfWater!", Toast.LENGTH_SHORT).show();
             }
@@ -268,7 +268,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             /*Update progress percent*/
             takenWaterInPercent = (takingWater * 100 / totRecommendedWater);
             scProgressBar.setPercent(takenWaterInPercent);     // set percent on progress bar
-            if (takingWater == totRecommendedWater || takenWaterInPercent >= 99/*|| body.getSelectedPlan().getTakenGlassOfWater() == body.getSelectedPlan().getRecommendedGlassOfWater()*/) {
+            if (takingWater == totRecommendedWater || takenWaterInPercent >= 99 || body.getSelectedPlan().getTakenGlassOfWater() == body.getSelectedPlan().getTotalGlass()) {
                 includeCongratsPopMenu.setVisibility(View.VISIBLE);
                 tvRecommendedWaterIntake.setText("" + totRecommendedWater + "  ml");
                 clWaterIntakeCounter.setClickable(false);
@@ -299,7 +299,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                 tvNosOfGlasses.setText("" + selectedPlan.getTakenGlassOfWater().toString());
             }
             if (selectedPlan.getRecommendedGlassOfWater() != null) {
-                tvRecommendedNosOfGlasses.setText("/" + selectedPlan.getRecommendedGlassOfWater().toString());
+                tvRecommendedNosOfGlasses.setText("/" + selectedPlan.getTotalGlass().toString());
             }
             if (selectedPlan.getCreatedAt() != null) {
 

@@ -41,6 +41,8 @@ import com.app.furoapp.adapter.CustomPagerWithoutTitleAdapter;
 import com.app.furoapp.databinding.ActivityOnLoginTutorialScreenBinding;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.google.android.gms.auth.api.identity.SignInClient;
+import com.google.android.gms.auth.api.identity.SignInCredential;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -97,6 +99,7 @@ public class LoginTutorialScreen extends AppCompatActivity {
     private boolean isGoogleSignIn = false;
     private FrameLayout loginFrmActivity;
     private Object WhiteRectangleDetector;
+    private GoogleSignInAccount account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,8 +233,8 @@ public class LoginTutorialScreen extends AppCompatActivity {
             // a listener.
             try {
                 Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                //handleSignInResult(task);
+                 account = task.getResult(ApiException.class);
+                // handleSignInResult(task);
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
 
@@ -266,10 +269,11 @@ public class LoginTutorialScreen extends AppCompatActivity {
                     public void onComplete(Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            String gEmail, gName;
+                            String gEmail, gName, googleid, getGoogleIdToken, userImage;
                             gEmail = acct.getEmail();
                             gName = acct.getDisplayName();
-                            String googleid = acct.getId();
+                            googleid = acct.getId();
+                            getGoogleIdToken = acct.getIdToken();
 
                             Log.i("googl_id", googleid);
                             FuroPrefs.putString(getApplicationContext(), "googl_id", googleid);
@@ -284,6 +288,8 @@ public class LoginTutorialScreen extends AppCompatActivity {
                                             if (response.body().getStatus() == 0) {
                                                 FuroPrefs.putString(getApplicationContext(), "email", gEmail);
                                                 FuroPrefs.putString(getApplicationContext(), "name", gName);
+                                                Toast.makeText(LoginTutorialScreen.this, "GoogleIdToken " + getGoogleIdToken, Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(LoginTutorialScreen.this, "googleid " + googleid, Toast.LENGTH_SHORT).show();
                                                 Intent intent = new Intent(LoginTutorialScreen.this, SignUpActivity.class);
                                                 startActivity(intent);
                                                 finish();
@@ -304,10 +310,13 @@ public class LoginTutorialScreen extends AppCompatActivity {
                                                     FuroPrefs.putString(getApplicationContext(), "loginUserNameNew", userNameee);
 
                                                     Intent intent = new Intent(getApplicationContext(), WelcomeUserYouAreInActivity.class);
+                                                    Toast.makeText(LoginTutorialScreen.this, "GoogleIdToken " + getGoogleIdToken, Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(LoginTutorialScreen.this, "googleid " + googleid, Toast.LENGTH_SHORT).show();
+
                                                     startActivity(intent);
                                                     finish();
                                                     //tutorialScreen.setDisplayFragment(EnumConstants.HOME_TUTORIAL_PAGE, null);
-                                                    Toast.makeText(LoginTutorialScreen.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                                                   // Toast.makeText(LoginTutorialScreen.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
                                                 } else if (response.body().getReasons().equalsIgnoreCase("1")) {
                                                     FuroPrefs.putBoolean(getApplicationContext(), Constants.LOGGEDIN, true);
@@ -318,6 +327,8 @@ public class LoginTutorialScreen extends AppCompatActivity {
                                                     FuroPrefs.putString(getApplicationContext(), "userimage", Image);
                                                     FuroPrefs.putString(getApplicationContext(), "loginUserNameNew", userNameNew);
                                                     Intent intent = new Intent(getApplicationContext(), HomeMainActivity.class);
+                                                    Toast.makeText(LoginTutorialScreen.this, "GoogleIdToken " + getGoogleIdToken, Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(LoginTutorialScreen.this, "googleid " + googleid, Toast.LENGTH_SHORT).show();
                                                     intent.putExtra("contestpage", "");
                                                     startActivity(intent);
                                                 }

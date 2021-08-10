@@ -24,6 +24,9 @@ public class SelectedPlan {
     @SerializedName("taken_glass_of_water")
     @Expose
     private String takenGlassOfWater;
+    @SerializedName("total_glass")
+    @Expose
+    private String totalGlass;
     @SerializedName("remaining_glass_of_water")
     @Expose
     private Integer remainingGlassOfWater;
@@ -105,6 +108,15 @@ public class SelectedPlan {
     public void setTakenGlassOfWater(String takenGlassOfWater) {
         this.takenGlassOfWater = takenGlassOfWater;
     }
+
+    public String getTotalGlass() {
+        return totalGlass;
+    }
+
+    public void setTotalGlass(String totalGlass) {
+        this.totalGlass = totalGlass;
+    }
+
 
     public Integer getRemainingGlassOfWater() {
         return remainingGlassOfWater;

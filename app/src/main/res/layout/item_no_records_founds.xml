@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/llLogOut"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_margin="@dimen/dp_30"
     android:gravity="center"
     android:orientation="vertical">
@@ -17,17 +17,18 @@
 
 
         <LinearLayout
-            android:layout_width="400dp"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/dp_40"
             android:layout_gravity="center"
-            android:background="@drawable/filter_indcation"
+            android:background="@drawable/roundcorner"
             android:gravity="center"
             android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20"
-                android:layout_marginLeft="@dimen/dp_40"
+                android:layout_gravity="end"
+                android:layout_marginLeft="@dimen/dp_10"
                 android:background="@drawable/alert_icon"
                 android:backgroundTint="@color/white" />
 
@@ -57,7 +58,6 @@
                     android:layout_width="@dimen/dp_20"
                     android:layout_height="@dimen/dp_20"
                     android:layout_gravity="end"
-                    android:layout_marginRight="@dimen/dp_40"
                     android:background="@drawable/ic_closebuttonyoutubefragment"
                     android:backgroundTint="@color/white" />
 
@@ -69,6 +69,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/roundcornerwhite"
             android:orientation="vertical">
 
             <TextView
@@ -80,7 +81,7 @@
                 android:fontFamily="@font/googlesans_medium"
                 android:gravity="center"
                 android:padding="@dimen/dp_2"
-                android:text="No such records found for existing filter,\n Please choose other filter value."
+                android:text="No such records found for existing filter ! Please choose other filter value !"
                 android:textColor="#808080"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"

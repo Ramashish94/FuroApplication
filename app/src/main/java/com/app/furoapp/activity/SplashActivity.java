@@ -54,7 +54,7 @@ public class SplashActivity extends AppCompatActivity  {
                 String newToken = instanceIdResult.getToken();
                 Log.i("newTokennnn", newToken);
                 FuroPrefs.putString(getApplicationContext(), "token", newToken);
-
+               // FuroPrefs.putString(getApplicationContext(),Constants.FCM_TOKEN,newToken);
 
             }
         });

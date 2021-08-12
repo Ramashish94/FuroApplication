@@ -241,15 +241,19 @@ public class WaterIntakeHistoryActivity extends AppCompatActivity {
     }
 
     private void setDate(CurrentPlan currentPlan) {
-        DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
-        try {
-            date = dateFormat.parse(currentPlan.getUpdatedAt());
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if (currentPlan != null) {
+            DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
+            try {
+                date = dateFormat.parse(currentPlan.getUpdatedAt());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            DateFormat dateFormat1 = new SimpleDateFormat("dd MMM, EEE");
+            String getDate = dateFormat1.format(date);
+            tvDateWithDays.setText(getDate);
+        }else {
+
         }
-        DateFormat dateFormat1 = new SimpleDateFormat("dd MMM, EEE");
-        String getDate = dateFormat1.format(date);
-        tvDateWithDays.setText(getDate);
     }
 
 

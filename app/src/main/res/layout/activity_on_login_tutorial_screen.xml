@@ -19,8 +19,8 @@
             android:id="@+id/rlBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="bottom"
             android:layout_gravity="bottom"
+            android:gravity="bottom"
             android:orientation="vertical"
             android:paddingBottom="10dp">
 
@@ -51,46 +51,46 @@
                 <ImageView
                     android:id="@+id/ivSignWithFB"
                     android:layout_width="match_parent"
-                    android:layout_gravity="center"
                     android:layout_height="50dp"
+                    android:layout_gravity="center"
                     app:srcCompat="@drawable/sign_in_with_facebook" />
 
                 <ImageView
                     android:id="@+id/sign_in_button"
-                    android:layout_marginTop="@dimen/dp_5"
                     android:layout_width="match_parent"
-                    android:layout_gravity="center"
                     android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_5"
                     app:srcCompat="@drawable/sign_in_with_google" />
 
                 <com.google.android.gms.common.SignInButton
-                    android:visibility="gone"
                     android:layout_width="160dp"
-                    android:layout_height="50dp" />
+                    android:layout_height="50dp"
+                    android:visibility="gone" />
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:layout_width="match_parent"
-                    android:elevation="@dimen/dp_10"
+                    android:layout_height="40dp"
                     android:layout_marginLeft="@dimen/dp_35"
                     android:layout_marginRight="@dimen/dp_35"
+                    android:background="@drawable/facebookdrawable"
+                    android:elevation="@dimen/dp_10"
                     android:orientation="horizontal"
                     android:padding="5dp"
-                    android:background="@drawable/facebookdrawable"
-                    android:layout_height="40dp">
+                    android:visibility="gone">
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_marginLeft="@dimen/dp_20"
-                    android:layout_gravity="center"
-                    android:layout_height="50dp"
-                    app:srcCompat="@drawable/fb" />
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        app:srcCompat="@drawable/fb" />
 
                     <LinearLayout
                         android:layout_width="2dp"
+                        android:layout_height="80dp"
                         android:layout_marginLeft="@dimen/dp_10"
-                        android:background="@color/vertical_line_color"
-                        android:layout_height="80dp"/>
+                        android:background="@color/vertical_line_color" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -137,6 +137,15 @@
             </LinearLayout>
         </LinearLayout>
 
+        <ProgressBar
+            android:id="@+id/loginloadingProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:elevation="@dimen/dp_50"
+            android:indeterminate="true"
+            android:visibility="invisible"/>
     </FrameLayout>
 </layout>
 

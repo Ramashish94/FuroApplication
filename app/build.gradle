@@ -19,7 +19,16 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("C:\\Users\\bhawa\\Desktop\\furoKeyStore\\FQ.jks")
+            //storeFile file("C:\\Users\\bhawa\\Desktop\\furoKeyStore\\FQ.jks")
+            storeFile file("D:\\Android Studio\\FuroAppUpDated\\Furo\\keystore\\FQ.jks")
+            keyAlias 'key0'
+            keyPassword 'FQFLAMINGO'
+            storePassword 'FQFLAMINGO'
+        }
+
+        debug {
+            //storeFile file("C:\\Users\\bhawa\\Desktop\\furoKeyStore\\FQ.jks")
+            storeFile file("D:\\Android Studio\\FuroAppUpDated\\Furo\\keystore\\FQ.jks")
             keyAlias 'key0'
             keyPassword 'FQFLAMINGO'
             storePassword 'FQFLAMINGO'
@@ -46,6 +55,7 @@ android {
             minifyEnabled false
             debuggable true
             multiDexEnabled true
+            signingConfig signingConfigs.debug
             buildConfigField "String", "API_SERVER_IP", "\"https://api.fitnessquotient.in/api/\""
             //buildConfigField "String", "API_SERVER_IP", "\"http://13.126.93.95:8080\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

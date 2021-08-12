@@ -159,14 +159,17 @@ public class FragmentFriend extends Fragment implements FriendListAdapter.DataAd
 
 
     private void setAdapter(List<PendingFriendList> list) {
-        adapter = null;
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        adapter = new FriendListAdapter(list, getActivity(),this);
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-
+        if (list!=null && list.size()>0) {
+            adapter = null;
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            adapter = new FriendListAdapter(list, getActivity(), this);
+            recyclerView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }else {
+            Toast.makeText(getActivity(), "No records founds", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

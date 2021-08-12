@@ -138,11 +138,14 @@ import com.app.furoapp.model.whatBringsYoutoFuro.WhatBringsYouToFuroResponse;
 import com.app.furoapp.model.winnerApi.WinnerRequest;
 import com.app.furoapp.model.winnerApi.WinnerResponse;
 
+import java.util.HashMap;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -363,7 +366,8 @@ public interface ApiInterface {
     Call<ChallenegeForYouRecieve> challengeForYou(@Body ChallenegeForYouRecieveRequest challenegeForYouRecieveRequest);
 
     @POST("login-with-google-new")
-    Call<LoginwithGmailResponse> loginwithgmail(@Body LoginwithGmailRequest loginwithGmailRequest);
+    @FormUrlEncoded
+    Call<LoginwithGmailResponse> loginwithgmail(@FieldMap HashMap<String,String> hashMap );/*LoginwithGmailRequest loginwithGmailRequest*/
 
 
     @Multipart

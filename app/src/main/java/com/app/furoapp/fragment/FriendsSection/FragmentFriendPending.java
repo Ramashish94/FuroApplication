@@ -46,8 +46,6 @@ public class FragmentFriendPending extends Fragment implements FriendPendingAdap
     FriendPendingAdapter adapter;
 
 
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -104,11 +102,10 @@ public class FragmentFriendPending extends Fragment implements FriendPendingAdap
     }
 
 
-
     private void AddFriendsData() {
         if (Util.isInternetConnected(getActivity())) {
             pGif.setVisibility(View.VISIBLE);
-            RestClient.PendingFriends(new AddFriend(FuroPrefs.getString(getActivity(), "loginUserId")),new Callback<FriendPendingModel>() {
+            RestClient.PendingFriends(new AddFriend(FuroPrefs.getString(getActivity(), "loginUserId")), new Callback<FriendPendingModel>() {
                 @Override
                 public void onResponse(Call<FriendPendingModel> call, Response<FriendPendingModel> response) {
                     pGif.setVisibility(View.GONE);
@@ -132,13 +129,12 @@ public class FragmentFriendPending extends Fragment implements FriendPendingAdap
     private void AcceptFriendsData(String friend_id) {
         if (Util.isInternetConnected(getActivity())) {
             Util.showProgressDialog(getActivity());
-            RestClient.AcceptFriend(new AddFriend(FuroPrefs.getString(getActivity(), "loginUserId"),friend_id),new Callback<FriendInviteModel>() {
+            RestClient.AcceptFriend(new AddFriend(FuroPrefs.getString(getActivity(), "loginUserId"), friend_id), new Callback<FriendInviteModel>() {
                 @Override
                 public void onResponse(Call<FriendInviteModel> call, Response<FriendInviteModel> response) {
                     Util.dismissProgressDialog();
                     FriendInviteModel friends = response.body();
-                    if(friends.getStatus().equals("200"))
-                    {
+                    if (friends.getStatus().equals("200")) {
                         Toast.makeText(getActivity(), friends.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
@@ -159,13 +155,12 @@ public class FragmentFriendPending extends Fragment implements FriendPendingAdap
     private void RejectFriendsData(String friend_id) {
         if (Util.isInternetConnected(getActivity())) {
             Util.showProgressDialog(getActivity());
-            RestClient.RejectFriends(new AddFriend(FuroPrefs.getString(getActivity(), "loginUserId"),friend_id),new Callback<FriendInviteModel>() {
+            RestClient.RejectFriends(new AddFriend(FuroPrefs.getString(getActivity(), "loginUserId"), friend_id), new Callback<FriendInviteModel>() {
                 @Override
                 public void onResponse(Call<FriendInviteModel> call, Response<FriendInviteModel> response) {
                     Util.dismissProgressDialog();
                     FriendInviteModel friends = response.body();
-                    if(friends.getStatus().equals("200"))
-                    {
+                    if (friends.getStatus().equals("200")) {
                         Toast.makeText(getActivity(), friends.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
@@ -185,14 +180,17 @@ public class FragmentFriendPending extends Fragment implements FriendPendingAdap
 
 
     private void setAdapter(List<PendingFriendList> list) {
-        adapter = null;
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        adapter = new FriendPendingAdapter(list, getActivity(),this);
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-
+        if (list != null && list.size() > 0) {
+            adapter = null;
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            adapter = new FriendPendingAdapter(list, getActivity(), this);
+            recyclerView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        } else {
+            Toast.makeText(getActivity(), "No records founds", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -215,16 +213,14 @@ public class FragmentFriendPending extends Fragment implements FriendPendingAdap
 
 
     @Override
-    public void onDataSelected(String type,int id) {
+    public void onDataSelected(String type, int id) {
 
-        if(type.equals("accept"))
-        {
+        if (type.equals("accept")) {
             AcceptFriendsData(String.valueOf(id));
             AddFriendsData();
         }
 
-        if(type.equals("reject"))
-        {
+        if (type.equals("reject")) {
             RejectFriendsData(String.valueOf(id));
             AddFriendsData();
         }

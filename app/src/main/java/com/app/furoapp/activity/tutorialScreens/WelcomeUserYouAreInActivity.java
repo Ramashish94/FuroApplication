@@ -33,10 +33,11 @@ public class WelcomeUserYouAreInActivity extends AppCompatActivity {
         welcomeName = binding.tvTextUserName;
         String image = FuroPrefs.getString(getApplicationContext(),"userImage");
 
-        GlideApp.with(this).load(image).error(R.drawable.user_icon)
-                .into(welcomeImage);
+        GlideApp.with(this).load(image).error(R.drawable.user_icon).into(welcomeImage);
+
         String welcome_user_name =FuroPrefs.getString(getApplicationContext(),"loginUserNameNew");
         welcomeName.setText(welcome_user_name);
+
         setOnClickListeners();
     }
 

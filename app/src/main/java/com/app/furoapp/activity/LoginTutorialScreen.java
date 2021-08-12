@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,6 +69,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -100,6 +102,9 @@ public class LoginTutorialScreen extends AppCompatActivity {
     private FrameLayout loginFrmActivity;
     private Object WhiteRectangleDetector;
     private GoogleSignInAccount account;
+    private ProgressBar loginloadingProgressBar;
+    String gEmail, gName, googleid, getGoogleIdToken, userImage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,10 +127,14 @@ public class LoginTutorialScreen extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         loginFrmActivity = findViewById(R.id.LoginFrmActivity);
         signInButton = findViewById(R.id.sign_in_button);
+        loginloadingProgressBar = findViewById(R.id.loginloadingProgressBar);
+
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 loginFrmActivity.setBackgroundColor(Color.argb(255, 255, 255, 255)); ////////////
+                String signInWithGoogle = "signInWithGoogle";
+                FuroPrefs.putString(getApplicationContext(), signInWithGoogle, "signInWithGoogle");
                 signIn();
             }
         });
@@ -233,7 +242,7 @@ public class LoginTutorialScreen extends AppCompatActivity {
             // a listener.
             try {
                 Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-                 account = task.getResult(ApiException.class);
+                account = task.getResult(ApiException.class);
                 // handleSignInResult(task);
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
@@ -263,13 +272,11 @@ public class LoginTutorialScreen extends AppCompatActivity {
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
 
         //Now using firebase we are signing in the user here
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            String gEmail, gName, googleid, getGoogleIdToken, userImage;
                             gEmail = acct.getEmail();
                             gName = acct.getDisplayName();
                             googleid = acct.getId();
@@ -277,48 +284,52 @@ public class LoginTutorialScreen extends AppCompatActivity {
 
                             Log.i("googl_id", googleid);
                             FuroPrefs.putString(getApplicationContext(), "googl_id", googleid);
-
-                            LoginwithGmailRequest loginwithGmailRequest = new LoginwithGmailRequest();
-                            loginwithGmailRequest.setGoogleId(googleid);
-                            RestClient.userloginwithgmail(loginwithGmailRequest, new Callback<LoginwithGmailResponse>() {
+                            HashMap<String, String> hashMap = new HashMap<>();
+                            hashMap.put("google_id", googleid);
+//                            LoginwithGmailRequest loginwithGmailRequest = new LoginwithGmailRequest();
+//                            loginwithGmailRequest.setGoogleId(googleid);
+                            binding.loginloadingProgressBar.setVisibility(View.VISIBLE);
+                            RestClient.userloginwithgmail(hashMap, new Callback<LoginwithGmailResponse>() {
                                 @Override
                                 public void onResponse(Call<LoginwithGmailResponse> call, Response<LoginwithGmailResponse> response) {
                                     if (response != null) {
                                         if (response.body() != null) {
                                             if (response.body().getStatus() == 0) {
+                                                binding.loginloadingProgressBar.setVisibility(View.GONE);
                                                 FuroPrefs.putString(getApplicationContext(), "email", gEmail);
                                                 FuroPrefs.putString(getApplicationContext(), "name", gName);
-                                                Toast.makeText(LoginTutorialScreen.this, "GoogleIdToken " + getGoogleIdToken, Toast.LENGTH_SHORT).show();
-                                                Toast.makeText(LoginTutorialScreen.this, "googleid " + googleid, Toast.LENGTH_SHORT).show();
+                                                //Toast.makeText(LoginTutorialScreen.this, "GoogleIdToken " + getGoogleIdToken, Toast.LENGTH_SHORT).show();
                                                 Intent intent = new Intent(LoginTutorialScreen.this, SignUpActivity.class);
+                                                if (response.body().getUser() != null && response.body().getUser().getAccessToken() != null) {
+                                                    FuroPrefs.putString(getApplicationContext(), Constants.Get_ACCESS_TOKEN, "Bearer" + " " + response.body().getUser().getAccessToken());
+                                                } else {
+                                                }
                                                 startActivity(intent);
                                                 finish();
-
-
                                             } else if (response.body().getStatus() == 1) {
+                                                binding.loginloadingProgressBar.setVisibility(View.GONE);
                                                 if (response.body().getReasons().equalsIgnoreCase("0")) {
                                                     FuroPrefs.putBoolean(getApplicationContext(), Constants.LOGGEDALERADYIN, true);
                                                     String loginUserId = String.valueOf(response.body().getUser().getId());
-
                                                     String userNameee = response.body().getUser().getName();
                                                     String Image = response.body().getUser().getImage();
                                                     String accessToken = response.body().getUser().getAccessToken();
                                                     FuroPrefs.putString(getApplicationContext(), "accessToken", accessToken);
-                                                    Toast.makeText(LoginTutorialScreen.this, "" + loginUserId, Toast.LENGTH_SHORT).show();
+                                                    //Toast.makeText(LoginTutorialScreen.this, "" + loginUserId, Toast.LENGTH_SHORT).show();
                                                     FuroPrefs.putString(getApplicationContext(), "loginUserId", loginUserId);
                                                     FuroPrefs.putString(getApplicationContext(), "userimage", Image);
                                                     FuroPrefs.putString(getApplicationContext(), "loginUserNameNew", userNameee);
-
                                                     Intent intent = new Intent(getApplicationContext(), WelcomeUserYouAreInActivity.class);
-                                                    Toast.makeText(LoginTutorialScreen.this, "GoogleIdToken " + getGoogleIdToken, Toast.LENGTH_SHORT).show();
-                                                    Toast.makeText(LoginTutorialScreen.this, "googleid " + googleid, Toast.LENGTH_SHORT).show();
-
+                                                    if (response.body().getUser() != null && response.body().getUser().getAccessToken() != null) {
+                                                        FuroPrefs.putString(getApplicationContext(), Constants.Get_ACCESS_TOKEN, "Bearer" + " " + response.body().getUser().getAccessToken());
+                                                    } else {
+                                                    }
                                                     startActivity(intent);
                                                     finish();
                                                     //tutorialScreen.setDisplayFragment(EnumConstants.HOME_TUTORIAL_PAGE, null);
-                                                   // Toast.makeText(LoginTutorialScreen.this, "Login Successful", Toast.LENGTH_SHORT).show();
-
+                                                    // Toast.makeText(LoginTutorialScreen.this, "Login Successful", Toast.LENGTH_SHORT).show();
                                                 } else if (response.body().getReasons().equalsIgnoreCase("1")) {
+                                                    binding.loginloadingProgressBar.setVisibility(View.GONE);
                                                     FuroPrefs.putBoolean(getApplicationContext(), Constants.LOGGEDIN, true);
                                                     String loginUserId = String.valueOf(response.body().getUser().getId());
                                                     String userNameNew = response.body().getUser().getName();
@@ -327,8 +338,10 @@ public class LoginTutorialScreen extends AppCompatActivity {
                                                     FuroPrefs.putString(getApplicationContext(), "userimage", Image);
                                                     FuroPrefs.putString(getApplicationContext(), "loginUserNameNew", userNameNew);
                                                     Intent intent = new Intent(getApplicationContext(), HomeMainActivity.class);
-                                                    Toast.makeText(LoginTutorialScreen.this, "GoogleIdToken " + getGoogleIdToken, Toast.LENGTH_SHORT).show();
-                                                    Toast.makeText(LoginTutorialScreen.this, "googleid " + googleid, Toast.LENGTH_SHORT).show();
+                                                    if (response.body().getUser() != null && response.body().getUser().getAccessToken() != null) {
+                                                        FuroPrefs.putString(getApplicationContext(), Constants.Get_ACCESS_TOKEN, "Bearer" + " " + response.body().getUser().getAccessToken());
+                                                    } else {
+                                                    }
                                                     intent.putExtra("contestpage", "");
                                                     startActivity(intent);
                                                 }
@@ -339,6 +352,7 @@ public class LoginTutorialScreen extends AppCompatActivity {
 
                                 @Override
                                 public void onFailure(Call<LoginwithGmailResponse> call, Throwable t) {
+                                    binding.loginloadingProgressBar.setVisibility(View.GONE);
                                     Toast.makeText(LoginTutorialScreen.this, "Something went wrong !!", Toast.LENGTH_SHORT).show();
 
                                 }

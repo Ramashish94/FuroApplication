@@ -62,6 +62,7 @@ public class Constants {
     public static final String USER_WEIGHT_IN_KG = "userWeightInKg";
     public static final String ACHIVED_VAL = "getAchievedVal";
     public static final String SELECTD_NUMBER = "selectNumber";
+    public static final String FCM_TOKEN = "fcmToken";
     /* added*/
     public static String Get_ACCESS_TOKEN = "access_token";
     public static String ACTIVITY_Id = "id";

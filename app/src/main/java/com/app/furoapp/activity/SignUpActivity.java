@@ -50,8 +50,10 @@ import android.widget.Toast;
 import com.app.furoapp.BuildConfig;
 import com.app.furoapp.R;
 import com.app.furoapp.activity.tutorialScreens.LoginWithEmailActivity;
+import com.app.furoapp.activity.tutorialScreens.WelcomeUserYouAreInActivity;
 import com.app.furoapp.adapter.AutoSuggestAdapter;
 import com.app.furoapp.databinding.ActivitySignUpBinding;
+import com.app.furoapp.model.loginwithgmail.LoginwithGmailResponse;
 import com.app.furoapp.model.signUp.SignupResponse;
 import com.app.furoapp.model.uniqueusername.UniqueUserNameRequest;
 import com.app.furoapp.model.uniqueusername.UniqueUserNameResponse;
@@ -92,6 +94,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -153,6 +156,8 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText signName, signEmail, signPassword, signCountry, signState, signCity, contectNumber;
     private TextView signDateOfBirth, signUpButton;
     private String userNameUnique, id, name, email, pictureurl;
+    String mobilenumber, userName, userEmail, userPassword, userDob, userUniName;
+
     //Run on UI
     private Runnable sendUpdatesToUI = new Runnable() {
         public void run() {
@@ -181,6 +186,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
         }
     };
+    public String signInWithGoogle;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -189,6 +195,9 @@ public class SignUpActivity extends AppCompatActivity {
 
         activitySignUpBinding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up);
         userPlatform = "Android";
+
+        signInWithGoogle = FuroPrefs.getString(getApplicationContext(), "signInWithGoogle");
+
         googleId = FuroPrefs.getString(getApplication(), "googl_id");
         fbId = FuroPrefs.getString(getApplication(), "fb_id");
         name = FuroPrefs.getString(getApplication(), "name");
@@ -350,7 +359,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void getContactPermission() {
         Dexter.withActivity(this)
-                .withPermissions(Manifest.permission.READ_CONTACTS,Manifest.permission.WRITE_CONTACTS
+                .withPermissions(Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS
                 )
                 .withListener(new MultiplePermissionsListener() {
                     @Override
@@ -663,26 +672,25 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-   /* @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE) {
-            if (resultCode == Activity.RESULT_OK) {
-                Uri uri = data.getParcelableExtra("path");
-                try {
-                    // You can update this bitmap to your server
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+    /* @Override
+     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+         super.onActivityResult(requestCode, resultCode, data);
+         if (requestCode == REQUEST_IMAGE) {
+             if (resultCode == Activity.RESULT_OK) {
+                 Uri uri = data.getParcelableExtra("path");
+                 try {
+                     // You can update this bitmap to your server
+                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
 
-                    // loading profile image from local cache
-                    loadProfile(uri.toString());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-*/
-
+                     // loading profile image from local cache
+                     loadProfile(uri.toString());
+                 } catch (IOException e) {
+                     e.printStackTrace();
+                 }
+             }
+         }
+     }
+ */
     /* @Override
        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
            super.onActivityResult(requestCode, resultCode, data);
@@ -754,15 +762,14 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void validationSignUp() {
         boolean check = true;
-
         pictureurl = FuroPrefs.getString(getApplication(), "picture");
 
-        String mobilenumber = contectNumber.getText().toString().trim();
-        String userName = signName.getText().toString().trim();
-        String userEmail = signEmail.getText().toString().trim();
-        String userPassword = signPassword.getText().toString().trim();
-        String userDob = signDateOfBirth.getText().toString().trim();
-        String userUniName = uniqueUserName.getText().toString().trim();
+        mobilenumber = contectNumber.getText().toString().trim();
+        userName = signName.getText().toString().trim();
+        userEmail = signEmail.getText().toString().trim();
+        userPassword = signPassword.getText().toString().trim();
+        userDob = signDateOfBirth.getText().toString().trim();
+        userUniName = uniqueUserName.getText().toString().trim();
 
         if (TextUtils.isEmpty(userName.trim()) || signName.getText().length() == 0) {
             Util.displayToast(this, "Please enter Name");
@@ -876,15 +883,18 @@ public class SignUpActivity extends AppCompatActivity {
                         if (response.body() != null) {
                             if (response.body().getStatus().equalsIgnoreCase("200")) {
                                 // FuroPrefs.putBoolean(getApplicationContext(), Constants.LOGGEDALERADYIN, true);
-                                Intent intent = new Intent(SignUpActivity.this, LoginTutorialScreen.class);
-                                String userId = String.valueOf(response.body().getUserId());
-                                String image = response.body().getUser().getImage();
-                                FuroPrefs.putString(getApplicationContext(), "user_name", userName);
-                                FuroPrefs.putString(getApplicationContext(), "my_community_user_id", userId);
-                                FuroPrefs.putString(getApplicationContext(),Constants.GENDER,response.body().getUser().getGender());/*added by me*/
-                                startActivity(intent);
-                                Toast.makeText(SignUpActivity.this, "Successfully Register", Toast.LENGTH_SHORT).show();
-
+                                if (signInWithGoogle.equalsIgnoreCase("signInWithGoogle")) {
+                                    callLoginWithGoogleNewApi();
+                                } else {
+                                    Intent intent = new Intent(SignUpActivity.this, LoginTutorialScreen.class);
+                                    String userId = String.valueOf(response.body().getUserId());
+                                    String image = response.body().getUser().getImage();
+                                    FuroPrefs.putString(getApplicationContext(), "user_name", userName);
+                                    FuroPrefs.putString(getApplicationContext(), "my_community_user_id", userId);
+                                    FuroPrefs.putString(getApplicationContext(), Constants.GENDER, response.body().getUser().getGender());/*added by me*/
+                                    startActivity(intent);
+                                    Toast.makeText(SignUpActivity.this, "Successfully Register", Toast.LENGTH_SHORT).show();
+                                }
                             } else if (response.code() == 401) {
                                 Toast.makeText(SignUpActivity.this, "Enter Valid Email ", Toast.LENGTH_SHORT).show();
                             }
@@ -892,9 +902,9 @@ public class SignUpActivity extends AppCompatActivity {
                             Toast.makeText(SignUpActivity.this, "Mobile number already exists ", Toast.LENGTH_SHORT).show();
                         } else if (response.code() == 402) {
                             Toast.makeText(SignUpActivity.this, "Email Already Exist ", Toast.LENGTH_SHORT).show();
-                            Intent mainIntent = new Intent(SignUpActivity.this, LoginWithEmailActivity.class);
-                            startActivity(mainIntent);
-                            finish();
+//                            Intent mainIntent = new Intent(SignUpActivity.this, LoginWithEmailActivity.class);
+//                            startActivity(mainIntent);
+//                            finish();
 
                         } else if (response.code() == 403) {
                             Toast.makeText(SignUpActivity.this, "Invalid Mobile Number ", Toast.LENGTH_SHORT).show();
@@ -925,14 +935,18 @@ public class SignUpActivity extends AppCompatActivity {
                         if (response.body() != null) {
                             if (response.body().getStatus().equalsIgnoreCase("200")) {
                                 //   FuroPrefs.putBoolean(getApplicationContext(), Constants.LOGGEDALERADYIN, true);
-                                Intent intent = new Intent(SignUpActivity.this, LoginTutorialScreen.class);
-                                String userId = String.valueOf(response.body().getUserId());
-                                String image = response.body().getUser().getImage();
-                                FuroPrefs.putString(getApplicationContext(),Constants.GENDER,response.body().getUser().getGender());/*added by me*/
-                                FuroPrefs.putString(getApplicationContext(), "user_name", userName);
-                                FuroPrefs.putString(getApplicationContext(), "my_community_user_id", userId);
-                                startActivity(intent);
-                                Toast.makeText(SignUpActivity.this, "Successfully Registered", Toast.LENGTH_SHORT).show();
+                                if (signInWithGoogle.equalsIgnoreCase("signInWithGoogle")) {
+                                    callLoginWithGoogleNewApi();
+                                } else {
+                                    Intent intent = new Intent(SignUpActivity.this, LoginTutorialScreen.class);
+                                    String userId = String.valueOf(response.body().getUserId());
+                                    String image = response.body().getUser().getImage();
+                                    FuroPrefs.putString(getApplicationContext(), Constants.GENDER, response.body().getUser().getGender());/*added by me*/
+                                    FuroPrefs.putString(getApplicationContext(), "user_name", userName);
+                                    FuroPrefs.putString(getApplicationContext(), "my_community_user_id", userId);
+                                    startActivity(intent);
+                                    Toast.makeText(SignUpActivity.this, "Successfully Registered", Toast.LENGTH_SHORT).show();
+                                }
                             } else if (response.code() == 401) {
                                 Toast.makeText(SignUpActivity.this, "Enter Valid Email ", Toast.LENGTH_SHORT).show();
                             }
@@ -940,9 +954,9 @@ public class SignUpActivity extends AppCompatActivity {
                             Toast.makeText(SignUpActivity.this, "Mobile Already Exist ", Toast.LENGTH_SHORT).show();
                         } else if (response.code() == 402) {
                             Toast.makeText(SignUpActivity.this, "Email Already Exist ", Toast.LENGTH_SHORT).show();
-                            Intent mainIntent = new Intent(SignUpActivity.this, LoginWithEmailActivity.class);
+                            /*Intent mainIntent = new Intent(SignUpActivity.this, LoginWithEmailActivity.class);
                             startActivity(mainIntent);
-                            finish();
+                            finish();*/
                         } else if (response.code() == 403) {
                             Toast.makeText(SignUpActivity.this, "Invalid Mobile Number ", Toast.LENGTH_SHORT).show();
                         } else {
@@ -1090,6 +1104,7 @@ public class SignUpActivity extends AppCompatActivity {
         AddressResultReceiver(Handler handler) {
             super(handler);
         }
+
         /**
          * Receives data sent from FetchAddressIntentService and updates the UI in RegistrationActivity.
          */
@@ -1122,6 +1137,69 @@ public class SignUpActivity extends AppCompatActivity {
             mAddressRequested = false;
         }
     }
+
+    private void callLoginWithGoogleNewApi() {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("google_id", googleId);
+//                            LoginwithGmailRequest loginwithGmailRequest = new LoginwithGmailRequest();
+//                            loginwithGmailRequest.setGoogleId(googleid);
+        RestClient.userloginwithgmail(hashMap, new Callback<LoginwithGmailResponse>() {
+            @Override
+            public void onResponse(Call<LoginwithGmailResponse> call, Response<LoginwithGmailResponse> response) {
+                if (response != null) {
+                    if (response.body() != null) {
+                        if (response.body().getStatus() == 1) {
+                            if (response.body().getReasons().equalsIgnoreCase("0")) {
+                                FuroPrefs.putBoolean(getApplicationContext(), Constants.LOGGEDALERADYIN, true);
+                                String loginUserId = String.valueOf(response.body().getUser().getId());
+                                String userNameee = response.body().getUser().getName();
+                                String Image = response.body().getUser().getImage();
+                                String accessToken = response.body().getUser().getAccessToken();
+                                FuroPrefs.putString(getApplicationContext(), "accessToken", accessToken);
+                                FuroPrefs.putString(getApplicationContext(), "loginUserId", loginUserId);
+                                FuroPrefs.putString(getApplicationContext(), "userimage", Image);
+                                FuroPrefs.putString(getApplicationContext(), "loginUserNameNew", userNameee);
+                                Intent intent = new Intent(getApplicationContext(), WelcomeUserYouAreInActivity.class);
+                                if (response.body().getUser() != null && response.body().getUser().getAccessToken() != null) {
+                                    FuroPrefs.putString(getApplicationContext(), Constants.Get_ACCESS_TOKEN, "Bearer" + " " + response.body().getUser().getAccessToken());
+                                } else {
+                                }
+                                startActivity(intent);
+                                finish();
+                                //tutorialScreen.setDisplayFragment(EnumConstants.HOME_TUTORIAL_PAGE, null);
+                                // Toast.makeText(LoginTutorialScreen.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                            } else if (response.body().getReasons().equalsIgnoreCase("1")) {
+                                FuroPrefs.putBoolean(getApplicationContext(), Constants.LOGGEDIN, true);
+                                String loginUserId = String.valueOf(response.body().getUser().getId());
+                                String userNameNew = response.body().getUser().getName();
+                                String Image = response.body().getUser().getImage();
+                                FuroPrefs.putString(getApplicationContext(), "loginUserId", loginUserId);
+                                FuroPrefs.putString(getApplicationContext(), "userimage", Image);
+                                FuroPrefs.putString(getApplicationContext(), "loginUserNameNew", userNameNew);
+                                Intent intent = new Intent(getApplicationContext(), HomeMainActivity.class);
+                                if (response.body().getUser() != null && response.body().getUser().getAccessToken() != null) {
+                                    FuroPrefs.putString(getApplicationContext(), Constants.Get_ACCESS_TOKEN, "Bearer" + " " + response.body().getUser().getAccessToken());
+                                } else {
+                                }
+                                intent.putExtra("contestpage", "");
+                                startActivity(intent);
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginwithGmailResponse> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Something went wrong !!", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+    }
+
+
 }
 
 

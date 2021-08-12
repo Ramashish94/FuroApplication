@@ -38,11 +38,20 @@
                     android:layout_weight="20"
                     android:gravity="center">
 
-                    <ImageView
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Select cup size                "
+                        android:textAllCaps="true"
+                        android:textStyle="italic"
+                        android:textSize="@dimen/dp_20"
+                        android:fontFamily="@font/bebase_neue"
+                        android:textColor="@color/white" />
+                 <!--<ImageView
                         android:layout_width="162dp"
                         android:layout_height="@dimen/dp_24"
                         android:layout_marginRight="@dimen/dp_30"
-                        android:src="@drawable/edit_cup_size" />
+                        android:src="@drawable/edit_cup_size" />-->
                 </LinearLayout>
 
 

@@ -138,6 +138,8 @@ import com.app.furoapp.model.whatBringsYoutoFuro.WhatBringsYouToFuroResponse;
 import com.app.furoapp.model.winnerApi.WinnerRequest;
 import com.app.furoapp.model.winnerApi.WinnerResponse;
 
+import java.util.HashMap;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Callback;
@@ -307,8 +309,8 @@ public class RestClient {
         RetrofitClient.getClient().challengeForYou(challenegeForYouRecieveRequest).enqueue(callback);
     }
 
-    public static void userloginwithgmail(LoginwithGmailRequest loginwithGmailRequest, Callback<LoginwithGmailResponse> callback) {
-        RetrofitClient.getClient().loginwithgmail(loginwithGmailRequest).enqueue(callback);
+    public static void userloginwithgmail(HashMap<String,String>hashMap, Callback<LoginwithGmailResponse> callback) {
+        RetrofitClient.getClient().loginwithgmail(hashMap).enqueue(callback);
     }
 
     public static void saveMapChallenge(RequestBody user_id, RequestBody acitivity_duration, RequestBody distance, RequestBody challenge_activity, RequestBody accept_challenge_id, MultipartBody.Part image, Callback<ChallenegeMapResponse> callback) {

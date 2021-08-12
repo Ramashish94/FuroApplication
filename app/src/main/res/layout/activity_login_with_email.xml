@@ -45,7 +45,7 @@
                     android:background="@drawable/background_border_gray_with_white_back_rounded"
                     android:fontFamily="@font/din_alternate_bold"
                     android:gravity="center"
-                    android:hint="Email / Username"
+                    android:hint="Email "
                     android:padding="@dimen/dp_8"
                     android:text=""
                     android:textAlignment="center"

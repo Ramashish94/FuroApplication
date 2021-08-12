@@ -875,7 +875,7 @@ public class StepCounterHistoryActivity extends AppCompatActivity implements Yea
 
             }
         });
-        dialog.show();
+       dialog.show();
 
     }
 

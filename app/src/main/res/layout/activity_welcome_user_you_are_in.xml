@@ -109,10 +109,10 @@
                 android:textStyle="italic" />
 
             <TextView
-                android:layout_marginTop="@dimen/dp_100"
+                android:layout_marginTop="@dimen/dp_90"
                 android:id="@+id/etSignUp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/dp_40"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="@dimen/dp_30"
@@ -132,7 +132,7 @@
             <TextView
                 android:id="@+id/btnSkip"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="@dimen/dp_40"
                 android:layout_marginStart="@dimen/dp_30"
                 android:layout_marginEnd="@dimen/dp_30"
                 android:background="@drawable/btn_skip_shape"

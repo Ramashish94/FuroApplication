@@ -43,7 +43,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:layout_marginTop="22dp"
-                        android:gravity="center"
                         android:text="Good habits build healthy lifestyle. Enjoy a \n power-packed run!  "
                         android:textColor="@color/text_color"
                         android:textStyle="italic" />
@@ -88,8 +87,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:layout_marginTop="22dp"
-                        android:gravity="center"
-                        android:text=" Set alarm and we’ll send you reminders to maintain your schedule."
+                        android:text=" Set alarm and we’ll send you reminders to maintain \n your schedule."
                         android:textColor="@color/text_color"
                         android:textStyle="italic" />
 

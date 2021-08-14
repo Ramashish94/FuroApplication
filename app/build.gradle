@@ -12,8 +12,8 @@ android {
         applicationId "com.app.furoapp"
         minSdkVersion 26
         targetSdkVersion 29
-        versionCode 52/*50 48*/
-        versionName "2.1.31"/*2.1.27.70*/
+        versionCode 53/*50 48*/
+        versionName "2.1.32"/*2.1.27.70*/
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

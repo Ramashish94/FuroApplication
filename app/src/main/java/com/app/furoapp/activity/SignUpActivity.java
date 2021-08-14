@@ -764,6 +764,20 @@ public class SignUpActivity extends AppCompatActivity {
         boolean check = true;
         pictureurl = FuroPrefs.getString(getApplication(), "picture");
 
+
+        if (mCountry == null) {
+            mCountry = signCountry.getText().toString().trim();
+            Log.d("mCountry: ", mCountry);
+        }
+        if (state == null) {
+            state = signState.getText().toString().trim();
+            Log.d("state", state);
+        }
+        if (city == null) {
+            city = signCity.getText().toString().trim();
+            Log.d("city: ", city);
+        }
+
         mobilenumber = contectNumber.getText().toString().trim();
         userName = signName.getText().toString().trim();
         userEmail = signEmail.getText().toString().trim();
@@ -841,15 +855,16 @@ public class SignUpActivity extends AppCompatActivity {
 
         if (check) {
 
-            if (mCountry == null) {
-                mCountry = signCountry.getText().toString();
-            }
-            if (state == null) {
-                state = signState.getText().toString();
-            }
-            if (city == null) {
-                city = signCity.getText().toString();
-            }
+//            if (mCountry == null) {
+//                mCountry = signCountry.getText().toString();
+//            }
+//            if (state == null) {
+//                state = signState.getText().toString();
+//            }
+//            if (city == null) {
+//                city = signCity.getText().toString();
+//            }
+
             RequestBody name = RequestBody.create(MediaType.parse("text/plain"), userName);
             RequestBody emailUser = RequestBody.create(MediaType.parse("text/plain"), userEmail);
             RequestBody user_Password = RequestBody.create(MediaType.parse("text/plain"), userPassword);

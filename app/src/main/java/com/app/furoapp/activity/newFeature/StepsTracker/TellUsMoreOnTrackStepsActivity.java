@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.app.furoapp.R;
 import com.app.furoapp.activity.LoginTutorialScreen;
+import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.Data;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataResponse;
 import com.app.furoapp.retrofit.RestClient;
@@ -69,6 +70,9 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
+
+        callModifiedSavedDataApiLandingTime();
+
     }
 
     private void initViews() {
@@ -83,6 +87,66 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
 
 
     }
+
+    private void callModifiedSavedDataApiLandingTime() {
+
+//        ModifiedSavedDataRequest modifiedSavedDataRequest = new ModifiedSavedDataRequest();
+//        modifiedSavedDataRequest.setAge("");
+//        modifiedSavedDataRequest.setGender("");
+//        modifiedSavedDataRequest.setHeight("");
+//        modifiedSavedDataRequest.setWeight("");
+
+        RestClient.getModifiedSavedDataLandingTime(getAccessToken, new Callback<ModifiedSavedDataResponse>() {
+            @Override
+            public void onResponse(Call<ModifiedSavedDataResponse> call, Response<ModifiedSavedDataResponse> response) {
+                if (response.code() == 20) {
+                    if (response.body() != null && response.body().getData() != null) {
+                        setModifiedData(response.body().getData());
+                    } else {
+                    }
+                } else if (response.code() == 500) {
+                    Toast.makeText(TellUsMoreOnTrackStepsActivity.this, "Internal server error!", Toast.LENGTH_SHORT).show();
+                } else if (response.code() == 403) {
+                    getAlertTokenExpire();
+                    //Toast.makeText(TellUsMoreOnTrackStepsActivity.this, "Token expire pls login again !", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModifiedSavedDataResponse> call, Throwable t) {
+                Toast.makeText(TellUsMoreOnTrackStepsActivity.this, "", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setModifiedData(Data data) {
+        if (data != null) {
+            if (data.getAge() != null) {
+                etAge.setText(data.getAge());
+            }
+            if (data.getGender() != null) {
+                if (data.getGender().equalsIgnoreCase("Female")) {
+                    tvFemale.setTextColor(Color.parseColor("#979797"));
+                } else if (data.getGender().equalsIgnoreCase("Male")) {
+                    tvMale.setTextColor(Color.parseColor("#40D5E8"));
+                }
+            } else {
+            }
+            if (data.getHeight() != null) {
+                userHeightInCm = data.getHeight();
+                tvHeightRulerValueInCms.setText(userHeightInCm + " cms ");
+                centimeterToFeet(String.valueOf(userHeightInCm));
+            } else {
+            }
+
+            if (data.getWeight() != null) {
+                userWeightInKg = data.getWeight();
+                tvWeightRulerValueInKgs.setText(userWeightInKg + " kgs ");
+            } else {
+            }
+        }
+    }
+
 
     private void clickEvent() {
         tvMale.setOnClickListener(v -> {
@@ -281,9 +345,6 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
                     }
                 });
     }
-
-
-
 
 
 }

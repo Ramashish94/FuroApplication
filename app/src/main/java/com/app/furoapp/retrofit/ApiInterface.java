@@ -367,7 +367,7 @@ public interface ApiInterface {
 
     @POST("login-with-google-new")
     @FormUrlEncoded
-    Call<LoginwithGmailResponse> loginwithgmail(@FieldMap HashMap<String,String> hashMap );/*LoginwithGmailRequest loginwithGmailRequest*/
+    Call<LoginwithGmailResponse> loginwithgmail(@FieldMap HashMap<String, String> hashMap);/*LoginwithGmailRequest loginwithGmailRequest*/
 
 
     @Multipart
@@ -528,6 +528,10 @@ public interface ApiInterface {
     @POST("user/modify-save-data")
     Call<ModifiedSavedDataResponse> MODIFIED_SAVED_DATA_RESPONSE_CALL(@Header(TOKEN_KEY) String token, @Body ModifiedSavedDataRequest modifiedSavedDataRequest);
 
+    @POST("user/modify-save-data")
+    Call<ModifiedSavedDataResponse> MODIFIED_SAVED_DATA_RESPONSE_CALL_(@Header(TOKEN_KEY) String token);
+
+
     /*user/fetch-all-slots*/
     @GET("user/fetch-all-slots")
     Call<FetchAllSlotResponse> FETCH_ALL_SLOT_RESPONSE_CALL(@Header(TOKEN_KEY) String token);
@@ -543,7 +547,7 @@ public interface ApiInterface {
 
     /*user/step-goal*/
     @POST("user/step-goal")
-    Call<UserStepsGoalResponse>USER_STEPS_GOAL_RESPONSE_CALL(@Header(TOKEN_KEY) String token, @Body UserStepsGoalRequest userStepsGoalRequest);
+    Call<UserStepsGoalResponse> USER_STEPS_GOAL_RESPONSE_CALL(@Header(TOKEN_KEY) String token, @Body UserStepsGoalRequest userStepsGoalRequest);
 
     /*user/history-step-counter*/
     @GET("user/history-step-counter")

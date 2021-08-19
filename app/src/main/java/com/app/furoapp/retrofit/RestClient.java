@@ -468,6 +468,10 @@ public class RestClient {
         RetrofitClient.getClient().MODIFIED_SAVED_DATA_RESPONSE_CALL(token, modifiedSavedDataRequest).enqueue(callback);
     }
 
+    public static void getModifiedSavedDataLandingTime(String token,  Callback<ModifiedSavedDataResponse> callback) {
+        RetrofitClient.getClient().MODIFIED_SAVED_DATA_RESPONSE_CALL_(token).enqueue(callback);
+    }
+
     public static void getFetchAllSlot(String token, Callback<FetchAllSlotResponse> callback) {
         RetrofitClient.getClient().FETCH_ALL_SLOT_RESPONSE_CALL(token).enqueue(callback);
     }

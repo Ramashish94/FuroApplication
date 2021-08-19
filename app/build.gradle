@@ -56,9 +56,10 @@ android {
             debuggable true
             multiDexEnabled true
             signingConfig signingConfigs.debug
-            buildConfigField "String", "API_SERVER_IP", "\"https://api.fitnessquotient.in/api/\""
-            //buildConfigField "String", "API_SERVER_IP", "\"http://13.126.93.95:8080\""
+//            buildConfigField "String", "API_SERVER_IP", "\"https://api.fitnessquotient.in/api/\""
+            buildConfigField "String", "API_SERVER_IP", "\"http://139.59.76.9/furo/public/api/\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //buildConfigField "String", "API_SERVER_IP", "\"http://13.126.93.95:8080\""
 
         }
     }

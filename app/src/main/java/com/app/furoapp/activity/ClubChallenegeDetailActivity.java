@@ -20,7 +20,6 @@ import com.app.furoapp.model.clubDetails.Club;
 import com.app.furoapp.model.clubDetails.ClubDetailRequest;
 import com.app.furoapp.model.clubDetails.ClubDetailResponse;
 import com.app.furoapp.retrofit.RestClient;
-import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
@@ -60,7 +59,7 @@ public class ClubChallenegeDetailActivity extends AppCompatActivity {
         clubDetailRequest.setClubId(ClubId);
         Util.isInternetConnected(getApplicationContext());
         gifView.setVisibility(View.VISIBLE);
-        RestClient.myClubDetails(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), clubDetailRequest, new Callback<ClubDetailResponse>() {
+        RestClient.myClubDetails(clubDetailRequest, new Callback<ClubDetailResponse>() {
             @Override
             public void onResponse(Call<ClubDetailResponse> call, Response<ClubDetailResponse> response) {
                 gifView.setVisibility(View.GONE);

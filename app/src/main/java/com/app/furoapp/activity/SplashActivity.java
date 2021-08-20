@@ -33,7 +33,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity  {
 
     private final int SPLASH_DISPLAY_LENGTH = 1000;
 
@@ -48,13 +48,13 @@ public class SplashActivity extends AppCompatActivity {
 
         UpdateApiCall();
 
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(SplashActivity.this, new OnSuccessListener<InstanceIdResult>() {
+       FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(SplashActivity.this, new OnSuccessListener<InstanceIdResult>() {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
                 String newToken = instanceIdResult.getToken();
                 Log.i("newTokennnn", newToken);
                 FuroPrefs.putString(getApplicationContext(), "token", newToken);
-                // FuroPrefs.putString(getApplicationContext(),Constants.FCM_TOKEN,newToken);
+               // FuroPrefs.putString(getApplicationContext(),Constants.FCM_TOKEN,newToken);
 
             }
         });
@@ -68,27 +68,29 @@ public class SplashActivity extends AppCompatActivity {
 
                 if (FuroPrefs.getBoolean(SplashActivity.this, Constants.LOGGEDIN)) {
                     Intent intent = new Intent(SplashActivity.this, HomeMainActivity.class);
-                    intent.putExtra("contestpage", "");
+                    intent.putExtra("contestpage","");
                     startActivity(intent);
                     finish();
 
                 } else if (FuroPrefs.getBoolean(SplashActivity.this, Constants.LOGGEDFBIN)) {
                     Intent intent = new Intent(SplashActivity.this, HomeMainActivity.class);
-                    intent.putExtra("contestpage", "");
+                    intent.putExtra("contestpage","");
                     startActivity(intent);
                     finish();
 
                 } else if (FuroPrefs.getBoolean(SplashActivity.this, Constants.LOGGEDALERADYIN)) {
                     Intent intent = new Intent(SplashActivity.this, HomeMainActivity.class);
-                    intent.putExtra("contestpage", "");
+                    intent.putExtra("contestpage","");
                     startActivity(intent);
 
-                } else if (FuroPrefs.getBoolean(SplashActivity.this, Constants.LOGGEDGOOGLEIN)) {
+                }else if (FuroPrefs.getBoolean(SplashActivity.this, Constants.LOGGEDGOOGLEIN)) {
                     Intent intent = new Intent(SplashActivity.this, HomeMainActivity.class);
-                    intent.putExtra("contestpage", "");
+                    intent.putExtra("contestpage","");
                     startActivity(intent);
 
-                } else {
+                }
+
+                else {
                     Intent mainIntent = new Intent(SplashActivity.this, LoginTutorialScreen.class);
                     startActivity(mainIntent);
                     finish();
@@ -104,31 +106,29 @@ public class SplashActivity extends AppCompatActivity {
 
     private void UpdateApiCall() {
         if (Util.isInternetConnected(this)) {
+
             RestClient.appVersionGet(new Callback<VersiongetResponse>() {
                 @Override
                 public void onResponse(Call<VersiongetResponse> call, Response<VersiongetResponse> response) {
-                    if (response.code() == 200) {
-                        if (response.body() != null) {
-                            if (response.body().getStatus().equalsIgnoreCase("1")) {
-                                playstoreUpdateResponse = response.body();
-                                if (playstoreUpdateResponse != null &&
-                                        playstoreUpdateResponse.getDetails().getAppName().equalsIgnoreCase("Furo Quotient")) {
-                                    if (Integer.parseInt(playstoreUpdateResponse
-                                            .getDetails().getVersion()) > BuildConfig.VERSION_CODE && playstoreUpdateResponse
-                                            .getDetails().getForceUpgrade().equalsIgnoreCase("true")) {
-                                        forceToUpgradeDialog(true);
 
-                                    } else {
-                                        splashCall();
+                    if (response.body() != null) {
+                        if (response.body().getStatus().equalsIgnoreCase("1")) {
+                            playstoreUpdateResponse = response.body();
+                            if (playstoreUpdateResponse != null &&
+                                    playstoreUpdateResponse.getDetails().getAppName().equalsIgnoreCase("Furo Quotient")) {
+                                if (Integer.parseInt(playstoreUpdateResponse
+                                        .getDetails().getVersion()) > BuildConfig.VERSION_CODE && playstoreUpdateResponse
+                                        .getDetails().getForceUpgrade().equalsIgnoreCase("true")) {
+                                    forceToUpgradeDialog(true);
 
-                                    }
                                 } else {
+                                    splashCall();
 
                                 }
                             }
                         }
-                    } else if (response.code() == 500) {
-                        Toast.makeText(SplashActivity.this, "Internal server error!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(SplashActivity.this, "No internet connection !!", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -139,7 +139,7 @@ public class SplashActivity extends AppCompatActivity {
             });
         } else {
             Util.dismissProgressDialog();
-            Toast.makeText(this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Internet connection failed", Toast.LENGTH_SHORT).show();
         }
     }
 

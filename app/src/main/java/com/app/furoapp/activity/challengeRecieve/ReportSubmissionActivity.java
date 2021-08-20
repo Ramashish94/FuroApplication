@@ -20,7 +20,6 @@ import com.app.furoapp.databinding.ActivityReportSubmissionBinding;
 import com.app.furoapp.model.report.ReportIssueRequest;
 import com.app.furoapp.model.report.ReportIssueResponse;
 import com.app.furoapp.retrofit.RestClient;
-import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
@@ -35,7 +34,7 @@ public class ReportSubmissionActivity extends AppCompatActivity {
     ActivityReportSubmissionBinding submissionBinding;
     RelativeLayout relativeLayoutillegal, relativeLayouterotic, relativeLayoutwrongdata, relativeLayoutviolates, relativeLayoutirrelevant, relativeLayoutjustdontlike;
     TextView tvIllegal, tvErotic, tvWrong, tvViolates, tvIrelevat, tvJustdontlike;
-    ImageView ivIllegal, ivErotic, ivWrong, ivViolates, ivIrelevat, ivJustdontlike, tvivBackBtnnew;
+    ImageView ivIllegal, ivErotic, ivWrong, ivViolates, ivIrelevat, ivJustdontlike,tvivBackBtnnew;
     List<String> hash_set = new ArrayList<String>();
     TextView buttonReport;
     String something_elseIllegal, something_Violates, something_elseErotic, something_elseWrongData, something_Irrelevant, something_Justdontlikeit;
@@ -236,9 +235,9 @@ public class ReportSubmissionActivity extends AppCompatActivity {
 
     public void reportIssue() {
 
-        if (hash_set.size() > 0) {
+        if(hash_set.size() > 0){
             String userIdReport = FuroPrefs.getString(getApplicationContext(), "loginUserId");
-            int challengeidReport = FuroPrefs.getInt(getApplicationContext(), "SubmissionChallenegeId", 0);
+            int challengeidReport = FuroPrefs.getInt(getApplicationContext(),"SubmissionChallenegeId",0);
 
 
             ReportIssueRequest reportIssueRequest = new ReportIssueRequest();
@@ -248,7 +247,7 @@ public class ReportSubmissionActivity extends AppCompatActivity {
 
             Util.showProgressDialog(this);
 
-            RestClient.userReportIssue(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), reportIssueRequest, new Callback<ReportIssueResponse>() {
+            RestClient.userReportIssue(reportIssueRequest, new Callback<ReportIssueResponse>() {
                 @Override
                 public void onResponse(Call<ReportIssueResponse> call, Response<ReportIssueResponse> response) {
                     Util.dismissProgressDialog();
@@ -275,12 +274,12 @@ public class ReportSubmissionActivity extends AppCompatActivity {
             });
 
 
-        } else {
+        }else{
             Toast.makeText(this, "Please select  atleast one point", Toast.LENGTH_SHORT).show();
 
         }
 
-    }
+        }
 
 
 }

@@ -50,7 +50,6 @@ import com.app.furoapp.model.profile.ItemProfile;
 import com.app.furoapp.model.profile.ProfileModel;
 import com.app.furoapp.model.updateimage.UpdateImageResponse;
 import com.app.furoapp.retrofit.RestClient;
-import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FileUtils1;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
@@ -449,7 +448,7 @@ public class ProfileHomeNewActivity extends AppCompatActivity {
         if (Util.isInternetConnected(getApplicationContext())) {
             linearLayout.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.VISIBLE);
-            RestClient.userSelectChallange(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), new retrofit2.Callback<SelectChallangeResponse>() {
+            RestClient.userSelectChallange(new retrofit2.Callback<SelectChallangeResponse>() {
                 @Override
                 public void onResponse(Call<SelectChallangeResponse> call, Response<SelectChallangeResponse> response) {
                     linearLayout.setVisibility(View.GONE);
@@ -485,7 +484,7 @@ public class ProfileHomeNewActivity extends AppCompatActivity {
         if (Util.isInternetConnected(getApplicationContext())) {
             linearLayout.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.VISIBLE);
-            RestClient.addProfile(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), new AddProfile(userIdProfile, act), new retrofit2.Callback<ProfileModel>() {
+            RestClient.addProfile(new AddProfile(userIdProfile, act), new retrofit2.Callback<ProfileModel>() {
                 @Override
                 public void onResponse(Call<ProfileModel> call, Response<ProfileModel> response) {
                     linearLayout.setVisibility(View.GONE);
@@ -873,7 +872,7 @@ public class ProfileHomeNewActivity extends AppCompatActivity {
             image = MultipartBody.Part.createFormData("image", imageFile.getName(), fileReqBody);
 
             progressBarImage.setVisibility(View.VISIBLE);
-            RestClient.userImageUpdate(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), userId, image, new retrofit2.Callback<UpdateImageResponse>() {
+            RestClient.userImageUpdate(userId, image, new retrofit2.Callback<UpdateImageResponse>() {
                 @Override
                 public void onResponse(Call<UpdateImageResponse> call, Response<UpdateImageResponse> response) {
                     progressBarImage.setVisibility(View.GONE);
@@ -910,7 +909,7 @@ public class ProfileHomeNewActivity extends AppCompatActivity {
         userImageRequest.setUserId(userId);
 
         progressBarImage.setVisibility(View.VISIBLE);
-        RestClient.userimageGet(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), userImageRequest, new Callback<UserImageResponse>() {
+        RestClient.userimageGet(userImageRequest, new Callback<UserImageResponse>() {
             @Override
             public void onResponse(Call<UserImageResponse> call, Response<UserImageResponse> response) {
                 if (response != null) {

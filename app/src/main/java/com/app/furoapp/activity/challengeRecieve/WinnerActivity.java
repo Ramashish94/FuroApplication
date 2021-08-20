@@ -19,7 +19,6 @@ import com.app.furoapp.model.winnerApi.Winner;
 import com.app.furoapp.model.winnerApi.WinnerRequest;
 import com.app.furoapp.model.winnerApi.WinnerResponse;
 import com.app.furoapp.retrofit.RestClient;
-import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
@@ -67,7 +66,7 @@ public class WinnerActivity extends AppCompatActivity {
         winnerRequest.setChallengeId(String.valueOf(subChallengeId));
         winnerRequest.setUserId(userId);
         Util.showProgressDialog(this);
-        RestClient.winnerUserResponse(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN),winnerRequest, new Callback<WinnerResponse>() {
+        RestClient.winnerUserResponse(winnerRequest, new Callback<WinnerResponse>() {
             @Override
             public void onResponse(Call<WinnerResponse> call, Response<WinnerResponse> response) {
                 Util.dismissProgressDialog();

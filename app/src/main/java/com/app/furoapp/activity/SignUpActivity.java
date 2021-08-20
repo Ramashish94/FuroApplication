@@ -1075,7 +1075,7 @@ public class SignUpActivity extends AppCompatActivity {
         UniqueUserNameRequest uniqueUserNameRequest = new UniqueUserNameRequest();
         uniqueUserNameRequest.setUsername(userNameUnique);
 
-        RestClient.userUniqueName(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), uniqueUserNameRequest, new Callback<UniqueUserNameResponse>() {
+        RestClient.userUniqueName(uniqueUserNameRequest, new Callback<UniqueUserNameResponse>() {
             @Override
             public void onResponse(Call<UniqueUserNameResponse> call, Response<UniqueUserNameResponse> response) {
                 List<String> stringList;

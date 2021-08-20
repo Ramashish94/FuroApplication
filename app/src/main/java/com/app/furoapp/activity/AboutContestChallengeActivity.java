@@ -21,8 +21,6 @@ import com.app.furoapp.fragment.challenges.HomeChallengesFragment;
 import com.app.furoapp.model.bannerresponse.Banner;
 import com.app.furoapp.model.bannerresponse.BannerResponse;
 import com.app.furoapp.retrofit.RestClient;
-import com.app.furoapp.utils.Constants;
-import com.app.furoapp.utils.FuroPrefs;
 
 import java.util.List;
 
@@ -67,7 +65,7 @@ public class AboutContestChallengeActivity extends AppCompatActivity {
 
 
        pGif.setVisibility(View.VISIBLE);
-        RestClient.bannerImage(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN),new Callback<BannerResponse>() {
+        RestClient.bannerImage(new Callback<BannerResponse>() {
             @Override
             public void onResponse(Call<BannerResponse> call, Response<BannerResponse> response) {
                 pGif.setVisibility(View.GONE);

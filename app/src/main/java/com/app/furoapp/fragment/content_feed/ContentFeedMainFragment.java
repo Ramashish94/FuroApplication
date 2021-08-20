@@ -176,7 +176,7 @@ public class ContentFeedMainFragment extends Fragment {
 
     public void bannerImage() {
 
-        RestClient.bannerSecondImage(FuroPrefs.getString(getActivity(), Constants.Get_ACCESS_TOKEN), new Callback<BannerSecondResponse>() {
+        RestClient.bannerSecondImage(new Callback<BannerSecondResponse>() {
             @Override
             public void onResponse(Call<BannerSecondResponse> call, Response<BannerSecondResponse> response) {
                 if (response.body().getStatus().equalsIgnoreCase("200")) {

@@ -17,7 +17,6 @@ import com.app.furoapp.model.mapchallenge.ChallengeDetails;
 import com.app.furoapp.model.mapchallenge.MapChallengeRecieveRequest;
 import com.app.furoapp.model.mapchallenge.MapChallengeRecieveResponse;
 import com.app.furoapp.retrofit.RestClient;
-import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
@@ -47,7 +46,7 @@ public class MapChallengeActivityDraft extends AppCompatActivity {
         textViewexpired.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(MapChallengeActivityDraft.this, VideoChallangeFriendsActivity.class);
+                Intent intent1 = new Intent(MapChallengeActivityDraft.this,VideoChallangeFriendsActivity.class);
                 startActivity(intent1);
             }
         });
@@ -62,7 +61,7 @@ public class MapChallengeActivityDraft extends AppCompatActivity {
 
         Util.isInternetConnected(this);
         Util.showProgressDialog(getApplicationContext());
-        RestClient.userMapReciveChallenge(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), challangeDetailRequest, new Callback<MapChallengeRecieveResponse>() {
+        RestClient.userMapReciveChallenge(challangeDetailRequest, new Callback<MapChallengeRecieveResponse>() {
             @Override
             public void onResponse(Call<MapChallengeRecieveResponse> call, Response<MapChallengeRecieveResponse> response) {
                 Util.dismissProgressDialog();
@@ -79,7 +78,7 @@ public class MapChallengeActivityDraft extends AppCompatActivity {
                         if (expire.equalsIgnoreCase("0")) {
                             textViewexpired.setVisibility(View.VISIBLE);
 
-                        } else if (expire.equalsIgnoreCase("1")) {
+                        }else if(expire.equalsIgnoreCase("1")){
                             textViewexpired.setVisibility(View.VISIBLE);
                             textViewexpired.setBackgroundResource(R.drawable.buttonbackgroungdarkgraycolor);
                             textViewexpired.setText("Expired");
@@ -94,7 +93,7 @@ public class MapChallengeActivityDraft extends AppCompatActivity {
                         }
 
 
-                    } else {
+                    }else{
 
                     }
 

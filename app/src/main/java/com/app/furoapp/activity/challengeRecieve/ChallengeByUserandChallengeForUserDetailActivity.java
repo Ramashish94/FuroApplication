@@ -25,7 +25,6 @@ import com.app.furoapp.model.challengeByYouDetail.ChallenegeByYouDetailResponse;
 import com.app.furoapp.model.challengeByYouDetail.ChallengeDetails;
 import com.app.furoapp.model.challengeByYouDetail.Receiver;
 import com.app.furoapp.retrofit.RestClient;
-import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
@@ -156,7 +155,7 @@ public class ChallengeByUserandChallengeForUserDetailActivity extends AppCompatA
 
         Util.isInternetConnected(this);
         Util.showProgressDialog(this);
-        RestClient.userChallengeByDetail(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), challangeDetailRequest, new Callback<ChallenegeByYouDetailResponse>() {
+        RestClient.userChallengeByDetail(challangeDetailRequest, new Callback<ChallenegeByYouDetailResponse>() {
             @Override
             public void onResponse(Call<ChallenegeByYouDetailResponse> call, Response<ChallenegeByYouDetailResponse> response) {
                 Util.dismissProgressDialog();

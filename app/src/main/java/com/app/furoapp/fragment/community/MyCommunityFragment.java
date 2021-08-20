@@ -24,7 +24,6 @@ import com.app.furoapp.model.myCommunities.Community;
 import com.app.furoapp.model.myCommunities.MyCommunitiesRequest;
 import com.app.furoapp.model.myCommunities.MyCommunitiesResponse;
 import com.app.furoapp.retrofit.RestClient;
-import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
@@ -92,7 +91,7 @@ public class MyCommunityFragment extends Fragment {
 
         Util.isInternetConnected(getContext());
         Util.showProgressDialog(getContext());
-        RestClient.userMyCommunities(FuroPrefs.getString(getActivity(), Constants.Get_ACCESS_TOKEN), myCommunitiesRequest, new Callback<MyCommunitiesResponse>() {
+        RestClient.userMyCommunities(myCommunitiesRequest, new Callback<MyCommunitiesResponse>() {
             @Override
             public void onResponse(Call<MyCommunitiesResponse> call, Response<MyCommunitiesResponse> response) {
                 Util.dismissProgressDialog();
@@ -112,7 +111,7 @@ public class MyCommunityFragment extends Fragment {
                                 public void MyCommunityItem(int id, String communityName) {
                                     FuroPrefs.putString(getActivity(), "community_id", String.valueOf(id));
                                     FuroPrefs.putString(getActivity(), "communityName", communityName);
-                                    Intent intent = new Intent(getContext(), CommunityChallengeDetailActivity.class);
+                                    Intent intent= new Intent(getContext(),CommunityChallengeDetailActivity.class);
                                     startActivity(intent);
                                 }
                             });

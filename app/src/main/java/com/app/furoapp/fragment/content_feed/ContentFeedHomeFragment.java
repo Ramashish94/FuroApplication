@@ -342,7 +342,7 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
         RequestBody Iduser = RequestBody.create(MediaType.parse("text/plain"), loginuserid);
         RequestBody userdeviceid = RequestBody.create(MediaType.parse("text/plain"), unique_id);
         RequestBody userfcmtoken = RequestBody.create(MediaType.parse("text/plain"), userfcmticket);
-        RestClient.updateTokenofuser(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), Iduser, userdeviceid, userfcmtoken, new Callback<UdateTokenResponse>() {
+        RestClient.updateTokenofuser(Iduser, userdeviceid, userfcmtoken, new Callback<UdateTokenResponse>() {
             @Override
             public void onResponse(Call<UdateTokenResponse> call, Response<UdateTokenResponse> response) {
                 if (response.body() != null) {

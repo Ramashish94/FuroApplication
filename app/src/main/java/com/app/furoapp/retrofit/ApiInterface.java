@@ -162,11 +162,11 @@ public interface ApiInterface {
 
     // api calling for Activity Content feed
     @GET("all-activities")
-    Call<ContentFeedModel> getActivities(@Header(TOKEN_KEY) String token);
+    Call<ContentFeedModel> getActivities();
 
     // api calling for AllActivity Content feed  landing page
 //    @GET("all-activity-listings")
-//    Call<ActivitiesListing> getAllActivities(@Header(TOKEN_KEY) String token);
+//    Call<ActivitiesListing> getAllActivities();
 
     // api calling  for login with email
     @POST("login")
@@ -174,7 +174,7 @@ public interface ApiInterface {
 
     //api calling for contentFeddDetail
     @POST("activity-details")
-    Call<ContentFeedDetailResponse> contentDetail(@Header(TOKEN_KEY) String token, @Body ContentFeedDetailRequest contentFeedDetailRequest);
+    Call<ContentFeedDetailResponse> contentDetail(@Body ContentFeedDetailRequest contentFeedDetailRequest);
 
     //loginwithfb
     @POST("login-with-fb-new")
@@ -190,50 +190,51 @@ public interface ApiInterface {
 
     //allComminity
     @GET("all-communities")
-    Call<AllCommunitiesResponse> allCommunities(@Header(TOKEN_KEY) String token);
+    Call<AllCommunitiesResponse> allCommunities();
 
     //myComminity
     @POST("my-communities")
-    Call<MyCommunitiesResponse> myCommunities(@Header(TOKEN_KEY) String token, @Body MyCommunitiesRequest myCommunitiesRequest);
+    Call<MyCommunitiesResponse> myCommunities(@Body MyCommunitiesRequest myCommunitiesRequest);
 
     //community join
     @POST("join-community")
-    Call<CommunitiesJoinResponse> communitiesJoin(@Header(TOKEN_KEY) String token, @Body CommunitiesJoinRequest communitiesJoinRequest);
+    Call<CommunitiesJoinResponse> communitiesJoin(@Body CommunitiesJoinRequest communitiesJoinRequest);
 
 
     @POST("suggest-username")
-    Call<UniqueUserNameResponse> suggestUserName(@Header(TOKEN_KEY) String token, @Body UniqueUserNameRequest uniqueUserNameRequest);
+    Call<UniqueUserNameResponse> suggestUserName(@Body UniqueUserNameRequest uniqueUserNameRequest);
 
     //community Deatil api
     @POST("community-details")
-    Call<CommunityDetailResponse> communityDetail(@Header(TOKEN_KEY) String token, @Body CommunityDetailRequest communityDetailRequest);
+    Call<CommunityDetailResponse> communityDetail(@Body CommunityDetailRequest communityDetailRequest);
 
     //choose challange Api
     @GET("challenges")
-    Call<SelectChallangeResponse> selectChallange(@Header(TOKEN_KEY) String token);
+    Call<SelectChallangeResponse> selectChallange();
 
     //what brings you to furo
     @POST("user-reasons")
 ///////////////////////////
-    Call<WhatBringsYouToFuroResponse> chooseOneReason(@Header(TOKEN_KEY) String token, @Body WhatBringsYouToFuroRequest whatBringsYouToFuroRequest);
+    Call<WhatBringsYouToFuroResponse> chooseOneReason(@Body WhatBringsYouToFuroRequest whatBringsYouToFuroRequest);
 
 
     //community Challange
     @POST("community-challenges")
-    Call<CommunityChallangeResponse> communityChallange(@Header(TOKEN_KEY) String token, @Body CommunityChallangeRequest communityChallangeRequest);
+    Call<CommunityChallangeResponse> communityChallange(@Body CommunityChallangeRequest communityChallangeRequest);
 
     // send video to server
     @Multipart
     //  @POST("https://furoapi.ml/api/create-challenge-video")
     @POST("create-challenge-video")
-    Call<CreateVideoChallangeResponse> videouploadChallange(@Header(TOKEN_KEY) String token,
-                                                            @Part("user_id") RequestBody user_id,
-                                                            @Part("acitivity_duration") RequestBody acitivity_duration,
-                                                            @Part("activity_count") RequestBody acitivity_count,
-                                                            @Part("challenge_activity") RequestBody challenge_activity,
-                                                            @Part("challenge_name") RequestBody challenge_name,
-                                                            @Part("accept_challenge_id") RequestBody accept_challenge_id,
-                                                            @Part MultipartBody.Part video_file);
+    Call<CreateVideoChallangeResponse> videouploadChallange(
+
+            @Part("user_id") RequestBody user_id,
+            @Part("acitivity_duration") RequestBody acitivity_duration,
+            @Part("activity_count") RequestBody acitivity_count,
+            @Part("challenge_activity") RequestBody challenge_activity,
+            @Part("challenge_name") RequestBody challenge_name,
+            @Part("accept_challenge_id") RequestBody accept_challenge_id,
+            @Part MultipartBody.Part video_file);
 
 
     //api calling For Signup
@@ -256,7 +257,7 @@ public interface ApiInterface {
 
     //pushNotification
     @POST("get-notification")
-    Call<GetNotificationResponse> pushNotification(@Header(TOKEN_KEY) String token, @Body GetNotificationRequest notificationRequest);
+    Call<GetNotificationResponse> pushNotification(@Body GetNotificationRequest notificationRequest);
 
     /* //pushNotification
      @POST("check-contacts")
@@ -264,106 +265,105 @@ public interface ApiInterface {
  */
     @Multipart
     @POST("check-contacts-seperate")
-    Call<ExistsContactResponse> checkExistsContact(@Header(TOKEN_KEY) String token,
-                                                   @Part("contacts") RequestBody contacts,
+    Call<ExistsContactResponse> checkExistsContact(@Part("contacts") RequestBody contacts,
+
                                                    @Part("user_id") RequestBody user_id);
 
     //updatefcm token
     @POST("update-fcm-token")
-    Call<UpdateFcmTokenResponse> updateFcmToken(@Header(TOKEN_KEY) String token, @Body UpdateFcmTokenRequest updateFcmTokenRequest);
+    Call<UpdateFcmTokenResponse> updateFcmToken(@Body UpdateFcmTokenRequest updateFcmTokenRequest);
 
 
     //challangetofriend
     @POST("challenge-notification")
-    Call<ChallangeNotificationResponse> challangetoUserNotification(@Header(TOKEN_KEY) String token, @Body ChallangeNotificationRequest challangeNotificationRequest);
+    Call<ChallangeNotificationResponse> challangetoUserNotification(@Body ChallangeNotificationRequest challangeNotificationRequest);
 
 
     //challangedetail
     @POST("challenge-details")
-    Call<ChallangeDetailResponse> challengeDetail(@Header(TOKEN_KEY) String token, @Body ChallangeDetailRequest challangeDetailRequest);
+    Call<ChallangeDetailResponse> challengeDetail(@Body ChallangeDetailRequest challangeDetailRequest);
 
 
     //openand close challenge
     @POST("challenges_by_user")
-    Call<ChallengeByUserResponse> challngeByUser(@Header(TOKEN_KEY) String token, @Body ChallengeByUser challengeByUser);
+    Call<ChallengeByUserResponse> challngeByUser(@Body ChallengeByUser challengeByUser);
 
 
     //acceptChallange
     @POST("accept-challenge")
-    Call<ChallengeAcceptedResponse> challngeAccept(@Header(TOKEN_KEY) String token, @Body ChallengeAcceptedRequest challengeAcceptedRequest);
+    Call<ChallengeAcceptedResponse> challngeAccept(@Body ChallengeAcceptedRequest challengeAcceptedRequest);
 
 
     //rejectChallange
     @POST("reject-challenge")
-    Call<ChallangeRejectResponse> challngeReject(@Header(TOKEN_KEY) String token, @Body ChallangeRejectRequest challangeRejectRequest);
+    Call<ChallangeRejectResponse> challngeReject(@Body ChallangeRejectRequest challangeRejectRequest);
 
 
     // add by pankaj 0n 08-11-2019
     @Headers({"Content-Type: application/json"})
     @POST("leadership-data")
-    Call<LeaderModel> getLeaderData(@Header(TOKEN_KEY) String token, @Body Leaderboard leaderboard);
+    Call<LeaderModel> getLeaderData(@Body Leaderboard leaderboard);
 
 
     //club challange Api
     @POST("club-challenges")
-    Call<ClubChallengeResponse> clubChallenges(@Header(TOKEN_KEY) String token);
+    Call<ClubChallengeResponse> clubChallenges();
 
     //club challange  detail Api
     @POST("club-details")
-    Call<ClubDetailResponse> clubDetailsChallenges(@Header(TOKEN_KEY) String token, @Body ClubDetailRequest clubDetailRequest);
+    Call<ClubDetailResponse> clubDetailsChallenges(@Body ClubDetailRequest clubDetailRequest);
 
     // add by pankaj 0n 13-11-2019
     @POST("all-users")
-    Call<Friends> getFriendsData(@Header(TOKEN_KEY) String token, @Body FriendRequest friendRequest);
+    Call<Friends> getFriendsData(@Body FriendRequest friendRequest);
 
     // add by pankaj 0n 13-11-2019
     @POST("add-friend")
-    Call<FriendInviteModel> AddFriendsData(@Header(TOKEN_KEY) String token, @Body AddFriend addFriend);
+    Call<FriendInviteModel> AddFriendsData(@Body AddFriend addFriend);
 
     // add by pankaj 0n 13-11-2019
     @POST("pending-friend-list")
-    Call<FriendPendingModel> FriendsPendingData(@Header(TOKEN_KEY) String token, @Body AddFriend addFriend);
+    Call<FriendPendingModel> FriendsPendingData(@Body AddFriend addFriend);
 
     // add by pankaj 0n 13-11-2019
     @POST("accept-friend")
-    Call<FriendInviteModel> AcceptFriend(@Header(TOKEN_KEY) String token, @Body AddFriend addFriend);
+    Call<FriendInviteModel> AcceptFriend(@Body AddFriend addFriend);
 
     // add by pankaj 0n 13-11-2019
     @POST("decline-friend")
-    Call<FriendInviteModel> RejectFriend(@Header(TOKEN_KEY) String token, @Body AddFriend addFriend);
+    Call<FriendInviteModel> RejectFriend(@Body AddFriend addFriend);
 
     // add by pankaj 0n 14-11-2019
     @POST("friend-list")
-    Call<FriendListModel> getFriendList(@Header(TOKEN_KEY) String token, @Body AddFriend addFriend);
+    Call<FriendListModel> getFriendList(@Body AddFriend addFriend);
 
     // add by pankaj 0n 14-11-2019
     @POST("remove-friend")
-    Call<FriendInviteModel> removeFriends(@Header(TOKEN_KEY) String token, @Body AddFriend addFriend);
+    Call<FriendInviteModel> removeFriends(@Body AddFriend addFriend);
 
     //winner  detail Api
     @POST("get-winner")
-    Call<WinnerResponse> winner(@Header(TOKEN_KEY) String token, @Body WinnerRequest winnerRequest);
+    Call<WinnerResponse> winner(@Body WinnerRequest winnerRequest);
 
     // add by pankaj 0n 15-11-2019
     @POST("user-details")
-    Call<UserDetailsModel> getUser(@Header(TOKEN_KEY) String token, @Body AddFriend addFriend);
+    Call<UserDetailsModel> getUser(@Body AddFriend addFriend);
 
     // add by pankaj 0n 15-11-2019
     @POST("user-update")
-    Call<UserUpdate> UpdateUserInform(@Header(TOKEN_KEY) String token, @Body UpdateUserModel updateUserModel);
+    Call<UserUpdate> UpdateUserInform(@Body UpdateUserModel updateUserModel);
 
     @Multipart
     @POST("update-image")
-    Call<UpdateResponse> updateResponse(@Header(TOKEN_KEY) String token,
-                                        @Part("user_id") RequestBody user_id,
+    Call<UpdateResponse> updateResponse(@Part("user_id") RequestBody user_id,
                                         @Part MultipartBody.Part image);
 
     // add by pankaj on 21-11-2019
     @POST("user-profile")
-    Call<ProfileModel> GetProfileData(@Header(TOKEN_KEY) String token, @Body AddProfile addProfile);
+    Call<ProfileModel> GetProfileData(@Body AddProfile addProfile);
 
     @POST("challenges_for_user")
-    Call<ChallenegeForYouRecieve> challengeForYou(@Header(TOKEN_KEY) String token, @Body ChallenegeForYouRecieveRequest challenegeForYouRecieveRequest);
+    Call<ChallenegeForYouRecieve> challengeForYou(@Body ChallenegeForYouRecieveRequest challenegeForYouRecieveRequest);
 
     @POST("login-with-google-new")
     @FormUrlEncoded
@@ -372,8 +372,7 @@ public interface ApiInterface {
 
     @Multipart
     @POST("create-challenge-video")
-    Call<ChallenegeMapResponse> mapChallenge(@Header(TOKEN_KEY) String token,
-                                             @Part("user_id") RequestBody user_id,
+    Call<ChallenegeMapResponse> mapChallenge(@Part("user_id") RequestBody user_id,
                                              @Part("activity_duration") RequestBody activity_duration,
                                              @Part("distance") RequestBody distance,
                                              @Part("challenge_activity") RequestBody challenge_activity,
@@ -381,54 +380,53 @@ public interface ApiInterface {
                                              @Part MultipartBody.Part image);
 
     @POST("challenge-by-you-details")
-    Call<ChallenegeByYouDetailResponse> challenegeByDetail(@Header(TOKEN_KEY) String token, @Body ChallenegeByYouDetailRequest challenegeByYouDetailRequest);
+    Call<ChallenegeByYouDetailResponse> challenegeByDetail(@Body ChallenegeByYouDetailRequest challenegeByYouDetailRequest);
 
     @POST("challenge-for-you-details")
-    Call<ChallengeForYouDetailResponse> challenegeForDetail(@Header(TOKEN_KEY) String token, @Body ChallengeForYouDetailRequest challengeForYouDetailRequest);
+    Call<ChallengeForYouDetailResponse> challenegeForDetail(@Body ChallengeForYouDetailRequest challengeForYouDetailRequest);
 
     @POST("feedback")
-    Call<FeedbackResponse> feedBack(@Header(TOKEN_KEY) String token, @Body FeedbackRequest feedbackRequest);
+    Call<FeedbackResponse> feedBack(@Body FeedbackRequest feedbackRequest);
 
     @POST("report-issue")
-    Call<ReportIssueResponse> reportIssue(@Header(TOKEN_KEY) String token, @Body ReportIssueRequest reportIssueRequest);
+    Call<ReportIssueResponse> reportIssue(@Body ReportIssueRequest reportIssueRequest);
 
     @GET("get-app-version")
     Call<VersiongetResponse> versionget();
 
     @POST("post-app-version")
-    Call<VersionStoreResponse> submitVersion(@Header(TOKEN_KEY) String token, @Body VersionStoreRequest versionStoreRequest);
+    Call<VersionStoreResponse> submitVersion(@Body VersionStoreRequest versionStoreRequest);
+
 
     @POST("map-details")
-    Call<MapChallengeRecieveResponse> mapChallengeRecieve(@Header(TOKEN_KEY) String token, @Body MapChallengeRecieveRequest mapChallengeRecieveRequest);
+    Call<MapChallengeRecieveResponse> mapChallengeRecieve(@Body MapChallengeRecieveRequest mapChallengeRecieveRequest);
 
     @POST("community-members")
-    Call<CommunityMembersResponse> commuintymembers(@Header(TOKEN_KEY) String token, @Body CommunityMembersRequest communityMembersRequest);
+    Call<CommunityMembersResponse> commuintymembers(@Body CommunityMembersRequest communityMembersRequest);
 
     @POST("draft-challenges")
-    Call<DraftResponse> draft(@Header(TOKEN_KEY) String token, @Body DraftRequest draftRequest);
+    Call<DraftResponse> draft(@Body DraftRequest draftRequest);
 
     @Multipart
     @POST("update-image")
-    Call<UpdateImageResponse> updateImage(@Header(TOKEN_KEY) String token,
-                                          @Part("user_id") RequestBody user_id,
+    Call<UpdateImageResponse> updateImage(@Part("user_id") RequestBody user_id,
                                           @Part MultipartBody.Part image);
 
 
     @GET("banner-image")
-    Call<BannerResponse> bannerImage(@Header(TOKEN_KEY) String token);
+    Call<BannerResponse> bannerImage();
 
     @GET("banner-second-image")
-    Call<BannerSecondResponse> bannerSecondImage(@Header(TOKEN_KEY) String token);
+    Call<BannerSecondResponse> bannerSecondImage();
 
     @Multipart
     @POST("update-token-details")
-    Call<UdateTokenResponse> updateToken(@Header(TOKEN_KEY) String token,
-                                         @Part("user_id") RequestBody user_id,
+    Call<UdateTokenResponse> updateToken(@Part("user_id") RequestBody user_id,
                                          @Part("device_id") RequestBody device_id,
                                          @Part("fcm_token") RequestBody fcm_token);
 
     @POST("user-image")
-    Call<UserImageResponse> user_image(@Header(TOKEN_KEY) String token, @Body UserImageRequest userImageRequest);
+    Call<UserImageResponse> user_image(@Body UserImageRequest userImageRequest);
 
     /*added new feature in Fq*/
 

@@ -24,7 +24,6 @@ import com.app.furoapp.model.contentFeedDetail.Body;
 import com.app.furoapp.model.contentFeedDetail.ContentFeedDetailRequest;
 import com.app.furoapp.model.contentFeedDetail.ContentFeedDetailResponse;
 import com.app.furoapp.retrofit.RestClient;
-import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 
 import java.util.List;
@@ -87,11 +86,11 @@ public class ContentFeedDetailFood extends Fragment {
 
 
         /*pGif.setVisibility(View.VISIBLE);*/
-        RestClient.activityDetail(FuroPrefs.getString(getActivity(), Constants.Get_ACCESS_TOKEN), contentFeedDetailRequest, new Callback<ContentFeedDetailResponse>() {
+        RestClient.activityDetail(contentFeedDetailRequest, new Callback<ContentFeedDetailResponse>() {
             @Override
             public void onResponse(Call<ContentFeedDetailResponse> call, Response<ContentFeedDetailResponse> response) {
-                /*  pGif.setVisibility(View.GONE);
-                 */
+              /*  pGif.setVisibility(View.GONE);
+*/
                 if (response != null) {
                     if (response.body() != null && response.body().getActivityDetails().size() > 0) {
 
@@ -106,7 +105,7 @@ public class ContentFeedDetailFood extends Fragment {
                         }
 
 
-                    } else {
+                    }else {
                         Toast.makeText(homeMainActivity, "Failure", Toast.LENGTH_SHORT).show();
 
                     }

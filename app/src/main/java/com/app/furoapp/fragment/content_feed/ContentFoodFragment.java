@@ -26,7 +26,6 @@ import com.app.furoapp.databinding.FragmentContentFoodBinding;
 import com.app.furoapp.model.content_feed.ContentFeedModel;
 import com.app.furoapp.model.content_feed.Food;
 import com.app.furoapp.retrofit.RestClient;
-import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 
 import java.util.List;
@@ -93,7 +92,7 @@ public class ContentFoodFragment extends Fragment {
     private void setOnClickListeners() {
 
 
-        RestClient.myContentfeedActivity(FuroPrefs.getString(getActivity(), Constants.Get_ACCESS_TOKEN),new Callback<ContentFeedModel>() {
+        RestClient.myContentfeedActivity(new Callback<ContentFeedModel>() {
             @Override
 
             public void onResponse(Call<ContentFeedModel> call, Response<ContentFeedModel> response) {

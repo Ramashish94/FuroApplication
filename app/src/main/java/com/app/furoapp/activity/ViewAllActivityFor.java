@@ -20,7 +20,6 @@ import com.app.furoapp.model.challengeforyouRecieve.ChallenegeForYouRecieve;
 import com.app.furoapp.model.challengeforyouRecieve.ChallenegeForYouRecieveRequest;
 import com.app.furoapp.model.challengeforyouRecieve.ReceiveChallenge;
 import com.app.furoapp.retrofit.RestClient;
-import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
@@ -74,7 +73,7 @@ public class ViewAllActivityFor extends AppCompatActivity {
 
         gifView.setVisibility(View.VISIBLE);
 
-        RestClient.challenegeForYouRecieve(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), challenegeForYouRecieveRequest, new Callback<ChallenegeForYouRecieve>() {
+        RestClient.challenegeForYouRecieve(challenegeForYouRecieveRequest, new Callback<ChallenegeForYouRecieve>() {
             @Override
             public void onResponse(Call<ChallenegeForYouRecieve> call, Response<ChallenegeForYouRecieve> response) {
                 gifView.setVisibility(View.GONE);

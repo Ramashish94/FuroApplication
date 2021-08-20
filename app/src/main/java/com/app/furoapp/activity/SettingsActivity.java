@@ -17,7 +17,6 @@ import com.app.furoapp.model.Settings.UpdateUserModel;
 import com.app.furoapp.model.Settings.UserDetailsModel;
 import com.app.furoapp.model.Settings.UserUpdate;
 import com.app.furoapp.retrofit.RestClient;
-import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 import com.google.android.material.tabs.TabLayout;
@@ -28,8 +27,7 @@ import retrofit2.Response;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private EditText ed_name, ed_email, ed_gender, ed_mobile;
-
+    private EditText ed_name, ed_email, ed_gender,ed_mobile;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,19 +44,22 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.btn_save).setOnClickListener(new View.OnClickListener() {
+      findViewById(R.id.btn_save).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String name = ed_name.getText().toString();
                 String email = ed_email.getText().toString();
                 String gender = ed_gender.getText().toString();
 
-                String mobile = ed_mobile.getText().toString();
+               String mobile = ed_mobile.getText().toString();
 
 
-                UpdateUsersData(name, email, gender, mobile);
-                /*n*/
-            }
+
+
+
+
+                UpdateUsersData(name, email, gender,mobile);
+/*n*/          }
         });
 
 
@@ -75,7 +76,7 @@ public class SettingsActivity extends AppCompatActivity {
     private void getUsersData() {
         if (Util.isInternetConnected(this)) {
             Util.showProgressDialog(this);
-            RestClient.getUserDetails(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), new AddFriend(FuroPrefs.getString(this, "loginUserId")), new Callback<UserDetailsModel>() {
+            RestClient.getUserDetails(new AddFriend(FuroPrefs.getString(this, "loginUserId")), new Callback<UserDetailsModel>() {
                 @Override
                 public void onResponse(Call<UserDetailsModel> call, Response<UserDetailsModel> response) {
                     Util.dismissProgressDialog();
@@ -100,7 +101,7 @@ public class SettingsActivity extends AppCompatActivity {
         if (Util.isInternetConnected(this)) {
             Util.showProgressDialog(this);
             String user_id = FuroPrefs.getString(this, "loginUserId");
-            RestClient.UpdateUserDetails(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), new UpdateUserModel(user_id, name, email, gender, mobile), new Callback<UserUpdate>() {
+            RestClient.UpdateUserDetails(new UpdateUserModel(user_id, name, email, gender,mobile), new Callback<UserUpdate>() {
                 @Override
                 public void onResponse(Call<UserUpdate> call, Response<UserUpdate> response) {
                     Util.dismissProgressDialog();
@@ -110,8 +111,7 @@ public class SettingsActivity extends AppCompatActivity {
                         finish();
                     }
 
-                    /*m*/
-                }
+/*m*/              }
 
                 @Override
                 public void onFailure(Call<UserUpdate> call, Throwable t) {

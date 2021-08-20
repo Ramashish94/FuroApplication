@@ -27,7 +27,6 @@ import com.app.furoapp.model.AllCommunityModel;
 import com.app.furoapp.model.allCommunity.AllCommunitiesResponse;
 import com.app.furoapp.model.allCommunity.Community;
 import com.app.furoapp.retrofit.RestClient;
-import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
@@ -100,7 +99,7 @@ public class AllCommunitiesFragment extends Fragment {
         linearLayout.setVisibility(View.VISIBLE);
         pGif.setVisibility(View.VISIBLE);
         /*  textView.setVisibility(View.VISIBLE);*/
-        RestClient.userAllCommunities(FuroPrefs.getString(getActivity(), Constants.Get_ACCESS_TOKEN), new Callback<AllCommunitiesResponse>() {
+        RestClient.userAllCommunities(new Callback<AllCommunitiesResponse>() {
             @Override
             public void onResponse(Call<AllCommunitiesResponse> call, Response<AllCommunitiesResponse> response) {
                 linearLayout.setVisibility(View.GONE);
@@ -124,9 +123,9 @@ public class AllCommunitiesFragment extends Fragment {
                                 Bundle bundle = new Bundle();
                                 FuroPrefs.putString(getActivity(), "community_id", String.valueOf(id));
                                 FuroPrefs.putString(getActivity(), "communityName", communityName);
-                                Intent intent = new Intent(getContext(), CommunityChallengeDetailActivity.class);
+                                Intent intent= new Intent(getContext(),CommunityChallengeDetailActivity.class);
                                 startActivity(intent);
-                                //  homeMainActivity.setDisplayFragment(HOME_COMMUNITIES_CHALLENGE_DETAILS, bundle);
+                              //  homeMainActivity.setDisplayFragment(HOME_COMMUNITIES_CHALLENGE_DETAILS, bundle);
                             }
                         });
 

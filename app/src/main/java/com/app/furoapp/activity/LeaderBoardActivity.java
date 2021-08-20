@@ -22,8 +22,6 @@ import com.app.furoapp.model.chooseChallange.Challenge;
 import com.app.furoapp.model.chooseChallange.SelectChallangeResponse;
 import com.app.furoapp.model.chooseChallange.Subcategory;
 import com.app.furoapp.retrofit.RestClient;
-import com.app.furoapp.utils.Constants;
-import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 import com.app.furoapp.widget.francyconverflow.FancyCoverFlow;
 import com.google.android.material.tabs.TabLayout;
@@ -53,11 +51,11 @@ public class LeaderBoardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_leaderboard);
         linearLayout = findViewById(R.id.linearLayout);
         progressBar = findViewById(R.id.progressBar);
-        imageView = findViewById(R.id.leaderboard);
+        imageView= findViewById(R.id.leaderboard);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LeaderBoardActivity.this, WelcomeLeaderBoardActivity.class);
+                Intent intent = new Intent(LeaderBoardActivity.this,WelcomeLeaderBoardActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -76,9 +74,9 @@ public class LeaderBoardActivity extends AppCompatActivity {
 
     private void getChooseChallengeData() {
         if (Util.isInternetConnected(this)) {
-            linearLayout.setVisibility(View.VISIBLE);
-            progressBar.setVisibility(View.VISIBLE);
-            RestClient.userSelectChallange(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), new Callback<SelectChallangeResponse>() {
+           linearLayout.setVisibility(View.VISIBLE);
+           progressBar.setVisibility(View.VISIBLE);
+            RestClient.userSelectChallange(new Callback<SelectChallangeResponse>() {
                 @Override
                 public void onResponse(Call<SelectChallangeResponse> call, Response<SelectChallangeResponse> response) {
                     progressBar.setVisibility(View.GONE);
@@ -100,7 +98,7 @@ public class LeaderBoardActivity extends AppCompatActivity {
                 }
             });
         } else {
-            // Util.dismissProgressDialog();
+           // Util.dismissProgressDialog();
             Toast.makeText(LeaderBoardActivity.this, "Internet Connections Failed!!", Toast.LENGTH_SHORT).show();
         }
     }

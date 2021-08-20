@@ -26,7 +26,6 @@ import android.widget.Toast;
 import com.app.furoapp.R;
 import com.app.furoapp.model.challengemap.ChallenegeMapResponse;
 import com.app.furoapp.retrofit.RestClient;
-import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 import com.squareup.picasso.Picasso;
@@ -109,10 +108,11 @@ public class PreviewCardActivity extends AppCompatActivity {
         }
 
 
+
         userNameNew.setText(uniqueUsernewName);
         uniqueTimerMap.setText(uniqueTimer);
         activityChallenge.setText(actChallName);
-        tvDistanceMeter.setText("" + distanceInKm);
+        tvDistanceMeter.setText(""+distanceInKm);
 
 
         textViewChallenge.setOnClickListener(new View.OnClickListener() {
@@ -269,6 +269,7 @@ public class PreviewCardActivity extends AppCompatActivity {
     }
 
 
+
     public void saveMapData() {
         String challengeIdUser = "";
 
@@ -289,7 +290,7 @@ public class PreviewCardActivity extends AppCompatActivity {
             imagee = MultipartBody.Part.createFormData("image", imageFileNew.getName(), fileReqBody);
 
             Util.showProgressDialog(this);
-            RestClient.saveMapChallenge(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), userId, acitivityduration, distance, challengeactivity, challUserId, imagee, new Callback<ChallenegeMapResponse>() {
+            RestClient.saveMapChallenge(userId, acitivityduration, distance, challengeactivity,challUserId, imagee, new Callback<ChallenegeMapResponse>() {
                 @Override
                 public void onResponse(Call<ChallenegeMapResponse> call, Response<ChallenegeMapResponse> response) {
                     Util.dismissProgressDialog();
@@ -303,12 +304,13 @@ public class PreviewCardActivity extends AppCompatActivity {
                         FuroPrefs.putString(getApplicationContext(), "getChallengeActivity", actName);
 
 
+
                         textViewChallenge.setVisibility(View.VISIBLE);
                         String actOpen = "map";
-                        FuroPrefs.putString(getApplicationContext(), "activity_open", actOpen);
+                        FuroPrefs.putString(getApplicationContext(),"activity_open",actOpen);
                         if (response.body().getStatus().equalsIgnoreCase("200")) {
                             String challengeid = String.valueOf(response.body().getNewchallenge().getId());
-                            FuroPrefs.putString(getApplicationContext(), "challengeidforshare", challengeid);
+                            FuroPrefs.putString(getApplicationContext(),"challengeidforshare",challengeid);
 
                             Toast.makeText(getApplicationContext(), "Image Saved Successfully", Toast.LENGTH_SHORT).show();
 
@@ -385,7 +387,7 @@ public class PreviewCardActivity extends AppCompatActivity {
                 imageSharePreview.setVisibility(View.GONE);
 
                 iconfuro.setVisibility(View.VISIBLE);
-                saveandShare.setVisibility(View.GONE);
+                saveandShare .setVisibility(View.GONE);
 
 
                 takeScreenshot();
@@ -395,7 +397,6 @@ public class PreviewCardActivity extends AppCompatActivity {
         dialog.show();
 
     }
-
     @Override
     public void onBackPressed() {
 

@@ -42,7 +42,6 @@ import com.app.furoapp.model.existsContact.ExistContact;
 import com.app.furoapp.model.existsContact.ExistContactUpdate;
 import com.app.furoapp.model.existsContact.ExistsContactResponse;
 import com.app.furoapp.retrofit.RestClient;
-import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 import com.google.gson.Gson;
@@ -215,7 +214,7 @@ public class LeaderBoardFriendFragment extends Fragment implements FriendLeaderB
         Log.i("result_contacts_1", json);
 
 
-        RestClient.userExistsContact(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), userContacts, userLogin, new Callback<ExistsContactResponse>() {
+        RestClient.userExistsContact(userContacts, userLogin, new Callback<ExistsContactResponse>() {
             @Override
             public void onResponse(Call<ExistsContactResponse> call, Response<ExistsContactResponse> response) {
 
@@ -281,7 +280,7 @@ public class LeaderBoardFriendFragment extends Fragment implements FriendLeaderB
                 challangeNotificationRequest.setLoginId(userLoginId);
                 challangeNotificationRequest.setChallengeId(shareChallengeid);
                 Util.showProgressDialog(getContext());
-                RestClient.userChallangeNotification(FuroPrefs.getString(getActivity(), Constants.Get_ACCESS_TOKEN), challangeNotificationRequest, new Callback<ChallangeNotificationResponse>() {
+                RestClient.userChallangeNotification(challangeNotificationRequest, new Callback<ChallangeNotificationResponse>() {
                     @Override
                     public void onResponse(Call<ChallangeNotificationResponse> call, Response<ChallangeNotificationResponse> response) {
                         Util.dismissProgressDialog();
@@ -387,7 +386,7 @@ public class LeaderBoardFriendFragment extends Fragment implements FriendLeaderB
     private void AddFriendsData(String friend_id, int pos) {
         if (Util.isInternetConnected(getActivity())) {
             Util.showProgressDialog(getActivity());
-            RestClient.AddFriends(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), new AddFriend(FuroPrefs.getString(getActivity(), "loginUserId"), friend_id), new Callback<FriendInviteModel>() {
+            RestClient.AddFriends(new AddFriend(FuroPrefs.getString(getActivity(), "loginUserId"), friend_id), new Callback<FriendInviteModel>() {
                 @Override
                 public void onResponse(Call<FriendInviteModel> call, Response<FriendInviteModel> response) {
                     Util.dismissProgressDialog();

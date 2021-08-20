@@ -19,7 +19,6 @@ import com.app.furoapp.model.challengedetail.ChallangeDetailRequest;
 import com.app.furoapp.model.challengedetail.ChallangeDetailResponse;
 import com.app.furoapp.model.challengedetail.ChallengeDetails;
 import com.app.furoapp.retrofit.RestClient;
-import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
@@ -33,10 +32,9 @@ import retrofit2.Response;
 public class ChallengeActivityVideoDraft extends AppCompatActivity {
     TextView textViewexpired;
     RecyclerView recyclerView;
-    String challenegeDetailId, userid;
+    String challenegeDetailId,userid;
 
     ChallengeDraftVideoAdapter challengeDraftVideoAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +48,7 @@ public class ChallengeActivityVideoDraft extends AppCompatActivity {
         textViewexpired.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(ChallengeActivityVideoDraft.this, VideoChallangeFriendsActivity.class);
+                Intent intent1 = new Intent(ChallengeActivityVideoDraft.this,VideoChallangeFriendsActivity.class);
                 startActivity(intent1);
 
             }
@@ -68,7 +66,7 @@ public class ChallengeActivityVideoDraft extends AppCompatActivity {
 
         Util.isInternetConnected(this);
         Util.showProgressDialog(getApplicationContext());
-        RestClient.userChallangeDetail(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), challangeDetailRequest, new Callback<ChallangeDetailResponse>() {
+        RestClient.userChallangeDetail(challangeDetailRequest, new Callback<ChallangeDetailResponse>() {
             @Override
             public void onResponse(Call<ChallangeDetailResponse> call, Response<ChallangeDetailResponse> response) {
                 Util.dismissProgressDialog();
@@ -103,7 +101,8 @@ public class ChallengeActivityVideoDraft extends AppCompatActivity {
 
                         }
 
-                    } else {
+                    }
+                    else {
                         Toast.makeText(ChallengeActivityVideoDraft.this, "Something went wrong !!!", Toast.LENGTH_SHORT).show();
                     }
 

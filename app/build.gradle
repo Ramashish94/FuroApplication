@@ -15,7 +15,6 @@ android {
         versionCode 53/*50 48*/
         versionName "2.1.32"/*2.1.27.70*/
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
     }
 
     signingConfigs {
@@ -49,7 +48,6 @@ android {
             debuggable false //            debuggable true
             signingConfig signingConfigs.release
             buildConfigField "String", "API_SERVER_IP", "\"https://api.fitnessquotient.in/api/\""
-//          buildConfigField "String", "API_SERVER_IP", "\"http://139.59.76.9/furo/public/api/\""
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
@@ -58,10 +56,9 @@ android {
             debuggable true
             multiDexEnabled true
             signingConfig signingConfigs.debug
-//            buildConfigField "String", "API_SERVER_IP", "\"https://api.fitnessquotient.in/api/\""
-            buildConfigField "String", "API_SERVER_IP", "\"http://139.59.76.9/furo/public/api/\""
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "API_SERVER_IP", "\"https://api.fitnessquotient.in/api/\""
             //buildConfigField "String", "API_SERVER_IP", "\"http://13.126.93.95:8080\""
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
         }
     }
@@ -177,9 +174,9 @@ android {
         implementation 'com.github.j4velin.colorpicker:colorpicker:1.20.6'
         implementation 'com.github.j4velin.EazeGraph:EazeGraph:1.0.3'
         implementation 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
-        /* playImplementation 'com.google.android.gms:play-services-fitness:15.0.1'
-         playImplementation 'com.google.android.gms:play-services-games:15.0.1'
-         playImplementation 'com.google.android.gms:play-services-identity:15.0.1'*/
+       /* playImplementation 'com.google.android.gms:play-services-fitness:15.0.1'
+        playImplementation 'com.google.android.gms:play-services-games:15.0.1'
+        playImplementation 'com.google.android.gms:play-services-identity:15.0.1'*/
         implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
         /*implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'*/
         implementation "androidx.recyclerview:recyclerview:1.2.1"

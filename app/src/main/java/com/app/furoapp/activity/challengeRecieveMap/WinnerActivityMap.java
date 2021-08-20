@@ -1,38 +1,37 @@
 
 package com.app.furoapp.activity.challengeRecieveMap;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+        import androidx.appcompat.app.AppCompatActivity;
+        import androidx.recyclerview.widget.DefaultItemAnimator;
+        import androidx.recyclerview.widget.LinearLayoutManager;
+        import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
+        import android.content.Intent;
+        import android.os.Bundle;
+        import android.view.View;
+        import android.widget.TextView;
+        import android.widget.Toast;
 
-import com.app.furoapp.R;
-import com.app.furoapp.activity.challengeRecieve.ReportSubmissionActivity;
-import com.app.furoapp.adapter.LoserDetailAdapter;
-import com.app.furoapp.adapter.LoserDetailMapAdapter;
-import com.app.furoapp.adapter.WinnerActivityAdapter;
-import com.app.furoapp.adapter.WinnerMapActivityAdapter;
-import com.app.furoapp.model.winnerApi.Loser;
-import com.app.furoapp.model.winnerApi.Winner;
-import com.app.furoapp.model.winnerApi.WinnerRequest;
-import com.app.furoapp.model.winnerApi.WinnerResponse;
-import com.app.furoapp.retrofit.RestClient;
-import com.app.furoapp.utils.Constants;
-import com.app.furoapp.utils.FuroPrefs;
-import com.app.furoapp.utils.Util;
+        import com.app.furoapp.R;
+        import com.app.furoapp.activity.challengeRecieve.ReportSubmissionActivity;
+        import com.app.furoapp.adapter.LoserDetailAdapter;
+        import com.app.furoapp.adapter.LoserDetailMapAdapter;
+        import com.app.furoapp.adapter.WinnerActivityAdapter;
+        import com.app.furoapp.adapter.WinnerMapActivityAdapter;
+        import com.app.furoapp.model.winnerApi.Loser;
+        import com.app.furoapp.model.winnerApi.Winner;
+        import com.app.furoapp.model.winnerApi.WinnerRequest;
+        import com.app.furoapp.model.winnerApi.WinnerResponse;
+        import com.app.furoapp.retrofit.RestClient;
+        import com.app.furoapp.utils.FuroPrefs;
+        import com.app.furoapp.utils.Util;
 
-import java.util.Collections;
-import java.util.List;
+        import java.util.Collections;
+        import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+        import retrofit2.Call;
+        import retrofit2.Callback;
+        import retrofit2.Response;
 
 public class WinnerActivityMap extends AppCompatActivity {
     int subChallengeIdmap;
@@ -71,7 +70,7 @@ public class WinnerActivityMap extends AppCompatActivity {
 
         Util.showProgressDialog(this);
 
-        RestClient.winnerUserResponse(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), winnerRequest, new Callback<WinnerResponse>() {
+        RestClient.winnerUserResponse(winnerRequest, new Callback<WinnerResponse>() {
             @Override
             public void onResponse(Call<WinnerResponse> call, Response<WinnerResponse> response) {
                 Util.dismissProgressDialog();

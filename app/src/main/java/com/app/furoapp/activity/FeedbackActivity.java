@@ -16,7 +16,6 @@ import com.app.furoapp.R;
 import com.app.furoapp.model.feedback.FeedbackRequest;
 import com.app.furoapp.model.feedback.FeedbackResponse;
 import com.app.furoapp.retrofit.RestClient;
-import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 import com.app.furoapp.utils.Utils;
@@ -123,8 +122,9 @@ public class FeedbackActivity extends AppCompatActivity implements SmileRating.O
             feedbackRequest.setMessage(editTextFeedBack.getText().toString());
 
 
+
             Util.showProgressDialog(this);
-            RestClient.userFeedBack(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), feedbackRequest, new Callback<FeedbackResponse>() {
+            RestClient.userFeedBack(feedbackRequest, new Callback<FeedbackResponse>() {
 
                 @Override
                 public void onResponse(Call<FeedbackResponse> call, Response<FeedbackResponse> response) {

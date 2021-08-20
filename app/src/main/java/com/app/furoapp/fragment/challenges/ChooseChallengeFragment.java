@@ -35,6 +35,7 @@ import com.app.furoapp.model.chooseChallange.ChallengeResponse;
 import com.app.furoapp.model.chooseChallange.SelectChallangeResponse;
 import com.app.furoapp.model.chooseChallange.Subcategory;
 import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
@@ -111,7 +112,7 @@ public class ChooseChallengeFragment extends Fragment {
             linearLayout.setVisibility(View.VISIBLE);
             progressBarr.setVisibility(View.VISIBLE);
            /* textView.setVisibility(View.VISIBLE);*/
-            RestClient.userSelectChallange(new Callback<SelectChallangeResponse>() {
+            RestClient.userSelectChallange(FuroPrefs.getString(getActivity(), Constants.Get_ACCESS_TOKEN),new Callback<SelectChallangeResponse>() {
                 @Override
                 public void onResponse(Call<SelectChallangeResponse> call, Response<SelectChallangeResponse> response) {
                     progressBarr.setVisibility(View.GONE);

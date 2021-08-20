@@ -14,6 +14,7 @@ import com.app.furoapp.model.challengedetail.ChallangeDetailRequest;
 import com.app.furoapp.model.challengedetail.ChallangeDetailResponse;
 import com.app.furoapp.model.challengedetail.ChallengeDetails;
 import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
@@ -45,7 +46,7 @@ public class WinnerDetailByYouActivity extends AppCompatActivity {
             challangeDetailRequest.setChallengeId(String.valueOf(challengebyid));
             Util.isInternetConnected(this);
             Util.showProgressDialog(this);
-            RestClient.userChallangeDetail(challangeDetailRequest, new Callback<ChallangeDetailResponse>() {
+            RestClient.userChallangeDetail(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), challangeDetailRequest, new Callback<ChallangeDetailResponse>() {
                 @Override
                 public void onResponse(Call<ChallangeDetailResponse> call, Response<ChallangeDetailResponse> response) {
                     Util.dismissProgressDialog();
@@ -57,11 +58,11 @@ public class WinnerDetailByYouActivity extends AppCompatActivity {
                             recyclerView.setLayoutManager(layoutManager);
                             recyclerView.setItemAnimator(new DefaultItemAnimator());
                             recyclerView.setAdapter(activityAcceptChallengeAdapter);
-                        }else{
+                        } else {
 
                         }
 
-                    }else{
+                    } else {
 
                     }
 

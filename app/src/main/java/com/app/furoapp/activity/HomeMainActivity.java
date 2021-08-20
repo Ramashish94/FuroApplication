@@ -271,7 +271,7 @@ public class HomeMainActivity extends AppCompatActivity {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         /*getToken....added*/
-       // getAccessToke = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
+        // getAccessToke = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
 
         Intent intent = getIntent();
         contest = intent.getStringExtra("contestpage");
@@ -322,7 +322,6 @@ public class HomeMainActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
-
 
 
     }
@@ -678,7 +677,7 @@ public class HomeMainActivity extends AppCompatActivity {
         updateFcmTokenRequest.setFcmToken(tokenFcm);
         updateFcmTokenRequest.setUserId(userId);
 
-        RestClient.userFcmTokenUpdate(updateFcmTokenRequest, new Callback<UpdateFcmTokenResponse>() {
+        RestClient.userFcmTokenUpdate(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), updateFcmTokenRequest, new Callback<UpdateFcmTokenResponse>() {
             @Override
             public void onResponse(Call<UpdateFcmTokenResponse> call, Response<UpdateFcmTokenResponse> response) {
                 if (response != null) {
@@ -802,14 +801,19 @@ public class HomeMainActivity extends AppCompatActivity {
             public void onResponse(Call<WaterIntakeExistsUserResponse> call, Response<WaterIntakeExistsUserResponse> response) {
                 if (response.code() == 200) {
                     if (response.body() != null) {
-                        if (response.body().getIsWaterIntakeDataRequired() == 1) {
-                            Intent intent = new Intent(getApplicationContext(), CreatePlaneActivity.class);
-                            startActivity(intent);
-                        } else {
-                            if (response.body().getIsWaterIntakeDataRequired() == 0) {
-                                Intent intent = new Intent(getApplicationContext(), WaterIntakeStartActivity.class);
+                        if (response.body().getIsWaterIntakeDataRequired() != null) {
+                            if (response.body().getIsWaterIntakeDataRequired() == 1) {
+                                Intent intent = new Intent(getApplicationContext(), CreatePlaneActivity.class);
                                 startActivity(intent);
+                            } else {
+                                if (response.body().getIsWaterIntakeDataRequired() == 0) {
+                                    Intent intent = new Intent(getApplicationContext(), WaterIntakeStartActivity.class);
+                                    startActivity(intent);
+                                }
                             }
+                        } else {
+                            Intent intent = new Intent(getApplicationContext(), WaterIntakeStartActivity.class);
+                            startActivity(intent);
                         }
                     }
                 } else if (response.code() == 500) {
@@ -828,7 +832,7 @@ public class HomeMainActivity extends AppCompatActivity {
     }
 
     private void getAlertTokenDialog() {
-        if (FuroPrefs.getString(getApplicationContext(),Constants.Get_ACCESS_TOKEN) != null) {
+        if (FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN) != null) {
             dialogBuilder = new AlertDialog.Builder(this);
             LayoutInflater inflater = this.getLayoutInflater();
             View dialogView = inflater.inflate(R.layout.session_expired_layout, null);

@@ -22,6 +22,7 @@ import com.app.furoapp.databinding.FragmenttellusaboutyouBinding;
 import com.app.furoapp.model.whatBringsYoutoFuro.WhatBringsYouToFuroRequest;
 import com.app.furoapp.model.whatBringsYoutoFuro.WhatBringsYouToFuroResponse;
 import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 import com.kevalpatel2106.rulerpicker.RulerValuePicker;
@@ -37,7 +38,7 @@ public class TellUsAboutYou extends Fragment {
     FragmenttellusaboutyouBinding binding;
     TutorialScreen tutorialScreen;
     Context context;
-    TextView weightPickerValueTv, heightPickerValueTv,getStarted;
+    TextView weightPickerValueTv, heightPickerValueTv, getStarted;
     private String whatBringsToYouFuro, userId;
 
     @Override
@@ -52,7 +53,6 @@ public class TellUsAboutYou extends Fragment {
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragmenttellusaboutyou, container, false);
         View view = binding.getRoot();
-
 
 
         whatBringsToYouFuro = (FuroPrefs.getString(getActivity(), "whatbringstoyouarraylist"));
@@ -130,7 +130,7 @@ public class TellUsAboutYou extends Fragment {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-              whatBringYouToFuroValidation();
+                whatBringYouToFuroValidation();
             }
         });
 
@@ -151,9 +151,9 @@ public class TellUsAboutYou extends Fragment {
             Util.displayToast(getContext(), "Please select Weight");
             check = false;
         }
-        if(TextUtils.isEmpty(whatBringsToYouFuro.trim())){
+        if (TextUtils.isEmpty(whatBringsToYouFuro.trim())) {
             Util.displayToast(getContext(), "select reason");
-            check= false;
+            check = false;
 
         }
         if (check) {
@@ -164,26 +164,24 @@ public class TellUsAboutYou extends Fragment {
             whatBringsYouToFuroRequest.setReasons(whatBringsToYouFuro);
             whatBringsYouToFuroRequest.setUserId(userId);
 
-             Util.isInternetConnected(getContext());
-             Util.showProgressDialog(getContext());
-            RestClient.userChooseOneReason(whatBringsYouToFuroRequest, new Callback<WhatBringsYouToFuroResponse>() {
+            Util.isInternetConnected(getContext());
+            Util.showProgressDialog(getContext());
+            RestClient.userChooseOneReason(FuroPrefs.getString(getActivity(), Constants.Get_ACCESS_TOKEN), whatBringsYouToFuroRequest, new Callback<WhatBringsYouToFuroResponse>() {
                 @Override
                 public void onResponse(Call<WhatBringsYouToFuroResponse> call, Response<WhatBringsYouToFuroResponse> response) {
                     Util.dismissProgressDialog();
-                    if(response != null){
-                        if(response.body() != null){
-                            if(response.body().getStatus().equalsIgnoreCase("200")){
+                    if (response != null) {
+                        if (response.body() != null) {
+                            if (response.body().getStatus().equalsIgnoreCase("200")) {
                                 Toast.makeText(tutorialScreen, "success", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getActivity(),HomeMainActivity.class);
-                                intent.putExtra("contestpage","");
+                                Intent intent = new Intent(getActivity(), HomeMainActivity.class);
+                                intent.putExtra("contestpage", "");
                                 startActivity(intent);
 
-                            }else {
+                            } else {
                                 Toast.makeText(tutorialScreen, "failure", Toast.LENGTH_SHORT).show();
 
                             }
-
-
 
 
                         }

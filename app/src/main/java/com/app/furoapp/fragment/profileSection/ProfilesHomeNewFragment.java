@@ -480,7 +480,7 @@ public class ProfilesHomeNewFragment extends BaseFragment {
         if (Util.isInternetConnected(getActivity())) {
             linearLayout.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.VISIBLE);
-            RestClient.userSelectChallange(new retrofit2.Callback<SelectChallangeResponse>() {
+            RestClient.userSelectChallange(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), new retrofit2.Callback<SelectChallangeResponse>() {
                 @Override
                 public void onResponse(Call<SelectChallangeResponse> call, Response<SelectChallangeResponse> response) {
                     linearLayout.setVisibility(View.GONE);
@@ -516,7 +516,7 @@ public class ProfilesHomeNewFragment extends BaseFragment {
         if (Util.isInternetConnected(getActivity())) {
             linearLayout.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.VISIBLE);
-            RestClient.addProfile(new AddProfile(userIdProfile, act), new retrofit2.Callback<ProfileModel>() {
+            RestClient.addProfile(FuroPrefs.getString(getActivity(), Constants.Get_ACCESS_TOKEN), new AddProfile(userIdProfile, act), new retrofit2.Callback<ProfileModel>() {
                 @Override
                 public void onResponse(Call<ProfileModel> call, Response<ProfileModel> response) {
                     linearLayout.setVisibility(View.GONE);
@@ -890,7 +890,7 @@ public class ProfilesHomeNewFragment extends BaseFragment {
             image = MultipartBody.Part.createFormData("image", imageFile.getName(), fileReqBody);
 
             progressBarImage.setVisibility(View.VISIBLE);
-            RestClient.userImageUpdate(userId, image, new retrofit2.Callback<UpdateImageResponse>() {
+            RestClient.userImageUpdate(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), userId, image, new retrofit2.Callback<UpdateImageResponse>() {
                 @Override
                 public void onResponse(Call<UpdateImageResponse> call, Response<UpdateImageResponse> response) {
                     progressBarImage.setVisibility(View.GONE);

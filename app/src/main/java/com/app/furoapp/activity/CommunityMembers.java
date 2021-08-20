@@ -17,6 +17,7 @@ import com.app.furoapp.model.communitymembers.CommunityMembersRequest;
 import com.app.furoapp.model.communitymembers.CommunityMembersResponse;
 import com.app.furoapp.model.communitymembers.Member;
 import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 
 import java.util.List;
@@ -52,7 +53,7 @@ public class CommunityMembers extends AppCompatActivity {
         communityMembersRequest.setUserId(userid);
 
         progressBar.setVisibility(View.VISIBLE);
-        RestClient.userCommunityMembers(communityMembersRequest, new Callback<CommunityMembersResponse>() {
+        RestClient.userCommunityMembers(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), communityMembersRequest, new Callback<CommunityMembersResponse>() {
             @Override
             public void onResponse(Call<CommunityMembersResponse> call, Response<CommunityMembersResponse> response) {
                 progressBar.setVisibility(View.GONE);

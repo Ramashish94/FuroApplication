@@ -25,6 +25,7 @@ import com.app.furoapp.activity.PreviewActivity;
 import com.app.furoapp.activity.VideoRecoringViewAct;
 import com.app.furoapp.model.createVideoChallenge.CreateVideoChallangeResponse;
 import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.ProgressRequestBody;
 import com.app.furoapp.utils.Util;
@@ -175,13 +176,13 @@ public class SubmissionActivity extends AppCompatActivity implements ProgressReq
             MultipartBody.Part videofile = MultipartBody.Part.createFormData("video_file", videoFile.getName(), fileBody);
 
             if (Util.isInternetConnected(this)) ;
-            RestClient.videoChallange(userid, acitivityduration, actCountNumber, challenge_name, acitivityName, Challenge_new_id, videofile, new Callback<CreateVideoChallangeResponse>() {
+            RestClient.videoChallange(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), userid, acitivityduration, actCountNumber, challenge_name, acitivityName, Challenge_new_id, videofile, new Callback<CreateVideoChallangeResponse>() {
 
                 @Override
                 public void onResponse(Call<CreateVideoChallangeResponse> call, Response<CreateVideoChallangeResponse> response) {
                     progressDialog.dismiss();
                     if (response != null) {
-                          if (response.body().getStatus().equalsIgnoreCase("200")) {
+                        if (response.body().getStatus().equalsIgnoreCase("200")) {
                             Toast.makeText(SubmissionActivity.this, " Video uploaded successfully ", Toast.LENGTH_SHORT).show();
                             submitChallnage.setBackgroundResource(R.drawable.buttonbackgroungdarkgraycolor);
                             int submissionId = response.body().getNewchallenge().getId();

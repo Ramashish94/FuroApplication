@@ -28,6 +28,7 @@ import com.app.furoapp.model.FriendModel.FriendRequest;
 import com.app.furoapp.model.FriendModel.Friends;
 import com.app.furoapp.model.FriendModel.Particpant;
 import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
@@ -50,8 +51,8 @@ FragmentFriendInvite extends Fragment implements FriendAdapter.DataAdapterListen
     private EditText ed_search;
     GifView pGif;
     FriendAdapter adapter;
-    private List<Particpant> friendslist ;
-    private List<Particpant> rowsArrayList ;
+    private List<Particpant> friendslist;
+    private List<Particpant> rowsArrayList;
     private List<Particpant> participant_list = new ArrayList<>();
     String user_id;
 
@@ -131,7 +132,7 @@ FragmentFriendInvite extends Fragment implements FriendAdapter.DataAdapterListen
             pGif.setVisibility(View.VISIBLE);
             FriendRequest friendRequest = new FriendRequest();
             friendRequest.setUserId(user_id);
-            RestClient.userFriendsData(friendRequest, new Callback<Friends>() {
+            RestClient.userFriendsData(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), friendRequest, new Callback<Friends>() {
                 @Override
                 public void onResponse(Call<Friends> call, Response<Friends> response) {
                     pGif.setVisibility(View.GONE);
@@ -167,7 +168,7 @@ FragmentFriendInvite extends Fragment implements FriendAdapter.DataAdapterListen
     private void AddFriendsData(String friend_id) {
         if (Util.isInternetConnected(getActivity())) {
             Util.showProgressDialog(getActivity());
-            RestClient.AddFriends(new AddFriend(FuroPrefs.getString(getActivity(), "loginUserId"), friend_id), new Callback<FriendInviteModel>() {
+            RestClient.AddFriends(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), new AddFriend(FuroPrefs.getString(getActivity(), "loginUserId"), friend_id), new Callback<FriendInviteModel>() {
                 @Override
                 public void onResponse(Call<FriendInviteModel> call, Response<FriendInviteModel> response) {
                     Util.dismissProgressDialog();

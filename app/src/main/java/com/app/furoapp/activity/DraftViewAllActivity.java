@@ -23,6 +23,7 @@ import com.app.furoapp.model.draft.DraftChallenge;
 import com.app.furoapp.model.draft.DraftRequest;
 import com.app.furoapp.model.draft.DraftResponse;
 import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
@@ -36,7 +37,7 @@ import retrofit2.Response;
 public class DraftViewAllActivity extends AppCompatActivity {
     String useridopenandclose;
     HomeMainActivity homeMainActivity;
-    TextView textViewloadmoreby, textViewloadmorefor,draftloadmore;
+    TextView textViewloadmoreby, textViewloadmorefor, draftloadmore;
     ProgressBar progressBar;
     LinearLayout linearLayout;
     DraftAdapter draftAdapter;
@@ -47,6 +48,7 @@ public class DraftViewAllActivity extends AppCompatActivity {
     TextView youHaveNotChallange, Youhavechallange, draft;
     int userIdChallenge;
     GifView gifView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +56,7 @@ public class DraftViewAllActivity extends AppCompatActivity {
         recyclerViewdraft = findViewById(R.id.challengeDraftrecycler);
         gifView = findViewById(R.id.progressBarJumpingJacks);
         gifView.setImageResource(R.drawable.sqats);
-        draftloadmore= findViewById(R.id.loadmorefordraft);
+        draftloadmore = findViewById(R.id.loadmorefordraft);
         draft = findViewById(R.id.youhavechallangedraft);
         useridopenandclose = FuroPrefs.getString(getApplicationContext(), "loginUserId");
         getDChallengeDraft();
@@ -71,13 +73,13 @@ public class DraftViewAllActivity extends AppCompatActivity {
 
         gifView.setVisibility(View.VISIBLE);
 
-        RestClient.userdraft(draftRequest, new Callback<DraftResponse>() {
+        RestClient.userdraft(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), draftRequest, new Callback<DraftResponse>() {
             @Override
             public void onResponse(Call<DraftResponse> call, Response<DraftResponse> response) {
                 gifView.setVisibility(View.GONE);
                 if (response != null) {
 
-                    if (response.body() != null && response.body().getDraftChallenges().size() >0) {
+                    if (response.body() != null && response.body().getDraftChallenges().size() > 0) {
                         List<DraftChallenge> draftChallenges = response.body().getDraftChallenges();
 
                         draftAdapter = new DraftAdapter(draftChallenges, getApplicationContext());

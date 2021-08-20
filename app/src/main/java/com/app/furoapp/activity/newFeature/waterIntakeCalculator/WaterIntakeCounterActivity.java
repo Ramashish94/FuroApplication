@@ -176,16 +176,13 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
     }
 
     private void callDailyWaterIntakeUpdatePlanApi() {
-
-        WaterIntakeUpdatePlanRequest waterIntakeUpdatePlanRequest = new WaterIntakeUpdatePlanRequest();
         if (FuroPrefs.getString(getApplicationContext(), Constants.WATER_INTAKE_PLAN) != null) {
+            WaterIntakeUpdatePlanRequest waterIntakeUpdatePlanRequest = new WaterIntakeUpdatePlanRequest();
             waterIntakeUpdatePlanRequest.setPlan_id(FuroPrefs.getString(getApplicationContext(), Constants.WATER_INTAKE_PLAN));
-            // Util.showProgressDialog(getApplicationContext());
             loadingProgressBar.setVisibility(View.VISIBLE);
             RestClient.getWaterIntakeUpdatePlan(getAccessToken, waterIntakeUpdatePlanRequest, new Callback<WaterIntakeUpdatePlanResponse>() {
                 @Override
                 public void onResponse(Call<WaterIntakeUpdatePlanResponse> call, Response<WaterIntakeUpdatePlanResponse> response) {
-                    //          Util.dismissProgressDialog();
                     loadingProgressBar.setVisibility(View.GONE);
                     if (response.code() == 200) {
                         if (response.body() != null && response.body().getStatus() != null) {
@@ -277,58 +274,6 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             }
         }
     }
-
-
-    private void setTodayProgressData(SelectedPlan selectedPlan) {
-        if (selectedPlan != null) {
-            if (selectedPlan.getTakenGlassOfWater() != null) {
-                tvNosGlassCount.setText("" + Integer.parseInt(selectedPlan.getTakenGlassOfWater().toString()));
-            }
-            if (selectedPlan.getTakenWaterInMl() != null) {
-                takingWater = Integer.parseInt(selectedPlan.getTakenWaterInMl().toString());   //for percent
-                tvTakingWater.setText("" + takingWater);
-            }
-            if (selectedPlan.getWaterTakeInMl() != null) {
-                totRecommendedWater = Integer.parseInt(selectedPlan.getWaterTakeInMl().toString());    //for percent
-                tvRecommendedReamingWater.setText("of " + totRecommendedWater + " ml");
-            }
-            if (selectedPlan.getTakenWaterInMl() != null) {
-                tvTotAmountDrunk.setText("" + selectedPlan.getTakenWaterInMl().toString() + " ml");
-            }
-            if (selectedPlan.getTakenGlassOfWater() != null) {
-                tvNosOfGlasses.setText("" + selectedPlan.getTakenGlassOfWater().toString());
-            }
-            if (selectedPlan.getRecommendedGlassOfWater() != null) {
-                tvRecommendedNosOfGlasses.setText("/" + selectedPlan.getTotalGlass().toString());
-            }
-            if (selectedPlan.getCreatedAt() != null) {
-
-                DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
-                try {
-                    date = dateFormat.parse(selectedPlan.getUpdatedAt());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                DateFormat dateFormat1 = new SimpleDateFormat("dd MMM, EEE");
-                String getDate = dateFormat1.format(date);
-                tvDateWithDay.setText(getDate);
-            }
-            /*Update progress percent*/
-            takenWaterInPercent = (takingWater * 100 / totRecommendedWater);
-            scProgressBar.setPercent(takenWaterInPercent);     // set percent on progress bar
-            if (takingWater == totRecommendedWater || takenWaterInPercent >= 99) {
-                includeCongratsPopMenu.setVisibility(View.VISIBLE);
-                tvRecommendedWaterIntake.setText("" + totRecommendedWater + "  ml");
-                clWaterIntakeCounter.setClickable(false);
-            } else {
-//            Toast.makeText(this, "Selected plan will be Null", Toast.LENGTH_SHORT).show();
-            }
-
-        }
-
-
-    }
-
 
     private void clickEvent() {
         ivAddCup.setOnClickListener(new View.OnClickListener() {
@@ -533,7 +478,10 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
 
             @Override
             public void onFailure(Call<CupCreateResponse> call, Throwable t) {
-                Toast.makeText(WaterIntakeCounterActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(WaterIntakeCounterActivity.this, String.valueOf(t), Toast.LENGTH_SHORT).show();
+                System.out.println("Error" + t);
+                Log.d("onFailure: ", String.valueOf(t));
+                //   Toast.makeText(WaterIntakeCounterActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
             }
         });
     }

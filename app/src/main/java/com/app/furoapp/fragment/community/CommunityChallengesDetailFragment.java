@@ -30,6 +30,7 @@ import com.app.furoapp.model.communitydetail.CommunityDetailRequest;
 import com.app.furoapp.model.communitydetail.CommunityDetailResponse;
 import com.app.furoapp.model.communitydetail.Leadership;
 import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
@@ -123,7 +124,7 @@ public class CommunityChallengesDetailFragment extends Fragment {
 
                 Util.isInternetConnected(getActivity());
                 Util.showProgressDialog(getContext());
-                RestClient.userCommunitiesJoin(communitiesJoinRequest, new Callback<CommunitiesJoinResponse>() {
+                RestClient.userCommunitiesJoin(FuroPrefs.getString(getActivity(), Constants.Get_ACCESS_TOKEN), communitiesJoinRequest, new Callback<CommunitiesJoinResponse>() {
                     @Override
                     public void onResponse(Call<CommunitiesJoinResponse> call, Response<CommunitiesJoinResponse> response) {
                         Util.dismissProgressDialog();
@@ -167,7 +168,7 @@ public class CommunityChallengesDetailFragment extends Fragment {
         communityDetailRequest.setUserId(userId);
         Util.isInternetConnected(getContext());
         Util.showProgressDialog(getContext());
-        RestClient.userCommunityDetail(communityDetailRequest, new Callback<CommunityDetailResponse>() {
+        RestClient.userCommunityDetail(FuroPrefs.getString(getActivity(), Constants.Get_ACCESS_TOKEN), communityDetailRequest, new Callback<CommunityDetailResponse>() {
             @Override
             public void onResponse(Call<CommunityDetailResponse> call, Response<CommunityDetailResponse> response) {
                 Util.dismissProgressDialog();
@@ -199,14 +200,15 @@ public class CommunityChallengesDetailFragment extends Fragment {
                             binding.tvJoinBtn.setText("+Join");
                         }
 
-                }if(response.body().getCommunities().getLeadership() != null){
+                    }
+                    if (response.body().getCommunities().getLeadership() != null) {
                         List<Leadership> leaderships = response.body().getCommunities().getLeadership();
                         communityLeaderBoardAdapter = new CommunityLeaderBoardAdapter(leaderships, getContext());
                         RecyclerView.LayoutManager layoutManager1 = new LinearLayoutManager(getContext());
                         recyclerView.setLayoutManager(layoutManager1);
                         recyclerView.setItemAnimator(new DefaultItemAnimator());
                         recyclerView.setAdapter(communityLeaderBoardAdapter);
-                    }else {
+                    } else {
                         textViewRecord.setVisibility(View.VISIBLE);
 
                     }

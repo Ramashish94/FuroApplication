@@ -150,7 +150,7 @@ public class TellUsAboutYouActivity extends AppCompatActivity {
             whatBringsYouToFuroRequest.setUserId(userId);
             Util.isInternetConnected(getApplicationContext());
             Util.showProgressDialog(getApplicationContext());
-            RestClient.userChooseOneReason(whatBringsYouToFuroRequest, new Callback<WhatBringsYouToFuroResponse>() {
+            RestClient.userChooseOneReason(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), whatBringsYouToFuroRequest, new Callback<WhatBringsYouToFuroResponse>() {
                 @Override
                 public void onResponse(Call<WhatBringsYouToFuroResponse> call, Response<WhatBringsYouToFuroResponse> response) {
                     Util.dismissProgressDialog();
@@ -160,8 +160,8 @@ public class TellUsAboutYouActivity extends AppCompatActivity {
                                 if (response.body().getStatus().equalsIgnoreCase("200")) {
 
                                     Intent intent = new Intent(TellUsAboutYouActivity.this, HomeMainActivity.class);
-                                    FuroPrefs.putString(getApplicationContext(), Constants.USER_HEIGHT_IN_CM,response.body().getUserReason().getHeight());
-                                    FuroPrefs.putString(getApplicationContext(),Constants.USER_WEIGHT_IN_KG,response.body().getUserReason().getWeight());
+                                    FuroPrefs.putString(getApplicationContext(), Constants.USER_HEIGHT_IN_CM, response.body().getUserReason().getHeight());
+                                    FuroPrefs.putString(getApplicationContext(), Constants.USER_WEIGHT_IN_KG, response.body().getUserReason().getWeight());
                                     intent.putExtra("contestpage", "");
                                     startActivity(intent);
                                     finish();
@@ -172,7 +172,7 @@ public class TellUsAboutYouActivity extends AppCompatActivity {
                             }
                         }
 
-                    }else if (response.code() == 500) {
+                    } else if (response.code() == 500) {
                         Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
                     } else if (response.code() == 403) {
                         Toast.makeText(getApplicationContext(), "Session expired. Please login again.", Toast.LENGTH_SHORT).show();

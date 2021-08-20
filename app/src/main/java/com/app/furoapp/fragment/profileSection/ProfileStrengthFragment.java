@@ -41,6 +41,7 @@ import com.app.furoapp.model.profile.ClubsWeekly;
 import com.app.furoapp.model.profile.ItemProfile;
 import com.app.furoapp.model.profile.ProfileModel;
 import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 import com.app.furoapp.widget.francyconverflow.FancyCoverFlow;
@@ -378,7 +379,7 @@ public class ProfileStrengthFragment extends BaseFragment {
     private void getChooseChallengeData() {
         if (Util.isInternetConnected(getActivity())) {
             Util.showProgressDialog(getActivity());
-            RestClient.userSelectChallange(new retrofit2.Callback<SelectChallangeResponse>() {
+            RestClient.userSelectChallange(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN),new retrofit2.Callback<SelectChallangeResponse>() {
                 @Override
                 public void onResponse(Call<SelectChallangeResponse> call, Response<SelectChallangeResponse> response) {
                     Util.dismissProgressDialog();
@@ -407,7 +408,7 @@ public class ProfileStrengthFragment extends BaseFragment {
     private void getchooseClubData(String act, String type) {
         if (Util.isInternetConnected(getActivity())) {
             Util.showProgressDialog(getActivity());
-            RestClient.addProfile(new AddProfile("24", "Jumping Jacks"), new retrofit2.Callback<ProfileModel>() {
+            RestClient.addProfile(FuroPrefs.getString(getActivity(), Constants.Get_ACCESS_TOKEN),new AddProfile("24", "Jumping Jacks"), new retrofit2.Callback<ProfileModel>() {
                 @Override
                 public void onResponse(Call<ProfileModel> call, Response<ProfileModel> response) {
                     Util.dismissProgressDialog();

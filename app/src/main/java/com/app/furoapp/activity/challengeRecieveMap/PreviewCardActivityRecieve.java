@@ -1,44 +1,49 @@
 package com.app.furoapp.activity.challengeRecieveMap;
 
-        import androidx.appcompat.app.AlertDialog;
-        import androidx.appcompat.app.AppCompatActivity;
-        import androidx.core.content.FileProvider;
-        import androidx.fragment.app.Fragment;
-        import androidx.fragment.app.FragmentManager;
-        import androidx.fragment.app.FragmentTransaction;
-        import android.content.Context;
-        import android.content.Intent;
-        import android.graphics.Bitmap;
-        import android.graphics.BitmapFactory;
-        import android.net.Uri;
-        import android.os.Build;
-        import android.os.Bundle;
-        import android.os.Environment;
-        import android.text.TextUtils;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.Window;
-        import android.view.WindowManager;
-        import android.widget.Button;
-        import android.widget.ImageView;
-        import android.widget.TextView;
-        import android.widget.Toast;
-        import com.app.furoapp.R;
-        import com.app.furoapp.activity.MapOverViewActivity;
-        import com.app.furoapp.activity.PreviewCardActivity;
-        import com.app.furoapp.model.challengemap.ChallenegeMapResponse;
-        import com.app.furoapp.retrofit.RestClient;
-        import com.app.furoapp.utils.FuroPrefs;
-        import com.app.furoapp.utils.Util;
-        import com.squareup.picasso.Picasso;
-        import java.io.File;
-        import java.io.FileOutputStream;
-        import okhttp3.MediaType;
-        import okhttp3.MultipartBody;
-        import okhttp3.RequestBody;
-        import retrofit2.Call;
-        import retrofit2.Callback;
-        import retrofit2.Response;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Environment;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.app.furoapp.R;
+import com.app.furoapp.activity.MapOverViewActivity;
+import com.app.furoapp.activity.PreviewCardActivity;
+import com.app.furoapp.model.challengemap.ChallenegeMapResponse;
+import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
+import com.app.furoapp.utils.FuroPrefs;
+import com.app.furoapp.utils.Util;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.io.FileOutputStream;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class PreviewCardActivityRecieve extends AppCompatActivity {
@@ -63,7 +68,6 @@ public class PreviewCardActivityRecieve extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_challenge_cardview);
-
 
 
 //later
@@ -145,7 +149,6 @@ public class PreviewCardActivityRecieve extends AppCompatActivity {
 
             }
         });
-
 
 
         textViewFb.setOnClickListener(new View.OnClickListener() {
@@ -284,7 +287,7 @@ public class PreviewCardActivityRecieve extends AppCompatActivity {
 
     public void saveMapData() {
 
-        String challengeIdUser = String.valueOf(FuroPrefs.getInt(getApplicationContext(),"challengefuroid",0));
+        String challengeIdUser = String.valueOf(FuroPrefs.getInt(getApplicationContext(), "challengefuroid", 0));
 
         RequestBody challUserId = RequestBody.create(MediaType.parse("text/plain"), challengeIdUser);
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), idUser);
@@ -303,7 +306,7 @@ public class PreviewCardActivityRecieve extends AppCompatActivity {
             imagee = MultipartBody.Part.createFormData("image", imageFileNew.getName(), fileReqBody);
 
             Util.showProgressDialog(this);
-            RestClient.saveMapChallenge(userId, acitivityduration, distance, challengeactivity, challUserId,imagee, new Callback<ChallenegeMapResponse>() {
+            RestClient.saveMapChallenge(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), userId, acitivityduration, distance, challengeactivity, challUserId, imagee, new Callback<ChallenegeMapResponse>() {
                 @Override
                 public void onResponse(Call<ChallenegeMapResponse> call, Response<ChallenegeMapResponse> response) {
                     Util.dismissProgressDialog();
@@ -317,9 +320,9 @@ public class PreviewCardActivityRecieve extends AppCompatActivity {
                             FuroPrefs.putString(getApplicationContext(), "userIdLoginmap", userId);
                             Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
 
-                          Intent intent = new Intent(PreviewCardActivityRecieve.this,WinnerActivityMap.class);
-                          startActivity(intent);
-                          finish();
+                            Intent intent = new Intent(PreviewCardActivityRecieve.this, WinnerActivityMap.class);
+                            startActivity(intent);
+                            finish();
                         }
 
 
@@ -385,6 +388,7 @@ public class PreviewCardActivityRecieve extends AppCompatActivity {
         dialog.show();
 
     }
+
     @Override
     public void onBackPressed() {
 

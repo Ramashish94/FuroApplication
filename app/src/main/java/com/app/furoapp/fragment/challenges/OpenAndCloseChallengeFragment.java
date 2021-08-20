@@ -44,6 +44,7 @@ import com.app.furoapp.model.draft.DraftChallenge;
 import com.app.furoapp.model.draft.DraftRequest;
 import com.app.furoapp.model.draft.DraftResponse;
 import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
@@ -160,7 +161,7 @@ public class OpenAndCloseChallengeFragment extends Fragment {
         linearLayout.setVisibility(View.VISIBLE);
         pGif.setVisibility(View.VISIBLE);
 
-        RestClient.challenegeForYouRecieve(challenegeForYouRecieveRequest, new Callback<ChallenegeForYouRecieve>() {
+        RestClient.challenegeForYouRecieve(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), challenegeForYouRecieveRequest, new Callback<ChallenegeForYouRecieve>() {
             @Override
             public void onResponse(Call<ChallenegeForYouRecieve> call, Response<ChallenegeForYouRecieve> response) {
                 pGif.setVisibility(View.GONE);
@@ -231,7 +232,7 @@ public class OpenAndCloseChallengeFragment extends Fragment {
 
         Util.isInternetConnected(getContext());
         pGif.setVisibility(View.VISIBLE);
-        RestClient.userChallangeByUser(challengeByUser, new Callback<ChallengeByUserResponse>() {
+        RestClient.userChallangeByUser(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), challengeByUser, new Callback<ChallengeByUserResponse>() {
             @Override
             public void onResponse(Call<ChallengeByUserResponse> call, Response<ChallengeByUserResponse> response) {
                 pGif.setVisibility(View.GONE);
@@ -305,7 +306,7 @@ public class OpenAndCloseChallengeFragment extends Fragment {
         linearLayout.setVisibility(View.VISIBLE);
         pGif.setVisibility(View.VISIBLE);
 
-        RestClient.userdraft(draftRequest, new Callback<DraftResponse>() {
+        RestClient.userdraft(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), draftRequest, new Callback<DraftResponse>() {
             @Override
             public void onResponse(Call<DraftResponse> call, Response<DraftResponse> response) {
                 pGif.setVisibility(View.GONE);

@@ -27,6 +27,7 @@ import com.app.furoapp.databinding.FragmentContentActivityBinding;
 import com.app.furoapp.model.content_feed.Activity;
 import com.app.furoapp.model.content_feed.ContentFeedModel;
 import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 
 import java.util.List;
@@ -90,7 +91,7 @@ public class ContentActivityFragment extends Fragment {
     private void setOnClickListeners() {
         pGif.setVisibility(View.VISIBLE);
         /*textView.setVisibility(View.VISIBLE);*/
-        RestClient.myContentfeedActivity(new Callback<ContentFeedModel>() {
+        RestClient.myContentfeedActivity(FuroPrefs.getString(getActivity(), Constants.Get_ACCESS_TOKEN),new Callback<ContentFeedModel>() {
             @Override
             public void onResponse(Call<ContentFeedModel> call, Response<ContentFeedModel> response) {
                 pGif.setVisibility(View.GONE);

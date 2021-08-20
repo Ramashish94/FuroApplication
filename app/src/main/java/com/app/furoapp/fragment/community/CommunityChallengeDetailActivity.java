@@ -34,6 +34,7 @@ import com.app.furoapp.model.communitydetail.CommunityDetailRequest;
 import com.app.furoapp.model.communitydetail.CommunityDetailResponse;
 import com.app.furoapp.model.communitydetail.Leadership;
 import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
@@ -114,7 +115,7 @@ public class CommunityChallengeDetailActivity extends AppCompatActivity {
 
                 Util.isInternetConnected(CommunityChallengeDetailActivity.this);
                 Util.showProgressDialog(CommunityChallengeDetailActivity.this);
-                RestClient.userCommunitiesJoin(communitiesJoinRequest, new Callback<CommunitiesJoinResponse>() {
+                RestClient.userCommunitiesJoin(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), communitiesJoinRequest, new Callback<CommunitiesJoinResponse>() {
                     @Override
                     public void onResponse(Call<CommunitiesJoinResponse> call, Response<CommunitiesJoinResponse> response) {
                         Util.dismissProgressDialog();
@@ -159,7 +160,7 @@ public class CommunityChallengeDetailActivity extends AppCompatActivity {
         communityDetailRequest.setUserId(userId);
         Util.isInternetConnected(CommunityChallengeDetailActivity.this);
         Util.showProgressDialog(CommunityChallengeDetailActivity.this);
-        RestClient.userCommunityDetail(communityDetailRequest, new Callback<CommunityDetailResponse>() {
+        RestClient.userCommunityDetail(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), communityDetailRequest, new Callback<CommunityDetailResponse>() {
             @Override
             public void onResponse(Call<CommunityDetailResponse> call, Response<CommunityDetailResponse> response) {
                 Util.dismissProgressDialog();
@@ -185,8 +186,6 @@ public class CommunityChallengeDetailActivity extends AppCompatActivity {
 
                                 }
                             });
-
-
 
 
                         } else if (joined.equalsIgnoreCase("0")) {

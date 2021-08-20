@@ -29,6 +29,7 @@ import com.app.furoapp.model.ClubChallengeModel;
 import com.app.furoapp.model.clubChallenge.Club;
 import com.app.furoapp.model.clubChallenge.ClubChallengeResponse;
 import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
@@ -74,7 +75,7 @@ public class ClubChallengeFragment extends Fragment {
         pGif.setImageResource(R.drawable.sqats);
 
         pGif.setVisibility(View.VISIBLE);
-        linearLayout=view.findViewById(R.id.linearLayouttOpenclose);
+        linearLayout = view.findViewById(R.id.linearLayouttOpenclose);
         textView = view.findViewById(R.id.pbText);
         recyclerView = view.findViewById(R.id.rvOpenCloseChallenges);
 
@@ -105,9 +106,6 @@ public class ClubChallengeFragment extends Fragment {
     }
 
 
-
-
-
     public static ClubChallengeFragment newInstance(String name) {
         ClubChallengeFragment fragment = new ClubChallengeFragment();
         Bundle args = new Bundle();
@@ -120,21 +118,22 @@ public class ClubChallengeFragment extends Fragment {
 
 
     }
-     public void clubChallenges(){
-         Util.isInternetConnected(getContext());
-         linearLayout.setVisibility(View.VISIBLE);
-         pGif.setVisibility(View.VISIBLE);
-        /* textView.setVisibility(View.VISIBLE);*/
-         RestClient.myClubChallenges(new Callback<ClubChallengeResponse>() {
-             @Override
-             public void onResponse(Call<ClubChallengeResponse> call, Response<ClubChallengeResponse> response) {
-                 linearLayout.setVisibility(View.GONE);
-                 pGif.setVisibility(View.VISIBLE);
-                /* textView.setVisibility(View.VISIBLE);*/
-                 if(response != null){
-                    if(response.body() != null){
 
-                        List<Club>clubList = response.body().getClubs();
+    public void clubChallenges() {
+        Util.isInternetConnected(getContext());
+        linearLayout.setVisibility(View.VISIBLE);
+        pGif.setVisibility(View.VISIBLE);
+        /* textView.setVisibility(View.VISIBLE);*/
+        RestClient.myClubChallenges(FuroPrefs.getString(getActivity(), Constants.Get_ACCESS_TOKEN), new Callback<ClubChallengeResponse>() {
+            @Override
+            public void onResponse(Call<ClubChallengeResponse> call, Response<ClubChallengeResponse> response) {
+                linearLayout.setVisibility(View.GONE);
+                pGif.setVisibility(View.VISIBLE);
+                /* textView.setVisibility(View.VISIBLE);*/
+                if (response != null) {
+                    if (response.body() != null) {
+
+                        List<Club> clubList = response.body().getClubs();
                         clubChallengesAdapter = new ClubChallengesAdapter(clubList, getContext());
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
                         recyclerView.setLayoutManager(layoutManager);
@@ -146,30 +145,28 @@ public class ClubChallengeFragment extends Fragment {
 
                                 String clubId = String.valueOf(id);
 
-                                FuroPrefs.putString(getContext(),"clubId", String.valueOf(clubId));
-                                Bundle bundle =  new Bundle();
-                               Intent intent = new Intent(getContext(), ClubChallenegeDetailActivity.class);
-                               startActivity(intent);
+                                FuroPrefs.putString(getContext(), "clubId", String.valueOf(clubId));
+                                Bundle bundle = new Bundle();
+                                Intent intent = new Intent(getContext(), ClubChallenegeDetailActivity.class);
+                                startActivity(intent);
                             }
                         });
 
 
-
                     }
 
-                 }
+                }
 
-             }
+            }
 
-             @Override
-             public void onFailure(Call<ClubChallengeResponse> call, Throwable t) {
+            @Override
+            public void onFailure(Call<ClubChallengeResponse> call, Throwable t) {
 
-             }
-         });
+            }
+        });
 
 
-
-     }
+    }
 }
 
 

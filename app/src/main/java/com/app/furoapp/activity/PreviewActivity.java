@@ -38,6 +38,7 @@ import com.app.furoapp.R;
 import com.app.furoapp.model.content_feed.Data;
 import com.app.furoapp.model.createVideoChallenge.CreateVideoChallangeResponse;
 import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.ProgressRequestBody;
 import com.app.furoapp.utils.Util;
@@ -343,8 +344,7 @@ public class PreviewActivity extends AppCompatActivity implements ProgressReques
             MultipartBody.Part videofile = MultipartBody.Part.createFormData("video_file", videoFile.getName(), fileBody);
 
             if (Util.isInternetConnected(this)) ;
-            RestClient.videoChallange(userid, acitivityduration, actCountNumber, challenge_name, challengeActivityname, challenge_id, videofile, new Callback<CreateVideoChallangeResponse>() {
-
+            RestClient.videoChallange(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), userid, acitivityduration, actCountNumber, challenge_name, challengeActivityname, challenge_id, videofile, new Callback<CreateVideoChallangeResponse>() {
                 @Override
                 public void onResponse(Call<CreateVideoChallangeResponse> call, Response<CreateVideoChallangeResponse> response) {
                     progressDialog.dismiss();

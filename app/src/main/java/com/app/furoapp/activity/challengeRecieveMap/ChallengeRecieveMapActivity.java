@@ -25,6 +25,7 @@ import com.app.furoapp.model.mapchallenge.ChallengeDetails;
 import com.app.furoapp.model.mapchallenge.MapChallengeRecieveRequest;
 import com.app.furoapp.model.mapchallenge.MapChallengeRecieveResponse;
 import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
@@ -96,7 +97,7 @@ public class ChallengeRecieveMapActivity extends AppCompatActivity {
 
         Util.isInternetConnected(this);
         Util.showProgressDialog(getApplicationContext());
-        RestClient.userMapReciveChallenge(challangeDetailRequest, new Callback<MapChallengeRecieveResponse>() {
+        RestClient.userMapReciveChallenge(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN),challangeDetailRequest, new Callback<MapChallengeRecieveResponse>() {
             @Override
             public void onResponse(Call<MapChallengeRecieveResponse> call, Response<MapChallengeRecieveResponse> response) {
                 Util.dismissProgressDialog();
@@ -137,7 +138,7 @@ public class ChallengeRecieveMapActivity extends AppCompatActivity {
 
 
         Util.showProgressDialog(this);
-        RestClient.ChallangeAcceptByUser(challengeAcceptedRequest, new Callback<ChallengeAcceptedResponse>() {
+        RestClient.ChallangeAcceptByUser(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN),challengeAcceptedRequest, new Callback<ChallengeAcceptedResponse>() {
             @Override
             public void onResponse(Call<ChallengeAcceptedResponse> call, Response<ChallengeAcceptedResponse> response) {
                 Util.dismissProgressDialog();
@@ -177,7 +178,7 @@ public class ChallengeRecieveMapActivity extends AppCompatActivity {
         challangeRejectRequest.setUserId(userId);
 
         Util.showProgressDialog(this);
-        RestClient.ChallangeRejectByUser(challangeRejectRequest, new Callback<ChallangeRejectResponse>() {
+        RestClient.ChallangeRejectByUser(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN),challangeRejectRequest, new Callback<ChallangeRejectResponse>() {
             @Override
             public void onResponse(Call<ChallangeRejectResponse> call, Response<ChallangeRejectResponse> response) {
                 Util.dismissProgressDialog();

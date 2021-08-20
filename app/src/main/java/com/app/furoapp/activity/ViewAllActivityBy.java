@@ -19,6 +19,7 @@ import com.app.furoapp.model.challengeByUser.ChallengeByUser;
 import com.app.furoapp.model.challengeByUser.ChallengeByUserResponse;
 import com.app.furoapp.model.challengeByUser.SendChallenge;
 import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
@@ -74,7 +75,7 @@ public class ViewAllActivityBy extends AppCompatActivity {
 
         Util.isInternetConnected(getApplicationContext());
         gifView.setVisibility(View.VISIBLE);
-        RestClient.userChallangeByUser(challengeByUser, new Callback<ChallengeByUserResponse>() {
+        RestClient.userChallangeByUser(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN), challengeByUser, new Callback<ChallengeByUserResponse>() {
             @Override
             public void onResponse(Call<ChallengeByUserResponse> call, Response<ChallengeByUserResponse> response) {
                 gifView.setVisibility(View.GONE);
@@ -82,12 +83,12 @@ public class ViewAllActivityBy extends AppCompatActivity {
                     if (response.body() != null && response.body().getSendChallenge() != null && response.body().getSendChallenge().size() > 0) {
 
                         List<SendChallenge> sendChallenges = response.body().getSendChallenge();
-                        if (sendChallenges!=null && sendChallenges.size()>0) {
+                        if (sendChallenges != null && sendChallenges.size() > 0) {
                             openAndChallengeCloseAdapter = new OpenAndChallengeCloseAdapter(sendChallenges, getApplicationContext());
                             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
                             recyclerView1.setLayoutManager(layoutManager);
                             recyclerView1.setAdapter(openAndChallengeCloseAdapter);
-                        }else {
+                        } else {
                             Toast.makeText(homeMainActivity, "No records found", Toast.LENGTH_SHORT).show();
                         }
 

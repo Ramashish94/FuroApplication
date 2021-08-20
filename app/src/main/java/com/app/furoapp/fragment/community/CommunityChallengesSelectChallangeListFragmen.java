@@ -24,6 +24,7 @@ import com.app.furoapp.model.communityChallange.Challenge;
 import com.app.furoapp.model.communityChallange.CommunityChallangeRequest;
 import com.app.furoapp.model.communityChallange.CommunityChallangeResponse;
 import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
@@ -39,7 +40,7 @@ public class CommunityChallengesSelectChallangeListFragmen extends Fragment {
     RecyclerView recyclerView;
     List<Challenge> challenges;
     private String userId, communityId;
-    private TextView comunityName,noChallanges;
+    private TextView comunityName, noChallanges;
     FragmentCommunitySelectedChallengeListBinding binding;
     CommunityChallangeSelectChallangeAdapter communityChallangeSelectChallangeAdapter;
 
@@ -62,7 +63,7 @@ public class CommunityChallengesSelectChallangeListFragmen extends Fragment {
         userId = FuroPrefs.getString(getContext(), "loginUserId");
         communityId = FuroPrefs.getString(getContext(), "community_id");
 
-        String community = FuroPrefs.getString(getContext(),"communityName");
+        String community = FuroPrefs.getString(getContext(), "communityName");
         comunityName.setText(community);
         communityChallange();
 
@@ -92,12 +93,12 @@ public class CommunityChallengesSelectChallangeListFragmen extends Fragment {
 
             Util.isInternetConnected(getContext());
             Util.showProgressDialog(getContext());
-            RestClient.userCommunityChallange(communityChallangeRequest, new Callback<CommunityChallangeResponse>() {
+            RestClient.userCommunityChallange(FuroPrefs.getString(getActivity(), Constants.Get_ACCESS_TOKEN), communityChallangeRequest, new Callback<CommunityChallangeResponse>() {
                 @Override
                 public void onResponse(Call<CommunityChallangeResponse> call, Response<CommunityChallangeResponse> response) {
-                   Util.dismissProgressDialog();
+                    Util.dismissProgressDialog();
                     if (response != null) {
-                        if (response.body() != null && response.body().getChallenges().size()>0) {
+                        if (response.body() != null && response.body().getChallenges().size() > 0) {
                             challenges = response.body().getChallenges();
                             communityChallangeSelectChallangeAdapter = new CommunityChallangeSelectChallangeAdapter(challenges, getContext());
                             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -106,8 +107,7 @@ public class CommunityChallengesSelectChallangeListFragmen extends Fragment {
                             recyclerView.setAdapter(communityChallangeSelectChallangeAdapter);
 
 
-
-                        }else{
+                        } else {
 
                             noChallanges.setVisibility(View.VISIBLE);
                         }

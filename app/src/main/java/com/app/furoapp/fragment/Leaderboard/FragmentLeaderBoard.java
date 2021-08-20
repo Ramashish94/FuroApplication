@@ -28,6 +28,8 @@ import com.app.furoapp.model.LeaderBoard.Monthly;
 import com.app.furoapp.model.LeaderBoard.Weekly;
 import com.app.furoapp.model.Leaderboard;
 import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
+import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
 import java.util.List;
@@ -118,7 +120,7 @@ public class FragmentLeaderBoard extends Fragment {
             linearLayout.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.VISIBLE);
 
-            RestClient.userLeaderData(new Leaderboard(act), new Callback<LeaderModel>() {
+            RestClient.userLeaderData(FuroPrefs.getString(getActivity(), Constants.Get_ACCESS_TOKEN), new Leaderboard(act), new Callback<LeaderModel>() {
                 @Override
                 public void onResponse(Call<LeaderModel> call, Response<LeaderModel> response) {
                     linearLayout.setVisibility(View.GONE);

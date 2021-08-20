@@ -22,6 +22,7 @@ import com.app.furoapp.model.challengeforyoudetail.ChallengeDetails;
 import com.app.furoapp.model.challengeforyoudetail.ChallengeForYouDetailRequest;
 import com.app.furoapp.model.challengeforyoudetail.ChallengeForYouDetailResponse;
 import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
@@ -74,7 +75,7 @@ public class ChallengeForYouDetailActivity extends AppCompatActivity {
         challengeForYouDetailRequest.setUserId(userid);
 
         Util.showProgressDialog(getApplicationContext());
-        RestClient.userChallengeForDetail(challengeForYouDetailRequest, new Callback<ChallengeForYouDetailResponse>() {
+        RestClient.userChallengeForDetail(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN),challengeForYouDetailRequest, new Callback<ChallengeForYouDetailResponse>() {
             @Override
             public void onResponse(Call<ChallengeForYouDetailResponse> call, Response<ChallengeForYouDetailResponse> response) {
                 Util.dismissProgressDialog();
@@ -121,7 +122,7 @@ public class ChallengeForYouDetailActivity extends AppCompatActivity {
         challengeAcceptedRequest.setSenderId(senderId);
 
         Util.showProgressDialog(this);
-        RestClient.ChallangeAcceptByUser(challengeAcceptedRequest, new Callback<ChallengeAcceptedResponse>() {
+        RestClient.ChallangeAcceptByUser(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN),challengeAcceptedRequest, new Callback<ChallengeAcceptedResponse>() {
             @Override
             public void onResponse(Call<ChallengeAcceptedResponse> call, Response<ChallengeAcceptedResponse> response) {
                 Util.dismissProgressDialog();
@@ -157,7 +158,7 @@ public class ChallengeForYouDetailActivity extends AppCompatActivity {
         challangeRejectRequest.setUserId(userid);
 
         Util.showProgressDialog(this);
-        RestClient.ChallangeRejectByUser(challangeRejectRequest, new Callback<ChallangeRejectResponse>() {
+        RestClient.ChallangeRejectByUser(FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN),challangeRejectRequest, new Callback<ChallangeRejectResponse>() {
             @Override
             public void onResponse(Call<ChallangeRejectResponse> call, Response<ChallangeRejectResponse> response) {
                 Util.dismissProgressDialog();

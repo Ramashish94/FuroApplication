@@ -26,6 +26,7 @@ import com.app.furoapp.model.FriendModel.FriendListModel;
 import com.app.furoapp.model.FriendModel.FriendPendingModel;
 import com.app.furoapp.model.FriendModel.PendingFriendList;
 import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
@@ -102,12 +103,11 @@ public class FragmentFriend extends Fragment implements FriendListAdapter.DataAd
     }
 
 
-
     private void AddFriendsData() {
         if (Util.isInternetConnected(getActivity())) {
-           pGif.setVisibility(View.VISIBLE);
-            Log.i("log_id",FuroPrefs.getString(getActivity(), "loginUserId"));
-            RestClient.FriendsList(new AddFriend(FuroPrefs.getString(getActivity(), "loginUserId")),new Callback<FriendListModel>() {
+            pGif.setVisibility(View.VISIBLE);
+            Log.i("log_id", FuroPrefs.getString(getActivity(), "loginUserId"));
+            RestClient.FriendsList(FuroPrefs.getString(getActivity(), Constants.Get_ACCESS_TOKEN), new AddFriend(FuroPrefs.getString(getActivity(), "loginUserId")), new Callback<FriendListModel>() {
                 @Override
                 public void onResponse(Call<FriendListModel> call, Response<FriendListModel> response) {
                     pGif.setVisibility(View.GONE);
@@ -129,17 +129,15 @@ public class FragmentFriend extends Fragment implements FriendListAdapter.DataAd
     }
 
 
-
     private void RemoveFriendsData(String friend_id) {
         if (Util.isInternetConnected(getActivity())) {
             Util.showProgressDialog(getActivity());
-            RestClient.RemoveFriends(new AddFriend(FuroPrefs.getString(getActivity(), "loginUserId"),friend_id),new Callback<FriendInviteModel>() {
+            RestClient.RemoveFriends(FuroPrefs.getString(getActivity(), Constants.Get_ACCESS_TOKEN), new AddFriend(FuroPrefs.getString(getActivity(), "loginUserId"), friend_id), new Callback<FriendInviteModel>() {
                 @Override
                 public void onResponse(Call<FriendInviteModel> call, Response<FriendInviteModel> response) {
                     Util.dismissProgressDialog();
                     FriendInviteModel friends = response.body();
-                    if(friends.getStatus().equals("200"))
-                    {
+                    if (friends.getStatus().equals("200")) {
                         Toast.makeText(getActivity(), friends.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
@@ -159,7 +157,7 @@ public class FragmentFriend extends Fragment implements FriendListAdapter.DataAd
 
 
     private void setAdapter(List<PendingFriendList> list) {
-        if (list!=null && list.size()>0) {
+        if (list != null && list.size() > 0) {
             adapter = null;
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
             recyclerView.setLayoutManager(layoutManager);
@@ -167,7 +165,7 @@ public class FragmentFriend extends Fragment implements FriendListAdapter.DataAd
             adapter = new FriendListAdapter(list, getActivity(), this);
             recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
-        }else {
+        } else {
             Toast.makeText(getActivity(), "No records founds", Toast.LENGTH_SHORT).show();
         }
     }
@@ -192,10 +190,9 @@ public class FragmentFriend extends Fragment implements FriendListAdapter.DataAd
 
 
     @Override
-    public void onDataSelected(String type,int id) {
+    public void onDataSelected(String type, int id) {
 
-        if(type.equals("remove"))
-        {
+        if (type.equals("remove")) {
             RemoveFriendsData(String.valueOf(id));
             AddFriendsData();
         }

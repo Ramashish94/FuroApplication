@@ -26,6 +26,7 @@ import com.app.furoapp.model.FriendModel.Friends;
 import com.app.furoapp.model.FriendModel.Particpant;
 import com.app.furoapp.model.FriendModel.PendingFriendList;
 import com.app.furoapp.retrofit.RestClient;
+import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
@@ -105,7 +106,7 @@ public class FragmentFriendPending extends Fragment implements FriendPendingAdap
     private void AddFriendsData() {
         if (Util.isInternetConnected(getActivity())) {
             pGif.setVisibility(View.VISIBLE);
-            RestClient.PendingFriends(new AddFriend(FuroPrefs.getString(getActivity(), "loginUserId")), new Callback<FriendPendingModel>() {
+            RestClient.PendingFriends(FuroPrefs.getString(getActivity(), Constants.Get_ACCESS_TOKEN), new AddFriend(FuroPrefs.getString(getActivity(), "loginUserId")), new Callback<FriendPendingModel>() {
                 @Override
                 public void onResponse(Call<FriendPendingModel> call, Response<FriendPendingModel> response) {
                     pGif.setVisibility(View.GONE);
@@ -129,7 +130,7 @@ public class FragmentFriendPending extends Fragment implements FriendPendingAdap
     private void AcceptFriendsData(String friend_id) {
         if (Util.isInternetConnected(getActivity())) {
             Util.showProgressDialog(getActivity());
-            RestClient.AcceptFriend(new AddFriend(FuroPrefs.getString(getActivity(), "loginUserId"), friend_id), new Callback<FriendInviteModel>() {
+            RestClient.AcceptFriend(FuroPrefs.getString(getActivity(), Constants.Get_ACCESS_TOKEN), new AddFriend(FuroPrefs.getString(getActivity(), "loginUserId"), friend_id), new Callback<FriendInviteModel>() {
                 @Override
                 public void onResponse(Call<FriendInviteModel> call, Response<FriendInviteModel> response) {
                     Util.dismissProgressDialog();
@@ -155,7 +156,7 @@ public class FragmentFriendPending extends Fragment implements FriendPendingAdap
     private void RejectFriendsData(String friend_id) {
         if (Util.isInternetConnected(getActivity())) {
             Util.showProgressDialog(getActivity());
-            RestClient.RejectFriends(new AddFriend(FuroPrefs.getString(getActivity(), "loginUserId"), friend_id), new Callback<FriendInviteModel>() {
+            RestClient.RejectFriends(FuroPrefs.getString(getActivity(), Constants.Get_ACCESS_TOKEN), new AddFriend(FuroPrefs.getString(getActivity(), "loginUserId"), friend_id), new Callback<FriendInviteModel>() {
                 @Override
                 public void onResponse(Call<FriendInviteModel> call, Response<FriendInviteModel> response) {
                     Util.dismissProgressDialog();

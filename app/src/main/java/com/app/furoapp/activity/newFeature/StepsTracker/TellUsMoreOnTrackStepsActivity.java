@@ -54,14 +54,14 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
     public GoogleSignInClient mGoogleSignInClient;
     public AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
+    public Data setModifiedDataVal;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tell_us_more_on_track_steps);
         initViews();
-        rulerPickerValue();
-        clickEvent();
 
         getAccessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
 
@@ -72,6 +72,8 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
 
         callModifiedSavedDataApiLandingTime();
+        rulerPickerValue();
+        clickEvent();
 
     }
 
@@ -99,9 +101,11 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
         RestClient.getModifiedSavedDataLandingTime(getAccessToken, new Callback<ModifiedSavedDataResponse>() {
             @Override
             public void onResponse(Call<ModifiedSavedDataResponse> call, Response<ModifiedSavedDataResponse> response) {
-                if (response.code() == 20) {
+                if (response.code() == 200) {
                     if (response.body() != null && response.body().getData() != null) {
-                        setModifiedData(response.body().getData());
+                        setModifiedDataVal = response.body().getData();
+                        setModifiedData(setModifiedDataVal);
+                        //setModifiedData(response.body().getData());
                     } else {
                     }
                 } else if (response.code() == 500) {
@@ -126,9 +130,17 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
             }
             if (data.getGender() != null) {
                 if (data.getGender().equalsIgnoreCase("Female")) {
-                    tvFemale.setTextColor(Color.parseColor("#979797"));
+                    tvFemale.setTextColor(Color.parseColor("#40D5E8"));
+                    tvMale.setTextColor(Color.parseColor("#979797"));
+                    genderVal = data.getGender();
+                    isGenderSelected = true;
+                    Log.d("genderVal", genderVal);
                 } else if (data.getGender().equalsIgnoreCase("Male")) {
                     tvMale.setTextColor(Color.parseColor("#40D5E8"));
+                    tvFemale.setTextColor(Color.parseColor("#979797"));
+                    genderVal = data.getGender();
+                    isGenderSelected = true;
+                    Log.d("genderVal", genderVal);
                 }
             } else {
             }
@@ -171,7 +183,11 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
     private void rulerPickerValue() {
         /*Height Value*/
         final RulerValuePicker heightPicker = findViewById(R.id.heightRulerPicker);
-        heightPicker.selectValue(156);
+        if (setModifiedDataVal != null && setModifiedDataVal.getHeight() != null) {
+            heightPicker.selectValue(Integer.parseInt(setModifiedDataVal.getHeight()));
+        } else {
+            heightPicker.selectValue(160);
+        }
         heightPicker.setValuePickerListener(new RulerValuePickerListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -191,7 +207,11 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
 
         /*Weight value*/
         final RulerValuePicker weightPicker = findViewById(R.id.weightRulerPicker);
-        weightPicker.selectValue(55);
+        if (setModifiedDataVal != null && setModifiedDataVal.getWeight() != null) {
+            weightPicker.selectValue(Integer.parseInt(setModifiedDataVal.getWeight()));
+        } else {
+            weightPicker.selectValue(70);
+        }
         weightPicker.setValuePickerListener(new RulerValuePickerListener() {
             @Override
             public void onValueChange(final int selectedValue) {

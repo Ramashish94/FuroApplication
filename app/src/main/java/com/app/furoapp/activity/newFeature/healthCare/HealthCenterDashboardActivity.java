@@ -174,7 +174,7 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
             tvBmiIndex.setText("" + getBmi);
 
             if (getBmi < 19) {
-                tvBmiType.setText("Undereight ");
+                tvBmiType.setText("Underweight ");
             } else if (getBmi >= 19 && getBmi <= 24) {
                 tvBmiType.setText("Healthy");
             } else if (getBmi >= 25 && getBmi <= 29) {

@@ -333,7 +333,7 @@
                                 android:inputType="textCapSentences"
                                 android:textAppearance="@style/steps"
                                 android:textSize="@dimen/sp_10"
-                                android:textStyle="bold"
+                                android:textStyle="normal"
                                 tools:text=" Overwaight" />
                             <!-- <ImageView
                                  android:layout_width="match_parent"

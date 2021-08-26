@@ -216,20 +216,13 @@ public class CreateAHydrationPlaneActivity extends AppCompatActivity implements 
         ivStartJourney.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // if (isPalnSelected) {
                 Intent intent = new Intent(getApplicationContext(), WaterIntakeCounterActivity.class);
                 FuroPrefs.putString(getApplicationContext(), Constants.WATER_INTAKE_PLAN, planId);
-                // intent.putExtra("planId", planId);
-                // isPalnSelected = false;
                 startActivity(intent);
                 finish();
-                /*} else {
-                    Toast.makeText(CreatePlaneActivity.this, "Please select plan !", Toast.LENGTH_SHORT).show();
-                }*/
             }
         });
-        /*            holder.ivCircle.setBackgroundResource(R.drawable.bluecircle);
-         */
+
         ivRecommendedPlan.setOnClickListener(v -> {
             ivRecommendedPlan.setVisibility(View.GONE);
             ivSelRecommendedPlan.setVisibility(View.VISIBLE);
@@ -326,7 +319,7 @@ public class CreateAHydrationPlaneActivity extends AppCompatActivity implements 
 
     }
 
-    private void adapterSelectedItem(List<AllPlan> allPlans){
+    private void adapterSelectedItem(List<AllPlan> allPlans) {
         if (allPlans != null && allPlans.size() > 0) {
             for (AllPlan allPlan : allPlans) {
                 if (allPlan.getIsSelected() == 1) {

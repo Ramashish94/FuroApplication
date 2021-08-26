@@ -246,7 +246,11 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllSlotAd
             fetchAllSlotAdapter = new FetchAllSlotAdapter(getApplicationContext(), data, this);
             rvSlotTime.setAdapter(fetchAllSlotAdapter);
             fetchAllSlotAdapter.notifyDataSetChanged();
-        } else {
+        } else if (data.size() == 0) {
+            rvSlotTime.setLayoutManager(new LinearLayoutManager(this));
+            fetchAllSlotAdapter = new FetchAllSlotAdapter(getApplicationContext(), data, this);
+            rvSlotTime.setAdapter(fetchAllSlotAdapter);
+            fetchAllSlotAdapter.notifyDataSetChanged();
             Toast.makeText(this, "No records founds !", Toast.LENGTH_SHORT).show();
         }
     }

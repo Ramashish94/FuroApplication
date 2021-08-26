@@ -184,6 +184,8 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
             } else if (getBmi >= 40) {
                 tvBmiType.setText("Extremely Obese BMI");
             }
+        } else {
+            Toast.makeText(this, "No bmi record found!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -194,7 +196,7 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
             stepsPrecent = (stepCounter.getCountSteps() * 100 / stepCounter.getTotalSteps());
             stepsProgressView.setProgress(stepsPrecent);     // set percent on progress bar
         } else {
-            Toast.makeText(this, "No steps counter record found", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(this, "No steps counter record found", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -248,7 +250,7 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
 
 
     private void getAlertTokenDialog() {
-        if (FuroPrefs.getString(getApplicationContext(),Constants.Get_ACCESS_TOKEN) != null) {
+        if (FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN) != null) {
             dialogBuilder = new AlertDialog.Builder(this);
             LayoutInflater inflater = this.getLayoutInflater();
             View dialogView = inflater.inflate(R.layout.session_expired_layout, null);

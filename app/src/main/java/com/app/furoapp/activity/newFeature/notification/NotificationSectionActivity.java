@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +44,7 @@ public class NotificationSectionActivity extends AppCompatActivity {
     TextView tvNosOfDailyNotification, tvNosOfChallengeNotification;
 
     private String getAccessToken;
+    private ProgressBar loadingProgressBar;
 
     @Override
 
@@ -56,6 +59,7 @@ public class NotificationSectionActivity extends AppCompatActivity {
 
         tvNosOfChallengeNotification = findViewById(R.id.tvNosOfChallengeNotification);
         tvNosOfDailyNotification = findViewById(R.id.tvNosOfDailyNotification);
+        loadingProgressBar = findViewById(R.id.loadingProgressBar);
 
         setDailyReadNotificationAdapter();
         setChallangeNotificationRecyAdapter();
@@ -68,12 +72,15 @@ public class NotificationSectionActivity extends AppCompatActivity {
     private void callNotificationApi() {
         if (Util.isInternetConnected(getApplicationContext())) {
             Util.showProgressDialog(getApplicationContext());
+            loadingProgressBar.setVisibility(View.VISIBLE);
             RestClient.getNotificationData(getAccessToken, new Callback<NotificationResponses>() {
                 @Override
                 public void onResponse(Call<NotificationResponses> call, Response<NotificationResponses> response) {
                     Util.dismissProgressDialog();
+                    loadingProgressBar.setVisibility(View.GONE);
                     if (response.code() == 200) {
                         if (response.body() != null) {
+
                             // daily notification;
                             notifyDailyAdapter(response.body().getDailyFeedNotification().getData());
                             //challenge notification;
@@ -114,7 +121,7 @@ public class NotificationSectionActivity extends AppCompatActivity {
         if (dailyFeedNotificationList != null && dailyFeedNotificationList.size() > 0) {
             dailyFeedNotificationAdapter.notifyDataSetChanged();
         }
-   }
+    }
 
     private void setChallangeNotificationRecyAdapter() {
         challangeNotificationAdapter = new ChallangeNotificationAdapter(getApplicationContext(), challengeNotificationList);

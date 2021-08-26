@@ -268,7 +268,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             /*Update progress percent*/
             takenWaterInPercent = (takingWater * 100 / totRecommendedWater);
             scProgressBar.setPercent(takenWaterInPercent);     // set percent on progress bar
-            if (takingWater == totRecommendedWater || takenWaterInPercent >= 99 || body.getSelectedPlan().getTakenGlassOfWater() == body.getSelectedPlan().getTotalGlass()) {
+            if (takingWater == totRecommendedWater || takenWaterInPercent >= 99 ) {
                 includeCongratsPopMenu.setVisibility(View.VISIBLE);
                 tvRecommendedWaterIntake.setText("" + totRecommendedWater + "  ml");
                 clWaterIntakeCounter.setClickable(false);
@@ -278,56 +278,6 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         }
     }
 
-
-    private void setTodayProgressData(SelectedPlan selectedPlan) {
-        if (selectedPlan != null) {
-            if (selectedPlan.getTakenGlassOfWater() != null) {
-                tvNosGlassCount.setText("" + Integer.parseInt(selectedPlan.getTakenGlassOfWater().toString()));
-            }
-            if (selectedPlan.getTakenWaterInMl() != null) {
-                takingWater = Integer.parseInt(selectedPlan.getTakenWaterInMl().toString());   //for percent
-                tvTakingWater.setText("" + takingWater);
-            }
-            if (selectedPlan.getWaterTakeInMl() != null) {
-                totRecommendedWater = Integer.parseInt(selectedPlan.getWaterTakeInMl().toString());    //for percent
-                tvRecommendedReamingWater.setText("of " + totRecommendedWater + " ml");
-            }
-            if (selectedPlan.getTakenWaterInMl() != null) {
-                tvTotAmountDrunk.setText("" + selectedPlan.getTakenWaterInMl().toString() + " ml");
-            }
-            if (selectedPlan.getTakenGlassOfWater() != null) {
-                tvNosOfGlasses.setText("" + selectedPlan.getTakenGlassOfWater().toString());
-            }
-            if (selectedPlan.getRecommendedGlassOfWater() != null) {
-                tvRecommendedNosOfGlasses.setText("/" + selectedPlan.getTotalGlass().toString());
-            }
-            if (selectedPlan.getCreatedAt() != null) {
-
-                DateFormat dateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
-                try {
-                    date = dateFormat.parse(selectedPlan.getUpdatedAt());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                DateFormat dateFormat1 = new SimpleDateFormat("dd MMM, EEE");
-                String getDate = dateFormat1.format(date);
-                tvDateWithDay.setText(getDate);
-            }
-            /*Update progress percent*/
-            takenWaterInPercent = (takingWater * 100 / totRecommendedWater);
-            scProgressBar.setPercent(takenWaterInPercent);     // set percent on progress bar
-            if (takingWater == totRecommendedWater || takenWaterInPercent >= 99) {
-                includeCongratsPopMenu.setVisibility(View.VISIBLE);
-                tvRecommendedWaterIntake.setText("" + totRecommendedWater + "  ml");
-                clWaterIntakeCounter.setClickable(false);
-            } else {
-//            Toast.makeText(this, "Selected plan will be Null", Toast.LENGTH_SHORT).show();
-            }
-
-        }
-
-
-    }
 
 
     private void clickEvent() {

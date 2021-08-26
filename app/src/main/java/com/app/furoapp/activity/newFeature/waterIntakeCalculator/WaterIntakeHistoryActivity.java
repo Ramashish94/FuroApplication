@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -98,6 +99,7 @@ public class WaterIntakeHistoryActivity extends AppCompatActivity {
     public GoogleSignInClient mGoogleSignInClient;
     public AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
+    private ProgressBar loadingProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +132,7 @@ public class WaterIntakeHistoryActivity extends AppCompatActivity {
         tvRecommendedNosOfWaterGlasses = findViewById(R.id.tvRecommendedNosOfWaterGlasses);
         tvTotWaterAmountDrunk = findViewById(R.id.tvTotWaterAmountDrunk);
         tvCountNosOfGlass = findViewById(R.id.tvCountNosOfGlass);
+        loadingProgressBar = findViewById(R.id.loadingProgressBar);
     }
 
 
@@ -142,6 +145,11 @@ public class WaterIntakeHistoryActivity extends AppCompatActivity {
                     switchBtnAllType.setChecked(false);
                     switchBtnMontly.setChecked(false);
                     callWeeklyMonthlyAllTimePlanApi("Weekly");
+                } else if (isChecked == false) {
+                    type = "All Time";
+                    switchBtnWeekly.setChecked(false);
+                    callWeeklyMonthlyAllTimePlanApi("All Time");
+
                 }
             }
         });
@@ -154,6 +162,10 @@ public class WaterIntakeHistoryActivity extends AppCompatActivity {
                     switchBtnWeekly.setChecked(false);
                     switchBtnAllType.setChecked(false);
                     callWeeklyMonthlyAllTimePlanApi("Monthly");
+                } else if (isChecked == false) {
+                    type = "All Time";
+                    switchBtnMontly.setChecked(false);
+                    callWeeklyMonthlyAllTimePlanApi("All Time");
 
                 }
             }
@@ -167,6 +179,10 @@ public class WaterIntakeHistoryActivity extends AppCompatActivity {
                     switchBtnWeekly.setChecked(false);
                     switchBtnMontly.setChecked(false);
                     callWeeklyMonthlyAllTimePlanApi("All Time");
+                } else if (isChecked == false) {
+                    type = "All Time";
+                    switchBtnAllType.setChecked(false);
+                    callWeeklyMonthlyAllTimePlanApi("All Time");
                 }
             }
         });
@@ -178,10 +194,12 @@ public class WaterIntakeHistoryActivity extends AppCompatActivity {
 
     private void callWeeklyMonthlyAllTimePlanApi(String type) {
         Utils.showProgressDialogBar(getApplicationContext());
+        loadingProgressBar.setVisibility(View.VISIBLE);
         RestClient.getRestorePlan(getAccessToken, new Callback<RestorePlanResponse>() {
             @Override
             public void onResponse(Call<RestorePlanResponse> call, Response<RestorePlanResponse> response) {
                 Utils.dismissProgressDialogBar();
+                loadingProgressBar.setVisibility(View.GONE);
                 if (response.code() == 200) {
                     if (response.body() != null) {
                         if (type.equalsIgnoreCase("Weekly")) {
@@ -251,7 +269,7 @@ public class WaterIntakeHistoryActivity extends AppCompatActivity {
             DateFormat dateFormat1 = new SimpleDateFormat("dd MMM, EEE");
             String getDate = dateFormat1.format(date);
             tvDateWithDays.setText(getDate);
-        }else {
+        } else {
 
         }
     }

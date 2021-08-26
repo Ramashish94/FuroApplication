@@ -292,7 +292,6 @@ public class HomeMainActivity extends AppCompatActivity {
         llDailyStepTracker = findViewById(R.id.llDailyStepTracker);
         llWaterIntakeCalculator = findViewById(R.id.llWaterIntakeCalculator);
         llTrackBMI = findViewById(R.id.llTrackBMI);
-        llCalculateCalories = findViewById(R.id.llCalculateCalories);
 
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -784,15 +783,6 @@ public class HomeMainActivity extends AppCompatActivity {
             }
         });
 
-        llCalculateCalories.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(HomeMainActivity.this, "Click Success on calculate calories", Toast.LENGTH_SHORT).show();
-                /*Intent intent = new Intent(getApplicationContext(), CalculateCaloriesActivity.class);
-                startActivity(intent);*/
-
-            }
-        });
     }
 
     private void callWaterIntakeExistsUserApi() {

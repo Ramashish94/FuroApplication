@@ -21,8 +21,8 @@ import android.widget.Toast;
 import com.app.furoapp.R;
 import com.app.furoapp.activity.LoginTutorialScreen;
 import com.app.furoapp.activity.newFeature.StepsTracker.FqStepsCounterActivity;
-import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.DataItem;
-import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.TipsResponse;
+import com.app.furoapp.activity.newFeature.fqTips.TipsResponse;
+import com.app.furoapp.activity.newFeature.fqTips.WaterIntakeDatum;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.adapter.SelectCupSizeAdapter;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchGlass.UserGlassSize;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.restorePlanModel.AllTimeData;
@@ -89,7 +89,7 @@ public class WaterIntakeHistoryActivity extends AppCompatActivity {
     public int takenWaterInPercent;
     public int getWaterPercent;
     private Handler tipsHandler = new Handler();
-    private List<DataItem> tipsList;
+    private List<WaterIntakeDatum> tipsList;
     private int tipsListSize = 0;
     private int tipsStart = 0;
     long timeInMilliseconds = 0L;
@@ -283,11 +283,15 @@ public class WaterIntakeHistoryActivity extends AppCompatActivity {
                 public void onResponse(Call<TipsResponse> call, Response<TipsResponse> response) {
                     Util.dismissProgressDialog();
                     if (response.code() == 200) {
-                        //   Log.d(TAG, "onResponse() called with: , response = [" + response.body() + "]");
-                        if (response.body().getData() != null && response.body().getData().getData() != null && response.body().getData().getData().size() > 0) {
-                            tipsList = response.body().getData().getData();
+
+                        if (response.body().getData() != null
+                                && response.body().getData() != null
+                                && response.body().getData().getBmiData() != null
+                                && response.body().getData().getBmiData().size() > 0) {
+                            tipsList = response.body().getData().getWaterIntakeData();
                             tipsListSize = tipsList.size();
                             tipsHandler.postDelayed(tipsRunnable, 0);
+
                         } else {
                             Toast.makeText(getApplicationContext(), "No tips data found", Toast.LENGTH_SHORT).show();
 

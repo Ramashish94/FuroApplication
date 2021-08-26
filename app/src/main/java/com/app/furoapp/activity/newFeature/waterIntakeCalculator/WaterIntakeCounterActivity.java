@@ -22,8 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
 import com.app.furoapp.activity.LoginTutorialScreen;
-import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.DataItem;
-import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.TipsResponse;
+import com.app.furoapp.activity.newFeature.fqTips.TipsResponse;
+import com.app.furoapp.activity.newFeature.fqTips.WaterIntakeDatum;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.adapter.SelectCupSizeAdapter;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.ChangeGlassSizeRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.changeGlassSize.UserChangeGlassSizeResponse;
@@ -38,7 +38,6 @@ import com.app.furoapp.activity.newFeature.waterIntakeCalculator.restorePlanMode
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.restorePlanModel.WeeklyData;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.selectCustomSizeGlass.SelectCustomGlassSizeRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.selectCustomSizeGlass.SelectCustomSizeGlassResponse;
-import com.app.furoapp.activity.newFeature.waterIntakeCalculator.waterIntakeCounter.SelectedPlan;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.waterIntakeCounter.WaterIntakeUpdatePlanRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.waterIntakeCounter.WaterIntakeUpdatePlanResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.waterIntakeCounter.adapter.AllTimeDataAdapter;
@@ -71,7 +70,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
     public ImageView ivAddCup, ivAddCustomSizeQuntity, ivCancel, ivSetting, ivBackIcon, ivChangeCupSize, ivUpArrow, ivDownArrow;
     private String getAccessToken;
     public TextView tvNosGlassCount, tvTakingWater, tvAddCustomSize, tvRecommendedReamingWater, tvGlassSize, tvChangeCupSize, tvChangeCupSizeAndCustomSize,
-            tvTotAmountDrunk, tvNosOfGlasses, tvRecommendedNosOfGlasses, tvDateWithDay;
+            tvTotAmountDrunk, tvNosOfGlasses, tvRecommendedNosOfGlasses, tvDateWithDay,tvCupSize;
     public TextView tvRecommendedNosOfWaterGlasses, tvTotWaterAmountDrunk, tvCountNosOfGlass, tvDateWithDays, tvPrizmTips, tvRecommendedWaterIntake;
     public LinearLayout llCongratsClosedIcon, llHistory;
     public View includePopMenuOfSelectCupSize, includeCongratsPopMenu;
@@ -100,7 +99,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
     public int takenWaterInPercent;
     public int getWaterPercent;
     private Handler tipsHandler = new Handler();
-    private List<DataItem> tipsList;
+    private List<WaterIntakeDatum> tipsList;
     private int tipsListSize = 0;
     private int tipsStart = 0;
     long timeInMilliseconds = 0L;
@@ -123,6 +122,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
 
         initViews();
         callDailyWaterIntakeUpdatePlanApi();
+        callTipsApi();
         clickEvent();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -161,7 +161,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         //ivDownArrow = findViewById(R.id.ivDownArrow);
         rvOfDailyWeeklyAllTime = findViewById(R.id.rvOfDailyWeeklyAllTime);
         // includePopMenuOfWaterIntakeCounter = findViewById(R.id.includePopMenuOfWaterIntakeCounter);
-        // tvPrizmTips = findViewById(R.id.tvPrizmTips);
+         tvPrizmTips = findViewById(R.id.tvPrizmTips);
         llHistory = findViewById(R.id.llHistory);
         tvRecommendedNosOfWaterGlasses = findViewById(R.id.tvRecommendedNosOfWaterGlasses);
         tvTotWaterAmountDrunk = findViewById(R.id.tvTotWaterAmountDrunk);
@@ -173,6 +173,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         tvChangeCupSizeAndCustomSize = findViewById(R.id.tvChangeCupSizeAndCustomSize);
         loadingProgressBar = findViewById(R.id.loadingProgressBar);
         loadingProgressBar2 = findViewById(R.id.loadingProgressBar2);
+        tvCupSize = findViewById(R.id.tvCupSize);
     }
 
     private void callDailyWaterIntakeUpdatePlanApi() {
@@ -268,7 +269,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             /*Update progress percent*/
             takenWaterInPercent = (takingWater * 100 / totRecommendedWater);
             scProgressBar.setPercent(takenWaterInPercent);     // set percent on progress bar
-            if (takingWater == totRecommendedWater || takenWaterInPercent >= 99 ) {
+            if (takingWater == totRecommendedWater || takenWaterInPercent >= 99) {
                 includeCongratsPopMenu.setVisibility(View.VISIBLE);
                 tvRecommendedWaterIntake.setText("" + totRecommendedWater + "  ml");
                 clWaterIntakeCounter.setClickable(false);
@@ -277,7 +278,6 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             }
         }
     }
-
 
 
     private void clickEvent() {
@@ -311,6 +311,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             public void onClick(View v) {
                 includePopMenuOfSelectCupSize.setVisibility(View.VISIBLE);
                 clWaterIntakeCounter.setClickable(false);
+                tvCupSize.setText("Add  Custom  sized  quantity    ");
                 tvChangeCupSize.setVisibility(View.GONE);
                 tvAddCustomSize.setVisibility(View.VISIBLE);
                 tvChangeCupSizeAndCustomSize.setText("What is the general glass size/quantity that you consume every time? ");
@@ -358,7 +359,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         ivBackIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(getApplicationContext(), CreatePlaneActivity.class);
+                intent = new Intent(getApplicationContext(), CreateAHydrationPlaneActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -426,7 +427,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
             @Override
             public void onClick(View v) {
                 includeCongratsPopMenu.setVisibility(View.GONE);
-                intent = new Intent(getApplicationContext(), CreatePlaneActivity.class);
+                intent = new Intent(getApplicationContext(), CreateAHydrationPlaneActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -698,12 +699,16 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                     Util.dismissProgressDialog();
                     if (response.code() == 200) {
                         //   Log.d(TAG, "onResponse() called with: , response = [" + response.body() + "]");
-                        if (response.body().getData() != null && response.body().getData().getData() != null && response.body().getData().getData().size() > 0) {
-                            tipsList = response.body().getData().getData();
+                        if (response.body().getData() != null
+                                && response.body().getData() != null
+                                && response.body().getData().getBmiData() != null
+                                && response.body().getData().getBmiData().size() > 0) {
+                            tipsList = response.body().getData().getWaterIntakeData();
                             tipsListSize = tipsList.size();
                             tipsHandler.postDelayed(tipsRunnable, 0);
+
                         } else {
-                            Toast.makeText(getApplicationContext(), "No tips data found ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "No tips data found", Toast.LENGTH_SHORT).show();
 
                         }
                     } else {
@@ -811,7 +816,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        intent = new Intent(getApplicationContext(), CreatePlaneActivity.class);
+        intent = new Intent(getApplicationContext(), CreateAHydrationPlaneActivity.class);
         startActivity(intent);
         finish();
     }

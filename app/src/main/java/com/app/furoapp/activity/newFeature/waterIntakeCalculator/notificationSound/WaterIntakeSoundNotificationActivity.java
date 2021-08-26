@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.waterIntakeCalculator.CreatePlaneActivity;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.CreateAHydrationPlaneActivity;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
@@ -74,7 +74,7 @@ public class WaterIntakeSoundNotificationActivity extends AppCompatActivity {
         ivBackArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(getApplicationContext(), CreatePlaneActivity.class);
+                intent = new Intent(getApplicationContext(), CreateAHydrationPlaneActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -90,7 +90,7 @@ public class WaterIntakeSoundNotificationActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        intent = new Intent(getApplicationContext(), CreatePlaneActivity.class);
+        intent = new Intent(getApplicationContext(), CreateAHydrationPlaneActivity.class);
         startActivity(intent);
         finish();
     }

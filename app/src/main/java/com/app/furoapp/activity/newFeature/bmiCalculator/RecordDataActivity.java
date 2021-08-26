@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.app.furoapp.R;
@@ -30,6 +31,7 @@ public class RecordDataActivity extends AppCompatActivity {
     FetchRecordAdapter fetchRecordAdapter;
     List<Bmi> bmiArrayList = new ArrayList<>();
     private String getAccessToken;
+    private ProgressBar loadingProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class RecordDataActivity extends AppCompatActivity {
 
         rvRecordedBmi = findViewById(R.id.rvRecordedBmi);
         ivBackArrow = findViewById(R.id.ivBackArrow);
+        loadingProgressBar = findViewById(R.id.loadingProgressBar);
 
         getAccessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
 
@@ -48,9 +51,11 @@ public class RecordDataActivity extends AppCompatActivity {
     }
 
     private void getFetchUserWiseDataApi() {
+        loadingProgressBar.setVisibility(View.VISIBLE);
         RestClient.getFetchUserWiseData(getAccessToken, new Callback<FetchUserWiseDataResponse>() {
             @Override
             public void onResponse(Call<FetchUserWiseDataResponse> call, Response<FetchUserWiseDataResponse> response) {
+                loadingProgressBar.setVisibility(View.GONE);
                 if (response.code() == 200 && response.body() != null && response.body().getStatus() != null) {
                     notifyFetchUserWiseData(response.body().getBmi());
                 } else {

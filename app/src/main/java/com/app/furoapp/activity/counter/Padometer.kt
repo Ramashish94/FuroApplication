@@ -23,8 +23,6 @@ import com.app.furoapp.activity.newFeature.StepsTracker.FqStepsCounterActivity
 import com.app.furoapp.activity.newFeature.StepsTracker.LeaderBoardActivity
 import com.app.furoapp.activity.newFeature.StepsTracker.StepCounterHistoryActivity
 import com.app.furoapp.activity.newFeature.StepsTracker.StepCounterSettingsActivity
-import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.DataItem
-import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.TipsResponse
 import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalRequest
 import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalResponse
 import com.app.furoapp.retrofit.RestClient
@@ -85,7 +83,7 @@ class Padometer : AppCompatActivity() {
     private var isSwitchedChecked = false
     var mGoogleSignInClient: GoogleSignInClient? = null
     private var getAccessToken: String? = null
-    private val tipsList: List<DataItem>? = null
+//    private val tipsList: List<DataItem>? = null
     private var dialog: AlertDialog? = null
     private val tipsHandler = Handler()
     private var tipsListSize = 0
@@ -154,7 +152,7 @@ class Padometer : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        callTipsApi()
+       // callTipsApi()
     }
 
     private fun hasOAuthPermission(): Boolean {
@@ -639,77 +637,77 @@ class Padometer : AppCompatActivity() {
         notificationManager!!.notify(0, notificationBuilder.build())
     }
 
-    private fun callTipsApi() {
-        if (Util.isInternetConnected(applicationContext)) {
-//            Utils.showProgressDialogBar(applicationContext)
-            RestClient.getAllTipsData(getAccessToken, object : Callback<TipsResponse> {
-                override fun onResponse(
-                        call: Call<TipsResponse>,
-                        response: Response<TipsResponse>
-                ) {
-//                    Util.dismissProgressDialog()
-                    if (response.code() == 200) {
-                        Log.d(
-                                FqStepsCounterActivity.TAG,
-                                "onResponse() called with: , response = [" + response.body() + "]"
-                        )
-                        if (response.body()!!.data != null && response.body()!!.data.data != null && response.body()!!
-                                        .data.data.size > 0
-                        ) {
-                            val tipsList = response.body()!!.data.data
-                            tipsListSize = tipsList.size
-
-                            tipsHandler.postDelayed(object : Runnable {
-                                override fun run() {
-                                    if (tipsList != null && tipsList.size > 0) {
-                                        if (tipsStart == tipsListSize - 1) {
-                                            tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph())
-                                            tipsStart = 0
-                                        } else {
-                                            if (tipsList != null && tipsList.size > 0) {
-                                                tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph())
-                                                tipsStart++
-                                            }
-                                        }
-                                    }
-
-                                    tipsHandler.postDelayed(this, 5000)
-                                }
-                            }, 5000)
-
-                        } else {
-                            Toast.makeText(
-                                    this@Padometer,
-                                    "No tips data found",
-                                    Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    } else {
-                        if (response.code() == 500) {
-                            Toast.makeText(
-                                    this@Padometer,
-                                    "Internal server error !",
-                                    Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                        if (response.code() == 403) {
-                            Toast.makeText(
-                                    this@Padometer,
-                                    response.code().toString() + "Session expire Please login again",
-                                    Toast.LENGTH_SHORT
-                            ).show()
-                            getAlertTokenExpire()
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<TipsResponse>, t: Throwable) {
-                    Toast.makeText(this@Padometer, "Failure", Toast.LENGTH_SHORT)
-                            .show()
-                }
-            })
-        }
-    }
+//    private fun callTipsApi() {
+//        if (Util.isInternetConnected(applicationContext)) {
+////            Utils.showProgressDialogBar(applicationContext)
+//            RestClient.getAllTipsData(getAccessToken, object : Callback<TipsResponse> {
+//                override fun onResponse(
+//                        call: Call<TipsResponse>,
+//                        response: Response<TipsResponse>
+//                ) {
+////                    Util.dismissProgressDialog()
+//                    if (response.code() == 200) {
+//                        Log.d(
+//                                FqStepsCounterActivity.TAG,
+//                                "onResponse() called with: , response = [" + response.body() + "]"
+//                        )
+//                        if (response.body()!!.data != null && response.body()!!.data.data != null && response.body()!!
+//                                        .data.data.size > 0
+//                        ) {
+//                            val tipsList = response.body()!!.data.data
+//                            tipsListSize = tipsList.size
+//
+//                            tipsHandler.postDelayed(object : Runnable {
+//                                override fun run() {
+//                                    if (tipsList != null && tipsList.size > 0) {
+//                                        if (tipsStart == tipsListSize - 1) {
+//                                            tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph())
+//                                            tipsStart = 0
+//                                        } else {
+//                                            if (tipsList != null && tipsList.size > 0) {
+//                                                tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph())
+//                                                tipsStart++
+//                                            }
+//                                        }
+//                                    }
+//
+//                                    tipsHandler.postDelayed(this, 5000)
+//                                }
+//                            }, 5000)
+//
+//                        } else {
+//                            Toast.makeText(
+//                                    this@Padometer,
+//                                    "No tips data found",
+//                                    Toast.LENGTH_SHORT
+//                            ).show()
+//                        }
+//                    } else {
+//                        if (response.code() == 500) {
+//                            Toast.makeText(
+//                                    this@Padometer,
+//                                    "Internal server error !",
+//                                    Toast.LENGTH_SHORT
+//                            ).show()
+//                        }
+//                        if (response.code() == 403) {
+//                            Toast.makeText(
+//                                    this@Padometer,
+//                                    response.code().toString() + "Session expire Please login again",
+//                                    Toast.LENGTH_SHORT
+//                            ).show()
+//                            getAlertTokenExpire()
+//                        }
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<TipsResponse>, t: Throwable) {
+//                    Toast.makeText(this@Padometer, "Failure", Toast.LENGTH_SHORT)
+//                            .show()
+//                }
+//            })
+//        }
+//    }
 
 
 //    private val tipsRunnable: Runnable = object : Runnable {

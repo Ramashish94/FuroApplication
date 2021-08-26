@@ -33,11 +33,11 @@ import com.app.furoapp.StepCountingServiceFuro;
 import com.app.furoapp.activity.Globals;
 import com.app.furoapp.activity.LoginTutorialScreen;
 import com.app.furoapp.activity.SensorRestarterBroadcastReceiver;
-import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.DataItem;
-import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.TipsResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.Restarter;
 import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalResponse;
+import com.app.furoapp.activity.newFeature.fqTips.TipsResponse;
+import com.app.furoapp.activity.newFeature.fqTips.WaterIntakeDatum;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
@@ -76,7 +76,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     private float getDistanceMiAndKm;
     private Handler customHandler = new Handler();
     private Handler tipsHandler = new Handler();
-    private List<DataItem> tipsList;
+    private List<WaterIntakeDatum> tipsList;
     private int tipsListSize = 0;
     private int tipsStart = 0;
     long timeInMilliseconds = 0L;
@@ -189,7 +189,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
                     }
                 }).check();
 
-        callTipsApi();
+        /*callTipsApi();*/
     }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
@@ -633,12 +633,17 @@ public class FqStepsCounterActivity extends AppCompatActivity {
                     Util.dismissProgressDialog();
                     if (response.code() == 200) {
                         Log.d(TAG, "onResponse() called with: , response = [" + response.body() + "]");
-                        if (response.body().getData() != null && response.body().getData().getData() != null && response.body().getData().getData().size() > 0) {
-                            tipsList = response.body().getData().getData();
+                        if (response.body().getData() != null
+                                && response.body().getData() != null
+                                && response.body().getData().getBmiData() != null
+                                && response.body().getData().getBmiData().size() > 0) {
+                            tipsList = response.body().getData().getWaterIntakeData();
                             tipsListSize = tipsList.size();
                             tipsHandler.postDelayed(tipsRunnable, 0);
+
                         } else {
-                            Toast.makeText(FqStepsCounterActivity.this, "No tips data found", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "No tips data found", Toast.LENGTH_SHORT).show();
+
                         }
                     } else {
                         if (response.code() == 500) {

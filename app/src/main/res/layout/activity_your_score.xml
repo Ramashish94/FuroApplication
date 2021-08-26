@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/track_bmi_bg"
+    android:orientation="vertical"
     tools:context=".activity.newFeature.bmiCalculator.YourScoreActivity">
 
 
@@ -209,6 +209,18 @@
                         android:src="@drawable/pink_ovel" />
 
                     <TextView
+                        android:id="@+id/tvPrizmTips"
+                        android:layout_width="match_parent"
+                        android:layout_height="?actionBarSize"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginEnd="@dimen/dp_10"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/vertical_line_color"
+                        tools:text="Fun Facts" /><!--android:background="@drawable/slot_time_bottom_bg"-->
+
+
+                    <!--<TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
@@ -216,7 +228,7 @@
                         android:gravity="center_vertical"
                         android:text="Water is crucial for healthy mind and body"
                         android:textColor="@color/black_color"
-                        android:textStyle="normal" />
+                        android:textStyle="normal" />-->
 
                 </LinearLayout>
 
@@ -252,7 +264,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="17dp"
                         android:src="@drawable/cross"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                     <ImageView
                         android:id="@+id/ivDiscard"

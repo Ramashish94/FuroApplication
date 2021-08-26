@@ -20,7 +20,7 @@ import com.app.furoapp.activity.newFeature.healthCare.healthCentermodel.Bmi;
 import com.app.furoapp.activity.newFeature.healthCare.healthCentermodel.HealthCenterResponse;
 import com.app.furoapp.activity.newFeature.healthCare.healthCentermodel.StepCounter;
 import com.app.furoapp.activity.newFeature.healthCare.healthCentermodel.WaterIntake;
-import com.app.furoapp.activity.newFeature.waterIntakeCalculator.CreatePlaneActivity;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.CreateAHydrationPlaneActivity;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.WaterIntakeExistsUser.WaterIntakeExistsUserResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.WaterIntakeStartActivity;
 import com.app.furoapp.retrofit.RestClient;
@@ -174,15 +174,15 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
             tvBmiIndex.setText("" + getBmi);
 
             if (getBmi < 19) {
-                tvBmiType.setText("Under eight BMI");
+                tvBmiType.setText("Undereight ");
             } else if (getBmi >= 19 && getBmi <= 24) {
-                tvBmiType.setText("Healthy BMI");
+                tvBmiType.setText("Healthy");
             } else if (getBmi >= 25 && getBmi <= 29) {
-                tvBmiType.setText("Over Weight BMI");
+                tvBmiType.setText("Overweight ");
             } else if (getBmi >= 30 && getBmi <= 39) {
-                tvBmiType.setText("Obese BMI");
+                tvBmiType.setText("Obese");
             } else if (getBmi >= 40) {
-                tvBmiType.setText("Extremely Obese BMI");
+                tvBmiType.setText("Extremelyobese");
             }
         } else {
             Toast.makeText(this, "No bmi record found!", Toast.LENGTH_SHORT).show();
@@ -202,10 +202,15 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
 
     private void setCounterIntake(WaterIntake waterIntake) {
         if (waterIntake != null) {      // && waterIntake.getTakenGlassOfWater() != null && waterIntake.getRecommendedGlassOfWater() != null
-            tvNoOfGlass.setText("" + waterIntake.getTakenGlassOfWater());
-            tvTotNoOfGlass.setText("" + waterIntake.getRecommendedGlassOfWater());
-            takenWaterPercent = (waterIntake.getTakenGlassOfWater() * 100 / waterIntake.getRecommendedGlassOfWater());
-            waterIntakeProgressView.setProgress(takenWaterPercent);     // set percent on progress bar
+            if (waterIntake.getTakenGlassOfWater() != null && waterIntake.getRecommendedGlassOfWater() != null) {
+                tvNoOfGlass.setText("" + waterIntake.getTakenGlassOfWater());
+                tvTotNoOfGlass.setText("" + waterIntake.getRecommendedGlassOfWater());
+                takenWaterPercent = (waterIntake.getTakenGlassOfWater() * 100 / waterIntake.getRecommendedGlassOfWater());
+                waterIntakeProgressView.setProgress(takenWaterPercent);     // set percent on progress bar
+            } else {
+
+            }
+
         } else {
             Toast.makeText(this, "No water intake record found !", Toast.LENGTH_SHORT).show();
         }
@@ -220,7 +225,7 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                     if (response.body() != null) {
                         if (response.body().getIsWaterIntakeDataRequired() == 1) {
-                            Intent intent = new Intent(getApplicationContext(), CreatePlaneActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), CreateAHydrationPlaneActivity.class);
                             startActivity(intent);
 //                            finish();
                         } else {

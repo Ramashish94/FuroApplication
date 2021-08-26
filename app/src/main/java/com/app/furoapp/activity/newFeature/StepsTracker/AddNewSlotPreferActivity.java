@@ -27,8 +27,6 @@ import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.deleteSlot.De
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.deleteSlot.DeleteSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.Datum;
 import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.FetchAllSlotResponse;
-import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.DataItem;
-import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.TipsResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.historyAdapter.WeeklyHistoryAdapter;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
@@ -66,7 +64,7 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllSlotAd
     public AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private Handler tipsHandler = new Handler();
-    private List<DataItem> tipsList;
+  //  private List<DataItem> tipsList;
     private int tipsListSize = 0;
     private int tipsStart = 0;
     long timeInMilliseconds = 0L;
@@ -113,7 +111,7 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllSlotAd
         tvAddNewSlot.setOnClickListener(v -> {
             includePopMenuOfAddTimeSlot.setVisibility(View.VISIBLE);
             llAddNewPreferSlot.setClickable(false);
-            callTipsApi();
+            //callTipsApi();
         });
         llClosedIcon.setOnClickListener(v -> {
             includePopMenuOfAddTimeSlot.setVisibility(View.GONE);
@@ -287,7 +285,7 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllSlotAd
         }
     }
 
-    private void callTipsApi() {
+    /*private void callTipsApi() {
         if (Util.isInternetConnected(getApplicationContext())) {
             Utils.showProgressDialogBar(getApplicationContext());
             RestClient.getAllTipsData(getAccessToken, new Callback<TipsResponse>() {
@@ -322,27 +320,27 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllSlotAd
         } else {
             Toast.makeText(this, "Please check internet connection !", Toast.LENGTH_SHORT).show();
         }
-    }
+    }*/
 
 
-    private Runnable tipsRunnable = new Runnable() {
-        public void run() {
-            if (tipsList != null && tipsList.size() > 0) {
-                if (tipsStart == (tipsListSize - 1)) {
-                    tvPrizmTips.setVisibility(View.VISIBLE);
-                    tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph());
-                    tipsStart = 0;
-                } else {
-                    if (tipsList != null && tipsList.size() > 0) {
-                        tvPrizmTips.setVisibility(View.VISIBLE);
-                        tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph());
-                        tipsStart++;
-                    }
-                }
-            }
-            tipsHandler.postDelayed(this, 5000);
-        }
-    };
+//    private Runnable tipsRunnable = new Runnable() {
+//        public void run() {
+//            if (tipsList != null && tipsList.size() > 0) {
+//                if (tipsStart == (tipsListSize - 1)) {
+//                    tvPrizmTips.setVisibility(View.VISIBLE);
+//                    tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph());
+//                    tipsStart = 0;
+//                } else {
+//                    if (tipsList != null && tipsList.size() > 0) {
+//                        tvPrizmTips.setVisibility(View.VISIBLE);
+//                        tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph());
+//                        tipsStart++;
+//                    }
+//                }
+//            }
+//            tipsHandler.postDelayed(this, 5000);
+//        }
+//    };
 
 
     private void getAlertTokenDialog() {

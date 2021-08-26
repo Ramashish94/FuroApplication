@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.furoapp.R;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchAllPlan.AllPlan;
+import com.app.furoapp.utils.Constants;
+import com.app.furoapp.utils.FuroPrefs;
 
 import java.util.List;
 
@@ -22,6 +24,8 @@ public class AllPlanAdapter extends RecyclerView.Adapter<AllPlanAdapter.MyViewHo
     List<AllPlan> allPlanList;
     private int row_index = -1;
     public AllPlanClickCallBack allPlanClickCallBack;
+   // AllPlan allPlan;
+    private List<AllPlan> data;
 
     public AllPlanAdapter(Context applicationContext, List<AllPlan> allPlanList, AllPlanClickCallBack allPlanClickCallBack) {
         this.context = applicationContext;
@@ -44,18 +48,34 @@ public class AllPlanAdapter extends RecyclerView.Adapter<AllPlanAdapter.MyViewHo
         holder.tvWaterTake.setText(allPlan.getWaterTakeInMl() + " ml");
         holder.tvDurationTime.setText(allPlan.getRecommendedDurationInMins());
 
+//        for (AllPlan allPlan : allPlanList) {
+//            if (allPlan.getIsSelected() == 1) {
+//                holder.ivCircle.setBackgroundResource(R.drawable.bluecircle);
+//            }
+//        }
+
+//        if (allPlan.getIsSelected()==1){
+//            row_index=position;
+//        }
+
         holder.llAllPlan.setOnClickListener(v -> {
             allPlanClickCallBack.getPlanClickCallBack(allPlan.getId(),
                     String.valueOf(allPlan.getWaterTakeInMl()), allPlan.getRecommendedDurationInMins());
             row_index = position;
-            notifyDataSetChanged();
+//            notifyDataSetChanged();
         });
 
-        if (row_index == position) {
-//            clicked=true;
+//        if (row_index == position) {
+////            clicked=true;
+//            holder.ivCircle.setBackgroundResource(R.drawable.bluecircle);
+//        } else {
+////           clicked=false;
+//            holder.ivCircle.setBackgroundResource(R.drawable.ellipse_20);
+//        }
+
+        if (allPlan.getIsSelected() == 1) {
             holder.ivCircle.setBackgroundResource(R.drawable.bluecircle);
         } else {
-//           clicked=false;
             holder.ivCircle.setBackgroundResource(R.drawable.ellipse_20);
         }
 
@@ -73,7 +93,6 @@ public class AllPlanAdapter extends RecyclerView.Adapter<AllPlanAdapter.MyViewHo
     public void setNotifyData(AllPlanAdapter allPlanAdapter) {
 
     }
-
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tvDurationTime, tvWaterTake;
@@ -93,5 +112,17 @@ public class AllPlanAdapter extends RecyclerView.Adapter<AllPlanAdapter.MyViewHo
         void getPlanClickCallBack(Integer id, String waterTakeInMl, String recommendedDurationInMins);
     }
 
+    public void updateItem(int id) {
+        for (int change = 0; change < allPlanList.size(); change++) {
+         int value;
+         if (allPlanList.get(change).getId()==id){
+             value= 1;
+            }else {
+             value=  0;
+            }
+            allPlanList.get(change).setIsSelected(value);
+        }
+        notifyDataSetChanged();
+    }
 
 }

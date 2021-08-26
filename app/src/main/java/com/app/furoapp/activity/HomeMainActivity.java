@@ -29,7 +29,7 @@ import com.app.furoapp.R;
 import com.app.furoapp.activity.newFeature.StepsTracker.TrackYourStepsStartActivity;
 import com.app.furoapp.activity.newFeature.healthCare.HealthCenterDashboardActivity;
 import com.app.furoapp.activity.newFeature.bmiCalculator.FindYourBmiActivity;
-import com.app.furoapp.activity.newFeature.waterIntakeCalculator.CreatePlaneActivity;
+import com.app.furoapp.activity.newFeature.waterIntakeCalculator.CreateAHydrationPlaneActivity;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.WaterIntakeExistsUser.WaterIntakeExistsUserResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.WaterIntakeStartActivity;
 import com.app.furoapp.databinding.ActivityMainFramelayoutBinding;
@@ -793,7 +793,7 @@ public class HomeMainActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                     if (response.body() != null) {
                         if (response.body().getIsWaterIntakeDataRequired() == 1) {
-                            Intent intent = new Intent(getApplicationContext(), CreatePlaneActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), CreateAHydrationPlaneActivity.class);
                             startActivity(intent);
                         } else {
                             if (response.body().getIsWaterIntakeDataRequired() == 0) {

@@ -15,7 +15,6 @@ import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotRes
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.AddNewSlotTimeRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.deleteSlot.DeleteSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.FetchAllSlotResponse;
-import com.app.furoapp.activity.newFeature.StepsTracker.fqsteps.TipsResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyModel.HistoryResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.WeeklyMonthlyYearlyRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.monthlyResponse.MonthlyResponse;
@@ -29,6 +28,7 @@ import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserS
 import com.app.furoapp.activity.newFeature.bmiCalculator.fetchBmiDataModel.FetchUserWiseDataResponse;
 import com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel.BmiStoreDataRequest;
 import com.app.furoapp.activity.newFeature.bmiCalculator.storeBmiModel.BmiStoreDataResponse;
+import com.app.furoapp.activity.newFeature.fqTips.TipsResponse;
 import com.app.furoapp.activity.newFeature.healthCare.healthCentermodel.HealthCenterResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.SavedList.saveOnPost.SavedListResponse;
 import com.app.furoapp.activity.newFeature.likeAndSaved.likedList.likeOnPost.LikeListResponse;
@@ -109,7 +109,6 @@ import com.app.furoapp.model.loginUser.LoginRequest;
 import com.app.furoapp.model.loginUser.LoginResponse;
 import com.app.furoapp.model.loginWithFb.LoginWithFbRequest;
 import com.app.furoapp.model.loginWithFb.LoginWithFbResponse;
-import com.app.furoapp.model.loginwithgmail.LoginwithGmailRequest;
 import com.app.furoapp.model.loginwithgmail.LoginwithGmailResponse;
 import com.app.furoapp.model.mapchallenge.MapChallengeRecieveRequest;
 import com.app.furoapp.model.mapchallenge.MapChallengeRecieveResponse;

@@ -59,7 +59,7 @@ public class SettingWaterIntakeActivity extends AppCompatActivity implements Not
         ivBackIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(getApplicationContext(), CreatePlaneActivity.class);
+                intent = new Intent(getApplicationContext(), CreateAHydrationPlaneActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -104,7 +104,7 @@ public class SettingWaterIntakeActivity extends AppCompatActivity implements Not
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        intent = new Intent(getApplicationContext(), CreatePlaneActivity.class);
+        intent = new Intent(getApplicationContext(), CreateAHydrationPlaneActivity.class);
         startActivity(intent);
         finish();
     }

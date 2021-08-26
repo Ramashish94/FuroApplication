@@ -86,7 +86,8 @@
                         android:text="Same as device "
                         android:textColor="@color/black_color"
                         android:textSize="@dimen/sp_16"
-                        android:textStyle="normal" />
+                        android:textStyle="normal"
+                        android:visibility="gone"/>
                 </LinearLayout>
 
                 <View

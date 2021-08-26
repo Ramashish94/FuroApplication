@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bedtime2bg"
     android:gravity="center"
-    tools:context=".activity.newFeature.waterIntakeCalculator.CreatePlaneActivity">
+    tools:context=".activity.newFeature.waterIntakeCalculator.CreateAHydrationPlaneActivity">
 
 
     <LinearLayout

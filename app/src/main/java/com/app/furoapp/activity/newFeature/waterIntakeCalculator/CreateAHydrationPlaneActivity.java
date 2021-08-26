@@ -1,6 +1,5 @@
 package com.app.furoapp.activity.newFeature.waterIntakeCalculator;
 
-import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -20,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.furoapp.R;
-import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.weekMonthYearModel.weeklyResponse.CurrentWeekStepCounter;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.adapter.AllPlanAdapter;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.adapter.WaterInMlAdapter;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchAllPlan.AllPlan;
@@ -29,12 +27,10 @@ import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchAllPlan.Gl
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.PlaneCreateRequest;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.PlaneCreateResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.planCreate.WaterGlassSizeModel;
-import com.app.furoapp.activity.newFeature.waterIntakeCalculator.waterIntakeCounter.WaterIntakeUpdatePlanRequest;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
-import com.github.mikephil.charting.data.Entry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +39,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlAdapter.WaterSizeInMLClickCallBack, AllPlanAdapter.AllPlanClickCallBack {
+public class CreateAHydrationPlaneActivity extends AppCompatActivity implements WaterInMlAdapter.WaterSizeInMLClickCallBack, AllPlanAdapter.AllPlanClickCallBack {
     public LinearLayout llMorePlan, llRecommended, llOthersPlan;
     public TextView tvShowsMl, tvShowMl2, tvRecommended, tvEveryTime, tvCreatePlan, tvFeelAweSome, tvNosGlass;
     public ImageView ivClockImg, ivStartJourney, ivCancel, ivOverloadIndicatorMsg, ivRecommendedPlan, ivSelRecommendedPlan;
@@ -123,12 +119,16 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
                                 //recommended plan
                                 setRecommendedData(response.body().getAllPlans());
                                 //for all plan
+
                                 notifyAllPlanAdapter(response.body().getAllPlans());
+                                //isSelected plan
+                                // isSelectedPlan(response.body().getAllPlans());
+                                adapterSelectedItem(response.body().getAllPlans());
                             } else {
-                                Toast.makeText(CreatePlaneActivity.this, "No any plan will be available. Please create a plan !", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CreateAHydrationPlaneActivity.this, "No any plan will be available. Please create a plan !", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(CreatePlaneActivity.this, response.code(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CreateAHydrationPlaneActivity.this, response.code(), Toast.LENGTH_SHORT).show();
                         }
                     } else if (response.code() == 500) {
                         Toast.makeText(getApplicationContext(), "Internal server error", Toast.LENGTH_SHORT).show();
@@ -139,13 +139,14 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
 
                 @Override
                 public void onFailure(Call<FetchAllPlanResponse> call, Throwable t) {
-                    Toast.makeText(CreatePlaneActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateAHydrationPlaneActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
             Toast.makeText(this, "Please check internet connection ! ", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     private void getGlassSize(GlassSize glassSize) {
         if (glassSize != null) {
@@ -160,31 +161,11 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
                     tvEveryTime.setText("Every " + allPlan.getRecommendedDurationInMins() + " minutes");
                     waterTakenInMl = Integer.parseInt(String.valueOf(allPlan.getWaterTakeInMl()));
                     tvShowsMl.setText("" + waterTakenInMl + " ml");
-                    planId = String.valueOf(allPlan.getId());
-
-                   /* tvEveryTime.setText("Every " + allPlans.get(0).getRecommendedDurationInMins() + " minutes");
-                    waterTakenInMl = Integer.parseInt(String.valueOf(allPlans.get(0).getWaterTakeInMl()));
-                    tvShowsMl.setText("" + waterTakenInMl + " ml");
-                    planId = String.valueOf(allPlans.get(0).getId());*/
+//                    planId = String.valueOf(allPlan.getId());
                 }
             }
         }
-
     }
-
-   /* private void setRecommendedData(FetchAllPlanResponse allPlans) {
-        if (body != null && body.getAllPlans() != null && body.getAllPlans().size() > 0) {
-            if (planId != null) {
-                planId = String.valueOf(body.getAllPlans().get(0).getId());
-            }
-            tvEveryTime.setText("Every " + body.getAllPlans().get(0).getRecommendedDurationInMins() + " minutes");
-        }
-        glassSizeInMl = Integer.parseInt(body.getAllPlans().get(0).get());
-        tvShowsMl.setText("" + glassSizeInMl + " ml");
-
-//        tvShowsMl.setText(Integer.parseInt(body.getGlassSize().getGlassSizeInMl()) + " ml");
-
-    }*/
 
 
     private void setAllPlanAdapter() {
@@ -227,7 +208,7 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
                     includeCreatePlanPopUp.setVisibility(View.GONE);
                     callCreatePlanApi();
                 } else {
-                    Toast.makeText(CreatePlaneActivity.this, "Please select glass size!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateAHydrationPlaneActivity.this, "Please select glass size!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -259,26 +240,6 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
             ivSelRecommendedPlan.setVisibility(View.GONE);
 
         });
-
-
-        /*rdbt_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                boolean isChecked = rdBtnRecommendedPlan.isChecked();
-                if (isChecked) {
-                    rdBtnRecommendedPlan.setChecked(false);
-                    rdBtnRecommendedPlan.setBackgroundResource(R.drawable.ellipse_20);
-
-                } else {
-                    rdBtnRecommendedPlan.setChecked(true);
-                    rdBtnRecommendedPlan.setBackgroundResource(R.drawable.bluecircle);
-
-                }
-            }
-
-        });*/
-
-
     }
 
     private void setCreatePlanAdapter() {
@@ -321,7 +282,6 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
         PlaneCreateRequest planeCreateRequest = new PlaneCreateRequest();
         planeCreateRequest.setWater_take_in_ml(String.valueOf(getWaterMlSize));
         if (Util.isInternetConnected(getApplicationContext())) {
-
             Util.showProgressDialog(getApplicationContext());
             RestClient.getPlaneCreate(getAccessessToken, planeCreateRequest, new Callback<PlaneCreateResponse>() {
                 @Override
@@ -329,7 +289,7 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
                     Util.dismissProgressDialog();
                     if (response.code() == 200) {
                         if (response.body() != null && response.body().getStatus() != null) {
-                            Toast.makeText(CreatePlaneActivity.this, "new plan created!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CreateAHydrationPlaneActivity.this, "new plan created!", Toast.LENGTH_SHORT).show();
                             callFetchAllPlanApi();
                         }
                     } else if (response.code() == 500) {
@@ -341,7 +301,7 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
 
                 @Override
                 public void onFailure(Call<PlaneCreateResponse> call, Throwable t) {
-                    Toast.makeText(CreatePlaneActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateAHydrationPlaneActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
@@ -358,11 +318,26 @@ public class CreatePlaneActivity extends AppCompatActivity implements WaterInMlA
         Log.d("waterTakeMl", waterTakeMl);
         recDurationTime = recommendedDurationInMins;
         Log.d("recDurationTime", recDurationTime);
-        if (isPalnSelected) {
-            ivSelRecommendedPlan.setVisibility(View.GONE);
-            ivRecommendedPlan.setVisibility(View.VISIBLE);
-        }
+//        if (isPalnSelected) {
+//            ivSelRecommendedPlan.setVisibility(View.GONE);
+//            ivRecommendedPlan.setVisibility(View.VISIBLE);
+//        }
+        allPlanAdapter.updateItem(id);
 
+    }
+
+    private void adapterSelectedItem(List<AllPlan> allPlans){
+        if (allPlans != null && allPlans.size() > 0) {
+            for (AllPlan allPlan : allPlans) {
+                if (allPlan.getIsSelected() == 1) {
+                    planId = String.valueOf(allPlan.getId());
+                    Log.d("planId", planId);
+                    waterTakeMl = String.valueOf(allPlan.getWaterTakeInMl());
+                    Log.d("waterTakeMl", waterTakeMl);
+                    recDurationTime = String.valueOf(allPlan.getRecommendedDurationInMins());
+                }
+            }
+        }
     }
 
    /* @Override

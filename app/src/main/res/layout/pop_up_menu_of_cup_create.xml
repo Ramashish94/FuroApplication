@@ -36,12 +36,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="20"
-                    android:gravity="center">
+                    android:layout_marginStart="20dp">
 
                     <TextView
+                        android:id="@+id/tvCupSize"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Select cup size                "
+                        android:text="Edit cup size                "
                         android:textAllCaps="true"
                         android:textStyle="italic"
                         android:textSize="@dimen/dp_20"
@@ -141,7 +142,7 @@
                 android:background="@drawable/btn_next_shape"
                 android:fontFamily="@font/bebase_neue"
                 android:gravity="center"
-                android:text="Change cup Size"
+                android:text="Save  "
                 android:textColor="@color/white"
                 android:textStyle="italic" />
 
@@ -155,7 +156,7 @@
                 android:background="@drawable/btn_next_shape"
                 android:fontFamily="@font/bebase_neue"
                 android:gravity="center"
-                android:text="Add Custom Size"
+                android:text="Save "
                 android:textColor="@color/white"
                 android:textStyle="italic"
                 android:visibility="gone" />

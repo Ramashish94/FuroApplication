@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,14 +21,12 @@ import com.app.furoapp.activity.newFeature.waterIntakeCalculator.dailyWaterIntak
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.dailyWaterIntake.DailyWaterIntakeResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchGlass.GlassFetchResponse;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.fetchGlass.UserGlassSize;
-import com.app.furoapp.activity.tutorialScreens.LoginWithEmailActivity;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 import com.app.furoapp.utils.Util;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -255,7 +252,7 @@ public class WakeUpTimeActivity extends AppCompatActivity implements FetchGlassA
                 if (response.code() == 200) {
                     if (response.body() != null && response.body().getStatus() != null) {
                         //Toast.makeText(WakeUpTimeActivity.this, "Data Saved SuccessFully !", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), CreatePlaneActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), CreateAHydrationPlaneActivity.class);
                         startActivity(intent);
                         finish();
                     }

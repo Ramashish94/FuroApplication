@@ -108,7 +108,7 @@
             android:clearTaskOnLaunch="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.newFeature.waterIntakeCalculator.CreatePlaneActivity"
+            android:name=".activity.newFeature.waterIntakeCalculator.CreateAHydrationPlaneActivity"
             android:clearTaskOnLaunch="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

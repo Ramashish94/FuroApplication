@@ -25,18 +25,43 @@
 
 
             <LinearLayout
-                android:id="@+id/llClosedIcon"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 android:layout_gravity="end|center_horizontal"
                 android:gravity="end|center_vertical">
 
-                <ImageView
-                    android:layout_width="@dimen/dp_24"
-                    android:layout_height="@dimen/dp_24"
-                    android:layout_marginRight="18dp"
-                    android:src="@drawable/closediconwhite" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20"
+                    android:layout_marginStart="20dp">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Select cup  size                "
+                        android:textAllCaps="true"
+                        android:textStyle="italic"
+                        android:textSize="@dimen/dp_20"
+                        android:fontFamily="@font/bebase_neue"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llClosedIcon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="80"
+                    android:gravity="center"
+                    tools:ignore="DuplicateIds">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginRight="18dp"
+                        android:src="@drawable/closediconwhite" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout

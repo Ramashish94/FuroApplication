@@ -71,8 +71,8 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
 
-        callModifiedSavedDataApiLandingTime();
-        rulerPickerValue();
+        //  callModifiedSavedDataApiLandingTime();
+
         clickEvent();
 
     }
@@ -144,17 +144,10 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
                 }
             } else {
             }
-            if (data.getHeight() != null) {
-                userHeightInCm = data.getHeight();
-                tvHeightRulerValueInCms.setText(userHeightInCm + " cms ");
-                centimeterToFeet(String.valueOf(userHeightInCm));
+            if (data.getHeight() != null && data.getWeight() != null) {
+                rulerPickerValue(data.getHeight(), data.getWeight());
             } else {
-            }
-
-            if (data.getWeight() != null) {
-                userWeightInKg = data.getWeight();
-                tvWeightRulerValueInKgs.setText(userWeightInKg + " kgs ");
-            } else {
+                rulerPickerValue(" ", " ");
             }
         }
     }
@@ -172,7 +165,7 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
             isGenderSelected = true;
             tvMale.setTextColor(Color.parseColor("#979797"));
             tvFemale.setTextColor(Color.parseColor("#40D5E8"));
-            genderVal = tvMale.getText().toString();
+            genderVal = tvFemale.getText().toString();
             Log.d("genderVal", genderVal);
         });
         ivContinue.setOnClickListener(v -> {
@@ -180,11 +173,16 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
         });
     }
 
-    private void rulerPickerValue() {
+    private void rulerPickerValue(String height, String weight) {
         /*Height Value*/
         final RulerValuePicker heightPicker = findViewById(R.id.heightRulerPicker);
-        if (setModifiedDataVal != null && setModifiedDataVal.getHeight() != null) {
-            heightPicker.selectValue(Integer.parseInt(setModifiedDataVal.getHeight()));
+
+        if (height != null) {
+            if (height.equalsIgnoreCase("null") || height.equalsIgnoreCase(" ")) {
+                heightPicker.selectValue(160);
+            } else {
+                heightPicker.selectValue(Integer.parseInt(height));
+            }
         } else {
             heightPicker.selectValue(160);
         }
@@ -207,10 +205,14 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
 
         /*Weight value*/
         final RulerValuePicker weightPicker = findViewById(R.id.weightRulerPicker);
-        if (setModifiedDataVal != null && setModifiedDataVal.getWeight() != null) {
-            weightPicker.selectValue(Integer.parseInt(setModifiedDataVal.getWeight()));
+        if (weight != null) {
+            if (weight.equalsIgnoreCase("null") || weight.equalsIgnoreCase(" ")) {
+                weightPicker.selectValue(60);
+            } else {
+                weightPicker.selectValue(Integer.parseInt(weight));
+            }
         } else {
-            weightPicker.selectValue(70);
+            weightPicker.selectValue(60);
         }
         weightPicker.setValuePickerListener(new RulerValuePickerListener() {
             @Override
@@ -366,5 +368,9 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
                 });
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        callModifiedSavedDataApiLandingTime();
+    }
 }

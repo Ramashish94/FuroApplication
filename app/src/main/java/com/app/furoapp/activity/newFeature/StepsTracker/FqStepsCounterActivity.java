@@ -26,18 +26,15 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.work.impl.utils.ForceStopRunnable;
 
 import com.app.furoapp.R;
 import com.app.furoapp.StepCountingServiceFuro;
 import com.app.furoapp.activity.Globals;
 import com.app.furoapp.activity.LoginTutorialScreen;
-import com.app.furoapp.activity.SensorRestarterBroadcastReceiver;
-import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.Restarter;
 import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.userStepsGoalModel.UserStepsGoalResponse;
+import com.app.furoapp.activity.newFeature.fqTips.StepCounterDatum;
 import com.app.furoapp.activity.newFeature.fqTips.TipsResponse;
-import com.app.furoapp.activity.newFeature.fqTips.WaterIntakeDatum;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
@@ -76,7 +73,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
     private float getDistanceMiAndKm;
     private Handler customHandler = new Handler();
     private Handler tipsHandler = new Handler();
-    private List<WaterIntakeDatum> tipsList;
+    private List<StepCounterDatum> tipsList;
     private int tipsListSize = 0;
     private int tipsStart = 0;
     long timeInMilliseconds = 0L;
@@ -637,7 +634,7 @@ public class FqStepsCounterActivity extends AppCompatActivity {
                                 && response.body().getData() != null
                                 && response.body().getData().getBmiData() != null
                                 && response.body().getData().getBmiData().size() > 0) {
-                            tipsList = response.body().getData().getWaterIntakeData();
+                            tipsList = response.body().getData().getStepCounterData();
                             tipsListSize = tipsList.size();
                             tipsHandler.postDelayed(tipsRunnable, 0);
 

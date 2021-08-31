@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import com.app.furoapp.R;
 import com.app.furoapp.activity.LoginTutorialScreen;
-import com.app.furoapp.activity.newFeature.StepsTracker.FqStepsCounterActivity;
 import com.app.furoapp.activity.newFeature.fqTips.TipsResponse;
 import com.app.furoapp.activity.newFeature.fqTips.WaterIntakeDatum;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.adapter.SelectCupSizeAdapter;

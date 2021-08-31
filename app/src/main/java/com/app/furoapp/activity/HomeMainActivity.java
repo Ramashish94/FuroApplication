@@ -181,18 +181,13 @@ public class HomeMainActivity extends AppCompatActivity {
                         public void onClick(View view) {
                             mBottomSheetDialog.dismiss();
                             onclickfriend = FuroPrefs.getString(getApplicationContext(), "tutorialleaderboard");
+                            Intent intent;
                             if (onclickfriend.equalsIgnoreCase("leaderboard")) {
-                                Intent intent = new Intent(HomeMainActivity.this, LeaderBoardActivity.class);
-                                startActivity(intent);
+                                intent = new Intent(HomeMainActivity.this, LeaderBoardActivity.class);
                             } else {
-
-                                Intent intent = new Intent(HomeMainActivity.this, WelcomeLeaderBoardActivity.class);
-                                startActivity(intent);
-
-
+                                intent = new Intent(HomeMainActivity.this, WelcomeLeaderBoardActivity.class);
                             }
-
-
+                            startActivity(intent);
                         }
                     });
 
@@ -201,7 +196,6 @@ public class HomeMainActivity extends AppCompatActivity {
                         public void onClick(View view) {
                             mBottomSheetDialog.dismiss();
                             replaceFragmentWithStack(R.id.container_main, ProfilesHomeNewFragment.newInstance(null), ProfilesHomeNewFragment.class.getSimpleName());
-
                         }
                     });
 
@@ -211,14 +205,14 @@ public class HomeMainActivity extends AppCompatActivity {
                             mBottomSheetDialog.dismiss();
 
                             onclickfriend = FuroPrefs.getString(getApplicationContext(), "tutorialFriends");
+                            Intent intent;
                             if (onclickfriend.equalsIgnoreCase("friends")) {
-                                Intent intent = new Intent(HomeMainActivity.this, FriendsActivity.class);
-                                startActivity(intent);
+                                intent = new Intent(HomeMainActivity.this, FriendsActivity.class);
                             } else {
-                                Intent intent = new Intent(HomeMainActivity.this, WewlcomeFriendsActivity.class);
-                                startActivity(intent);
+                                intent = new Intent(HomeMainActivity.this, WewlcomeFriendsActivity.class);
 
                             }
+                            startActivity(intent);
 
                         }
                     });
@@ -271,7 +265,7 @@ public class HomeMainActivity extends AppCompatActivity {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         /*getToken....added*/
-       // getAccessToke = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
+        // getAccessToke = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
 
         Intent intent = getIntent();
         contest = intent.getStringExtra("contestpage");
@@ -321,7 +315,6 @@ public class HomeMainActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
-
 
 
     }
@@ -818,7 +811,7 @@ public class HomeMainActivity extends AppCompatActivity {
     }
 
     private void getAlertTokenDialog() {
-        if (FuroPrefs.getString(getApplicationContext(),Constants.Get_ACCESS_TOKEN) != null) {
+        if (FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN) != null) {
             dialogBuilder = new AlertDialog.Builder(this);
             LayoutInflater inflater = this.getLayoutInflater();
             View dialogView = inflater.inflate(R.layout.session_expired_layout, null);

@@ -121,16 +121,17 @@ public class YourScoreActivity extends AppCompatActivity {
         tvYourBmiScore.setText(new DecimalFormat("##.##").format(bmiScore));
 
         getBmi = (int) bmiScore;
-        if (getBmi < 19) {
+        if (getBmi < 18.5) {
             tvShowBmiTxt.setText("Under Weight BMI");
-        } else if (getBmi >= 19 && getBmi <= 24) {
-            tvShowBmiTxt.setText("Healthy BMI");
-        } else if (getBmi >= 25 && getBmi <= 29) {
+        } else if (getBmi >= 18.5 && getBmi <= 24.9) {
+            tvShowBmiTxt.setText("Normal BMI");
+        } else if (getBmi >= 25 && getBmi <= 29.9) {
             tvShowBmiTxt.setText("Over Weight BMI");
-        } else if (getBmi >= 30 && getBmi <= 39) {
+        } /*else if (getBmi >= 30 && getBmi <= 39) {
             tvShowBmiTxt.setText("Obese BMI");
-        } else if (getBmi >= 40) {
-            tvShowBmiTxt.setText("Extremely Obese BMI");
+        }*/ else if (getBmi >= 30) {
+            //tvShowBmiTxt.setText("Extremely Obese BMI");
+            tvShowBmiTxt.setText("Obese BMI");
         }
 
 

@@ -136,6 +136,22 @@
                         android:textStyle="italic" />
                 </LinearLayout>
 
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="42dp"
+                    android:layout_marginTop="27dp"
+                    android:layout_marginRight="42dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="BMI determines your body fat through your height and weight. It evaluates if you’re underweight, normal, or overweight. "
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
@@ -144,14 +160,6 @@
                     android:layout_marginRight="42dp"
                     android:background="@drawable/your_bmi_score_bg"
                     android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="we need to ask you a few more details,so we ca structure content accordingly. like pace,calories,track your health and progress correctly. "
-                        android:textColor="@color/white"
-                        android:visibility="gone" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -181,10 +189,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:background="@color/bottom_gray"
                             android:gravity="center_vertical"
                             android:paddingLeft="@dimen/sp_10"
                             android:text="below 18.5"
-                            android:background="@color/bottom_gray"
                             android:textColor="@color/black_color"
                             android:textStyle="normal" />
 
@@ -192,10 +200,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:background="@color/white"
                             android:gravity="center_vertical"
                             android:paddingLeft="@dimen/sp_10"
                             android:text="18.5 - 24.9"
-                            android:background="@color/white"
                             android:textColor="@color/black_color"
                             android:textStyle="normal" />
 
@@ -203,10 +211,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:background="@color/bottom_gray"
                             android:gravity="center_vertical"
                             android:paddingLeft="@dimen/sp_10"
                             android:text="25 - 29.9"
-                            android:background="@color/bottom_gray"
                             android:textColor="@color/black_color"
                             android:textStyle="normal" />
 
@@ -214,10 +222,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:background="@drawable/bmirangebg2"
                             android:gravity="center_vertical"
                             android:paddingLeft="@dimen/sp_10"
                             android:text="30 or above"
-                            android:background="@drawable/bmirangebg2"
                             android:textColor="@color/black_color"
                             android:textStyle="normal" />
 
@@ -250,10 +258,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:background="@color/bottom_gray"
                             android:gravity="center_vertical"
                             android:paddingLeft="@dimen/sp_10"
                             android:text="underweight"
-                            android:background="@color/bottom_gray"
                             android:textColor="@color/black_color"
                             android:textStyle="normal" />
 
@@ -261,10 +269,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:background="@color/white"
                             android:gravity="center_vertical"
                             android:paddingLeft="@dimen/sp_10"
                             android:text="normal"
-                            android:background="@color/white"
                             android:textColor="@color/black_color"
                             android:textStyle="normal" />
 
@@ -272,10 +280,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:background="@color/bottom_gray"
                             android:gravity="center_vertical"
                             android:paddingLeft="@dimen/sp_10"
                             android:text="overweight"
-                            android:background="@color/bottom_gray"
                             android:textColor="@color/black_color"
                             android:textStyle="normal" />
 
@@ -283,10 +291,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:background="@drawable/weightstatusbg2"
                             android:gravity="center_vertical"
                             android:paddingLeft="@dimen/sp_10"
                             android:text="obese"
-                            android:background="@drawable/weightstatusbg2"
                             android:textColor="@color/black_color"
                             android:textStyle="normal" />
 
@@ -302,7 +310,8 @@
                     android:layout_marginLeft="42dp"
                     android:layout_marginTop="35dp"
                     android:layout_marginRight="42dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -382,7 +391,7 @@
                     android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textStyle="italic"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/llDiscard"

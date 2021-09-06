@@ -603,11 +603,11 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="?actionBarSize"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="32dp"
                             android:layout_marginTop="@dimen/dp_40"
                             android:layout_marginRight="32dp"
-                            android:background="@drawable/tips_background"
+                            android:background="@drawable/steptrackertipsbg"
                             android:orientation="horizontal">
 
 
@@ -621,10 +621,12 @@
                             <TextView
                                 android:id="@+id/tvPrizmTips"
                                 android:layout_width="match_parent"
-                                android:layout_height="?actionBarSize"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginStart="@dimen/dp_10"
                                 android:layout_marginEnd="@dimen/dp_10"
+                                android:layout_marginTop="@dimen/dp_10"
+                                android:layout_marginBottom="@dimen/dp_10"
                                 android:gravity="center_vertical"
                                 android:textColor="@color/vertical_line_color"
                                 tools:text="Fun Facts" /><!--android:background="@drawable/slot_time_bottom_bg"-->

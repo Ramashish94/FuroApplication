@@ -171,19 +171,19 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
     private void setBmiData(Bmi bmi) {
         if (bmi != null) {
             getBmi = (int) Double.parseDouble("" + bmi.getBmi());
-            tvBmiIndex.setText("" + getBmi);
-
-            if (getBmi < 19) {
+           // tvBmiIndex.setText("" + getBmi);
+            if (getBmi < 18.5) {
                 tvBmiType.setText("Underweight ");
-            } else if (getBmi >= 19 && getBmi <= 24) {
-                tvBmiType.setText("Healthy");
-            } else if (getBmi >= 25 && getBmi <= 29) {
+            } else if (getBmi >= 18.5 && getBmi <= 24.9) {
+                tvBmiType.setText("Normal");
+            } else if (getBmi >= 25 && getBmi <= 29.9) {
                 tvBmiType.setText("Overweight ");
-            } else if (getBmi >= 30 && getBmi <= 39) {
+            }/* else if (getBmi >= 30 && getBmi <= 39) {
                 tvBmiType.setText("Obese");
-            } else if (getBmi >= 40) {
-                tvBmiType.setText("Extremelyobese");
+            }*/ else if (getBmi >= 30) {
+                tvBmiType.setText("Obese");
             }
+
         } else {
             Toast.makeText(this, "No bmi record found!", Toast.LENGTH_SHORT).show();
         }

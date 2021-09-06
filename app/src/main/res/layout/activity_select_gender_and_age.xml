@@ -141,7 +141,7 @@
                     android:layout_marginTop="@dimen/dp_70"
                     android:background="@drawable/btn_next_shape"
                     android:fontFamily="@font/bebase_neue"
-                    android:text="Start Jounary"
+                    android:text="Start Journey"
                     android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textStyle="italic" />

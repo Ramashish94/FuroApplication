@@ -286,7 +286,7 @@ public class HomeMainActivity extends AppCompatActivity {
         llDailyStepTracker = findViewById(R.id.llDailyStepTracker);
         llWaterIntakeCalculator = findViewById(R.id.llWaterIntakeCalculator);
         llTrackBMI = findViewById(R.id.llTrackBMI);
-
+        llCalculateCalories=findViewById(R.id.llCalculateCalories);
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.getMenu().findItem(R.id.navigation_feeds).setChecked(true);
@@ -772,6 +772,16 @@ public class HomeMainActivity extends AppCompatActivity {
                 //Toast.makeText(HomeMainActivity.this, "Working on this", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), FindYourBmiActivity.class);
                 startActivity(intent);
+
+            }
+        });
+
+        llCalculateCalories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Toast.makeText(HomeMainActivity.this, "Working on this", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(getApplicationContext(), FindYourBmiActivity.class);
+//                startActivity(intent);
 
             }
         });

@@ -205,7 +205,6 @@ public class YourScoreActivity extends AppCompatActivity {
                         if (response.body() != null) {
 
                             if (response.body().getData() != null
-                                    && response.body().getData() != null
                                     && response.body().getData().getBmiData() != null
                                     && response.body().getData().getBmiData().size() > 0) {
                                 tipsList = response.body().getData().getBmiData();

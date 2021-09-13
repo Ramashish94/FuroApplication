@@ -28,6 +28,8 @@ import com.app.furoapp.activity.newFeature.StepsTracker.addNewSlot.deleteSlot.De
 import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.Datum;
 import com.app.furoapp.activity.newFeature.StepsTracker.fetchAllSlot.FetchAllSlotResponse;
 import com.app.furoapp.activity.newFeature.StepsTracker.historyOfStepsTracker.historyAdapter.WeeklyHistoryAdapter;
+import com.app.furoapp.activity.newFeature.fqTips.StepCounterDatum;
+import com.app.furoapp.activity.newFeature.fqTips.TipsResponse;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
@@ -64,7 +66,7 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllSlotAd
     public AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private Handler tipsHandler = new Handler();
-  //  private List<DataItem> tipsList;
+    private List<StepCounterDatum> tipsList;
     private int tipsListSize = 0;
     private int tipsStart = 0;
     long timeInMilliseconds = 0L;
@@ -111,7 +113,7 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllSlotAd
         tvAddNewSlot.setOnClickListener(v -> {
             includePopMenuOfAddTimeSlot.setVisibility(View.VISIBLE);
             llAddNewPreferSlot.setClickable(false);
-            //callTipsApi();
+            callTipsApi();
         });
         llClosedIcon.setOnClickListener(v -> {
             includePopMenuOfAddTimeSlot.setVisibility(View.GONE);
@@ -285,7 +287,7 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllSlotAd
         }
     }
 
-    /*private void callTipsApi() {
+    private void callTipsApi() {
         if (Util.isInternetConnected(getApplicationContext())) {
             Utils.showProgressDialogBar(getApplicationContext());
             RestClient.getAllTipsData(getAccessToken, new Callback<TipsResponse>() {
@@ -294,10 +296,13 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllSlotAd
                     Util.dismissProgressDialog();
                     if (response.code() == 200) {
                         //   Log.d(TAG, "onResponse() called with: , response = [" + response.body() + "]");
-                        if (response.body().getData() != null && response.body().getData().getData() != null && response.body().getData().getData().size() > 0) {
-                            tipsList = response.body().getData().getData();
+                        if (response.body().getData() != null
+                                && response.body().getData().getStepCounterData() != null
+                                && response.body().getData().getStepCounterData().size() > 0) {
+                            tipsList = response.body().getData().getStepCounterData();
                             tipsListSize = tipsList.size();
                             tipsHandler.postDelayed(tipsRunnable, 0);
+
                         } else {
                             Toast.makeText(getApplicationContext(), "No tips data found", Toast.LENGTH_SHORT).show();
                         }
@@ -320,27 +325,27 @@ public class AddNewSlotPreferActivity extends Activity implements FetchAllSlotAd
         } else {
             Toast.makeText(this, "Please check internet connection !", Toast.LENGTH_SHORT).show();
         }
-    }*/
+    }
 
 
-//    private Runnable tipsRunnable = new Runnable() {
-//        public void run() {
-//            if (tipsList != null && tipsList.size() > 0) {
-//                if (tipsStart == (tipsListSize - 1)) {
-//                    tvPrizmTips.setVisibility(View.VISIBLE);
-//                    tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph());
-//                    tipsStart = 0;
-//                } else {
-//                    if (tipsList != null && tipsList.size() > 0) {
-//                        tvPrizmTips.setVisibility(View.VISIBLE);
-//                        tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph());
-//                        tipsStart++;
-//                    }
-//                }
-//            }
-//            tipsHandler.postDelayed(this, 5000);
-//        }
-//    };
+    private Runnable tipsRunnable = new Runnable() {
+        public void run() {
+            if (tipsList != null && tipsList.size() > 0) {
+                if (tipsStart == (tipsListSize - 1)) {
+                    tvPrizmTips.setVisibility(View.VISIBLE);
+                    tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph());
+                    tipsStart = 0;
+                } else {
+                    if (tipsList != null && tipsList.size() > 0) {
+                        tvPrizmTips.setVisibility(View.VISIBLE);
+                        tvPrizmTips.setText(tipsList.get(tipsStart).getParagraph());
+                        tipsStart++;
+                    }
+                }
+            }
+            tipsHandler.postDelayed(this, 5000);
+        }
+    };
 
 
     private void getAlertTokenDialog() {

@@ -285,8 +285,8 @@ public class WaterIntakeHistoryActivity extends AppCompatActivity {
 
                         if (response.body().getData() != null
                                 && response.body().getData() != null
-                                && response.body().getData().getBmiData() != null
-                                && response.body().getData().getBmiData().size() > 0) {
+                                && response.body().getData().getWaterIntakeData() != null
+                                && response.body().getData().getWaterIntakeData().size() > 0) {
                             tipsList = response.body().getData().getWaterIntakeData();
                             tipsListSize = tipsList.size();
                             tipsHandler.postDelayed(tipsRunnable, 0);

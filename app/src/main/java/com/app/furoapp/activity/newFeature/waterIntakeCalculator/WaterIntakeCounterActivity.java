@@ -70,7 +70,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
     public ImageView ivAddCup, ivAddCustomSizeQuntity, ivCancel, ivSetting, ivBackIcon, ivChangeCupSize, ivUpArrow, ivDownArrow;
     private String getAccessToken;
     public TextView tvNosGlassCount, tvTakingWater, tvAddCustomSize, tvRecommendedReamingWater, tvGlassSize, tvChangeCupSize, tvChangeCupSizeAndCustomSize,
-            tvTotAmountDrunk, tvNosOfGlasses, tvRecommendedNosOfGlasses, tvDateWithDay,tvCupSize;
+            tvTotAmountDrunk, tvNosOfGlasses, tvRecommendedNosOfGlasses, tvDateWithDay, tvCupSize;
     public TextView tvRecommendedNosOfWaterGlasses, tvTotWaterAmountDrunk, tvCountNosOfGlass, tvDateWithDays, tvPrizmTips, tvRecommendedWaterIntake;
     public LinearLayout llCongratsClosedIcon, llHistory;
     public View includePopMenuOfSelectCupSize, includeCongratsPopMenu;
@@ -161,7 +161,7 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
         //ivDownArrow = findViewById(R.id.ivDownArrow);
         rvOfDailyWeeklyAllTime = findViewById(R.id.rvOfDailyWeeklyAllTime);
         // includePopMenuOfWaterIntakeCounter = findViewById(R.id.includePopMenuOfWaterIntakeCounter);
-         tvPrizmTips = findViewById(R.id.tvPrizmTips);
+        tvPrizmTips = findViewById(R.id.tvPrizmTips);
         llHistory = findViewById(R.id.llHistory);
         tvRecommendedNosOfWaterGlasses = findViewById(R.id.tvRecommendedNosOfWaterGlasses);
         tvTotWaterAmountDrunk = findViewById(R.id.tvTotWaterAmountDrunk);
@@ -701,8 +701,8 @@ public class WaterIntakeCounterActivity extends AppCompatActivity implements Sel
                         //   Log.d(TAG, "onResponse() called with: , response = [" + response.body() + "]");
                         if (response.body().getData() != null
                                 && response.body().getData() != null
-                                && response.body().getData().getBmiData() != null
-                                && response.body().getData().getBmiData().size() > 0) {
+                                && response.body().getData().getWaterIntakeData() != null
+                                && response.body().getData().getWaterIntakeData().size() > 0) {
                             tipsList = response.body().getData().getWaterIntakeData();
                             tipsListSize = tipsList.size();
                             tipsHandler.postDelayed(tipsRunnable, 0);

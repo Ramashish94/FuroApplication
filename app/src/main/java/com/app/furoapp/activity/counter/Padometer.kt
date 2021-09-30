@@ -41,6 +41,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_fq_steps_counter.*
 import kotlinx.android.synthetic.main.alertt_dialog_modified_data_.*
+import kotlinx.android.synthetic.main.google_fit_pop_up.*
 import kotlinx.android.synthetic.main.item_fancycoverflow.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -61,6 +62,8 @@ enum class FitActionRequestCode {
  */
 class Padometer : AppCompatActivity() {
 
+    private var ivSignInWithGoogle: View? = null
+    private var tvCancel: View? = null
     private val TAG = "FIT_TAG"
 
     private val REQUEST_OAUTH_REQUEST_CODE = 1
@@ -112,6 +115,8 @@ class Padometer : AppCompatActivity() {
         setContentView(R.layout.activity_fq_steps_counter)
         fitData = findViewById(R.id.fit_Data)
         includeCongratsStepsTrack = findViewById(R.id.incudeCongratsStepsTrack)
+        ivSignInWithGoogle = findViewById(R.id.ivSignInWithGoogle)
+        tvCancel = findViewById(R.id.tvCancel)
 
         getAccessToken = FuroPrefs.getString(applicationContext, Constants.Get_ACCESS_TOKEN)
         var isActuvate = FuroPrefs.getBoolean(applicationContext, "isAlreadyActivate")
@@ -474,7 +479,29 @@ class Padometer : AppCompatActivity() {
         }
 
         tvActivateStepsCounter.setOnClickListener { v: View? ->
-
+            /*added by ramashish*/
+            includeGoogleFitPopUp.visibility = View.VISIBLE
+            ivSetting.isClickable = false
+            ivHistory.isClickable = false
+            ivBackIcon.isClickable = false
+            ivLeadBord.isClickable = false
+            /* //   Intent intent = new Intent(getApplicationContext(), HistoryDetailsActivity.class);
+             FuroPrefs.putBoolean(applicationContext, "isGoogleFitDisabled", false)
+             checkPermissionsAndRun(FitActionRequestCode.SUBSCRIBE)
+             Toast.makeText(this, "Step Counter Activate!", Toast.LENGTH_SHORT)
+                     .show()
+             var isAlreadyActivate = true
+             FuroPrefs.putBoolean(applicationContext, "isAlreadyActivate", isAlreadyActivate)
+             deactivate.isVisible = true
+             tvActivateStepsCounter.isVisible = false*/
+        }
+        /*added by ramashish*/
+        ivSignInWithGoogle?.setOnClickListener {
+            includeGoogleFitPopUp.visibility = View.GONE
+            ivSetting.isClickable = true
+            ivHistory.isClickable = true
+            ivBackIcon.isClickable = true
+            ivLeadBord.isClickable = true
             //   Intent intent = new Intent(getApplicationContext(), HistoryDetailsActivity.class);
             FuroPrefs.putBoolean(applicationContext, "isGoogleFitDisabled", false)
             checkPermissionsAndRun(FitActionRequestCode.SUBSCRIBE)
@@ -484,10 +511,15 @@ class Padometer : AppCompatActivity() {
             FuroPrefs.putBoolean(applicationContext, "isAlreadyActivate", isAlreadyActivate)
             deactivate.isVisible = true
             tvActivateStepsCounter.isVisible = false
-
-
         }
 
+        tvCancel?.setOnClickListener {
+            includeGoogleFitPopUp.visibility = View.GONE
+            ivSetting.isClickable = true
+            ivHistory.isClickable = true
+            ivBackIcon.isClickable = true
+            ivLeadBord.isClickable = true
+        }
         deactivate.setOnClickListener {
 
             FuroPrefs.putBoolean(applicationContext, "isDeactivateClicked", true)
@@ -518,6 +550,7 @@ class Padometer : AppCompatActivity() {
             callServicetoSetGoals(this)
 
         }
+
 
     }
 
@@ -842,8 +875,8 @@ class Padometer : AppCompatActivity() {
     fun splashCall(dura: Int, userStep: Int) {
         Handler().postDelayed({
             tvCalories.text = "$getCalculateCalories Cal"
-            //   tbduration.text = ("" + dura)
-            tbduration.text = ("$dura Min")
+            tbduration.text = ("" + dura)
+            // tbduration.text = ("$dura Min")
             tvCountsSteps.text = userStep.toString()
 
         }, SPLASH_DISPLAY_LENGTH.toLong())

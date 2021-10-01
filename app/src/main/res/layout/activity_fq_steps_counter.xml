@@ -14,6 +14,7 @@
         android:layout_height="match_parent">
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/nvOfStepCounter"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="32dp"
@@ -62,7 +63,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -457,6 +458,11 @@
         <include
             android:id="@+id/includeGoogleFitPopUp"
             layout="@layout/google_fit_pop_up"
+            android:visibility="gone"/>
+
+        <include
+            android:id="@+id/includeSyncNowToGoogleFitPopUp"
+            layout="@layout/sync_now_to_google_fit"
             android:visibility="gone"/>
 
     </FrameLayout>

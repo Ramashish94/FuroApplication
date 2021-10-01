@@ -43,6 +43,7 @@ import kotlinx.android.synthetic.main.activity_fq_steps_counter.*
 import kotlinx.android.synthetic.main.alertt_dialog_modified_data_.*
 import kotlinx.android.synthetic.main.google_fit_pop_up.*
 import kotlinx.android.synthetic.main.item_fancycoverflow.view.*
+import kotlinx.android.synthetic.main.sync_now_to_google_fit.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -62,6 +63,8 @@ enum class FitActionRequestCode {
  */
 class Padometer : AppCompatActivity() {
 
+    private var getUserSteps: Int = 0
+    private var getTimeDuraton: Int = 0
     private var ivSignInWithGoogle: View? = null
     private var tvCancel: View? = null
     private val TAG = "FIT_TAG"
@@ -520,7 +523,62 @@ class Padometer : AppCompatActivity() {
             ivBackIcon.isClickable = true
             ivLeadBord.isClickable = true
         }
+
+        /*added by ramashish*/
         deactivate.setOnClickListener {
+            includeSyncNowToGoogleFitPopUp.visibility = View.VISIBLE
+            ivSetting.isClickable = false
+            ivHistory.isClickable = false
+            ivBackIcon.isClickable = false
+            ivLeadBord.isClickable = false
+
+            tvStepsLogSync!!.text = getUserSteps.toString()
+            tvCaloriesLogSync.text = getCalculateCalories.toString()
+
+
+            /*FuroPrefs.putBoolean(applicationContext, "isDeactivateClicked", true)
+
+            googlefitDisabled()
+            if (getDetectedSteps == null) {
+
+            } else {
+                FuroPrefs.putInt(applicationContext, "stepsWhenGoogleDisabled", getDetectedSteps!!)
+
+            }
+
+            tvActivateStepsCounter.isVisible = true
+            deactivate.isVisible = false
+            var isAlreadyActivate = false
+            FuroPrefs.putBoolean(applicationContext, "isAlreadyActivate", isAlreadyActivate)
+
+            //            notificationManager!!.cancel(0)
+            //
+            when {
+                notificationManager != null -> {
+                    notificationManager!!.cancel(0)
+                }
+                else -> {
+
+                }
+            }
+            callServicetoSetGoals(this)*/
+
+        }
+
+        tvCancelSync.setOnClickListener {
+            includeSyncNowToGoogleFitPopUp.visibility = View.GONE
+            ivSetting.isClickable = true
+            ivHistory.isClickable = true
+            ivBackIcon.isClickable = true
+            ivLeadBord.isClickable = true
+        }
+
+        tvSyncNow.setOnClickListener {
+            includeSyncNowToGoogleFitPopUp.visibility = View.GONE
+            ivSetting.isClickable = true
+            ivHistory.isClickable = true
+            ivBackIcon.isClickable = true
+            ivLeadBord.isClickable = true
 
             FuroPrefs.putBoolean(applicationContext, "isDeactivateClicked", true)
 
@@ -548,7 +606,6 @@ class Padometer : AppCompatActivity() {
                 }
             }
             callServicetoSetGoals(this)
-
         }
 
 
@@ -874,10 +931,15 @@ class Padometer : AppCompatActivity() {
     private val SPLASH_DISPLAY_LENGTH = 5000
     fun splashCall(dura: Int, userStep: Int) {
         Handler().postDelayed({
+            getTimeDuraton = dura
+            getUserSteps = userStep
+
             tvCalories.text = "$getCalculateCalories Cal"
-            tbduration.text = ("" + dura)
+            //tbduration.text = ("" + dura)
             // tbduration.text = ("$dura Min")
-            tvCountsSteps.text = userStep.toString()
+            tbduration.text = ("" + getTimeDuraton)
+            // tvCountsSteps.text = userStep.toString()
+            tvCountsSteps.text = getUserSteps.toString()
 
         }, SPLASH_DISPLAY_LENGTH.toLong())
     }

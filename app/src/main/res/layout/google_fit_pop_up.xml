@@ -114,25 +114,56 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/dp_20"
-            android:layout_marginTop="?actionBarSize"
+            android:layout_marginTop="@dimen/dp_40"
             android:layout_marginRight="@dimen/dp_20"
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
+            <LinearLayout
+                android:id="@+id/ivSignInWithGoogle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_marginRight="@dimen/dp_16"
+                android:background="@drawable/sign_in_with_google_fit_pop_up"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_35"
+                    android:layout_height="@dimen/dp_35"
+                    android:src="@drawable/googleicon"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="3dp"
+                    android:background="@color/white"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:layout_marginRight="@dimen/dp_3"
+                    android:gravity="center_vertical"
+                    android:text="Sign in with google"
+                    android:layout_marginStart="@dimen/dp_25"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+             
+         <!--   <ImageView
                 android:id="@+id/ivSignInWithGoogle"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_45"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/signinwithgoogleicon_" />
+                android:src="@drawable/signinwithgoogle__" />-->
 
             <TextView
                 android:id="@+id/tvCancel"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_35"
-                android:layout_marginLeft="@dimen/dp_3"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginLeft="@dimen/dp_16"
                 android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_3"
+                android:layout_marginRight="@dimen/dp_16"
                 android:background="@color/black_btn"
                 android:gravity="center"
                 android:text="cancel"

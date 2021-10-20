@@ -66,7 +66,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="fitness data from multiple apps and \ndevices.\n\nBy connecting Google Fit and Riker,\nyou can integrate your Riker workouts \nand body weight measurements to \nGoogle Fit.\n\nSpecifically, Riker will write to your  \nGoogle Fit:\n  " />
+                    android:text="fitness data from multiple apps and \ndevices.\n\nBy connecting Google Fit and FURO FQ,\nyou can integrate your FURO FQ workouts \nand body weight measurements to \nGoogle Fit.\n\nSpecifically, FURO FQ will write to your  \nGoogle Fit:\n  " />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -123,8 +123,8 @@
                 android:id="@+id/ivSignInWithGoogle"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_40"
-                android:layout_marginLeft="@dimen/dp_16"
-                android:layout_marginRight="@dimen/dp_16"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
                 android:background="@drawable/sign_in_with_google_fit_pop_up"
                 android:orientation="horizontal">
 
@@ -139,14 +139,14 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/dp_3"
-                    android:layout_marginRight="@dimen/dp_3"
                     android:gravity="center_vertical"
                     android:text="Sign in with google"
-                    android:layout_marginStart="@dimen/dp_25"
+                    android:layout_marginStart="@dimen/dp_20"
                     android:textAllCaps="true"
+                    android:layout_gravity="center"
                     android:textColor="@color/white"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textSize="@dimen/sp_12"/>
 
             </LinearLayout>
              
@@ -161,9 +161,9 @@
                 android:id="@+id/tvCancel"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_40"
-                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_16"
+                android:layout_marginRight="@dimen/dp_10"
                 android:background="@color/black_btn"
                 android:gravity="center"
                 android:text="cancel"

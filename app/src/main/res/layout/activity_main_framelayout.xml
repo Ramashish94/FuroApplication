@@ -35,63 +35,73 @@
             android:layout_above="@id/navigation"
             android:background="@drawable/divider">
 
-            <HorizontalScrollView
+            <!-- <HorizontalScrollView
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:layout_marginRight="@dimen/dp_8">-->
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginRight="@dimen/dp_8">
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/dp_16"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:id="@+id/llHealthCenterDashBoard"
+                        android:layout_width="@dimen/dp_50"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/dp_8"
+                        android:background="@drawable/rectangle_healthdash_board"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/dp_8"
+                            android:layout_marginRight="@dimen/dp_8"
+                            android:src="@drawable/vector_img" />
+
+                    </LinearLayout>
+                </FrameLayout>
+
+                <LinearLayout
+                    android:id="@+id/llDailyStepTracker"
+                    android:layout_width="108dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dp_12"
+                    android:background="@drawable/health_rectangle_shape"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="12dp"
+                        android:layout_marginBottom="8dp"
+                        android:src="@drawable/daily_steps_tracker" />
+                </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical">
-
-                        <LinearLayout
-                            android:id="@+id/llHealthCenterDashBoard"
-                            android:layout_width="@dimen/dp_45"
-                            android:layout_height="32dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="@dimen/dp_8"
-                            android:background="@drawable/rectangle_healthdash_board">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginLeft="@dimen/dp_8"
-                                android:layout_marginRight="@dimen/dp_8"
-                                android:src="@drawable/vector_img" />
-
-                        </LinearLayout>
-                    </FrameLayout>
-
-                    <LinearLayout
-                        android:id="@+id/llDailyStepTracker"
-                        android:layout_width="108dp"
-                        android:layout_height="32dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dp_12"
-                        android:background="@drawable/health_rectangle_shape">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="12dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginRight="12dp"
-                            android:layout_marginBottom="8dp"
-                            android:src="@drawable/daily_steps_tracker" />
-                    </LinearLayout>
+                    android:layout_weight="1">
 
                     <LinearLayout
                         android:id="@+id/llWaterIntakeCalculator"
                         android:layout_width="108dp"
                         android:layout_height="32dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dp_12"
+                        android:layout_marginLeft="@dimen/dp_6"
                         android:background="@drawable/health_rectangle_shape">
 
                         <ImageView
@@ -103,6 +113,15 @@
                             android:layout_marginBottom="8dp"
                             android:src="@drawable/water_intake_calculator" />
                     </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="@dimen/dp_16"
+                    android:layout_weight="1"
+                    android:gravity="center">
 
                     <LinearLayout
                         android:id="@+id/llTrackBMI"
@@ -121,34 +140,36 @@
                             android:layout_marginBottom="8dp"
                             android:src="@drawable/track_bmi" />
                     </LinearLayout>
+                </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/llCalculateCalories"
-                        android:layout_width="115dp"
-                        android:layout_height="32dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dp_12"
-                        android:layout_marginRight="8dp"
-                        android:visibility="gone"
-                        android:background="@drawable/health_rectangle_shape">
+                <LinearLayout
+                    android:id="@+id/llCalculateCalories"
+                    android:layout_width="115dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dp_12"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/health_rectangle_shape"
+                    android:visibility="gone">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="12dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginRight="12dp"
-                            android:layout_marginBottom="8dp"
-                            android:src="@drawable/calories_calculator" />
-
-                    </LinearLayout>
-
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="12dp"
+                        android:layout_marginBottom="8dp"
+                        android:src="@drawable/calories_calculator" />
 
                 </LinearLayout>
 
 
-            </HorizontalScrollView>
+            </LinearLayout>
+
+
+            <!-- </HorizontalScrollView>-->
 
         </RelativeLayout>
+
     </RelativeLayout>
 </layout>

@@ -87,7 +87,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:layout_marginTop="22dp"
-                        android:text=" Set alarm and we’ll send you reminders to maintain \n your schedule."
+                        android:text=" Set alarm and we’ll send you reminders to maintain your schedule."
                         android:textColor="@color/text_color"
                         android:textStyle="italic" />
 

@@ -11,9 +11,9 @@ android {
     defaultConfig {
         applicationId "com.app.furoapp"
         minSdkVersion 26
-        targetSdkVersion 29
-        versionCode 56/*50 48*/
-        versionName "2.1.35"/*2.1.27.70*/
+        targetSdkVersion 30
+        versionCode 59/*50 48*/
+        versionName "2.1.38"/*2.1.27.70*/
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

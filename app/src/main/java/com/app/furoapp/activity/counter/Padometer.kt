@@ -936,10 +936,23 @@ class Padometer : AppCompatActivity() {
 
             tvCalories.text = "$getCalculateCalories Cal"
             //tbduration.text = ("" + dura)
-            // tbduration.text = ("$dura Min")
-            tbduration.text = ("" + getTimeDuraton)
+            tbduration.text = "$getTimeDuraton Min"
+            // tbduration.text = ("" + getTimeDuraton)
             // tvCountsSteps.text = userStep.toString()
             tvCountsSteps.text = getUserSteps.toString()
+
+            /*  if (getUserSteps < 0.0)
+                  tvCountsSteps.text = 0.toString()
+              else if (getUserSteps > 0.0)
+                  tvCountsSteps.text = getUserSteps.toString()
+              else
+                  tvCountsSteps.text = 0.toString()*/
+
+            /* when {
+                 number < 0.0 -> println("$number is a negative number.")
+                 number > 0.0 -> println("$number is a positive number.")
+                 else -> println("$number is 0.")
+             }*/
 
         }, SPLASH_DISPLAY_LENGTH.toLong())
     }

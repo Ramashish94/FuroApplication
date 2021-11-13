@@ -35,10 +35,25 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.VewHol
 
     @Override
     public void onBindViewHolder(@NonNull VewHolder holder, int position) {
-        Comment comment = commentList.get(position);
-        holder.tvName.setText("" + comment.getUser().getUsername());
-        holder.tvComments.setText("" + comment.getComment());
+        if (commentList != null && commentList.size() > 0) {
+            Comment comment = commentList.get(position);
+            if (comment.getUser()!=null && comment.getUser().getUsername()!=null) {
+               /* if (comment.getUser().getUsername().equalsIgnoreCase("null")) {
 
+                } else {*/
+                    holder.tvName.setText("" + comment.getUser().getUsername());
+               // }
+            }else {
+
+            }
+            if (comment.getComment()!=null) {
+                holder.tvComments.setText("" + comment.getComment());
+            }else {
+
+            }
+        } else {
+
+        }
     }
 
     @Override
@@ -58,7 +73,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.VewHol
             super(itemView);
             tvName = itemView.findViewById(R.id.tvName);
             tvComments = itemView.findViewById(R.id.tvComments);
-            ivUserImage=itemView.findViewById(R.id.ivUserImage);
+            ivUserImage = itemView.findViewById(R.id.ivUserImage);
         }
     }
 }

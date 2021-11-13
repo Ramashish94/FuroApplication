@@ -419,6 +419,8 @@ public class ContentFeedDetailActivity extends AppCompatActivity {
         if (commentArrayList != null && commentArrayList.size() > 0) {
             rvComment.setVisibility(View.VISIBLE);
             commentsAdapter.notifyDataSetChanged();
+        }else{
+
         }
 
     }

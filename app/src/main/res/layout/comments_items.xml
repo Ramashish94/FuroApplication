@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_5"
                     android:inputType="textCapWords"
-                    android:text="judu"
+                    tools:text="judu"
                     android:background="@android:color/transparent"
                     android:textColor="@color/black_color" />
 
@@ -48,7 +48,7 @@
                     android:layout_marginLeft="@dimen/dp_5"
                     android:inputType="textCapWords"
                     android:background="@android:color/transparent"
-                    android:text="Find answers about course, QAs, reviews" />
+                    tools:text="Find answers about course, QAs, reviews" />
 
             </LinearLayout>
         </LinearLayout>

@@ -16,6 +16,7 @@ import com.app.furoapp.R;
 import com.app.furoapp.activity.LoginTutorialScreen;
 import com.app.furoapp.activity.newFeature.StepsTracker.TrackYourStepsStartActivity;
 import com.app.furoapp.activity.newFeature.bmiCalculator.FindYourBmiActivity;
+import com.app.furoapp.activity.newFeature.caloriesCalculator.CalculateCaloriesStartActivity;
 import com.app.furoapp.activity.newFeature.healthCare.healthCentermodel.Bmi;
 import com.app.furoapp.activity.newFeature.healthCare.healthCentermodel.HealthCenterResponse;
 import com.app.furoapp.activity.newFeature.healthCare.healthCentermodel.StepCounter;
@@ -123,15 +124,13 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
             }
         });
 
-        /*llCaloriesCalculator.setOnClickListener(new View.OnClickListener() {
+        llCaloriesCalculator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(HealthCenterDashboardActivity.this, "Click Success on calories calculator", Toast.LENGTH_SHORT).show();
-
-               *//* Intent intent =new Intent(getApplicationContext(),CalculateCaloriesActivity.class);
-                startActivity(intent);*//*
+                Intent intent =new Intent(getApplicationContext(), CalculateCaloriesStartActivity.class);
+                startActivity(intent);
             }
-        });*/
+        });
 
         ivBack.setOnClickListener(v -> {
             finish();

@@ -404,7 +404,6 @@
                     android:layout_weight="1"
                     android:background="@drawable/healthcenterbg"
                     android:orientation="vertical"
-                    android:visibility="invisible"
                     >
 
                     <LinearLayout

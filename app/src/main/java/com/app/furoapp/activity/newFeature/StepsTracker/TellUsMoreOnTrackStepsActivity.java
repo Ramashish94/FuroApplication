@@ -3,6 +3,7 @@ package com.app.furoapp.activity.newFeature.StepsTracker;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -23,6 +24,7 @@ import com.app.furoapp.activity.LoginTutorialScreen;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.Data;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataResponse;
+import com.app.furoapp.activity.newFeature.caloriesCalculator.HearYoGoActivity;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
@@ -55,6 +57,8 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
     public AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     public Data setModifiedDataVal;
+    AppCompatTextView appCmptTvForHeight, appCmptTvForWight;
+    public TextView tvTellUsMoreSubHeading, tvCalculateMyCalories;  /*add on 13-11-2021,by ramashish or calorie calculator*/
 
 
     @Override
@@ -71,7 +75,8 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
 
-        //  callModifiedSavedDataApiLandingTime();
+        //callModifiedSavedDataApiLandingTime();
+        setTextForCalorieCalculator();   /*add on 13-11-2021,by ramashish or calorie calculator*/
 
         clickEvent();
 
@@ -86,8 +91,24 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
         tvHeightRulerValueInFeet = findViewById(R.id.tvHeightRulerValueInFeet);
         tvHeightRulerValueInInch = findViewById(R.id.tvHeightRulerValueInInch);
         tvWeightRulerValueInKgs = findViewById(R.id.tvWeightRulerValueInKgs);
+        /*add on 14-11-21,By ramashish*/
+        tvTellUsMoreSubHeading = findViewById(R.id.tvTellUsMoreSubHeading);
+        appCmptTvForHeight = findViewById(R.id.appCmptTvForHeight);
+        appCmptTvForWight = findViewById(R.id.appCmptTvForWight);
+        tvCalculateMyCalories = findViewById(R.id.tvCalculateMyCalories);
 
+    }
 
+    private void setTextForCalorieCalculator() {
+        if ("CalorieIntakeCalculator".equalsIgnoreCase(getIntent().getStringExtra("CalorieIntakeCalculator"))) {
+            tvTellUsMoreSubHeading.setText("Fill in the necessary data required to analyse your calorie intake. ");
+            tvTellUsMoreSubHeading.setTextColor(Color.parseColor("#FFFFFF"));
+            tvTellUsMoreSubHeading.setTextSize(16);
+            appCmptTvForHeight.setText(" Select your Weight");
+            appCmptTvForWight.setText(" Select your Weight");
+            ivContinue.setVisibility(View.GONE);
+            tvCalculateMyCalories.setVisibility(View.VISIBLE);
+        }
     }
 
     private void callModifiedSavedDataApiLandingTime() {
@@ -171,6 +192,11 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
         ivContinue.setOnClickListener(v -> {
             callModifiedSavedDataApi();
         });
+
+        tvCalculateMyCalories.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), HearYoGoActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void rulerPickerValue(String height, String weight) {
@@ -191,14 +217,14 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
             @Override
             public void onValueChange(final int selectedValue) {
                 userHeightInCm = String.valueOf(selectedValue);
-                tvHeightRulerValueInCms.setText(userHeightInCm + " cms ");
+                tvHeightRulerValueInCms.setText(userHeightInCm + " CMs ");
                 centimeterToFeet(String.valueOf(userHeightInCm));
             }
 
             @Override
             public void onIntermediateValueChange(final int selectedValue) {
                 userHeightInCm = String.valueOf(selectedValue);
-                tvHeightRulerValueInCms.setText(userHeightInCm + " cms ");
+                tvHeightRulerValueInCms.setText(userHeightInCm + " CMs ");
                 centimeterToFeet(String.valueOf(userHeightInCm));
             }
         });
@@ -218,13 +244,13 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
             @Override
             public void onValueChange(final int selectedValue) {
                 userWeightInKg = String.valueOf(selectedValue);
-                tvWeightRulerValueInKgs.setText(userWeightInKg + " kgs ");
+                tvWeightRulerValueInKgs.setText(userWeightInKg + " KGs ");
             }
 
             @Override
             public void onIntermediateValueChange(final int selectedValue) {
                 userWeightInKg = String.valueOf(selectedValue);
-                tvWeightRulerValueInKgs.setText(userWeightInKg + " kgs ");
+                tvWeightRulerValueInKgs.setText(userWeightInKg + " KGs ");
             }
         });
     }

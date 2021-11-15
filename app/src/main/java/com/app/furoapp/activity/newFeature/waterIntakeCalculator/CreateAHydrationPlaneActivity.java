@@ -342,12 +342,14 @@ public class CreateAHydrationPlaneActivity extends AppCompatActivity implements 
     @Override
     protected void onResume() {
         super.onResume();
+        setAllPlanAdapter();   /*add on 13-11-2021,By ramashish*/
         callFetchAllPlanApi();
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
+        setAllPlanAdapter(); /*add on 13-11-2021,By ramashish*/
         callFetchAllPlanApi();
     }
 }

@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.app.furoapp.R;
 import com.app.furoapp.activity.newFeature.StepsTracker.TrackYourStepsStartActivity;
+import com.app.furoapp.activity.newFeature.caloriesCalculator.CalculateCaloriesStartActivity;
 import com.app.furoapp.activity.newFeature.healthCare.HealthCenterDashboardActivity;
 import com.app.furoapp.activity.newFeature.bmiCalculator.FindYourBmiActivity;
 import com.app.furoapp.activity.newFeature.waterIntakeCalculator.CreateAHydrationPlaneActivity;
@@ -779,10 +780,8 @@ public class HomeMainActivity extends AppCompatActivity {
         llCalculateCalories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Toast.makeText(HomeMainActivity.this, "Working on this", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(getApplicationContext(), FindYourBmiActivity.class);
-//                startActivity(intent);
-
+                Intent intent = new Intent(getApplicationContext(), CalculateCaloriesStartActivity.class);
+                startActivity(intent);
             }
         });
 

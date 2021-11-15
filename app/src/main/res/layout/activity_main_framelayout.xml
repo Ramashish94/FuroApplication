@@ -129,7 +129,6 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dp_12"
                         android:layout_marginRight="8dp"
-                        android:visibility="gone"
                         android:background="@drawable/health_rectangle_shape">
 
                         <ImageView

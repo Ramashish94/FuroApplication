@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bitmap_img"
+    android:orientation="vertical"
+    tools:context=".activity.newFeature.caloriesCalculator.HearYoGoActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="32dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginTop="@dimen/dp_25"
+                        android:fontFamily="@font/bebase_font_family_regular"
+                        android:text="Hear You Are Go!   "
+                        android:textColor="@color/black_color"
+                        android:textSize="@dimen/sp_20"
+                        android:textStyle="italic" />
+
+
+
+
+
+                    <!--<ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_gravity="start"
+                        android:layout_marginTop="@dimen/dp_25"
+                        android:src="@drawable/stepsgoal_containt" />
+-->
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="270dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginRight="32dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <NumberPicker
+                        android:id="@+id/numberpicker_main_picker"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvRecommendedText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginRight="32dp"
+                    android:gravity="center"
+                    android:textColor="@color/black_color"
+                    android:textStyle="bold"
+                    tools:text="Set your daily step target to stay active and fit throughout the day!" />
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="32dp"
+            android:layout_marginBottom="@dimen/dp_40"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:id="@+id/ivContinue"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:layout_gravity="bottom"
+                android:src="@drawable/continue1" />
+
+
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>

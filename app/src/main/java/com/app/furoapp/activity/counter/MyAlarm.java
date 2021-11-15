@@ -44,7 +44,8 @@ public class MyAlarm extends BroadcastReceiver {
         boolean isActuvate = FuroPrefs.getBoolean(context, "isAlreadyActivate");
         if (isActuvate == true) {
             FuroPrefs.putInt(context, "stepsWhenGoogleDisabled", 0);
-            callUserStepGoalApi(context, steps, calories, distance, stepsAchivedVal, selectNumberAchievedVal);
+//           callUserStepGoalApi(context, steps, calories, distance, stepsAchivedVal, selectNumberAchievedVal);
+           callUserStepGoalApi(context, Math.abs(steps), calories, distance,stepsAchivedVal,selectNumberAchievedVal);
         }else{
             FuroPrefs.putInt(context, "stepsWhenGoogleDisabled", 0);
         }

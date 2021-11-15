@@ -30,20 +30,21 @@
                     android:src="@drawable/tell_us" />
 
                 <TextView
+                    android:id="@+id/tvTellUsMoreSubHeading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fill in more details for us to understand your body, track your progress and assess your requirements.  "
-                    android:textColor="@color/text_color"
                     android:layout_gravity="start"
                     android:layout_marginTop="22dp"
-                    android:textStyle="italic"/>
+                    android:text="Fill in more details for us to understand your body, track your progress and assess your requirements.  "
+                    android:textColor="@color/text_color"
+                    android:textStyle="italic" />
 
-            <!--  <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_gravity="start"
-                    android:layout_marginTop="@dimen/dp_25"
-                    android:src="@drawable/tell_us_title" />-->
+                <!--  <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_gravity="start"
+                        android:layout_marginTop="@dimen/dp_25"
+                        android:src="@drawable/tell_us_title" />-->
             </LinearLayout>
 
             <LinearLayout
@@ -147,6 +148,7 @@
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/appCmptTvForHeight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
@@ -174,11 +176,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/bebase_neue"
-                        tools:text="133 cm "
-                        android:textAllCaps="true"
+                        android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="30sp"
-                        android:textStyle="italic" />
+                        android:textStyle="italic"
+                        tools:text="133 cm " />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -194,22 +196,22 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/bebase_neue"
-                        tools:text="(4' "
                         android:textAllCaps="true"
                         android:textColor="@color/white"
                         android:textSize="30sp"
-                        android:textStyle="italic" />
+                        android:textStyle="italic"
+                        tools:text="(4' " />
 
                     <TextView
                         android:id="@+id/tvHeightRulerValueInInch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/bebase_neue"
-                        tools:text="5'') "
                         android:textAllCaps="true"
                         android:textColor="@color/white"
                         android:textSize="30sp"
-                        android:textStyle="italic" />
+                        android:textStyle="italic"
+                        tools:text="5'') " />
                 </LinearLayout>
 
                 <View
@@ -248,7 +250,7 @@
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/weight_picker_heading"
+                        android:id="@+id/appCmptTvForWight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
@@ -275,10 +277,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="13dp"
                         android:fontFamily="@font/bebase_neue"
-                        tools:text="78 kg "
                         android:textColor="@color/white"
                         android:textSize="30sp"
-                        android:textStyle="italic" />
+                        android:textStyle="italic"
+                        tools:text="78 kg " />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -323,13 +325,31 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/dp_25">
 
                 <ImageView
                     android:id="@+id/ivContinue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/conti" />
+                    android:src="@drawable/conti"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tvCalculateMyCalories"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_gravity="bottom|center"
+                    android:layout_marginTop="?actionBarSize"
+                    android:layout_marginBottom="?actionBarSize"
+                    android:background="@drawable/bg_white_round_corner_for_calorie_calculator"
+                    android:fontFamily="@font/bebase_neue"
+                    android:gravity="center"
+                    android:text="Calculate My Calories"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black_btn"
+                    android:textStyle="italic"
+                    android:visibility="gone"/>
 
             </LinearLayout>
 

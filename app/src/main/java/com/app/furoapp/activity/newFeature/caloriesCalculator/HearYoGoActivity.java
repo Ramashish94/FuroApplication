@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.app.furoapp.R;
 
-public class CalculateCaloriesActivity extends AppCompatActivity {
+public class HearYoGoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calculate_calories);
+        setContentView(R.layout.activity_hear_yo_go);
     }
 }

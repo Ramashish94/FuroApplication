@@ -49,6 +49,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.text.DecimalFormat
 import java.util.*
+import kotlin.math.abs
 
 
 enum class FitActionRequestCode {
@@ -933,6 +934,8 @@ class Padometer : AppCompatActivity() {
         Handler().postDelayed({
             getTimeDuraton = dura
             getUserSteps = userStep
+            //getUserSteps = abs(userStep)
+
 
             tvCalories.text = "$getCalculateCalories Cal"
             //tbduration.text = ("" + dura)
@@ -940,13 +943,7 @@ class Padometer : AppCompatActivity() {
             // tbduration.text = ("" + getTimeDuraton)
             // tvCountsSteps.text = userStep.toString()
             tvCountsSteps.text = getUserSteps.toString()
-
-            /*  if (getUserSteps < 0.0)
-                  tvCountsSteps.text = 0.toString()
-              else if (getUserSteps > 0.0)
-                  tvCountsSteps.text = getUserSteps.toString()
-              else
-                  tvCountsSteps.text = 0.toString()*/
+//            tvCountsSteps.text = abs(getUserSteps).toString ()
 
             /* when {
                  number < 0.0 -> println("$number is a negative number.")

@@ -38,85 +38,419 @@
                         android:textSize="@dimen/sp_20"
                         android:textStyle="italic" />
 
-
-
-
-
-                    <!--<ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:layout_gravity="start"
-                        android:layout_marginTop="@dimen/dp_25"
-                        android:src="@drawable/stepsgoal_containt" />
--->
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="270dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_height="match_parent"
                     android:layout_marginRight="32dp"
-                    android:gravity="center"
+                    android:layout_marginLeft="32dp"
                     android:orientation="vertical">
 
-                    <NumberPicker
-                        android:id="@+id/numberpicker_main_picker"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:fontFamily="@font/bebase_font_family_regular"
                         android:gravity="center"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:text="calories required per day  \nto maintain weight "
+                        android:textColor="@color/vertical_line_color"
+                        android:textSize="@dimen/sp_20"
+                        android:textStyle="italic" />
 
+                </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:orientation="vertical">
 
+                    <TextView
+                        android:id="@+id/CalorieRequiredMaintainWeightValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/bebase_font_family_regular"
+                        tools:text="2500"
+                        android:maxLength="7"
+                        android:gravity="center"
+                        android:textColor="@color/light_blue"
+                        android:textSize="@dimen/sp_30"
+                        android:textStyle="italic" />
 
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tvRecommendedText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginRight="32dp"
-                    android:gravity="center"
-                    android:textColor="@color/black_color"
-                    android:textStyle="bold"
-                    tools:text="Set your daily step target to stay active and fit throughout the day!" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@null"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp_5"
+                        android:elevation="@dimen/dp_2"
+                        app:cardCornerRadius="@dimen/dp_10">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/dp_10"
+                                android:fontFamily="@font/bebase_font_family_regular"
+                                android:gravity="center_vertical"
+                                android:text="calorie breakdown per meal   "
+                                android:textColor="@color/vertical_line_color"
+                                android:textSize="@dimen/sp_16"
+                                android:textStyle="italic" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/dp_5"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/dp_10"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/parallelogram_shape"
+                                    android:orientation="vertical"
+                                    android:paddingTop="@dimen/dp_10"
+                                    android:paddingBottom="@dimen/dp_5">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:text="Breakfast"
+                                        android:textColor="@color/light_blue"
+                                        android:textSize="@dimen/sp_14"
+                                        android:textStyle="italic" />
+
+                                    <TextView
+                                        android:id="@+id/tvBreakfastValue"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginBottom="@dimen/dp_3"
+                                        android:fontFamily="@font/bebase_font_family_regular"
+                                        android:gravity="center"
+                                        tools:text="600"
+                                        android:maxLength="6"
+                                        android:textColor="@color/light_blue"
+                                        android:textSize="@dimen/sp_16"
+                                        android:textStyle="italic" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/dp_5"
+                                    android:layout_marginTop="@dimen/dp_10"
+                                    android:layout_marginRight="@dimen/dp_5"
+                                    android:layout_marginBottom="@dimen/dp_10"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/parallelogram_shape"
+                                    android:orientation="vertical"
+                                    android:paddingTop="@dimen/dp_10"
+                                    android:paddingBottom="@dimen/dp_5">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:text="Lunch"
+                                        android:textColor="@color/light_blue"
+                                        android:textSize="@dimen/sp_14"
+                                        android:textStyle="italic" />
+
+                                    <TextView
+                                        android:id="@+id/tvLunchValue"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginBottom="@dimen/dp_3"
+                                        android:fontFamily="@font/bebase_font_family_regular"
+                                        android:gravity="center"
+                                        tools:text="800"
+                                        android:maxLength="6"
+                                        android:textColor="@color/light_blue"
+                                        android:textSize="@dimen/sp_16"
+                                        android:textStyle="italic" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/dp_10"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/parallelogram_shape"
+                                    android:orientation="vertical"
+                                    android:paddingTop="@dimen/dp_10"
+                                    android:paddingBottom="@dimen/dp_5">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:text=" Dinner"
+                                        android:textColor="@color/light_blue"
+                                        android:textSize="@dimen/sp_14"
+                                        android:textStyle="italic" />
+
+                                    <TextView
+                                        android:id="@+id/tvDinnerValue"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginBottom="@dimen/dp_3"
+                                        android:fontFamily="@font/bebase_font_family_regular"
+                                        android:gravity="center"
+                                        tools:text="600"
+                                        android:textColor="@color/light_blue"
+                                        android:textSize="@dimen/sp_16"
+                                        android:textStyle="italic"
+                                        android:maxLength="6" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
 
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginBottom="30dp"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp_5"
+                        android:elevation="@dimen/dp_2"
+                        app:cardCornerRadius="@dimen/dp_10">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bgcalorieintakewhitebg"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/dp_10"
+                                android:fontFamily="@font/bebase_font_family_regular"
+                                android:gravity="center_vertical"
+                                android:text="nutritional breakdown per meal   "
+                                android:textColor="@color/vertical_line_color"
+                                android:textSize="@dimen/sp_16"
+                                android:textStyle="italic" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/dp_5"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/dp_10"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/parallelogram_shape"
+                                    android:orientation="vertical"
+                                    android:paddingTop="@dimen/dp_10"
+                                    android:paddingBottom="@dimen/dp_5">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:text="Protein"
+                                        android:textColor="@color/light_blue"
+                                        android:textSize="@dimen/sp_14"
+                                        android:textStyle="italic" />
+
+                                    <TextView
+                                        android:id="@+id/tvProteinValue"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginBottom="@dimen/dp_3"
+                                        android:fontFamily="@font/bebase_font_family_regular"
+                                        android:gravity="center"
+                                        tools:text="600"
+                                        android:textColor="@color/light_blue"
+                                        android:textSize="@dimen/sp_16"
+                                        android:textStyle="italic"
+                                        android:maxLength="6" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/dp_5"
+                                    android:layout_marginTop="@dimen/dp_10"
+                                    android:layout_marginRight="@dimen/dp_5"
+                                    android:layout_marginBottom="@dimen/dp_10"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/parallelogram_shape"
+                                    android:orientation="vertical"
+                                    android:paddingTop="@dimen/dp_10"
+                                    android:paddingBottom="@dimen/dp_5">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:text="Carbs"
+                                        android:textColor="@color/light_blue"
+                                        android:textSize="@dimen/sp_14"
+                                        android:textStyle="italic" />
+
+                                    <TextView
+                                        android:id="@+id/tvCarbsValue"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginBottom="@dimen/dp_3"
+                                        android:fontFamily="@font/bebase_font_family_regular"
+                                        android:gravity="center"
+                                        tools:text="1200"
+                                        android:textColor="@color/light_blue"
+                                        android:textSize="@dimen/sp_16"
+                                        android:textStyle="italic"
+                                        android:maxLength="6" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/dp_10"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/parallelogram_shape"
+                                    android:orientation="vertical"
+                                    android:paddingTop="@dimen/dp_10"
+                                    android:paddingBottom="@dimen/dp_5">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:text=" Fats"
+                                        android:textColor="@color/light_blue"
+                                        android:textSize="@dimen/sp_14"
+                                        android:textStyle="italic" />
+
+                                    <TextView
+                                        android:id="@+id/tvFatsValue"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginBottom="@dimen/dp_3"
+                                        android:fontFamily="@font/bebase_font_family_regular"
+                                        android:gravity="center"
+                                        tools:text="200"
+                                        android:textColor="@color/light_blue"
+                                        android:textSize="@dimen/sp_16"
+                                        android:textStyle="italic"
+                                        android:maxLength="6" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_30"
+                    android:layout_marginRight="@dimen/dp_30"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:gravity="start"
+                        android:text="This calorie provides an estimate calorie intake.\nIt is advised to consult a doctor creating a diet \naccording to the calorie required.  "
+                        android:textColor="@color/vertical_line_color"
+                        android:textSize="@dimen/sp_12"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_30"
+                    android:layout_marginTop="?actionBarSize"
+                    android:layout_marginRight="@dimen/dp_30"
+                    android:layout_marginBottom="?actionBarSize"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/tvReset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_35"
+                        android:layout_marginRight="@dimen/dp_5"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_next_shape"
+                        android:fontFamily="@font/bebase_neue"
+                        android:gravity="center"
+                        android:text="Reset"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/tvSaveData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_35"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_next_shape"
+                        android:fontFamily="@font/bebase_neue"
+                        android:gravity="center"
+                        android:text="SaveData"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textStyle="italic" />
+                </LinearLayout>
             </LinearLayout>
-
         </androidx.core.widget.NestedScrollView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_margin="32dp"
-            android:layout_marginBottom="@dimen/dp_40"
-            android:gravity="bottom"
-            android:orientation="vertical">
-
-
-            <ImageView
-                android:id="@+id/ivContinue"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_40"
-                android:layout_gravity="bottom"
-                android:src="@drawable/continue1" />
-
-
-        </LinearLayout>
     </FrameLayout>
 
 </LinearLayout>

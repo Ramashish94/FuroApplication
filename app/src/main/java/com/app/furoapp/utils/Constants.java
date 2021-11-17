@@ -63,9 +63,6 @@ public class Constants {
     public static final String ACHIVED_VAL = "getAchievedVal";
     public static final String SELECTD_NUMBER = "selectNumber";
     public static final String FCM_TOKEN = "fcmToken";
-    /* added*/
-    public static String Get_ACCESS_TOKEN = "access_token";
-    public static String ACTIVITY_Id = "id";
     /*foe bmi calculator*/
     public static final String FIND_TYPE = "typeBmiVal";
     public static final String GENDER_VAL = "genderVal";
@@ -76,5 +73,16 @@ public class Constants {
     public static final String WATER_INTAKE = "Water Intake";
     public static final String WATER_INTAKE_PLAN = "planId";
     public static final String STEP_COUNTER_REMINDER = "Step Counter Reminder";
+    /* added*/
+    public static String Get_ACCESS_TOKEN = "access_token";
+    public static String ACTIVITY_Id = "id";
+
+    /*add on 16-11-2021,By Ramashish kumar*/
+    public static final String WEIGHT_GOAL_VALUE = "chooseWeightGoalValue";
+    public static final String NO_OF_MEAL_TAKEN = "getNoOfMealTakenSelectedValue";
+    public static final String LEVEL_OF_ACTIVITY_VALUE = "getLevelOfActivityValue";
+    public static final String AGE = "age";
+    public static final String CALORIES_VALUE = "getAMR";
+
 
 }

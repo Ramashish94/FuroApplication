@@ -50,8 +50,8 @@
                     android:id="@+id/llDailyStepsTracker"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="1dp"
                     android:layout_marginLeft="@dimen/dp_2"
+                    android:layout_marginRight="1dp"
                     android:layout_weight="1"
                     android:background="@drawable/healthcenterbg"
                     android:orientation="vertical">
@@ -273,6 +273,7 @@
                 android:layout_marginTop="@dimen/dp_2"
                 android:layout_marginRight="15dp"
                 android:orientation="horizontal">
+
                 <LinearLayout
                     android:id="@+id/llBMIClculator"
                     android:layout_width="match_parent"
@@ -403,50 +404,39 @@
                     android:layout_marginRight="@dimen/dp_2"
                     android:layout_weight="1"
                     android:background="@drawable/healthcenterbg"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="bottom"
                         android:layout_marginLeft="@dimen/dp_15"
+                        android:layout_marginTop="@dimen/dp_10"
                         android:layout_marginRight="2dp"
                         android:layout_weight="1"
-                        android:gravity="bottom"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="1200"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12.5sp"
-                            android:textStyle="italic" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="/"
-                            android:textAppearance="@style/steps"
-                            android:textSize="12.5sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="3000"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12.5sp"
-                            android:textStyle="italic" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="2dp"
-                            android:text="Caloris"
+                            android:text="Calories \nrequired per day"
                             android:textColor="#FFFFFF"
-                            android:textSize="12.5sp"
+                            android:textSize="@dimen/sp_14"
                             android:textStyle="italic" />
+
+
+                        <TextView
+                            android:id="@+id/tvCaloriesRequiredPerDayGettingValue"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_weight="1"
+                            android:textColor="#FFFFFF"
+                            android:textSize="@dimen/sp_13"
+                            android:textStyle="italic"
+                            android:text="0000 calories "
+                            android:paddingTop="@dimen/dp_3"/>
 
                     </LinearLayout>
 
@@ -457,7 +447,8 @@
                         android:layout_marginRight="2dp"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <FrameLayout
                             android:layout_width="wrap_content"
@@ -482,7 +473,8 @@
                         android:layout_marginLeft="@dimen/dp_15"
                         android:layout_marginRight="2dp"
                         android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <ImageView
                             android:layout_width="94dp"

@@ -35,6 +35,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.skydoves.progressview.ProgressView;
 
+import java.text.DecimalFormat;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,7 +44,7 @@ import retrofit2.Response;
 public class HealthCenterDashboardActivity extends AppCompatActivity {
     public LinearLayout llDailyStepsTracker, llWaterIntakeMonitor, llBMICalculator, llCaloriesCalculator;
     private String getAccessToken;
-    private TextView tvTotalSteps, tvSteps, tvNoOfGlass, tvTotNoOfGlass, tvBmiType, tvBmiIndex;
+    private TextView tvTotalSteps, tvSteps, tvNoOfGlass, tvTotNoOfGlass, tvBmiType, tvBmiIndex, tvCaloriesRequiredPerDayGettingValue;
     private ImageView ivBack;
     private int getBmi;
     private int takenWaterPercent;
@@ -71,6 +73,8 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
 
         callDashBoardApi();
 
+        setCalorieIntakeCalculatorData();
+
     }
 
     private void initVies() {
@@ -87,6 +91,7 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
         tvBmiType = findViewById(R.id.tvBmiType);
         stepsProgressView = findViewById(R.id.stepsProgressView);
         waterIntakeProgressView = findViewById(R.id.waterIntakeProgressView);
+        tvCaloriesRequiredPerDayGettingValue = findViewById(R.id.tvCaloriesRequiredPerDayGettingValue);
     }
 
 
@@ -127,7 +132,7 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
         llCaloriesCalculator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(getApplicationContext(), CalculateCaloriesStartActivity.class);
+                Intent intent = new Intent(getApplicationContext(), CalculateCaloriesStartActivity.class);
                 startActivity(intent);
             }
         });
@@ -170,7 +175,7 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
     private void setBmiData(Bmi bmi) {
         if (bmi != null) {
             getBmi = (int) Double.parseDouble("" + bmi.getBmi());
-           // tvBmiIndex.setText("" + getBmi);
+            // tvBmiIndex.setText("" + getBmi);
             if (getBmi < 18.5) {
                 tvBmiType.setText("Underweight ");
             } else if (getBmi >= 18.5 && getBmi <= 24.9) {
@@ -213,6 +218,16 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "No water intake record found !", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void setCalorieIntakeCalculatorData() {
+        if (FuroPrefs.getString(getApplicationContext(), Constants.CALORIES_VALUE) != null) {
+            double calValue = Double.parseDouble(FuroPrefs.getString(getApplicationContext(), Constants.CALORIES_VALUE));
+            tvCaloriesRequiredPerDayGettingValue.setText(new DecimalFormat("####.##").format(calValue) + " calories");
+        } else {
+
+        }
+
     }
 
 

@@ -47,19 +47,20 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
     public ImageView ivContinue;
     public String userHeightInCm, userWeightInKg;
     public TextView tvHeightRulerValueInCms, tvHeightRulerValueInFeet, tvHeightRulerValueInInch, tvWeightRulerValueInKgs;
+    public GoogleSignInClient mGoogleSignInClient;
+    public AlertDialog.Builder dialogBuilder;
+    public Data setModifiedDataVal;
+    public TextView tvTellUsMoreSubHeading, tvCalculateMyCalories;  /*add on 13-11-2021,by ramashish or calorie calculator*/
+    AlertDialog.Builder builder;
+    AppCompatTextView appCmptTvForHeight, appCmptTvForWight;
     private boolean isGenderSelected, isAgeSelected;
     private String userAge;
     private String genderVal;
     private String getAccessToken;
-    AlertDialog.Builder builder;
     private AlertDialog alertDialog;
-    public GoogleSignInClient mGoogleSignInClient;
-    public AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
-    public Data setModifiedDataVal;
-    AppCompatTextView appCmptTvForHeight, appCmptTvForWight;
-    public TextView tvTellUsMoreSubHeading, tvCalculateMyCalories;  /*add on 13-11-2021,by ramashish or calorie calculator*/
-
+    private String CalorieIntakeCalculator;
+    public Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,7 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
         initViews();
 
         getAccessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
+        CalorieIntakeCalculator = getIntent().getStringExtra("CalorieIntakeCalculator");     /*for calorie page*/
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -75,7 +77,7 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
 
-        //callModifiedSavedDataApiLandingTime();
+        callModifiedSavedDataApiLandingTime();
         setTextForCalorieCalculator();   /*add on 13-11-2021,by ramashish or calorie calculator*/
 
         clickEvent();
@@ -100,14 +102,17 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
     }
 
     private void setTextForCalorieCalculator() {
-        if ("CalorieIntakeCalculator".equalsIgnoreCase(getIntent().getStringExtra("CalorieIntakeCalculator"))) {
-            tvTellUsMoreSubHeading.setText("Fill in the necessary data required to analyse your calorie intake. ");
-            tvTellUsMoreSubHeading.setTextColor(Color.parseColor("#FFFFFF"));
-            tvTellUsMoreSubHeading.setTextSize(16);
-            appCmptTvForHeight.setText(" Select your Weight");
-            appCmptTvForWight.setText(" Select your Weight");
-            ivContinue.setVisibility(View.GONE);
-            tvCalculateMyCalories.setVisibility(View.VISIBLE);
+        if (CalorieIntakeCalculator != null) {
+            if (CalorieIntakeCalculator.equalsIgnoreCase(getIntent().getStringExtra("CalorieIntakeCalculator"))) {
+                tvTellUsMoreSubHeading.setText("Fill in the necessary data required to analyse your calorie intake. ");
+                tvTellUsMoreSubHeading.setTextColor(Color.parseColor("#FFFFFF"));
+                tvTellUsMoreSubHeading.setTextSize(16);
+                appCmptTvForHeight.setText(" Select your Weight");
+                appCmptTvForWight.setText(" Select your Weight");
+                ivContinue.setVisibility(View.GONE);
+                tvCalculateMyCalories.setVisibility(View.VISIBLE);
+            }
+        } else {
         }
     }
 
@@ -194,8 +199,8 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
         });
 
         tvCalculateMyCalories.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), HearYoGoActivity.class);
-            startActivity(intent);
+//            callForCalorieIntakeCalculator();
+            callModifiedSavedDataApi();
         });
     }
 
@@ -300,8 +305,21 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
                             Util.dismissProgressDialog();
                             if (response.code() == 200) {
                                 if (response.body() != null) {
-                                    Toast.makeText(TellUsMoreOnTrackStepsActivity.this, "Data Updated Successfully", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), AddNewSlotPreferActivity.class);
+                                    if (CalorieIntakeCalculator!=null) {
+                                        intent = new Intent(getApplicationContext(), HearYoGoActivity.class);
+//                                        intent.putExtra("userAge", userAge);
+//                                        intent.putExtra("genderVal", genderVal);
+//                                        intent.putExtra("userHeightInCm", userHeightInCm);
+//                                        intent.putExtra("userWeightInKg", userWeightInKg);
+                                        FuroPrefs.putString(getApplicationContext(), Constants.AGE, userAge);
+                                        FuroPrefs.putString(getApplicationContext(), Constants.GENDER, genderVal);
+                                        FuroPrefs.putString(getApplicationContext(), Constants.USER_HEIGHT_IN_CM, userHeightInCm);
+                                        FuroPrefs.putString(getApplicationContext(), Constants.USER_WEIGHT_IN_KG, userWeightInKg);
+//                                        Toast.makeText(TellUsMoreOnTrackStepsActivity.this, "Data Updated Successfully", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(TellUsMoreOnTrackStepsActivity.this, "Data Updated Successfully", Toast.LENGTH_SHORT).show();
+                                        intent = new Intent(getApplicationContext(), AddNewSlotPreferActivity.class);
+                                    }
                                     startActivity(intent);
                                     finish();
                                 }
@@ -327,6 +345,7 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
             Toast.makeText(this, "Please provided Age !", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     private void getAlertTokenExpire() {
 
@@ -394,9 +413,16 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
                 });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        callModifiedSavedDataApiLandingTime();
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        callModifiedSavedDataApiLandingTime();
+//    }
+
+//    @Override
+//    protected void onRestart() {
+//        super.onRestart();
+//        callModifiedSavedDataApiLandingTime();
+//
+//    }
 }

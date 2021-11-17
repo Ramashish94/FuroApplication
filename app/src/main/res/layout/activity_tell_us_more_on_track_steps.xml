@@ -325,8 +325,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="@dimen/dp_25">
+                android:layout_marginTop="@dimen/dp_25"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/ivContinue"
@@ -338,7 +338,7 @@
                 <TextView
                     android:id="@+id/tvCalculateMyCalories"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_40"
+                    android:layout_height="@dimen/dp_35"
                     android:layout_gravity="bottom|center"
                     android:layout_marginTop="?actionBarSize"
                     android:layout_marginBottom="?actionBarSize"
@@ -349,7 +349,7 @@
                     android:textAllCaps="true"
                     android:textColor="@color/black_btn"
                     android:textStyle="italic"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
             </LinearLayout>
 

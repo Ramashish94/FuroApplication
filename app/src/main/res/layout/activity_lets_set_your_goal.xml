@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="32dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="@dimen/dp_40"
                 android:layout_marginRight="32dp"
                 android:layout_marginBottom="@dimen/dp_16"
                 android:orientation="vertical">
@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:layout_marginLeft="@dimen/dp_20"
-                    android:layout_marginTop="25sp"
+                    android:layout_marginTop="@dimen/dp_30"
                     android:gravity="start"
                     android:text="Choose your weight goal"
                     android:textColor="@color/white"
@@ -61,10 +61,10 @@
                     android:id="@+id/tvLooseWeight"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
+                    android:layout_margin="@dimen/dp_2"
                     android:fontFamily="@font/bebase_font_family_regular"
                     android:gravity="center"
-                    android:text="loose weight   "
-                    android:layout_margin="@dimen/dp_2"
+                    android:text="Loose weight"
                     android:textColor="@color/vertical_line_color"
                     android:textSize="@dimen/sp_20"
                     android:textStyle="bold" />
@@ -73,24 +73,24 @@
                     android:id="@+id/tvMaintainWeight"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
+                    android:layout_margin="@dimen/dp_2"
                     android:fontFamily="@font/bebase_font_family_regular"
                     android:gravity="center"
-                    android:text="Maintain weight  "
+                    android:text="Maintain weight"
                     android:textColor="@color/vertical_line_color"
                     android:textSize="@dimen/sp_20"
-                    android:layout_margin="@dimen/dp_2"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvGainWeight"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
+                    android:layout_margin="@dimen/dp_2"
                     android:fontFamily="@font/bebase_font_family_regular"
                     android:gravity="center"
-                    android:text="gain weight   "
+                    android:text="Gain weight"
                     android:textColor="@color/vertical_line_color"
                     android:textSize="@dimen/sp_20"
-                    android:layout_margin="@dimen/dp_2"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -107,10 +107,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:text="Select the number of\nmeals intake per day"
                     android:textColor="@color/white"
                     android:textSize="25sp"
-                    android:textStyle="bold"
-                    android:text="Select the number of\nmeals intake per day" />
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -132,10 +132,10 @@
                         android:id="@+id/tvNo3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="3"
                         android:textColor="@color/vertical_line_color"
                         android:textSize="@dimen/dp_40"
-                        android:textStyle="bold"
-                        android:text="3" />
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -149,10 +149,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:text="4"
                         android:textColor="@color/vertical_line_color"
                         android:textSize="@dimen/dp_40"
-                        android:textStyle="bold"
-                        android:text="4" />
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -166,10 +166,10 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="start"
+                        android:text="5"
                         android:textColor="@color/vertical_line_color"
                         android:textSize="@dimen/dp_40"
-                        android:textStyle="bold"
-                        android:text="5" />
+                        android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -184,10 +184,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:text="Level of activity"
                     android:textColor="@color/white"
                     android:textSize="25sp"
-                    android:textStyle="bold"
-                    android:text="Level of activity" />
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -204,11 +204,11 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/bebase_font_family_regular"
                     android:gravity="end"
+                    android:paddingRight="@dimen/dp_10"
+                    android:text="Sedentary"
                     android:textColor="@color/vertical_line_color"
                     android:textSize="@dimen/sp_20"
-                    android:textStyle="bold"
-                    android:paddingRight="@dimen/dp_10"
-                    android:text="Sedentary" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvLightActive"
@@ -218,11 +218,11 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/bebase_font_family_regular"
                     android:gravity="start"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:text="Light active"
                     android:textColor="@color/vertical_line_color"
                     android:textSize="@dimen/sp_20"
-                    android:textStyle="bold"
-                    android:text="Light active"
-                    android:paddingLeft="@dimen/dp_10"/>
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -240,10 +240,10 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/bebase_font_family_regular"
                     android:gravity="center"
+                    android:text="Moderately  active"
                     android:textColor="@color/vertical_line_color"
                     android:textSize="@dimen/sp_20"
-                    android:textStyle="bold"
-                    android:text="Moderately  active" />
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -260,25 +260,25 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/bebase_font_family_regular"
                     android:gravity="end"
+                    android:paddingRight="@dimen/dp_5"
+                    android:text="Very active"
                     android:textColor="@color/vertical_line_color"
                     android:textSize="@dimen/sp_20"
-                    android:textStyle="bold"
-                    android:text="Very active"
-                    android:paddingRight="@dimen/dp_5"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvActive"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:paddingLeft="@dimen/dp_30"
                     android:layout_weight="1"
                     android:fontFamily="@font/bebase_font_family_regular"
                     android:gravity="start"
+                    android:paddingLeft="@dimen/dp_30"
+                    android:text="active"
                     android:textColor="@color/vertical_line_color"
                     android:textSize="@dimen/sp_20"
-                    android:textStyle="bold"
-                    android:text="active" />
+                    android:textStyle="bold" />
             </LinearLayout>
 
 

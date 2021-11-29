@@ -132,7 +132,7 @@ public class SignUpActivity extends AppCompatActivity {
     private String imageUrl;
     private String userGender;
     private TextView gps_status;
-    private String state = "";
+    private String state ;/*= ""*/
     private Handler handler;
     private AutoSuggestAdapter autoSuggestAdapter;
     /**
@@ -146,10 +146,10 @@ public class SignUpActivity extends AppCompatActivity {
     private boolean mAddressRequested;
     private AddressResultReceiver mResultReceiver;
     private String mAddressOutput;
-    private String address = "";
-    private String mCountry = "";
+    private String address;/* = ""*/
+    private String mCountry ;/*= ""*/
     private String userPlatform;
-    private String city = "", googleId;
+    private String city /*= ""*/, googleId;
     private ImageView profilePlus, imgUserProfile;
     private DatePickerDialog dp;
     private Calendar c;
@@ -768,14 +768,20 @@ public class SignUpActivity extends AppCompatActivity {
         if (mCountry == null) {
             mCountry = signCountry.getText().toString().trim();
             Log.d("mCountry: ", mCountry);
+        }else {
+
         }
         if (state == null) {
             state = signState.getText().toString().trim();
             Log.d("state", state);
+        }else {
+
         }
         if (city == null) {
             city = signCity.getText().toString().trim();
             Log.d("city: ", city);
+        }else {
+
         }
 
         mobilenumber = contectNumber.getText().toString().trim();
@@ -784,6 +790,11 @@ public class SignUpActivity extends AppCompatActivity {
         userPassword = signPassword.getText().toString().trim();
         userDob = signDateOfBirth.getText().toString().trim();
         userUniName = uniqueUserName.getText().toString().trim();
+        /***********************************************/
+        mCountry = signCountry.getText().toString().trim();
+        state = signState.getText().toString().trim();
+        city = signCity.getText().toString().trim();
+
 
         if (TextUtils.isEmpty(userName.trim()) || signName.getText().length() == 0) {
             Util.displayToast(this, "Please enter Name");

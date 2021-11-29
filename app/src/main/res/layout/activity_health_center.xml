@@ -404,7 +404,7 @@
                     android:layout_marginRight="@dimen/dp_2"
                     android:layout_weight="1"
                     android:background="@drawable/healthcenterbg"
-                    android:orientation="vertical">
+                    android:orientation="vertical"><!--android:visibility="invisible"-->
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -425,18 +425,37 @@
                             android:textSize="@dimen/sp_14"
                             android:textStyle="italic" />
 
-
-                        <TextView
-                            android:id="@+id/tvCaloriesRequiredPerDayGettingValue"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="2dp"
-                            android:layout_weight="1"
-                            android:textColor="#FFFFFF"
-                            android:textSize="@dimen/sp_13"
-                            android:textStyle="italic"
-                            android:text="0000 calories "
-                            android:paddingTop="@dimen/dp_3"/>
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tvCaloriesRequiredPerDayGettingValue"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="2dp"
+                                android:layout_weight="1.2"
+                                android:paddingTop="@dimen/dp_3"
+                                android:text="0000"
+                                android:textColor="#FFFFFF"
+                                android:maxLength="7"
+                                android:textSize="@dimen/sp_13"
+                                android:textStyle="italic" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="2dp"
+                                android:layout_weight="0.8"
+                                android:paddingTop="@dimen/dp_3"
+                                android:text="calories "
+                                android:textColor="#FFFFFF"
+                                android:textSize="@dimen/sp_13"
+                                android:textStyle="italic" />
+
+                        </LinearLayout>
+
 
                     </LinearLayout>
 

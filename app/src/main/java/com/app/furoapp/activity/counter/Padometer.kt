@@ -66,6 +66,7 @@ class Padometer : AppCompatActivity() {
 
     private var getUserSteps: Int = 0
     private var getTimeDuraton: Int = 0
+    private var getDistanceMiAndKm = 0f
     private var ivSignInWithGoogle: View? = null
     private var tvCancel: View? = null
     private val TAG = "FIT_TAG"
@@ -97,7 +98,6 @@ class Padometer : AppCompatActivity() {
     private val tipsHandler = Handler()
     private var tipsListSize = 0
     private var tipsStart = 0
-    private var getDistanceMiAndKm = 0f
     var getDetectedSteps: Int? = null
     var stepsAchivedVal: String? = null
     var selectNumberAchievedVal: String? = null
@@ -316,8 +316,7 @@ class Padometer : AppCompatActivity() {
                             var fullsteps: Float = getDetectedSteps!!.toFloat()
 
 
-                            var stepsGoodleDisabled =
-                                    FuroPrefs.getInt(applicationContext, "stepsWhenGoogleDisabled", 0)
+                            var stepsGoodleDisabled = FuroPrefs.getInt(applicationContext, "stepsWhenGoogleDisabled", 0)
 
                             var userStep = (getDetectedSteps!! - stepsGoodleDisabled)
                             if (userStep!! >= goals) {
@@ -329,17 +328,17 @@ class Padometer : AppCompatActivity() {
 
                             val duration = userStep / 64
 
-                            splashCall(duration, userStep)
+                            splashCall(abs(duration), abs(userStep))
 
 
-                            getCalculateCalories = (userStep!! * 0.045).toFloat()
+                            getCalculateCalories = (abs(userStep)!! * 0.045).toFloat()
 
 
                             var steps: Float = userStep.toFloat()
 
                             isLogin = true
                             FuroPrefs.putBoolean(applicationContext, "isAlreadyLoginForFitness", isLogin)
-                            splashCallDistance(steps)
+                            splashCallDistance(abs(steps))
 
 
                             val isActuvate = FuroPrefs.getBoolean(this@Padometer, "isAlreadyActivate") // add by pankaj on 4-aug-2021
@@ -361,7 +360,7 @@ class Padometer : AppCompatActivity() {
 
 
 
-                            setAlarm(calendar.timeInMillis, getCalculateCalories, fullsteps, getDistanceMiAndKm)
+                            setAlarm(abs(calendar.timeInMillis), abs(getCalculateCalories), abs(fullsteps), abs(getDistanceMiAndKm))
 
                         }
                 ha.postDelayed(this, 5000)
@@ -533,8 +532,8 @@ class Padometer : AppCompatActivity() {
             ivBackIcon.isClickable = false
             ivLeadBord.isClickable = false
 
-            tvStepsLogSync!!.text = getUserSteps.toString()
-            tvCaloriesLogSync.text = getCalculateCalories.toString()
+            tvStepsLogSync!!.text = abs(getUserSteps).toString()
+            tvCaloriesLogSync.text = abs(getCalculateCalories).toString()
 
 
             /*FuroPrefs.putBoolean(applicationContext, "isDeactivateClicked", true)
@@ -932,14 +931,14 @@ class Padometer : AppCompatActivity() {
     private val SPLASH_DISPLAY_LENGTH = 5000
     fun splashCall(dura: Int, userStep: Int) {
         Handler().postDelayed({
-            getTimeDuraton = dura
-            getUserSteps = userStep
+            getTimeDuraton = abs(dura)
+            getUserSteps = abs(userStep)
             //getUserSteps = abs(userStep)
 
 
-            tvCalories.text = "$getCalculateCalories Cal"
+            tvCalories.text = abs(getCalculateCalories).toString() + " Cal"
             //tbduration.text = ("" + dura)
-            tbduration.text = "$getTimeDuraton Min"
+            tbduration.text = abs(getTimeDuraton).toString() + " Min"
             // tbduration.text = ("" + getTimeDuraton)
             // tvCountsSteps.text = userStep.toString()
             tvCountsSteps.text = getUserSteps.toString()
@@ -960,23 +959,23 @@ class Padometer : AppCompatActivity() {
             swBtnInKm.setOnCheckedChangeListener { buttonView, isChecked ->
                 if (isChecked) {
                     isSwitchedChecked = true
-                    getDistanceMiAndKm = (stepCount?.times(78)) as Float / 100000.toFloat()
-                    tvDistance.text = "$getDistanceMiAndKm km"
+                    getDistanceMiAndKm = (abs(stepCount)?.times(78)) as Float / 100000.toFloat()
+                    tvDistance.text = abs(getDistanceMiAndKm).toString() + " km"/*"$getDistanceMiAndKm km"*/
                 } else {
                     isSwitchedChecked = false
-                    getDistanceMiAndKm = (stepCount?.times(78)) as Float / 100.toFloat()
-                    tvDistance.text = "$getDistanceMiAndKm m"
+                    getDistanceMiAndKm = (abs(stepCount)?.times(78)) as Float / 100.toFloat()
+                    tvDistance.text = abs(getDistanceMiAndKm).toString() + " m"/*"$getDistanceMiAndKm m"*/
                 }
                 //tvDistance.setText("" + getDistanceMiAndKm + " meter");
             }
 
 
             if (isSwitchedChecked) {
-                getDistanceMiAndKm = (stepCount?.times(78)) as Float / 100000.toFloat()
-                tvDistance.text = "$getDistanceMiAndKm km"
+                getDistanceMiAndKm = (abs(stepCount)?.times(78)) as Float / 100000.toFloat()
+                tvDistance.text = abs(getDistanceMiAndKm).toString() + " km"/*"$getDistanceMiAndKm km"*/
             } else if (isSwitchedChecked == false) {
-                getDistanceMiAndKm = (stepCount?.times(78)) as Float / 100.toFloat()
-                tvDistance.text = "$getDistanceMiAndKm m"
+                getDistanceMiAndKm = (abs(stepCount)?.times(78)) as Float / 100.toFloat()
+                tvDistance.text = abs(getDistanceMiAndKm).toString() + " m"/*"$getDistanceMiAndKm m"*/
             }
 
         }, SPLASH_DISPLAY_LENGTH_DISTANCE.toLong())

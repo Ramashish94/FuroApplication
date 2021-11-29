@@ -189,6 +189,8 @@ android {
         implementation("com.google.android.gms:play-services-fitness:20.0.0")
         implementation("com.google.android.gms:play-services-auth:19.0.0")
         implementation 'androidx.core:core-ktx:1.7.0-alpha01'
+        /*add on 29-11-2021*/
+        implementation 'io.github.ShawnLin013:number-picker:2.4.13'
     }
 
 

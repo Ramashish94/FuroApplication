@@ -13,4 +13,9 @@
     <dimen name="dimen_175">175dp</dimen>
     <dimen name="dp_110">110dp</dimen>
     <dimen name="dp_10">10dp</dimen>
+
+
+    <!--add on 29-11-2011,fo number picker -->
+    <dimen name="selected_text_size">35dp</dimen>
+    <dimen name="text_size">30dp</dimen>
 </resources>

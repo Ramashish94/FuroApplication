@@ -213,7 +213,7 @@
 
                         <TextView
                             android:id="@+id/tvDistance"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dp_7"
                             android:text="0"

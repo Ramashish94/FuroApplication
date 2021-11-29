@@ -82,7 +82,7 @@ public class WantToAcivedActivity extends AppCompatActivity {
             tvLooseWeight.setTextColor(Color.parseColor("#ffffff"));
             tvStayHealthy.setTextColor(Color.parseColor("#19CFE6"));
             tvStayActive.setTextColor(Color.parseColor("#ffffff"));
-            getAchievedVal = String.valueOf(1000);
+            getAchievedVal = String.valueOf(8000);
             Log.d("getAchievedVal", String.valueOf(getAchievedVal));
 
         });

@@ -186,6 +186,8 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
                 tvBmiType.setText("Obese");
             }*/ else if (getBmi >= 30) {
                 tvBmiType.setText("Obese");
+            } else {
+
             }
 
         } else {
@@ -222,8 +224,8 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
 
     private void setCalorieIntakeCalculatorData() {
         if (FuroPrefs.getString(getApplicationContext(), Constants.CALORIES_VALUE) != null) {
-            double calValue = Double.parseDouble(FuroPrefs.getString(getApplicationContext(), Constants.CALORIES_VALUE));
-            tvCaloriesRequiredPerDayGettingValue.setText(new DecimalFormat("####.##").format(calValue) + " calories");
+           // String calValue = String.valueOf(Double.parseDouble(FuroPrefs.getString(getApplicationContext(), Constants.CALORIES_VALUE)));
+            tvCaloriesRequiredPerDayGettingValue.setText(""+ FuroPrefs.getString(getApplicationContext(), Constants.CALORIES_VALUE));
         } else {
 
         }

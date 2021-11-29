@@ -144,7 +144,8 @@
             android:layout_marginLeft="@dimen/dp_5"
             android:layout_marginRight="@dimen/dp_8"
             android:background="@drawable/viewdetailbg"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone"><!--remove this 21day challenge banner-->
 
             <LinearLayout
                 android:layout_width="match_parent"

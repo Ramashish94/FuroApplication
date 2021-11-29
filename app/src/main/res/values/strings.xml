@@ -161,5 +161,14 @@
     <string name="permission_external_storage">No permission to access external storage</string>
     <string name="notification_settings">Notification settings</string>
 
+    <!--add on 29-11-2021 for number picker-->
+    <!-- Font -->
+    <string name="roboto_regular">sans-serif</string>
+    <string name="roboto_light">sans-serif-light</string>
+    <string name="roboto_condensed">sans-serif-condensed</string>
+    <string name="roboto_thin">sans-serif-thin</string>
+    <string name="roboto_medium">sans-serif-medium</string>
+
+    <string name="number_picker_formatter">%02d</string>
 
 </resources>

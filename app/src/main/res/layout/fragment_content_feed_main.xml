@@ -13,14 +13,15 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/navigationfeed"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?actionBarSize"
             android:layout_alignParentBottom="true"
             app:elevation="@dimen/dp_2"
             app:itemIconSize="@dimen/dp_25"
             android:theme="@style/NavigationThemennew"
             app:itemIconTint="@drawable/bottom_navigation_selector"
             app:labelVisibilityMode="labeled"
-            app:menu="@menu/content_feed" />
+            app:menu="@menu/content_feed"
+            android:background="@color/white"/>
 
         <com.app.furoapp.utils.GifImageView
             android:visibility="gone"

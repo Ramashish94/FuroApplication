@@ -24,7 +24,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="25"
+            android:layout_weight="18"
             android:orientation="vertical">
 
 
@@ -125,7 +125,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="32dp"
-                    android:layout_marginTop="@dimen/dp_40"
+                    android:layout_marginTop="@dimen/dp_30"
                     android:layout_marginRight="32dp"
                     android:background="@drawable/steptrackertipsbg"
                     android:orientation="horizontal">
@@ -160,7 +160,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="75"
+            android:layout_weight="82"
             android:gravity="center"
             android:orientation="vertical"
             tools:ignore="MissingConstraints">

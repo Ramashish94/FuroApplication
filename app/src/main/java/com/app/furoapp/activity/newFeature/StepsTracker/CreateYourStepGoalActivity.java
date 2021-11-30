@@ -10,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -40,11 +41,12 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
     StepsCountAdapter stepsCountAdapter;
     private int selectNumber;
     int adapterCurrentPos = 0;
-    //    private NumberPicker picker1;
-    private NumberPicker numberPicker;
+    private NumberPicker numberPicker,picker1;
     private String[] pickerVals;
     private int getnuberVal;
     private boolean isSelectedCustomGoal;
+    private String[] displayedValues;
+    private String[] numbers;
 
 
     @Override
@@ -54,27 +56,61 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
         findViews();
         clickEvent();
         setRecyAdapter();
-        numberPicker();
+//        numberPicker();
+        shawnlinNumberPicker();
+    }
+
+    private void findViews() {
+        rvStepsCount = findViewById(R.id.rvStepsCount);
+        ivContinue = findViewById(R.id.ivContinue);
+        ivBack = findViewById(R.id.ivBack);
+//        picker1 = findViewById(R.id.numberpicker_main_picker);
+        numberPicker = findViewById(R.id.number_picker);
+        tvRecommendedText = findViewById(R.id.tvRecommendedText);
+        tvRecommended = findViewById(R.id.tvRecommended);
+
     }
 
     private void numberPicker() {
-       /* int start = 1000;
-        String[] numbers = new String[20];
-        for (int i = 0; i <= 20-1; i++) {
+        int start = 1000;
+        numbers = new String[291];
+        for (int i = 0; i <= numbers.length - 1; i++) {
             numbers[i] = start + "";
             start = start + 100;
         }
-        picker1.setMaxValue(20);
+        picker1.setMaxValue(291);
         picker1.setMinValue(1);
         picker1.setDisplayedValues(numbers);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            picker1.setTextColor(ContextCompat.getColor(this, R.color.white));
+        }
         picker1.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-                int valuePicker1 = picker1.getValue();
-                Log.d("picker value", String.valueOf(valuePicker1));
-            }
-        });*/
+//                int valuePicker1 = picker1.getValue();
+//                Log.d("picker value", String.valueOf(valuePicker1));
 
+                selectNumber = 1000 + ((picker1.getValue() - 1) * 100);
+                Log.d(TAG, "onScrollStateChange() called with: picker =" + selectNumber);
+
+                if (selectNumber >= 5000 && selectNumber <= 8000) {
+                    tvRecommended.setVisibility(View.VISIBLE);
+                } else {
+                    tvRecommended.setVisibility(View.INVISIBLE);
+                }
+
+                if (selectNumber < 5000) {
+                    tvRecommendedText.setText("Your step count is under 5000. This may not be enough. Increase the number of steps!");
+                } else if (selectNumber >= 5000 && selectNumber <= 12000) {
+                    tvRecommendedText.setText("Great! You are good to go!");
+                } else if (selectNumber >= 12000) {
+                    tvRecommendedText.setText("Your step count is exceeding 12,000 steps.This may result into exhaustion. Decrease the number of steps!");
+                }
+            }
+        });
+    }
+
+    private void shawnlinNumberPicker() {
         // Set divider color
         numberPicker.setDividerColor(ContextCompat.getColor(this, R.color.vertical_line_color));
         numberPicker.setDividerColorResource(R.color.vertical_line_color);
@@ -114,20 +150,19 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
         numberPicker.setTypeface(R.string.roboto_light);
 
         // Set value
-        int NUMBER_OF_VALUES = 30; //num of values in the picker
+        int NUMBER_OF_VALUES = 291; //num of values in the picker
         int PICKER_RANGE = 1000;
-        String[] displayedValues = new String[NUMBER_OF_VALUES];
+        displayedValues = new String[NUMBER_OF_VALUES];
         //Populate the array
         for (int i = 0; i < NUMBER_OF_VALUES; i++) {
-            displayedValues[i] = String.valueOf(PICKER_RANGE * (i + 1));/** */
+            displayedValues[i] = String.valueOf(PICKER_RANGE + (i * 100));
         }
-//       numberPicker.setMinValue(3000);
         numberPicker.setMaxValue(displayedValues.length);
         numberPicker.setDisplayedValues(displayedValues);
         tvRecommendedText.setText("Your step count is under 5000. This may not be enough. Increase the number of steps!");
-       /* numberPicker.setMinValue(1000);
-        numberPicker.setMaxValue(15000);
-        numberPicker.setValue(4000);*/
+        //numberPicker.setMinValue(4000);
+//        numberPicker.setMaxValue(15000);
+//        numberPicker.setValue(4000);
 
         // Set string values
 //        String[] data = {"A", "B", "C", "D", "E", "F", "G", "H", "I"};
@@ -168,13 +203,15 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
             @Override
             public void onScrollStateChange(NumberPicker picker, int scrollState) {
                 if (scrollState == SCROLL_STATE_IDLE) {
-                    selectNumber = picker.getValue() * 1000;
+                    Log.d(TAG, String.format(Locale.US, "newVal: %d", picker.getValue()));
+                    selectNumber = 1000 + ((picker.getValue() - 1) * 100);
+                    Log.d(TAG, "onScrollStateChange() called with: picker =" + selectNumber);
+
                     if (selectNumber >= 5000 && selectNumber <= 8000) {
                         tvRecommended.setVisibility(View.VISIBLE);
                     } else {
                         tvRecommended.setVisibility(View.INVISIBLE);
                     }
-                    Log.d(TAG, String.format(Locale.US, "newVal: %d", selectNumber/*picker.getValue() * 1000*/));
 
                     if (selectNumber < 5000) {
                         tvRecommendedText.setText("Your step count is under 5000. This may not be enough. Increase the number of steps!");
@@ -186,21 +223,8 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
                 }
             }
         });
-
-
     }
 
-
-    private void findViews() {
-        rvStepsCount = findViewById(R.id.rvStepsCount);
-        ivContinue = findViewById(R.id.ivContinue);
-        ivBack = findViewById(R.id.ivBack);
-//        picker1 = findViewById(R.id.numberpicker_main_picker);
-        numberPicker = findViewById(R.id.number_picker);
-        tvRecommendedText = findViewById(R.id.tvRecommendedText);
-        tvRecommended = findViewById(R.id.tvRecommended);
-
-    }
 
     private void setRecyAdapter() {
         stepsCountAdapter = new StepsCountAdapter(getApplicationContext(), ageModelTest, this);
@@ -224,12 +248,12 @@ public class CreateYourStepGoalActivity extends AppCompatActivity implements Ste
     private void clickEvent() {
         ivContinue.setOnClickListener(v -> {
 //            if (isSelectedCustomGoal) {
-                Intent intent = new Intent(getApplicationContext(), Padometer.class);
-                intent.putExtra("selectNumber", String.valueOf(selectNumber));
-                FuroPrefs.putInt(getApplicationContext(), Constants.ACHIVED_VAL, (selectNumber));
-                startActivity(intent);
+            Intent intent = new Intent(getApplicationContext(), Padometer.class);
+            intent.putExtra("selectNumber", String.valueOf(selectNumber));
+            FuroPrefs.putInt(getApplicationContext(), Constants.ACHIVED_VAL, (selectNumber));
+            startActivity(intent);
 //                Toast.makeText(this, "" + selectNumber, Toast.LENGTH_SHORT).show();
-                finish();
+            finish();
 //            } else {
 //                Toast.makeText(this, "Please select your goal!", Toast.LENGTH_SHORT).show();
 //            }

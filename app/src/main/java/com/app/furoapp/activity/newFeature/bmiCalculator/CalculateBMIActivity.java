@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.app.furoapp.R;
+import com.app.furoapp.utils.Constants;
+import com.app.furoapp.utils.FuroPrefs;
 import com.kevalpatel2106.rulerpicker.RulerValuePicker;
 import com.kevalpatel2106.rulerpicker.RulerValuePickerListener;
 
@@ -46,7 +48,12 @@ public class CalculateBMIActivity extends AppCompatActivity {
     private void rulerPickerValue() {
         /*Height Value*/
         final RulerValuePicker heightPicker = findViewById(R.id.heightRulerPicker);
-        heightPicker.selectValue(156);
+        if (FuroPrefs.getString(getApplicationContext(), Constants.USER_HEIGHT_IN_CM) != null) {
+            heightPicker.selectValue(Integer.parseInt(FuroPrefs.getString(getApplicationContext(), Constants.USER_HEIGHT_IN_CM)));
+        } else {
+            heightPicker.selectValue(156);
+        }
+//        heightPicker.selectValue(156);
         heightPicker.setValuePickerListener(new RulerValuePickerListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -67,7 +74,13 @@ public class CalculateBMIActivity extends AppCompatActivity {
 
         /*Weight value*/
         final RulerValuePicker weightPicker = findViewById(R.id.weightRulerPicker);
-        weightPicker.selectValue(55);
+
+        if (FuroPrefs.getString(getApplicationContext(), Constants.USER_HEIGHT_IN_CM) != null) {
+            weightPicker.selectValue(Integer.parseInt(FuroPrefs.getString(getApplicationContext(), Constants.USER_WEIGHT_IN_KG)));
+        } else {
+            weightPicker.selectValue(55);
+        }
+        //weightPicker.selectValue(55);
         weightPicker.setValuePickerListener(new RulerValuePickerListener() {
             @Override
             public void onValueChange(final int selectedValue) {

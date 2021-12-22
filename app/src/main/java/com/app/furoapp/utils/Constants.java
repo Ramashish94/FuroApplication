@@ -58,6 +58,7 @@ public class Constants {
     public static final String SUBMITCHALLENGE = "Submitchallenge";
     /*added signup and TellUsAboutYouActivity */
     public static final String GENDER = "gender";
+    public static final String D_O_B = "d_o_b";
     public static final String USER_HEIGHT_IN_CM = "userHeightInCm";
     public static final String USER_WEIGHT_IN_KG = "userWeightInKg";
     public static final String ACHIVED_VAL = "getAchievedVal";

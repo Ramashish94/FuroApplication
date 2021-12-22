@@ -39,9 +39,45 @@ public class SelectGenderAndAgeActivity extends AppCompatActivity implements Age
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_gender_and_age);
+
+        getFindBmiType = getIntent().getStringExtra("findBmiType");
+
         findViews();
+        setGender(getFindBmiType);
         clickEvent();
         setSavedRecyAdapter();
+    }
+
+    private void setGender(String getFindBmiType) {
+        if (getFindBmiType.equalsIgnoreCase("Find yours")) {
+            if (FuroPrefs.getString(getApplicationContext(), Constants.GENDER) != null) {
+                if (FuroPrefs.getString(getApplicationContext(), Constants.GENDER).equalsIgnoreCase("Female")) {
+                    isGenderSelected = true;
+                    ivFemaleIcon.setBackgroundResource(R.drawable.selected_female_icon);
+                    ivMaleIcon.setBackgroundResource(R.drawable.male_sunselected_icon_______);
+                    tvMale.setTextColor(Color.parseColor("#C4C4C4"));
+                    tvFemale.setTextColor(Color.parseColor("#4CCFF9"));
+
+                    genderVal = tvFemale.getText().toString();
+                    Log.d("genderVal", genderVal);
+                } else {
+                    isGenderSelected = true;
+                    ivMaleIcon.setBackgroundResource(R.drawable.selected_male_icon);
+                    ivFemaleIcon.setBackgroundResource(R.drawable.unselected_female_icon);
+                    tvMale.setTextColor(Color.parseColor("#4CCFF9"));
+                    tvFemale.setTextColor(Color.parseColor("#C4C4C4"));
+
+                    genderVal = tvMale.getText().toString();
+                    Log.d("genderVal", genderVal);
+                }
+            } else {
+
+            }
+
+        } else {
+
+        }
+
     }
 
     private void findViews() {
@@ -51,8 +87,7 @@ public class SelectGenderAndAgeActivity extends AppCompatActivity implements Age
         tvFemale = findViewById(R.id.tvFemale);
         tvMale = findViewById(R.id.tvMale);
         btnStartJanury = findViewById(R.id.btnStartJanury);
-
-        getFindBmiType =getIntent().getStringExtra("findBmiType");
+//        getFindBmiType =getIntent().getStringExtra("findBmiType");
 
     }
 

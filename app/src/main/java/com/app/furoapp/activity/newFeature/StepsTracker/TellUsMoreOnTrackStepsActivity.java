@@ -1,12 +1,8 @@
 package com.app.furoapp.activity.newFeature.StepsTracker;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatTextView;
-
 import android.content.Intent;
 import android.graphics.Color;
+import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -18,6 +14,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
 
 import com.app.furoapp.R;
 import com.app.furoapp.activity.LoginTutorialScreen;
@@ -36,6 +37,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.kevalpatel2106.rulerpicker.RulerValuePicker;
 import com.kevalpatel2106.rulerpicker.RulerValuePickerListener;
+
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,6 +66,8 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
     private AlertDialog dialog;
     private String CalorieIntakeCalculator;
     public Intent intent;
+    private LinearLayout llTellUsMore;
+    private int age;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +76,7 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
         initViews();
 
         getAccessToken = FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN);
+
         CalorieIntakeCalculator = getIntent().getStringExtra("CalorieIntakeCalculator");     /*for calorie page*/
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -77,8 +85,17 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
 
-        callModifiedSavedDataApiLandingTime();
-        setTextForCalorieCalculator();   /*add on 13-11-2021,by ramashish or calorie calculator*/
+        genderVal = FuroPrefs.getString(getApplicationContext(), Constants.GENDER);
+        Log.d("TAG", "Gender" + genderVal);
+        getUserAge(FuroPrefs.getString(getApplicationContext(), Constants.D_O_B));
+
+
+        if (CalorieIntakeCalculator != null) {
+            setTextForCalorieCalculator(CalorieIntakeCalculator);
+        }
+
+        callModifiedSavedDataApiLandingTime();   /*add on comment 2-12-2021*/
+        // setTextForCalorieCalculator();   /*add on 13-11-2021,by ramashish or calorie calculator*/
 
         clickEvent();
 
@@ -98,21 +115,22 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
         appCmptTvForHeight = findViewById(R.id.appCmptTvForHeight);
         appCmptTvForWight = findViewById(R.id.appCmptTvForWight);
         tvCalculateMyCalories = findViewById(R.id.tvCalculateMyCalories);
+        llTellUsMore = findViewById(R.id.llTellUsMore);
 
     }
 
-    private void setTextForCalorieCalculator() {
-        if (CalorieIntakeCalculator != null) {
-            if (CalorieIntakeCalculator.equalsIgnoreCase(getIntent().getStringExtra("CalorieIntakeCalculator"))) {
-                tvTellUsMoreSubHeading.setText("Fill in the necessary data required to analyse your calorie intake. ");
-                tvTellUsMoreSubHeading.setTextColor(Color.parseColor("#FFFFFF"));
-                tvTellUsMoreSubHeading.setTextSize(16);
-                appCmptTvForHeight.setText(" Select your Weight");
-                appCmptTvForWight.setText(" Select your Weight");
-                ivContinue.setVisibility(View.GONE);
-                tvCalculateMyCalories.setVisibility(View.VISIBLE);
-            }
+    private void setTextForCalorieCalculator(String calorieIntakeCalculator) {
+        if (calorieIntakeCalculator.equalsIgnoreCase(getIntent().getStringExtra("CalorieIntakeCalculator"))) {
+            llTellUsMore.setBackgroundResource(R.drawable.caloriebg3);
+            tvTellUsMoreSubHeading.setText("Fill in the necessary data required to analyse your calorie intake. ");
+            tvTellUsMoreSubHeading.setTextColor(Color.parseColor("#FFFFFF"));
+            tvTellUsMoreSubHeading.setTextSize(16);
+            appCmptTvForHeight.setText(" Select your Weight");
+            appCmptTvForWight.setText(" Select your Weight");
+            ivContinue.setVisibility(View.GONE);
+            tvCalculateMyCalories.setVisibility(View.VISIBLE);
         } else {
+
         }
     }
 
@@ -153,6 +171,8 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
         if (data != null) {
             if (data.getAge() != null) {
                 etAge.setText(data.getAge());
+            } else {
+                etAge.setText("" + age);
             }
             if (data.getGender() != null) {
                 if (data.getGender().equalsIgnoreCase("Female")) {
@@ -169,6 +189,22 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
                     Log.d("genderVal", genderVal);
                 }
             } else {
+                /*add on 22-12-2021,By Ramashish*/
+                if (FuroPrefs.getString(getApplicationContext(), Constants.GENDER) != null) {
+                    if (FuroPrefs.getString(getApplicationContext(), Constants.GENDER).equalsIgnoreCase("Female")) {
+                        tvFemale.setTextColor(Color.parseColor("#40D5E8"));
+                        tvMale.setTextColor(Color.parseColor("#979797"));
+                        genderVal = FuroPrefs.getString(getApplicationContext(), Constants.GENDER);
+                        isGenderSelected = true;
+                        Log.d("genderVal", genderVal);
+                    } else if (FuroPrefs.getString(getApplicationContext(), Constants.GENDER).equalsIgnoreCase("Male")) {
+                        tvMale.setTextColor(Color.parseColor("#40D5E8"));
+                        tvFemale.setTextColor(Color.parseColor("#979797"));
+                        genderVal = FuroPrefs.getString(getApplicationContext(), Constants.GENDER);
+                        isGenderSelected = true;
+                        Log.d("genderVal", genderVal);
+                    }
+                }
             }
             if (data.getHeight() != null && data.getWeight() != null) {
                 rulerPickerValue(data.getHeight(), data.getWeight());
@@ -176,6 +212,40 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
                 rulerPickerValue(" ", " ");
             }
         }
+    }
+
+
+    private int getUserAge(String dobString) {
+        Log.d("TAG", "Age " + dobString);
+
+
+        Date date = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        try {
+            date = sdf.parse(dobString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if (date == null) return 0;
+
+        Calendar dob = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+
+        dob.setTime(date);
+
+        int year = dob.get(Calendar.YEAR);
+        int month = dob.get(Calendar.MONTH);
+        int day = dob.get(Calendar.DAY_OF_MONTH);
+
+        dob.set(year, month + 1, day);
+
+        age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
+            age--;
+        }
+        return age;
     }
 
 
@@ -305,21 +375,21 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
                             Util.dismissProgressDialog();
                             if (response.code() == 200) {
                                 if (response.body() != null) {
-                                    if (CalorieIntakeCalculator!=null) {
+                                    if (CalorieIntakeCalculator != null) {
                                         intent = new Intent(getApplicationContext(), HearYoGoActivity.class);
 //                                        intent.putExtra("userAge", userAge);
 //                                        intent.putExtra("genderVal", genderVal);
 //                                        intent.putExtra("userHeightInCm", userHeightInCm);
 //                                        intent.putExtra("userWeightInKg", userWeightInKg);
-                                        FuroPrefs.putString(getApplicationContext(), Constants.AGE, userAge);
-                                        FuroPrefs.putString(getApplicationContext(), Constants.GENDER, genderVal);
-                                        FuroPrefs.putString(getApplicationContext(), Constants.USER_HEIGHT_IN_CM, userHeightInCm);
-                                        FuroPrefs.putString(getApplicationContext(), Constants.USER_WEIGHT_IN_KG, userWeightInKg);
-//                                        Toast.makeText(TellUsMoreOnTrackStepsActivity.this, "Data Updated Successfully", Toast.LENGTH_SHORT).show();
+                                        //                                        Toast.makeText(TellUsMoreOnTrackStepsActivity.this, "Data Updated Successfully", Toast.LENGTH_SHORT).show();
                                     } else {
                                         Toast.makeText(TellUsMoreOnTrackStepsActivity.this, "Data Updated Successfully", Toast.LENGTH_SHORT).show();
                                         intent = new Intent(getApplicationContext(), AddNewSlotPreferActivity.class);
                                     }
+                                    FuroPrefs.putString(getApplicationContext(), Constants.AGE, userAge);
+                                    FuroPrefs.putString(getApplicationContext(), Constants.GENDER, genderVal);
+                                    FuroPrefs.putString(getApplicationContext(), Constants.USER_HEIGHT_IN_CM, userHeightInCm);
+                                    FuroPrefs.putString(getApplicationContext(), Constants.USER_WEIGHT_IN_KG, userWeightInKg);
                                     startActivity(intent);
                                     finish();
                                 }

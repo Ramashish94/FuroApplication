@@ -28,6 +28,7 @@ public class LetsSetYourGoalActivity extends AppCompatActivity implements View.O
     private boolean isAchievedWeightGoal, isNoOfMealSelected, isLevelOfActivity;
     private String getWeightGoalValue, getNoOfMealTakenSelectedValue, getLevelOfActivityValue;
     private String TAG = "LetsSetYourGoalActivity";
+    private View vL1St, vL2nd, vL3rd, vL4rth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,11 @@ public class LetsSetYourGoalActivity extends AppCompatActivity implements View.O
         tvVeryActive = findViewById(R.id.tvVeryActive);
         tvActive = findViewById(R.id.tvActive);
         llContinue = findViewById(R.id.llContinue);
+
+        vL1St = findViewById(R.id.vL1St);
+        vL2nd = findViewById(R.id.vL2nd);
+        vL3rd = findViewById(R.id.vL3rd);
+        vL4rth = findViewById(R.id.vL4rth);
     }
 
     private void clickEvent() {
@@ -75,9 +81,20 @@ public class LetsSetYourGoalActivity extends AppCompatActivity implements View.O
                 tvLooseWeight.setTextColor(Color.parseColor("#19CFE6"));
                 tvMaintainWeight.setTextColor(Color.parseColor("#979797"));
                 tvGainWeight.setTextColor(Color.parseColor("#979797"));
-                tvLooseWeight.setBackgroundResource(R.drawable.bg_set_ur_goal_calorie);
-                tvMaintainWeight.setBackgroundResource(0);
-                tvGainWeight.setBackgroundResource(0);
+
+//                tvLooseWeight.setBackgroundResource(R.drawable.bg_set_ur_goal_calorie);
+//                tvMaintainWeight.setBackgroundResource(0);
+//                tvGainWeight.setBackgroundResource(0);
+
+                tvLooseWeight.setTextSize(30);
+                tvMaintainWeight.setTextSize(20);
+                tvGainWeight.setTextSize(20);
+
+                vL1St.setVisibility(View.VISIBLE);
+                vL2nd.setVisibility(View.VISIBLE);
+                vL3rd.setVisibility(View.GONE);
+                vL4rth.setVisibility(View.GONE);
+
                 getWeightGoalValue = tvLooseWeight.getText().toString();
                 break;
 
@@ -86,9 +103,19 @@ public class LetsSetYourGoalActivity extends AppCompatActivity implements View.O
                 tvMaintainWeight.setTextColor(Color.parseColor("#19CFE6"));
                 tvLooseWeight.setTextColor(Color.parseColor("#979797"));
                 tvGainWeight.setTextColor(Color.parseColor("#979797"));
-                tvMaintainWeight.setBackgroundResource(R.drawable.bg_set_ur_goal_calorie);
-                tvGainWeight.setBackgroundResource(0);
-                tvLooseWeight.setBackgroundResource(0);
+
+//                tvMaintainWeight.setBackgroundResource(R.drawable.bg_set_ur_goal_calorie);
+//                tvGainWeight.setBackgroundResource(0);
+//                tvLooseWeight.setBackgroundResource(0);
+                tvLooseWeight.setTextSize(20);
+                tvMaintainWeight.setTextSize(30);
+                tvGainWeight.setTextSize(20);
+
+                vL1St.setVisibility(View.GONE);
+                vL2nd.setVisibility(View.VISIBLE);
+                vL3rd.setVisibility(View.VISIBLE);
+                vL4rth.setVisibility(View.GONE);
+
                 getWeightGoalValue = tvMaintainWeight.getText().toString();
                 break;
 
@@ -97,9 +124,18 @@ public class LetsSetYourGoalActivity extends AppCompatActivity implements View.O
                 tvGainWeight.setTextColor(Color.parseColor("#19CFE6"));
                 tvMaintainWeight.setTextColor(Color.parseColor("#979797"));
                 tvLooseWeight.setTextColor(Color.parseColor("#979797"));
-                tvGainWeight.setBackgroundResource(R.drawable.bg_set_ur_goal_calorie);
-                tvMaintainWeight.setBackgroundResource(0);
-                tvLooseWeight.setBackgroundResource(0);
+//                tvGainWeight.setBackgroundResource(R.drawable.bg_set_ur_goal_calorie);
+//                tvMaintainWeight.setBackgroundResource(0);
+//                tvLooseWeight.setBackgroundResource(0);
+                tvLooseWeight.setTextSize(20);
+                tvMaintainWeight.setTextSize(20);
+                tvGainWeight.setTextSize(30);
+
+                vL1St.setVisibility(View.GONE);
+                vL2nd.setVisibility(View.GONE);
+                vL3rd.setVisibility(View.VISIBLE);
+                vL4rth.setVisibility(View.VISIBLE);
+
                 getWeightGoalValue = tvGainWeight.getText().toString();
                 break;
             case R.id.tvNo3:

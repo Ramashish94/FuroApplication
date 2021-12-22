@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_of_tell_us_more_2"
+    android:background="@drawable/caloriebg3"
     android:orientation="vertical"
     tools:context=".activity.newFeature.caloriesCalculator.LetsSetYourGoalActivity">
 
@@ -57,6 +57,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <View
+                    android:id="@+id/vL1St"
+                    android:layout_width="match_parent"
+                    android:layout_height=".7px"
+                    android:background="#EEEEEE"
+                    android:visibility="gone"/>
+
                 <TextView
                     android:id="@+id/tvLooseWeight"
                     android:layout_width="match_parent"
@@ -69,6 +76,14 @@
                     android:textSize="@dimen/sp_20"
                     android:textStyle="bold" />
 
+                <View
+                    android:id="@+id/vL2nd"
+                    android:layout_width="match_parent"
+                    android:layout_height=".7px"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="#EEEEEE"
+                    android:visibility="gone"/>
+
                 <TextView
                     android:id="@+id/tvMaintainWeight"
                     android:layout_width="match_parent"
@@ -80,6 +95,13 @@
                     android:textColor="@color/vertical_line_color"
                     android:textSize="@dimen/sp_20"
                     android:textStyle="bold" />
+                <View
+                    android:id="@+id/vL3rd"
+                    android:layout_width="match_parent"
+                    android:layout_height=".7px"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="#EEEEEE"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/tvGainWeight"
@@ -92,6 +114,14 @@
                     android:textColor="@color/vertical_line_color"
                     android:textSize="@dimen/sp_20"
                     android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/vL4rth"
+                    android:layout_width="match_parent"
+                    android:layout_height=".7px"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="#EEEEEE"
+                    android:visibility="gone"/>
 
             </LinearLayout>
 
@@ -134,7 +164,7 @@
                         android:layout_height="wrap_content"
                         android:text="3"
                         android:textColor="@color/vertical_line_color"
-                        android:textSize="@dimen/dp_40"
+                        android:textSize="@dimen/dp_45"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -151,7 +181,7 @@
                         android:layout_gravity="center"
                         android:text="4"
                         android:textColor="@color/vertical_line_color"
-                        android:textSize="@dimen/dp_40"
+                        android:textSize="@dimen/dp_45"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -168,7 +198,7 @@
                         android:gravity="start"
                         android:text="5"
                         android:textColor="@color/vertical_line_color"
-                        android:textSize="@dimen/dp_40"
+                        android:textSize="@dimen/dp_45"
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
@@ -292,8 +322,9 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_40"
+                    android:layout_height="@dimen/dp_35"
                     android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_8"
                     android:layout_marginBottom="?actionBarSize"
                     android:src="@drawable/continue1" />
 

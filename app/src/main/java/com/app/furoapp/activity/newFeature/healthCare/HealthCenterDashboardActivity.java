@@ -35,8 +35,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.skydoves.progressview.ProgressView;
 
-import java.text.DecimalFormat;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -134,6 +132,7 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CalculateCaloriesStartActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -224,10 +223,12 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
 
     private void setCalorieIntakeCalculatorData() {
         if (FuroPrefs.getString(getApplicationContext(), Constants.CALORIES_VALUE) != null) {
-           // String calValue = String.valueOf(Double.parseDouble(FuroPrefs.getString(getApplicationContext(), Constants.CALORIES_VALUE)));
-            tvCaloriesRequiredPerDayGettingValue.setText(""+ FuroPrefs.getString(getApplicationContext(), Constants.CALORIES_VALUE));
-        } else {
+            // String calValue = String.valueOf(Double.parseDouble(FuroPrefs.getString(getApplicationContext(), Constants.CALORIES_VALUE)));
+            tvCaloriesRequiredPerDayGettingValue.setText("" + FuroPrefs.getString(getApplicationContext(), Constants.CALORIES_VALUE));
+            //tvCaloriesRequiredPerDayGettingValue.setText("0000.00");
 
+        } else {
+            tvCaloriesRequiredPerDayGettingValue.setText("0000.00");
         }
 
     }
@@ -243,12 +244,12 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
                         if (response.body().getIsWaterIntakeDataRequired() == 1) {
                             Intent intent = new Intent(getApplicationContext(), CreateAHydrationPlaneActivity.class);
                             startActivity(intent);
-//                            finish();
+                            finish();
                         } else {
                             if (response.body().getIsWaterIntakeDataRequired() == 0) {
                                 Intent intent = new Intent(getApplicationContext(), WaterIntakeStartActivity.class);
                                 startActivity(intent);
-//                                finish();
+                                finish();
                             }
                         }
                     }
@@ -268,7 +269,6 @@ public class HealthCenterDashboardActivity extends AppCompatActivity {
 
 
     }
-
 
     private void getAlertTokenDialog() {
         if (FuroPrefs.getString(getApplicationContext(), Constants.Get_ACCESS_TOKEN) != null) {

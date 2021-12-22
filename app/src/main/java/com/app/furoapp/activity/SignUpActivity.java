@@ -918,6 +918,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     FuroPrefs.putString(getApplicationContext(), "user_name", userName);
                                     FuroPrefs.putString(getApplicationContext(), "my_community_user_id", userId);
                                     FuroPrefs.putString(getApplicationContext(), Constants.GENDER, response.body().getUser().getGender());/*added by me*/
+                                    FuroPrefs.putString(getApplicationContext(),Constants.D_O_B,response.body().getUser().getDob());/*add on 22-12-2021 y Ramashish*/
                                     startActivity(intent);
                                     Toast.makeText(SignUpActivity.this, "Successfully Register", Toast.LENGTH_SHORT).show();
                                 }
@@ -968,6 +969,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     String userId = String.valueOf(response.body().getUserId());
                                     String image = response.body().getUser().getImage();
                                     FuroPrefs.putString(getApplicationContext(), Constants.GENDER, response.body().getUser().getGender());/*added by me*/
+                                    FuroPrefs.putString(getApplicationContext(),Constants.D_O_B,response.body().getUser().getDob());/*add on 22-12-2021 y Ramashish*/
                                     FuroPrefs.putString(getApplicationContext(), "user_name", userName);
                                     FuroPrefs.putString(getApplicationContext(), "my_community_user_id", userId);
                                     startActivity(intent);

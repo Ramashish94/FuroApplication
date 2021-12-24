@@ -57,7 +57,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".activity.newFeature.caloriesCalculator.HearYoGoActivity"
+            android:name=".activity.newFeature.caloriesCalculator.HearYouGoActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activity.newFeature.caloriesCalculator.LetsSetYourGoalActivity"

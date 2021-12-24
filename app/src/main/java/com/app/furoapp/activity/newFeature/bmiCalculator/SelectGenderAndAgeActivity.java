@@ -51,7 +51,7 @@ public class SelectGenderAndAgeActivity extends AppCompatActivity implements Age
     private void setGender(String getFindBmiType) {
         if (getFindBmiType.equalsIgnoreCase("Find yours")) {
             if (FuroPrefs.getString(getApplicationContext(), Constants.GENDER) != null) {
-                if (FuroPrefs.getString(getApplicationContext(), Constants.GENDER).equalsIgnoreCase("Female")) {
+                if (FuroPrefs.getString(getApplicationContext(), Constants.GENDER).trim().equalsIgnoreCase("Female")) {
                     isGenderSelected = true;
                     ivFemaleIcon.setBackgroundResource(R.drawable.selected_female_icon);
                     ivMaleIcon.setBackgroundResource(R.drawable.male_sunselected_icon_______);

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bagimginpng"
     android:orientation="vertical"
-    tools:context=".activity.newFeature.caloriesCalculator.HearYoGoActivity">
+    tools:context=".activity.newFeature.caloriesCalculator.HearYouGoActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -33,7 +33,7 @@
                         android:layout_gravity="start"
                         android:layout_marginTop="@dimen/dp_25"
                         android:fontFamily="@font/bebase_font_family_regular"
-                        android:text="Hear You Are Go!   "
+                        android:text="Here You Go!   "
                         android:textColor="@color/black_color"
                         android:textSize="@dimen/sp_20"
                         android:textStyle="italic" />
@@ -723,11 +723,10 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:gravity="start"
-                        android:text="This calorie provides an estimate calorie intake.\nIt is advised to consult a doctor creating a diet \naccording to the calorie required.  "
+                        android:text="This calorie intake calculator provides an estimated calorie intake. It is advised to consult a doctor before creating a diet according to the calorie required.  "
                         android:textColor="@color/vertical_line_color"
                         android:textSize="@dimen/sp_12"
                         android:textStyle="italic" />
-
                 </LinearLayout>
 
                 <LinearLayout

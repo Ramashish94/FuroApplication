@@ -2,7 +2,6 @@ package com.app.furoapp.activity.newFeature.caloriesCalculator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,9 +11,7 @@ import com.app.furoapp.R;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
 
-import static com.app.furoapp.activity.newFeature.StepsTracker.FqStepsCounterActivity.TAG;
-
-public class HearYoGoActivity extends AppCompatActivity implements View.OnClickListener {
+public class HearYouGoActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView tvCalorieRequiredValue, tvBreakfastValue, tvLunchValue, tvDinnerValue,
             tvProteinValue, tvCarbsValue, tvFatsValue, tvReset, tvSaveData, tvHeading;
     private int userAge, userHeightInCm, userWeightInKg;
@@ -26,7 +23,7 @@ public class HearYoGoActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hear_yo_go);
+        setContentView(R.layout.activity_hear_you_go);
         initViews();
         getDataOfCalorieCalculator();
 
@@ -48,7 +45,7 @@ public class HearYoGoActivity extends AppCompatActivity implements View.OnClickL
 
     private void getDataOfCalorieCalculator() {
         userAge = Integer.parseInt(FuroPrefs.getString(getApplicationContext(), Constants.AGE)/*getIntent().getStringExtra("userAge")*/);
-        genderVal = FuroPrefs.getString(getApplicationContext(), Constants.GENDER)/*getIntent().getStringExtra("genderVal")*/;
+        genderVal = FuroPrefs.getString(getApplicationContext(), Constants.GENDER).trim()/*getIntent().getStringExtra("genderVal")*/;
         userHeightInCm = Integer.parseInt(FuroPrefs.getString(getApplicationContext(), Constants.USER_HEIGHT_IN_CM)/*getIntent().getStringExtra("userHeightInCm")*/);
         userWeightInKg = Integer.parseInt(FuroPrefs.getString(getApplicationContext(), Constants.USER_WEIGHT_IN_KG)/*getIntent().getStringExtra("userWeightInKg")*/);
         Log.d(TAG, "1.Age ->" + userAge + ", 2.gender ->" + genderVal + ", 3.HeightInCm ->" + userHeightInCm + ", 4.WeightInKg ->" + userWeightInKg);

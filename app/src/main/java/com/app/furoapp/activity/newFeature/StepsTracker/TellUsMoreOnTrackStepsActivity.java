@@ -25,7 +25,7 @@ import com.app.furoapp.activity.LoginTutorialScreen;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.Data;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataRequest;
 import com.app.furoapp.activity.newFeature.StepsTracker.modifiedSavedData.ModifiedSavedDataResponse;
-import com.app.furoapp.activity.newFeature.caloriesCalculator.HearYoGoActivity;
+import com.app.furoapp.activity.newFeature.caloriesCalculator.HearYouGoActivity;
 import com.app.furoapp.retrofit.RestClient;
 import com.app.furoapp.utils.Constants;
 import com.app.furoapp.utils.FuroPrefs;
@@ -85,8 +85,8 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
 
-        genderVal = FuroPrefs.getString(getApplicationContext(), Constants.GENDER);
-        Log.d("TAG", "Gender" + genderVal);
+//        genderVal = FuroPrefs.getString(getApplicationContext(), Constants.GENDER);
+//        Log.d("TAG", "Gender" + genderVal);
         getUserAge(FuroPrefs.getString(getApplicationContext(), Constants.D_O_B));
 
 
@@ -172,7 +172,11 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
             if (data.getAge() != null) {
                 etAge.setText(data.getAge());
             } else {
-                etAge.setText("" + age);
+                if (age == 0) {
+                    etAge.setText("" + "");
+                } else {
+                    etAge.setText("" + age);
+                }
             }
             if (data.getGender() != null) {
                 if (data.getGender().equalsIgnoreCase("Female")) {
@@ -191,16 +195,16 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
             } else {
                 /*add on 22-12-2021,By Ramashish*/
                 if (FuroPrefs.getString(getApplicationContext(), Constants.GENDER) != null) {
-                    if (FuroPrefs.getString(getApplicationContext(), Constants.GENDER).equalsIgnoreCase("Female")) {
+                    if (FuroPrefs.getString(getApplicationContext(), Constants.GENDER).trim().equalsIgnoreCase("Female")) {
                         tvFemale.setTextColor(Color.parseColor("#40D5E8"));
                         tvMale.setTextColor(Color.parseColor("#979797"));
-                        genderVal = FuroPrefs.getString(getApplicationContext(), Constants.GENDER);
+                        genderVal = FuroPrefs.getString(getApplicationContext(), Constants.GENDER).trim();
                         isGenderSelected = true;
                         Log.d("genderVal", genderVal);
-                    } else if (FuroPrefs.getString(getApplicationContext(), Constants.GENDER).equalsIgnoreCase("Male")) {
+                    } else if (FuroPrefs.getString(getApplicationContext(), Constants.GENDER).trim().equalsIgnoreCase("Male")) {
                         tvMale.setTextColor(Color.parseColor("#40D5E8"));
                         tvFemale.setTextColor(Color.parseColor("#979797"));
-                        genderVal = FuroPrefs.getString(getApplicationContext(), Constants.GENDER);
+                        genderVal = FuroPrefs.getString(getApplicationContext(), Constants.GENDER).trim();
                         isGenderSelected = true;
                         Log.d("genderVal", genderVal);
                     }
@@ -376,7 +380,7 @@ public class TellUsMoreOnTrackStepsActivity extends AppCompatActivity {
                             if (response.code() == 200) {
                                 if (response.body() != null) {
                                     if (CalorieIntakeCalculator != null) {
-                                        intent = new Intent(getApplicationContext(), HearYoGoActivity.class);
+                                        intent = new Intent(getApplicationContext(), HearYouGoActivity.class);
 //                                        intent.putExtra("userAge", userAge);
 //                                        intent.putExtra("genderVal", genderVal);
 //                                        intent.putExtra("userHeightInCm", userHeightInCm);

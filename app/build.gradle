@@ -12,23 +12,21 @@ android {
         applicationId "com.app.furoapp"
         minSdkVersion 26
         targetSdkVersion 30
-        versionCode 66
-        versionName "2.1.45"
+        versionCode 62
+        versionName "2.1.41"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
         release {
-            //storeFile file("C:\\Users\\bhawa\\Desktop\\furoKeyStore\\FQ.jks")
-            storeFile file("D:\\Android Studio\\FuroAppUpDated\\Furo\\keystore\\FQ.jks")
+            storeFile file("D:\\AndroidProject_Flamingo\\NewFuroAppUpdated\\keystore\\FQ.jks")
             keyAlias 'key0'
             keyPassword 'FQFLAMINGO'
             storePassword 'FQFLAMINGO'
         }
 
         debug {
-            //storeFile file("C:\\Users\\bhawa\\Desktop\\furoKeyStore\\FQ.jks")
-            storeFile file("D:\\Android Studio\\FuroAppUpDated\\Furo\\keystore\\FQ.jks")
+            storeFile file("D:\\AndroidProject_Flamingo\\NewFuroAppUpdated\\keystore\\FQ.jks")
             keyAlias 'key0'
             keyPassword 'FQFLAMINGO'
             storePassword 'FQFLAMINGO'

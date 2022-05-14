@@ -19,7 +19,6 @@ android {
 
     signingConfigs {
         release {
-            //storeFile file("C:\\Users\\bhawa\\Desktop\\furoKeyStore\\FQ.jks")
             storeFile file("D:\\AndroidProject_Flamingo\\NewFuroAppUpdated\\keystore\\FQ.jks")
             keyAlias 'key0'
             keyPassword 'FQFLAMINGO'
@@ -27,7 +26,6 @@ android {
         }
 
         debug {
-            //storeFile file("C:\\Users\\bhawa\\Desktop\\furoKeyStore\\FQ.jks")
             storeFile file("D:\\AndroidProject_Flamingo\\NewFuroAppUpdated\\keystore\\FQ.jks")
             keyAlias 'key0'
             keyPassword 'FQFLAMINGO'

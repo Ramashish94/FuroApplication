@@ -563,7 +563,9 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, bytes);
                 File ExternalStorageDirectory = Environment.getExternalStorageDirectory();
                 File file = new File(ExternalStorageDirectory + File.separator + filename);
-                FileOutputStream fileOutputStream = null;
+
+                /**** * *commented on 01-03-2022 */
+             /*  FileOutputStream fileOutputStream = null;
                 try {
                     file.createNewFile();
                     fileOutputStream = new FileOutputStream(file);
@@ -590,10 +592,11 @@ public class ContentFeedHomeFragment extends Fragment implements ContentFeedHome
                             e.printStackTrace();
                         }
                     }
-                }
+                }*/
 
-                Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), BitmapFactory.decodeFile(fileUri), null, null));
+                Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), bitmap/*BitmapFactory.decodeFile(fileUri)*/, null, null));
                 // use intent to share image
+
                 Intent share = new Intent(Intent.ACTION_SEND);
                 share.setType("image/*");
                 share.putExtra(Intent.EXTRA_STREAM, uri);
